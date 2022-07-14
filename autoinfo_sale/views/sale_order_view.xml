@@ -32,4 +32,21 @@
             </filter>
         </field>
     </record>
+
+    <record id="sale_order_form" model="ir.ui.view">
+        <field name="name">sale.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="%(action_change_delivery_date)d" type="action" string="Change Delivery Date" attrs="{'invisible': [('state', 'in', ['draft', 'cancel'])]}" context="{'default_sale_order_id': id}"/>
+            </xpath>
+            <field name="commitment_date" position="attributes">
+                <attribute name="attrs">{'readonly': [('state', '!=', 'draft')]}</attribute>
+            </field>
+            <field name="source_id" position="after">
+                <field name="reason_change_delivery_date"/>
+            </field>
+        </field>
+    </record>
 </odoo>

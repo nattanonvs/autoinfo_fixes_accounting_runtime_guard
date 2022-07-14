@@ -25,6 +25,8 @@ Changelog
     'depends': ['sale', 'stock', 'sale_stock', 'base'],
     'application': False,
     'data': [
+        'security/ir.model.access.csv',
+        'wizard/reason_change_delivery_date_wizard.xml',
         'views/sale_order_view.xml',
         'views/res_users_view.xml'
     ],
