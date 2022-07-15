@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="account_move_cancel_wizard" model="ir.ui.view">
+            <field name="name">account.move.cancel.wizard</field>
+            <field name="model">account.move.cancel.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Account Move Cancel">
+                    <group>
+                        <field name="reason"/>
+                    </group>
+                    <footer>
+                        <button name="confirm_cancel" string="Confirm" type="object" class="oe_highlight"  />
+                        <button string="Cancel" class="btn-default" special="cancel" />
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_account_move_cancel" model="ir.actions.act_window">
+            <field name="name">Account Move Cancel</field>
+            <field name="res_model">account.move.cancel.wizard</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="account_move_cancel_wizard"/>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>
