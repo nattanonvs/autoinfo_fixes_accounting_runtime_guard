@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="dtr_access_right_sales_group_own_department_product" model="res.groups">
+            <field name="name">Own Department: Product</field>
+            <field name="category_id" ref="dtr_access_right_base.dtr_access_right_base_category_advance_access_right"/>
+            <field name="is_dtr_group" eval="True"/>
+        </record>
+    </data>
+</odoo>
