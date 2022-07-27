@@ -25,6 +25,9 @@ Changelog
     'depends': ['project'],
     'application': False,
     'data': [
-        'views/project_project_view.xml'
+        'data/auto_job.xml',
+        'data/email_template.xml',
+        'views/project_project_view.xml',
+        'views/project_task_view.xml'
     ],
 }
