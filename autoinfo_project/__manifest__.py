@@ -22,12 +22,13 @@ Changelog
     """,
     'author': 'Dataroot Asia Co., Ltd.',
     'created_by': 'Varawit Termwaraporn',
-    'depends': ['project'],
+    'depends': ['project', 'hr'],
     'application': False,
     'data': [
         'data/auto_job.xml',
         'data/email_template.xml',
         'views/project_project_view.xml',
-        'views/project_task_view.xml'
+        'views/project_task_view.xml',
+        'views/hr_department_view.xml'
     ],
 }
