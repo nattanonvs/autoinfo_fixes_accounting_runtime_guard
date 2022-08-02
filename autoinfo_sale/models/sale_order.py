@@ -32,7 +32,10 @@ class SaleOrder(models.Model):
     @api.model
     def create(self, vals):
         if vals.get('name', _('New')) == _('New') and vals.get('user_id'):
+            department_id = self.env['hr.department'].sudo().browse(vals.get('department_id'))
             sale_person = self.env['res.users'].sudo().browse(vals.get('user_id'))
-            if sale_person.quotation_sequence_id:
+            if department_id.quotation_sequence_id:
+                vals['name'] = department_id.quotation_sequence_id.next_by_id(sequence_date=vals.get('date_order'))
+            elif sale_person.quotation_sequence_id:
                 vals['name'] = sale_person.quotation_sequence_id.next_by_id(sequence_date=vals.get('date_order'))
         return super(SaleOrder, self).create(vals)

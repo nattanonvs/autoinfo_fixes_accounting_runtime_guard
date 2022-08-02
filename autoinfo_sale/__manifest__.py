@@ -31,6 +31,7 @@ Changelog
         'wizard/reason_change_delivery_date_wizard.xml',
         'views/sale_order_view.xml',
         'views/res_users_view.xml',
+        'views/hr_department_view.xml',
         'views/product_template_view.xml'
     ],
 }
