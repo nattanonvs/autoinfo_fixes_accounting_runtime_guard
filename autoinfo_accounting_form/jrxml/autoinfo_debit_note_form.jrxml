@@ -84,7 +84,7 @@
 				CONCAT(partner.street,' ',partner.street2) AS  partner_address,
 				partner.ref as customer_code,
 				partner.vat as customer_tax_id,
-				partner.branch_code as customer_branch_code,
+				COALESCE(partner.branch_code,'') as customer_branch_code,
 				COALESCE(c.company_tax_id,'') as company_tax_id,
 				COALESCE(c.company_branch,'') as company_branch,
 				COALESCE(c.company_name_thai,'') as company_name_thai,
@@ -154,14 +154,14 @@
 					inner join account_move parent_move on parent_move.id = am_rel.name
 					 where am_rel.id=invoice.id
 				), '-') as parent_invoice_name,
-				(select sum(parent_move.amount_untaxed) from account_move_multi_parent_rel am_rel
+				COALESCE((select sum(parent_move.amount_untaxed) from account_move_multi_parent_rel am_rel
 					inner join account_move parent_move on parent_move.id = am_rel.name
 					 where am_rel.id=invoice.id
-				) as parent_inv_amount,
-				(select sum(parent_move.amount_tax) from account_move_multi_parent_rel am_rel
+				),0) as parent_inv_amount,
+				COALESCE((select sum(parent_move.amount_tax) from account_move_multi_parent_rel am_rel
 					inner join account_move parent_move on parent_move.id = am_rel.name
 					 where am_rel.id=invoice.id
-				) as parent_tax_amount,
+				),0) as parent_tax_amount,
 				invoice.dncn as dncn,
 				invoice.move_type as invoice_type,
 				cpartner.street as c_street_th,
@@ -519,7 +519,7 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 						<font fontName="TH Sarabun New" size="12" isBold="true"/>
 						<paragraph lineSpacing="Fixed" lineSpacingSize="6.0" leftIndent="10" spacingBefore="0"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{partner_address} + "\nเลขประจำตัวผู้เสียภาษี " + $F{customer_tax_id} + " (" + ($F{customer_branch_code}.compareTo( "00000" ) == 0  ? "สำนักงานใหญ่" : $F{customer_branch_code}) + ")"]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{partner_address} + "\nเลขประจำตัวผู้เสียภาษี " + $F{customer_tax_id} + IF($F{customer_branch_code}.toString().equals(""), "", " (" + ($F{customer_branch_code}.compareTo( "00000" ) == 0  ? "สำนักงานใหญ่" : $F{customer_branch_code}) + ")")]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="0" y="0" width="50" height="35" uuid="26242147-8e53-4f74-89e0-9503c97317f5">
@@ -683,7 +683,7 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 					</textElement>
 					<textFieldExpression><![CDATA["พนักงานขาย\nSALEMAN CODE"]]></textFieldExpression>
 				</textField>
-				<textField>
+				<textField isBlankWhenNull="true">
 					<reportElement x="0" y="124" width="144" height="20" uuid="da37ad8b-d55d-42fc-9a1b-c0f8f77ea59f">
 						<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 					</reportElement>
@@ -696,7 +696,7 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{parent_invoice_name} + " " + IF($F{parent_invoice_date}==null,"", new SimpleDateFormat($P{p_DateFormat}, new Locale($P{p_locale}, $P{p_locale})).format($F{parent_invoice_date}))]]></textFieldExpression>
 				</textField>
-				<textField>
+				<textField isBlankWhenNull="true">
 					<reportElement x="144" y="124" width="93" height="20" uuid="97960143-18b5-4c2b-9e65-f22d42311c49">
 						<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 					</reportElement>
