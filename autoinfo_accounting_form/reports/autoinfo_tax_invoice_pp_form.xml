@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="autoinfo_tax_invoice_pp_form" model="ir.ui.view">
+            <field name="name">Customer invoice Preprint Form (autoinfo)</field>
+            <field name="model">autoinfo.tax.invoice.pp.form</field>
+            <field name="inherit_id" ref="dtr_jasper.jasper_report_wizard" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='parameters']" position="replace">
+                    <group colspan="4">
+<!--                        <field name="name"  />-->
+<!--                        <field name="p_language" required="1" default_focus="1"/>-->
+                        <field name="date_format" required="1" />
+                        <field name="date_type" required="1" />
+
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        <record id="action_autoinfo_tax_invoice_pp_form" model="ir.actions.act_window">
+            <field name="name">Customer invoice (autoinfo)</field>
+            <field name="res_model">autoinfo.tax.invoice.pp.form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="autoinfo_tax_invoice_pp_form"/>
+            <field name="binding_model_id" ref="account.model_account_move" />
+            <field name="binding_type">report</field>
+<!--            <field name="context">{'iscopy': 0}</field>-->
+        </record>
+    </data>
+</odoo>
