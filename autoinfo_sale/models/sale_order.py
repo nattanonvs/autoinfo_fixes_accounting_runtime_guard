@@ -11,6 +11,7 @@ class SaleOrder(models.Model):
            "If set, the delivery order will be scheduled based on "
            "this date rather than product lead times.", track_visibility='onchange')
     reason_change_delivery_date = fields.Text(string='Reason Change Delivery Date', copy=False)
+    sale_person_no = fields.Char(string='Sale No.', copy=False)
 
     @api.depends('picking_ids.scheduled_date')
     def _compute_scheduled_date(self):
@@ -31,11 +32,12 @@ class SaleOrder(models.Model):
 
     @api.model
     def create(self, vals):
-        if vals.get('name', _('New')) == _('New') and vals.get('user_id'):
+        if vals.get('name', _('New')) == _('New'):
             department_id = self.env['hr.department'].sudo().browse(vals.get('department_id'))
-            sale_person = self.env['res.users'].sudo().browse(vals.get('user_id'))
             if department_id.quotation_sequence_id:
                 vals['name'] = department_id.quotation_sequence_id.next_by_id(sequence_date=vals.get('date_order'))
-            elif sale_person.quotation_sequence_id:
-                vals['name'] = sale_person.quotation_sequence_id.next_by_id(sequence_date=vals.get('date_order'))
+        if (not vals.get('sale_person_no') or vals.get('sale_person_no', '') == '') and vals.get('user_id'):
+            sale_person = self.env['res.users'].sudo().browse(vals.get('user_id'))
+            if sale_person.quotation_sequence_id:
+                vals['sale_person_no'] = sale_person.quotation_sequence_id.next_by_id(sequence_date=vals.get('date_order'))
         return super(SaleOrder, self).create(vals)

@@ -22,7 +22,7 @@ Changelog
     """,
     'author': 'Dataroot Asia Co., Ltd.',
     'created_by': 'Varawit Termwaraporn',
-    'depends': ['sale', 'stock', 'sale_stock', 'base', 'hr', 'dtr_sales_department', 'dtr_access_right_base'],
+    'depends': ['sale', 'stock', 'sale_stock', 'base', 'hr', 'dtr_sales_department', 'dtr_access_right_base', 'dtr_sales'],
     'application': False,
     'data': [
         'security/ir.model.access.csv',
