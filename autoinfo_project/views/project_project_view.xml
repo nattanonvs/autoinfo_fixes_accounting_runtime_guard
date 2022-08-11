@@ -10,6 +10,14 @@
                 <field name="project_department_id"/>
                 <field name="job_no"/>
             </field>
+            <xpath expr="//notebook" position="inside">
+                <page name="tab_quotation" string="Quotation">
+                    <field name="project_sale_order_ids" readonly="1"/>
+                </page>
+                <page name="tab_po" string="Purchase Orders">
+                    <field name="project_po_ids" readonly="1"/>
+                </page>
+            </xpath>
         </field>
     </record>
 

@@ -11,6 +11,8 @@ class ProjectProject(models.Model):
         ('service', 'Service')], string='Job Type', required=True, default='job')
     project_department_id = fields.Many2one('hr.department', 'Department', help="Select Requested Department", required=True,
         default=lambda self: self._default_department_id())
+    project_sale_order_ids = fields.One2many('sale.order', 'customer_project', string='Sale Orders', copy=False)
+    project_po_ids = fields.One2many('purchase.order', 'project_id', string='Purchase Orders', copy=False)
 
     def _default_department_id(self):
         if self.env.user.employee_ids:
@@ -19,7 +21,6 @@ class ProjectProject(models.Model):
 
     @api.model
     def create(self, vals):
-        print ('==============job no ', vals.get('job_no', ''))
         if (vals.get('job_no', '') == '' or not vals.get('job_no', '')) and vals.get('job_type') and vals.get('project_department_id'):
             department_id = self.env['hr.department'].sudo().browse(vals.get('project_department_id'))
             if vals.get('job_type') == 'job' and department_id.project_no_job_sequence_id:

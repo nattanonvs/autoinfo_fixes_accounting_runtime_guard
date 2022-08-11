@@ -22,7 +22,7 @@ Changelog
     """,
     'author': 'Dataroot Asia Co., Ltd.',
     'created_by': 'Varawit Termwaraporn',
-    'depends': ['project', 'hr'],
+    'depends': ['project', 'hr', 'dtr_sales', 'dtr_purchase_project'],
     'application': False,
     'data': [
         'data/auto_job.xml',
