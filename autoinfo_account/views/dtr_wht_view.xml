@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="dtr_wht_form" model="ir.ui.view">
+            <field name="name">dtr.wht.form</field>
+            <field name="model">dtr.wht</field>
+            <field name="inherit_id" ref="dtr_taxation.view_wht_form"/>
+            <field name="arch" type="xml">
+                <button name="print_form" position="after">
+                    <button name="print_form_copy" string="Print (Copy)" type="object" class="oe_highlight" attrs="{ 'invisible': ['|', ('state','not in',('confirm')),('tax_type','not in',('1', '2', '3', '53'))] }"/>
+                </button>
+                <button name="print_form_without_date" position="after">
+                    <button name="print_form_without_date_copy" string="Print Without Date (Copy)" type="object" class="oe_highlight" attrs="{ 'invisible': ['|', ('state','not in',('confirm')),('tax_type','not in',('1', '2', '3', '53'))] }"/>
+                </button>
+            </field>
+        </record>
+    </data>
+</odoo>

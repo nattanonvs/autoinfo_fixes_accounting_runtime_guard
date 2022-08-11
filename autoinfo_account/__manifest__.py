@@ -22,7 +22,7 @@ Changelog
     """,
     'author': 'Dataroot Asia Co., Ltd.',
     'created_by': 'Varawit Termwaraporn',
-    'depends': ['base', 'account', 'purchase_request', 'purchase'],
+    'depends': ['base', 'account', 'purchase_request', 'purchase', 'dtr_taxation'],
     'application': False,
     'data': [
         'security/ir.model.access.csv',
@@ -30,6 +30,7 @@ Changelog
         'views/res_config_settings_view.xml',
         'views/purchase_request_view.xml',
         'views/purchase_order_view.xml',
-        'views/account_move_view.xml'
+        'views/account_move_view.xml',
+        'views/dtr_wht_view.xml'
     ],
 }
