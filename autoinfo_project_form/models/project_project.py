@@ -1,0 +1,36 @@
+from odoo import fields, models, api
+
+
+class ProjectProject(models.Model):
+    _inherit = 'project.project'
+
+    reference_po = fields.Char(string='Reference PO')
+    responsible_person1 = fields.Char(string='Responsible Person1')
+    responsible_person2 = fields.Char(string='Responsible Person2')
+    responsible_person3 = fields.Char(string='Responsible Person3')
+    autoinfo_coordinator = fields.Char(string='Autoinfo Coordinator')
+    customer_coordinator = fields.Char(string='Customer Coordinator')
+    customer_coordinator_tel = fields.Char(string='Customer Coordinator (Tel.)')
+    customer_coordinator_email = fields.Char(string='Customer Coordinator (Email)')
+    scope_of_work = fields.Text(string='Scope of Work')
+    has_spare_part = fields.Boolean(string='Has Spare Part?', default=False)
+    spare_part = fields.Char(string='Spare Part')
+    document_required_entry_to_work = fields.Boolean(string='Document Required Entry to Work', default=False)
+    maintenance_wo = fields.Boolean(string='Maintenance Work Order', default=False)
+    jsa = fields.Boolean(string='JSA', default=False)
+    copy_id_card = fields.Boolean(string='Copy ID Card', default=False)
+    copy_social_security = fields.Boolean(string='Copy Social Security', default=False)
+    medeical_certificate = fields.Boolean(string='Medical Certificate', default=False)
+    document_required_entry_to_work_other = fields.Boolean(string='Document Required Entry to Work Other', default=False)
+    document_required_entry_to_work_other_description = fields.Char(string='Document Required Entry to Work Other Description')
+    service_report = fields.Boolean(string='Service Report', default=False)
+    work_delivery = fields.Boolean(string='Work Delivery', default=False)
+    list_of_trainees = fields.Boolean(string='List of Trainees', default=False)
+    temporary_delivery = fields.Boolean(string='Temporary Delivery', default=False)
+    document_required_after_entering_other = fields.Boolean(string='Document Required After Entering Other', default=False)
+    document_required_after_entering_other_description = fields.Char(string='Document Required After Entering Other Description')
+    tor = fields.Boolean(string='Technical of Requirement', default=False)
+    unprice = fields.Boolean(string='Unprice', default=False)
+    attachment_other = fields.Boolean(string='Attachment Other', default=False)
+    attachment_other_description = fields.Char(string='Attachment Other Description')
+    report_remark = fields.Text(string='Remark')

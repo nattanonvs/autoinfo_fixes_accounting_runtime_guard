@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="autoinfo_job_assignment_document_form" model="ir.ui.view">
+            <field name="name">autoinfo.job.assignment.document.form</field>
+            <field name="model">autoinfo.job.assignment.document.form</field>
+            <field name="inherit_id" ref="dtr_jasper.jasper_report_wizard" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='parameters']" position="inside">
+                    <group colspan="4">
+                        <field name="date_type" required="1" />
+                        <field name="date_format" required="1" />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="action_autoinfo_job_assignment_document_form" model="ir.actions.act_window">
+            <field name="name">Job Assignment Document</field>
+            <field name="res_model">autoinfo.job.assignment.document.form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="autoinfo_job_assignment_document_form"/>
+            <field name="binding_model_id" ref="project.model_project_project"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>

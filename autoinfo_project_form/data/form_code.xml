@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="autoinfo_job_assignment_document_form_code" model="dtr.report.base">
+            <field name="name">Autoinfo Job Assignment Document Form</field>
+            <field name="description">Autoinfo Job Assignment Document Form</field>
+            <field name="s_model">Project</field>
+            <field name="iso_no">-</field>
+        </record>
+    </data>
+</odoo>

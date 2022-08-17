@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="project_project_form" model="ir.ui.view">
+        <field name="name">project.project.form</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page name="tab_report" string="Report">
+                    <group>
+                        <group>
+                            <field name="reference_po"/>
+                            <field name="responsible_person1"/>
+                            <field name="responsible_person2"/>
+                            <field name="responsible_person3"/>
+                            <field name="autoinfo_coordinator"/>
+                            <field name="customer_coordinator"/>
+                            <field name="customer_coordinator_tel" widget="phone"/>
+                            <field name="customer_coordinator_email" widget="email"/>
+                            <field name="scope_of_work"/>
+                            <label for="has_spare_part"/>
+                            <div>
+                                <field name="has_spare_part" class="oe_inline"/>
+                                <field name="spare_part" class="oe_inline" attrs="{'invisible': [('has_spare_part', '=', False)]}"/>
+                            </div>
+                            <field name="report_remark"/>
+                        </group>
+                        <group string="Document Required Entry to Work">
+                            <field name="document_required_entry_to_work"/>
+                            <field name="maintenance_wo" attrs="{'invisible': [('document_required_entry_to_work', '=', False)]}"/>
+                            <field name="jsa" attrs="{'invisible': [('document_required_entry_to_work', '=', False)]}"/>
+                            <field name="copy_id_card" attrs="{'invisible': [('document_required_entry_to_work', '=', False)]}"/>
+                            <field name="copy_social_security" attrs="{'invisible': [('document_required_entry_to_work', '=', False)]}"/>
+                            <field name="medeical_certificate" attrs="{'invisible': [('document_required_entry_to_work', '=', False)]}"/>
+                            <label for="document_required_entry_to_work_other" string="Other" attrs="{'invisible': [('document_required_entry_to_work', '=', False)]}"/>
+                            <div attrs="{'invisible': [('document_required_entry_to_work', '=', False)]}">
+                                <field name="document_required_entry_to_work_other" class="oe_inline"/>
+                                <field name="document_required_entry_to_work_other_description" class="oe_inline" attrs="{'invisible': [('document_required_entry_to_work_other', '=', False)]}"/>
+                            </div>
+                        </group>
+                        <group string="Document Required After Entering">
+                            <field name="service_report"/>
+                            <field name="work_delivery"/>
+                            <field name="list_of_trainees"/>
+                            <field name="temporary_delivery"/>
+                            <label for="document_required_after_entering_other" string="Other"/>
+                            <div>
+                                <field name="document_required_after_entering_other" class="oe_inline"/>
+                                <field name="document_required_after_entering_other_description" class="oe_inline" attrs="{'invisible': [('document_required_after_entering_other', '=', False)]}"/>
+                            </div>
+                        </group>
+                        <group string="Attachment">
+                            <field name="tor"/>
+                            <field name="unprice"/>
+                            <label for="attachment_other" string="Other"/>
+                            <div>
+                                <field name="attachment_other" class="oe_inline"/>
+                                <field name="attachment_other_description" class="oe_inline" attrs="{'invisible': [('attachment_other', '=', False)]}"/>
+                            </div>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
