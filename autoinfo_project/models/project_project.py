@@ -29,4 +29,8 @@ class ProjectProject(models.Model):
                 vals['job_no'] = department_id.project_no_pm_sequence_id.next_by_id(sequence_date=vals.get('date_start'))
             elif vals.get('job_type') == 'service' and department_id.project_no_service_sequence_id:
                 vals['job_no'] = department_id.project_no_service_sequence_id.next_by_id(sequence_date=vals.get('date_start'))
+        vals['name'] = vals['job_no'] + ':' + vals['name']
+        if not vals.get('analytic_account_id'):
+            analytic_account = self._create_analytic_account_from_values(vals)
+            vals['analytic_account_id'] = analytic_account.id
         return super(ProjectProject, self).create(vals)
