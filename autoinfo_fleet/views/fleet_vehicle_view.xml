@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="fleet_vehicle_form" model="ir.ui.view">
+        <field name="name">fleet.vehicle.form</field>
+        <field name="model">fleet.vehicle</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+        <field name="arch" type="xml">
+            <field name="acquisition_date" position="after">
+                <field name="insurance_expire_date" attrs="{'invisible': [('vehicle_type', '!=', 'car')]}"/>
+                <field name="act_expire_date" attrs="{'invisible': [('vehicle_type', '!=', 'car')]}"/>
+            </field>
+        </field>
+    </record>
+</odoo>

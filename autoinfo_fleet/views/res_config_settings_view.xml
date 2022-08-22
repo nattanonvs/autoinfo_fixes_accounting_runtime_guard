@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_config_settings_form" model="ir.ui.view">
+            <field name="name">res.config.settings.form</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="90"/>
+            <field name="inherit_id" ref="fleet.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@data-key='fleet']/div[@id='end_contract_setting']" position="inside">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Expired Date Insurance Alert</span>
+                            <div class="text-muted content-group mt16">
+                                <span>Send an alert </span>
+                                <field name="alert_insurance_expired" class="text-center oe_inline" />
+                                <span> days before the expired date</span>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <record id="ir_cron_notification_project_task_deadline" model="ir.cron">
-            <field name="name">Notification Project Task Deadline</field>
-            <field name="model_id" ref="project.model_project_task"/>
+        <record id="ir_cron_notification_fleet_expire_date" model="ir.cron">
+            <field name="name">Notification Fleet Expire Date</field>
+            <field name="model_id" ref="fleet.model_fleet_vehicle"/>
             <field name="state">code</field>
-            <field name="code">model.project_task_deadline_notification()</field>
+            <field name="code">model.fleet_expire_date_notification()</field>
             <field name="interval_number">1</field>
             <field name="interval_type">days</field>
             <field name="numbercall">-1</field>
