@@ -8,9 +8,9 @@ class PurchaseOrderReport(models.TransientModel):
     _inherit = 'purchase.order.report'
 
     report_template = fields.Selection([
-        ('1', '1'),
-        ('2', '2'),
-        ('3', '3')], string='Report Template', default='1', required=True)
+        ('1', 'Purchase Order BA'),
+        ('2', 'Purchase Order IA'),
+        ('3', 'Purchase Order TA')], string='Report Template', default='1', required=True)
 
     def show_report(self):
         path = os.path.split(os.path.abspath(__file__))[0]
