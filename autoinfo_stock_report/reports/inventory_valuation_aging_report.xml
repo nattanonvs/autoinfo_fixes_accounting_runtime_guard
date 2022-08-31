@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="inventory_valuation_aging_report" model="ir.ui.view">
+            <field name="name">inventory.valuation.aging.report</field>
+            <field name="model">inventory.valuation.aging.report</field>
+            <field name="inherit_id" ref="dtr_stock_report.inventory_valuation_aging_report"/>
+            <field name="arch" type="xml">
+                <field name="wh" position="after">
+                    <field name="p_department_id"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>
