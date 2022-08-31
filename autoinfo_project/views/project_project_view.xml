@@ -8,6 +8,7 @@
             <field name="company_id" position="before">
                 <field name="job_type"/>
                 <field name="project_department_id"/>
+                <field name="sale_person_id"/>
                 <field name="job_no"/>
             </field>
             <xpath expr="//notebook" position="inside">
@@ -29,6 +30,7 @@
             <field name="name" position="after">
                 <field name="job_type"/>
                 <field name="project_department_id"/>
+                <field name="sale_person_id"/>
             </field>
         </field>
     </record>

@@ -22,13 +22,14 @@ Changelog
     """,
     'author': 'Dataroot Asia Co., Ltd.',
     'created_by': 'Varawit Termwaraporn',
-    'depends': ['project', 'hr', 'dtr_sales', 'dtr_purchase_project'],
+    'depends': ['project', 'hr', 'dtr_sales', 'dtr_purchase_project', 'base'],
     'application': False,
     'data': [
         'data/auto_job.xml',
         'data/email_template.xml',
         'views/project_project_view.xml',
         'views/project_task_view.xml',
-        'views/hr_department_view.xml'
+        'views/hr_department_view.xml',
+        'views/res_users_view.xml'
     ],
 }
