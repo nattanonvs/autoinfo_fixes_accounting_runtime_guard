@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="dtr_accounting_form.action_receipt_form_copy" model="ir.actions.act_window">
+            <field name="binding_model_id"></field>
+        </record>
+    </data>
+</odoo>

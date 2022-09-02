@@ -38,5 +38,6 @@ Changelog
         'security/ir.model.access.csv',
         'reports/autoinfo_tax_invoice_pp_form.xml',
         'reports/autoinfo_receipt_pp_form.xml',
+        'reports/receipt_form.xml'
     ],
 }
