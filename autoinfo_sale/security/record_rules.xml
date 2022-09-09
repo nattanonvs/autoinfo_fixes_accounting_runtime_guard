@@ -5,7 +5,7 @@
             <field name="name">ERP - Sales Product Own Department Rules</field>
             <field name="model_id" ref="sale.model_product_template"/>
             <field name="groups" eval="[(6, 0, [ref('autoinfo_sale.dtr_access_right_sales_group_own_department_product')])]"/>
-            <field name="domain_force">['|', ('department_id', 'in', user.employee_ids.mapped('department_id').ids), ('department_id', '=', False)]</field>
+            <field name="domain_force">['|', ('department_id', 'in', user.employee_ids.mapped('department_id.parent_id').ids), ('department_id', '=', False)]</field>
         </record>
     </data>
 </odoo>
