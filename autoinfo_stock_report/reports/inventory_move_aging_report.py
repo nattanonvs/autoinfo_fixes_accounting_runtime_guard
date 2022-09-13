@@ -17,7 +17,9 @@ class InventoryMoveAgingReport(models.TransientModel):
     def get_parameters(self):
         res = super(InventoryMoveAgingReport, self).get_parameters()
         if self.p_department_id:
+            child_department_ids = self.env['hr.department'].search([('parent_id', '=', self.p_department_id.id)])
+            department_ids = child_department_ids + self.p_department_id
             condition = res.get('p_Where')
-            condition += ' and sp.department_id = ' + str(self.p_department_id.id)
+            condition += ' AND sp.department_id in ({0})'.format(', '.join([str(i.id) for i in department_ids]))
             res.update({'p_Where': condition})
         return res

@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Inventory Report',
-    'version': '1.0',
+    'version': '1.1',
     'category': 'DTR - ERP Inventory',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -15,6 +15,9 @@ Customize Report Inventory.
 
 Changelog
 ---------
+
+**Version 1.1**
+    - Fixed filter department in report
 
 **Version 1.0**
     - Initial
