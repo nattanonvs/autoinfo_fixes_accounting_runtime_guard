@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Sales Form',
-    'version': '1.0',
+    'version': '1.1',
     'category': 'DTR - ERP Sales',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -16,13 +16,16 @@ Customize Report Sales.
 Changelog
 ---------
 
+**Version 1.1**
+    - Changed font and design quotation report
+
 **Version 1.0**
     - Initial
 
     """,
     'author': 'Dataroot Asia Co., Ltd.',
     'created_by': 'Varawit Termwaraporn',
-    'depends': ['dtr_sales_form', 'sale'],
+    'depends': ['dtr_sales_form', 'sale', 'autoinfo_logo'],
     'application': False,
     'data': [
         'views/sale_order_view.xml'

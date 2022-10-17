@@ -15,6 +15,9 @@
                             <group>
                                 <field name="delivery_report"/>
                                 <field name="payment_report"/>
+                                <field name="payment_product"/>
+                                <field name="payment_report2"/>
+                                <field name="payment_engineering"/>
                             </group>
                             <group>
                                 <field name="validaity_report"/>
