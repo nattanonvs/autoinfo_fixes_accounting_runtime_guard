@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Sale',
-    'version': '1.0',
+    'version': '1.1',
     'category': 'DTR - ERP Sale',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -15,6 +15,9 @@ Extends the functionality of Sale.
 
 Changelog
 ---------
+
+**Version 1.1**
+    - Hide field sale_person_no
 
 **Version 1.0**
     - Initial
