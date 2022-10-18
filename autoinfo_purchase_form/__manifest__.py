@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Purchase Form',
-    'version': '1.0',
+    'version': '1.1',
     'category': 'DTR - ERP Purchase',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -16,13 +16,16 @@ Customize Report Purchase.
 Changelog
 ---------
 
+**Version 1.1**
+    - Changed font and design purchase order report
+
 **Version 1.0**
     - Initial
 
     """,
     'author': 'Dataroot Asia Co., Ltd.',
     'created_by': 'Varawit Termwaraporn',
-    'depends': ['dtr_purchase_form', 'dtr_purchase_project', 'dtr_partner_master', 'product'],
+    'depends': ['dtr_purchase_form', 'dtr_purchase_project', 'dtr_partner_master', 'product', 'autoinfo_logo'],
     'application': False,
     'data': [
         'reports/purchase_order_report.xml',
