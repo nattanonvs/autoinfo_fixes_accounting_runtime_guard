@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Sales Form',
-    'version': '1.1',
+    'version': '1.2',
     'category': 'DTR - ERP Sales',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -15,6 +15,9 @@ Customize Report Sales.
 
 Changelog
 ---------
+
+**Version 1.2**
+    - Display warranty in quotation report
 
 **Version 1.1**
     - Changed font and design quotation report

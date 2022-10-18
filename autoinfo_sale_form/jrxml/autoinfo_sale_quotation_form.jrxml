@@ -1543,7 +1543,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<font fontName="Arial Unicode" size="9" isBold="false" isUnderline="false"/>
 							<paragraph leftIndent="3"/>
 						</textElement>
-						<textFieldExpression><![CDATA[""]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$F{warranty_report} + " months"]]></textFieldExpression>
 					</textField>
 					<textField>
 						<reportElement mode="Opaque" x="70" y="221" width="339" height="20" backcolor="#FFFFFF" uuid="e420523f-a974-495d-9a95-faaf41889849"/>
