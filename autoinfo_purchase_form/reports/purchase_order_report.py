@@ -26,6 +26,8 @@ class PurchaseOrderReport(models.TransientModel):
 
     def get_parameters(self):
         res = super(PurchaseOrderReport, self).get_parameters()
-        if self.report_template == '3':
+        if self.report_template == '2':
+            self.name = 'PURCHASE ORDER (INDENT IA BA)  FM-PU-02'
+        elif self.report_template == '3':
             self.name = 'PURCHASE ORDER (INDENT TA ) FM-PU-03'
         return res

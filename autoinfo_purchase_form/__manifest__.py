@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Purchase Form',
-    'version': '1.1',
+    'version': '1.2',
     'category': 'DTR - ERP Purchase',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -16,8 +16,11 @@ Customize Report Purchase.
 Changelog
 ---------
 
+**Version 1.2**
+    - Changed font and design purchase order report FM-PU-02
+
 **Version 1.1**
-    - Changed font and design purchase order report
+    - Changed font and design purchase order report FM-PU-03
 
 **Version 1.0**
     - Initial
