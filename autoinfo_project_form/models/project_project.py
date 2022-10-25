@@ -5,10 +5,10 @@ class ProjectProject(models.Model):
     _inherit = 'project.project'
 
     reference_po = fields.Char(string='Reference PO')
-    responsible_person1 = fields.Char(string='Responsible Person1')
-    responsible_person2 = fields.Char(string='Responsible Person2')
-    responsible_person3 = fields.Char(string='Responsible Person3')
-    autoinfo_coordinator = fields.Char(string='Autoinfo Coordinator')
+    responsible_person1 = fields.Many2one('hr.employee', string='Responsible Person1')
+    responsible_person2 = fields.Many2one('hr.employee', string='Responsible Person2')
+    responsible_person3 = fields.Many2one('hr.employee', string='Responsible Person3')
+    autoinfo_coordinator = fields.Many2one('hr.employee', string='Autoinfo Coordinator')
     customer_coordinator = fields.Char(string='Customer Coordinator')
     customer_coordinator_tel = fields.Char(string='Customer Coordinator (Tel.)')
     customer_coordinator_email = fields.Char(string='Customer Coordinator (Email)')

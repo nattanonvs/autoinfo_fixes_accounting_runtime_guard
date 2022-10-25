@@ -39,10 +39,10 @@
     ,pro.name AS job_name
     ,pro.job_type AS job_type
     ,pro.reference_po AS reference_po
-    ,pro.responsible_person1 AS responsible1
-    ,pro.responsible_person2 AS responsible2
-    ,pro.responsible_person3 AS responsible3
-    ,pro.autoinfo_coordinator AS autoinfo_coordinator
+    ,emp1.name AS responsible1
+    ,emp2.name AS responsible2
+    ,emp3.name AS responsible3
+    ,emp4.name AS autoinfo_coordinator
     ,pro.customer_coordinator AS customer_coordinator
     ,pro.customer_coordinator_tel AS customer_coordinator_tel
     ,pro.customer_coordinator_email AS customer_coordinator_email
@@ -73,6 +73,10 @@
 from project_project pro
 left join res_company c on c.id = pro.company_id
 left join company_address_header_report c2 ON c2.id = pro.company_id
+left join hr_employee emp1 on emp1.id = pro.responsible_person1
+left join hr_employee emp2 on emp2.id = pro.responsible_person2
+left join hr_employee emp3 on emp3.id = pro.responsible_person3
+left join hr_employee emp4 on emp4.id = pro.autoinfo_coordinator
 $P!{p_Where}]]>
 	</queryString>
 	<field name="company_name" class="java.lang.String">
