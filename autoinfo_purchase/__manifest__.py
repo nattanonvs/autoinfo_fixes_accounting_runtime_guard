@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Purchase',
-    'version': '1.0',
+    'version': '1.1',
     'category': 'DTR - ERP Purchase',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -16,15 +16,19 @@ Extends the functionality of Purchase.
 Changelog
 ---------
 
+**Version 1.1**
+    - Add feature running sequence by department in PR and PO
+
 **Version 1.0**
     - Initial
 
     """,
     'author': 'Dataroot Asia Co., Ltd.',
     'created_by': 'Varawit Termwaraporn',
-    'depends': ['autoinfo_project', 'dtr_purchase'],
+    'depends': ['autoinfo_project', 'dtr_purchase', 'hr', 'purchase_request', 'dtr_purchase_department', 'purchase'],
     'application': False,
     'data': [
-        'views/purchase_request_view.xml'
+        'views/purchase_request_view.xml',
+        'views/hr_department_view.xml'
     ],
 }
