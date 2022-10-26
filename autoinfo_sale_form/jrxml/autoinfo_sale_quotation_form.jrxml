@@ -1129,7 +1129,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<font fontName="Arial Unicode" size="10" isBold="false"/>
 						<paragraph lineSpacing="Single" lineSpacingSize="6.0" leftIndent="3" rightIndent="0"/>
 					</textElement>
-					<textFieldExpression><![CDATA["Tax ID / เลขประจำตัวผู้เสียภาษี: 0105540010417\n1359 Soi Ladprao94 (Panjamitr), Ladprao Rd., Plubpla, Wangthonglang, Bangkok 10310, Thailand.\n1359 ซ.ลาดพร้าว 94 (ปัญจมิตร) ถ.ลาดพร้าว แขวงพลับพลา เขตวังทองหลาง กรุงเทพฯ  10310\nTel : (662) 934 5410-6 Fax : (662) 934 5417    www.auto-info.co.th"]]></textFieldExpression>
+					<textFieldExpression><![CDATA["Tax ID / เลขประจำตัวผู้เสียภาษี: 0105540010417"]]></textFieldExpression>
 				</textField>
 				<textField isBlankWhenNull="true">
 					<reportElement x="59" y="60" width="400" height="12" uuid="f64fb2a4-b822-495a-8efc-f88dc367bc89"/>
