@@ -41,3 +41,8 @@ class SaleOrder(models.Model):
             if sale_person.quotation_sequence_id:
                 vals['sale_person_no'] = sale_person.quotation_sequence_id.next_by_id(sequence_date=vals.get('date_order'))
         return super(SaleOrder, self).create(vals)
+
+    @api.onchange('customer_project')
+    def onchange_customer_project(self):
+        if self.customer_project and self.customer_project.analytic_account_id:
+            self.analytic_account_id = self.customer_project.analytic_account_id.id
