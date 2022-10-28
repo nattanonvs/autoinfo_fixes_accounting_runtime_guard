@@ -5,6 +5,7 @@ class PurchaseRequest(models.Model):
     _inherit = 'purchase.request'
 
     job_no = fields.Char(string='Job No.', related='project_id.job_no')
+    project_analytic_account_id = fields.Many2one('account.analytic.account', string='Project Analytic Account', related='project_id.analytic_account_id')
 
     @api.model
     def create(self, vals):
