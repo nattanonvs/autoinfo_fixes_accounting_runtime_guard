@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="dtr_account_billing_form" model="ir.ui.view">
+            <field name="name">dtr.account.billing.form</field>
+            <field name="model">dtr.account.billing</field>
+            <field name="inherit_id" ref="dtr_billing.view_billing_form"/>
+            <field name="arch" type="xml">
+                <field name="billing_note" position="attributes">
+                    <attribute name="widget">html</attribute>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>
