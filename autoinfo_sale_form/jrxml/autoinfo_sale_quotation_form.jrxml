@@ -126,6 +126,16 @@
 		WHERE hr.user_id = so.user_id and (hr.company_id = so.company_id or hr.company_id is null) limit 1
 	  ),'')AS sale_person1_work_email
 	  
+	  ,COALESCE((SELECT job.name
+	 	FROM hr_employee hr
+	 	LEFT JOIN hr_job job ON job.id = hr.job_id
+		WHERE hr.user_id = so.user_id and (hr.company_id = so.company_id or hr.company_id is null) limit 1
+	  ),'')AS sale_person1_position
+	  
+	  	,(SELECT att.store_fname FROM hr_employee hr
+		LEFT JOIN ir_attachment att ON att.res_id = hr.id and att.res_model = 'hr.employee' and att.res_field='signature'
+		WHERE hr.user_id = so.user_id and (hr.company_id = so.company_id or hr.company_id is null) limit 1) AS sale_person1_signature
+	  
 	,COALESCE(pn1.display_name,'') AS customer_shipping_contact
 	,COALESCE(pn1.phone,'') AS customer_shipping_phone
 	,COALESCE(pn1.fax,'') AS customer_shipping_fax
@@ -502,6 +512,12 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 	<field name="sale_person1_work_email" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="sale_person1_work_email"/>
 	</field>
+	<field name="sale_person1_position" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="sale_person1_position"/>
+	</field>
+	<field name="sale_person1_signature" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="sale_person1_signature"/>
+	</field>
 	<field name="customer_shipping_contact" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="customer_shipping_contact"/>
 	</field>
@@ -647,7 +663,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 		<property name="com.jaspersoft.studio.field.label" value="state"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="sale_order"/>
 	</field>
-	<field name="COLUMN_83" class="java.lang.String">
+	<field name="COLUMN_85" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="client_order_ref"/>
 	</field>
 	<field name="amount_total_item" class="java.math.BigDecimal">
@@ -666,7 +682,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 		<property name="com.jaspersoft.studio.field.label" value="display_type"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="sale_order_line"/>
 	</field>
-	<field name="COLUMN_88" class="java.lang.String">
+	<field name="COLUMN_90" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="state"/>
 	</field>
 	<field name="prepare_date" class="java.sql.Timestamp">
@@ -1644,7 +1660,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textFieldExpression><![CDATA[":"]]></textFieldExpression>
 					</textField>
 					<textField>
-						<reportElement mode="Opaque" x="411" y="131" width="139" height="80" backcolor="#FFFFFF" uuid="d54d3ce2-872e-4ffd-834e-9d87371f310f"/>
+						<reportElement mode="Opaque" x="411" y="206" width="139" height="5" backcolor="#FFFFFF" uuid="d54d3ce2-872e-4ffd-834e-9d87371f310f"/>
 						<box leftPadding="1" bottomPadding="1">
 							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1655,7 +1671,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<font fontName="Arial Unicode" size="9" isBold="true" isUnderline="false"/>
 							<paragraph leftIndent="0"/>
 						</textElement>
-						<textFieldExpression><![CDATA["Authorized Signature"]]></textFieldExpression>
+						<textFieldExpression><![CDATA[""]]></textFieldExpression>
 					</textField>
 					<textField>
 						<reportElement mode="Opaque" x="1" y="121" width="59" height="20" backcolor="#FFFFFF" uuid="55a72424-5693-44e1-a45c-8a9950e1ae72"/>
@@ -1795,7 +1811,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<font fontName="Arial Unicode" size="9" isBold="true" isUnderline="false"/>
 							<paragraph leftIndent="0"/>
 						</textElement>
-						<textFieldExpression><![CDATA[IF($P{p_language}.toString().equals("thai"),"(ชื่อ)","(Name)")]]></textFieldExpression>
+						<textFieldExpression><![CDATA[IF($P{p_language}.toString().equals("thai"),$F{sale_person1_thai}, $F{sale_person1_en})]]></textFieldExpression>
 					</textField>
 					<textField>
 						<reportElement mode="Opaque" x="411" y="226" width="139" height="14" backcolor="#FFFFFF" uuid="fd15f6ed-0c6a-494c-93c5-5001050d7975"/>
@@ -1809,8 +1825,26 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<font fontName="Arial Unicode" size="9" isBold="false" isUnderline="false"/>
 							<paragraph leftIndent="0"/>
 						</textElement>
-						<textFieldExpression><![CDATA[IF($P{p_language}.toString().equals("thai"),"ตำแหน่ง","Position")]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$F{sale_person1_position}]]></textFieldExpression>
 					</textField>
+					<textField>
+						<reportElement mode="Opaque" x="412" y="102" width="139" height="19" backcolor="#FFFFFF" uuid="27fa7b20-5640-406a-aa18-8bbf2c102ae2"/>
+						<box leftPadding="1" bottomPadding="1">
+							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Top">
+							<font fontName="Arial Unicode" size="9" isBold="true" isUnderline="false"/>
+							<paragraph leftIndent="0"/>
+						</textElement>
+						<textFieldExpression><![CDATA["Authorized Signature"]]></textFieldExpression>
+					</textField>
+					<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
+						<reportElement x="412" y="122" width="139" height="84" uuid="efd5f979-2455-45a9-ab77-f62ef0622da3"/>
+						<imageExpression><![CDATA[IF($F{sale_person1_signature}== null,null, $P{p_Path} +$F{sale_person1_signature})]]></imageExpression>
+					</image>
 				</frame>
 			</band>
 		</groupFooter>

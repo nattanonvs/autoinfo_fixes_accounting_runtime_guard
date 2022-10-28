@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Sales Form',
-    'version': '1.3',
+    'version': '1.4',
     'category': 'DTR - ERP Sales',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -15,6 +15,9 @@ Customize Report Sales.
 
 Changelog
 ---------
+
+**Version 1.4**
+    - Add sale person name, position and signature in footer quotation report
 
 **Version 1.3**
     - Add require field in sale order
