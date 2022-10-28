@@ -9,6 +9,19 @@
                 <field name="partner_ref" position="after">
                     <field name="your_ref"/>
                 </field>
+                <xpath expr="//notebook" position="inside">
+                    <page name="purchase_report" string="Report">
+                        <group>
+                            <group>
+                                <field name="delivery_to_report"/>
+                                <field name="delivery_date_report"/>
+                                <field name="warranty_report"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
             </field>
         </record>
     </data>

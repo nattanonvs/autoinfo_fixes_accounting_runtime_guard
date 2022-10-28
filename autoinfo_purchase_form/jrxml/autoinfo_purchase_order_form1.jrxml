@@ -61,7 +61,7 @@ att.store_fname AS logo_iso,
 	   po.name as po_number,
 	   po.date_order as po_date,
 	   po.date_planned as po_date_planned,
-	   pt.name AS po_payment_term,
+	   COALESCE(pt.name, '') AS po_payment_term,
        (select string_agg(distinct pr.name, ', ')
         from purchase_request_purchase_order_line_rel as pr_rel
         inner join purchase_request_line prl ON prl.id = pr_rel.purchase_request_line_id
@@ -174,6 +174,9 @@ att.store_fname AS logo_iso,
 		  LEFT JOIN purchase_order d ON d.id=c.order_id
 		  WHERE d.id = po.id
 		 )AS po_taxes
+	,COALESCE(po.delivery_to_report, '') as delivery_to_report
+	,COALESCE(po.delivery_date_report, '') as delivery_date_report
+	,COALESCE(po.warranty_report, '') as warranty_report
 
 from purchase_order_line as po_line
 inner join purchase_order as po on po.id = po_line.order_id
@@ -429,6 +432,15 @@ order by po.id, po_line.sequence, po_line.id]]>
 	</field>
 	<field name="po_taxes" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="po_taxes"/>
+	</field>
+	<field name="delivery_to_report" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="delivery_to_report"/>
+	</field>
+	<field name="delivery_date_report" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="delivery_date_report"/>
+	</field>
+	<field name="warranty_report" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="warranty_report"/>
 	</field>
 	<variable name="Page" class="java.lang.String">
 		<variableExpression><![CDATA[$V{PAGE_NUMBER} + " OF " + $V{MASTER_TOTAL_PAGES}]]></variableExpression>
@@ -825,7 +837,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<font fontName="Arial Unicode" size="9" isBold="true"/>
 							<paragraph lineSpacingSize="0.0" leftIndent="3"/>
 						</textElement>
-						<textFieldExpression><![CDATA[""]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$F{delivery_to_report}]]></textFieldExpression>
 					</textField>
 					<textField>
 						<reportElement x="0" y="120" width="80" height="20" uuid="b2140b07-9cac-46f9-b19a-8dcdb28f13fb"/>
@@ -841,7 +853,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<font fontName="Arial Unicode" size="9" isBold="true"/>
 							<paragraph lineSpacingSize="0.0" leftIndent="3"/>
 						</textElement>
-						<textFieldExpression><![CDATA[""]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$F{delivery_date_report}]]></textFieldExpression>
 					</textField>
 					<textField>
 						<reportElement x="0" y="140" width="80" height="20" uuid="6d4ecd36-39a0-4620-b407-231a2965c090"/>
@@ -857,7 +869,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<font fontName="Arial Unicode" size="9" isBold="true"/>
 							<paragraph lineSpacingSize="0.0" leftIndent="3"/>
 						</textElement>
-						<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$F{po_payment_term}]]></textFieldExpression>
 					</textField>
 					<textField evaluationTime="Auto">
 						<reportElement x="80" y="160" width="114" height="20" uuid="9d090dcf-2e9f-4087-bd68-d9b4d150867f"/>
@@ -865,7 +877,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<font fontName="Arial Unicode" size="9" isBold="true"/>
 							<paragraph lineSpacingSize="0.0" leftIndent="3"/>
 						</textElement>
-						<textFieldExpression><![CDATA[""]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$F{warranty_report}]]></textFieldExpression>
 					</textField>
 					<textField>
 						<reportElement x="0" y="160" width="80" height="20" uuid="b2e8d11b-5e2b-45de-96ff-9f20bbd81dd6"/>
