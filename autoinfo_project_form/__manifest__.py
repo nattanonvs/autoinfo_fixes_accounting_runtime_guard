@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Project Form',
-    'version': '1.2',
+    'version': '1.3',
     'category': 'DTR - ERP Project',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -15,6 +15,9 @@ Customize Report Project.
 
 Changelog
 ---------
+
+**Version 1.3**
+    - Changed layout display company information
 
 **Version 1.2**
     - Changed type field from text to dropdown and revise report for display

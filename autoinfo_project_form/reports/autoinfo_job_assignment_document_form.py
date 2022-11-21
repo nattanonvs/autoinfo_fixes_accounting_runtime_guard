@@ -70,6 +70,7 @@ class AutoinfoJobAssignmentDocumentForm(models.TransientModel):
         p_where = "WHERE pro.id in ({0})".format(", ".join([str(i) for i in ids]))
         rpt = self.env.ref('autoinfo_project_form.autoinfo_job_assignment_document_form_code')
         iso_no = rpt.iso_no or ""
+        path = "{0}/filestore/{1}/".format(config.options['data_dir'].replace('\\', '/'), self.env.cr.dbname)
 
         self.name = self.get_file_name(ids, 'project.project', 'Job Assignment Document Form')
         return {
@@ -78,5 +79,6 @@ class AutoinfoJobAssignmentDocumentForm(models.TransientModel):
             'p_DateFormat': str(self.date_format),
             'p_language': self.p_language,
             'p_locale': 'th' if self.date_type == 'BE' else 'en',
-            'p_Printby': self.env.user.name
+            'p_Printby': self.env.user.name,
+            'p_Path': path
         }
