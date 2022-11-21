@@ -9,7 +9,7 @@ class SaleOrder(models.Model):
     commitment_date = fields.Datetime('Delivery Date', copy=False,states={'done': [('readonly', True)], 'cancel': [('readonly', True)]},
       help="This is the delivery date promised to the customer. "
            "If set, the delivery order will be scheduled based on "
-           "this date rather than product lead times.", track_visibility='onchange')
+           "this date rather than product lead times.", tracking=True)
     reason_change_delivery_date = fields.Text(string='Reason Change Delivery Date', copy=False)
     sale_person_no = fields.Char(string='Sale No.', copy=False)
 
