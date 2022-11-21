@@ -16,8 +16,12 @@
                                 <field name="delivery_to_report"/>
                                 <field name="delivery_date_report"/>
                                 <field name="warranty_report"/>
+                                <field name="weight_report"/>
                             </group>
                             <group>
+                                <field name="discount_report"/>
+                                <field name="shipping_standard"/>
+                                <field name="tariff"/>
                             </group>
                         </group>
                     </page>

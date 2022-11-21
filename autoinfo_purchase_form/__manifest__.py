@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Purchase Form',
-    'version': '1.4',
+    'version': '1.5',
     'category': 'DTR - ERP Purchase',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -15,6 +15,10 @@ Customize Report Purchase.
 
 Changelog
 ---------
+
+**Version 1.5**
+    - Changed layout display company information
+    - Add new field for display in report
 
 **Version 1.4**
     - Add field input for display in purchase order report
