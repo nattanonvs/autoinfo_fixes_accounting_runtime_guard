@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Purchase Form',
-    'version': '1.5',
+    'version': '1.6',
     'category': 'DTR - ERP Purchase',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -15,6 +15,11 @@ Customize Report Purchase.
 
 Changelog
 ---------
+
+**Version 1.6**
+    - Changed font to sarabun (FM-PU-01, FM-PU-03)
+    - Add new field for purchase order report (FM-PU-01, FM-PU-03)
+    - Add field list price in purchase order line and default in price unit
 
 **Version 1.5**
     - Changed layout display company information
@@ -38,11 +43,19 @@ Changelog
     """,
     'author': 'Dataroot Asia Co., Ltd.',
     'created_by': 'Varawit Termwaraporn',
-    'depends': ['dtr_purchase_form', 'dtr_purchase_project', 'dtr_partner_master', 'product', 'autoinfo_logo'],
+    'depends': ['dtr_purchase_form', 'dtr_purchase_project', 'dtr_partner_master', 'product', 'autoinfo_logo', 'dtr_access_right_base',
+        'mail', 'purchase'],
     'application': False,
     'data': [
+        'security/res_groups.xml',
+        'security/ir.model.access.csv',
+        'views/menu_item.xml',
         'reports/purchase_order_report.xml',
         'views/purchase_order_view.xml',
-        'views/product_template_view.xml'
+        'views/product_template_view.xml',
+        'views/dtr_purchase_warranty_report_view.xml',
+        'views/dtr_purchase_delivery_to_report_view.xml',
+        'views/dtr_purchase_term_report_view.xml',
+        'views/dtr_purchase_shipment_report_view.xml'
     ],
 }

@@ -13,9 +13,12 @@
                     <page name="purchase_report" string="Report">
                         <group>
                             <group>
+                                <field name="dtr_purchase_delivery_to_report_id"/>
                                 <field name="delivery_to_report"/>
                                 <field name="delivery_date_report"/>
-                                <field name="warranty_report"/>
+                                <field name="dtr_purchase_warranty_report_id"/>
+                                <field name="dtr_purchase_term_report_id"/>
+                                <field name="dtr_purchase_shipment_report_id"/>
                                 <field name="weight_report"/>
                             </group>
                             <group>
@@ -25,6 +28,9 @@
                             </group>
                         </group>
                     </page>
+                </xpath>
+                <xpath expr="//field[@name='order_line']//tree/field[@name='price_unit']" position="before">
+                    <field name="autoinfo_list_price"/>
                 </xpath>
             </field>
         </record>

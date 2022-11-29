@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="dtr_purchase_shipment_report_tree" model="ir.ui.view">
+            <field name="name">dtr.purchase.shipment.report.tree</field>
+            <field name="model">dtr.purchase.shipment.report</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="dtr_purchase_shipment_report_tree">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+         <record id="dtr_purchase_shipment_report_form" model="ir.ui.view">
+            <field name="name">dtr.purchase.shipment.report.form</field>
+            <field name="model">dtr.purchase.shipment.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Purchase Shipment Form">
+                    <header>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="description" widget="html"/>                           
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+         </record>
+
+        <record id="dtr_purchase_shipment_report_search" model="ir.ui.view">
+            <field name="name">dtr.purchase.shipment.report.search</field>
+            <field name="model">dtr.purchase.shipment.report</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="dtr_purchase_shipment_report_search">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_dtr_purchase_shipment_report" model="ir.actions.act_window">
+            <field name="name">Purchase Shipment Report</field>
+            <field name="res_model">dtr.purchase.shipment.report</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="dtr_purchase_shipment_report_search" />
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add new Purchase Shipment Report
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_purchase_shipment_report" name="Purchase Shipment Report" parent="menu_config_purchase_report" groups="dtr_access_right_purchase_group_purchase_shipment_report" action="action_dtr_purchase_shipment_report"/>
+    </data>
+</odoo>

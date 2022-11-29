@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <menuitem id="menu_config_purchase_report" name="Configuration Purchase Report" parent="purchase.menu_purchase_config" groups="dtr_access_right_purchase_group_purchase_warranty_report,dtr_access_right_purchase_group_purchase_term_report,dtr_access_right_purchase_group_purchase_shipment_report"/>
+    </data>
+</odoo>
