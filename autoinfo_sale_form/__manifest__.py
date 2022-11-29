@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Sales Form',
-    'version': '1.5',
+    'version': '1.6',
     'category': 'DTR - ERP Sales',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -15,6 +15,9 @@ Customize Report Sales.
 
 Changelog
 ---------
+
+**Version 1.6**
+    - Changed font to sarabun and add new field in quotation report
 
 **Version 1.5**
     - Changed layout display company information
@@ -37,9 +40,19 @@ Changelog
     """,
     'author': 'Dataroot Asia Co., Ltd.',
     'created_by': 'Varawit Termwaraporn',
-    'depends': ['dtr_sales_form', 'sale', 'autoinfo_logo'],
+    'depends': ['dtr_sales_form', 'sale', 'autoinfo_logo', 'dtr_access_right_sales', 'mail', 'base'],
     'application': False,
     'data': [
-        'views/sale_order_view.xml'
+        'security/res_groups.xml',
+        'security/ir.model.access.csv',
+        'views/menu_item.xml',
+        'views/sale_order_view.xml',
+        'views/dtr_sale_price_report_view.xml',
+        'views/dtr_sale_delivery_report_view.xml',
+        'views/dtr_sale_payment_product_report_view.xml',
+        'views/dtr_sale_payment_engineering_report_view.xml',
+        'views/dtr_sale_validity_report_view.xml',
+        'views/dtr_sale_warranty_report_view.xml',
+        'views/dtr_sale_credit_report_view.xml'
     ],
 }

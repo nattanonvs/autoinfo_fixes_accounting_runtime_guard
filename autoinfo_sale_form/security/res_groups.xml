@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="dtr_access_right_sales_group_sale_price_report" model="res.groups">
+            <field name="name">Sale Price Report</field>
+            <field name="category_id" ref="dtr_access_right_sales.dtr_access_right_sales_category_sales"/>
+            <field name="is_dtr_group" eval="True"/>
+            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        </record>
+
+        <record id="dtr_access_right_sales_group_sale_delivery_report" model="res.groups">
+            <field name="name">Sale Delivery Report</field>
+            <field name="category_id" ref="dtr_access_right_sales.dtr_access_right_sales_category_sales"/>
+            <field name="is_dtr_group" eval="True"/>
+            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        </record>
+
+        <record id="dtr_access_right_sales_group_sale_payment_product_report" model="res.groups">
+            <field name="name">Sale Payment Product Report</field>
+            <field name="category_id" ref="dtr_access_right_sales.dtr_access_right_sales_category_sales"/>
+            <field name="is_dtr_group" eval="True"/>
+            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        </record>
+
+        <record id="dtr_access_right_sales_group_sale_payment_engineering_report" model="res.groups">
+            <field name="name">Sale Payment Engineering Report</field>
+            <field name="category_id" ref="dtr_access_right_sales.dtr_access_right_sales_category_sales"/>
+            <field name="is_dtr_group" eval="True"/>
+            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        </record>
+
+        <record id="dtr_access_right_sales_group_sale_validity_report" model="res.groups">
+            <field name="name">Sale Validity Report</field>
+            <field name="category_id" ref="dtr_access_right_sales.dtr_access_right_sales_category_sales"/>
+            <field name="is_dtr_group" eval="True"/>
+            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        </record>
+
+        <record id="dtr_access_right_sales_group_sale_warranty_report" model="res.groups">
+            <field name="name">Sale Warranty Report</field>
+            <field name="category_id" ref="dtr_access_right_sales.dtr_access_right_sales_category_sales"/>
+            <field name="is_dtr_group" eval="True"/>
+            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        </record>
+
+        <record id="dtr_access_right_sales_group_sale_credit_report" model="res.groups">
+            <field name="name">Sale Credit Report</field>
+            <field name="category_id" ref="dtr_access_right_sales.dtr_access_right_sales_category_sales"/>
+            <field name="is_dtr_group" eval="True"/>
+            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        </record>
+    </data>
+</odoo>

@@ -5,11 +5,10 @@ class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     your_ref = fields.Char(string='Your Ref.')
-    delivery_report = fields.Text(string='Delivery', required=True)
-    payment_report = fields.Text(string='Payment', required=True)
-    payment_report2 = fields.Text(string='Payment', required=True)
-    payment_product = fields.Text(string='Product', required=True)
-    payment_engineering = fields.Text(string='Engineering', required=True)
-    validaity_report = fields.Integer(string='Validity(days)', required=True)
-    warranty_report = fields.Integer(string='Warranty(months)', required=True)
-    credit_report = fields.Integer(string='Credit(days)', required=True)
+    dtr_sale_price_report_id = fields.Many2one('dtr.sale.price.report', string='Price', required=False)
+    dtr_sale_delivery_report_id = fields.Many2one('dtr.sale.delivery.report', string='Delivery', required=False)
+    dtr_sale_payment_product_report_id = fields.Many2one('dtr.sale.payment.product.report', string='Payment Product', required=False)
+    dtr_sale_payment_engineering_report_id = fields.Many2one('dtr.sale.payment.engineering.report', string='Payment Engineering', required=False)
+    dtr_sale_validity_report_id = fields.Many2one('dtr.sale.validity.report', string='Validity', required=False)
+    dtr_sale_warranty_report_id = fields.Many2one('dtr.sale.warranty.report', string='Warranty', required=False)
+    dtr_sale_credit_report_id = fields.Many2one('dtr.sale.credit.report', string='Credit', required=False)

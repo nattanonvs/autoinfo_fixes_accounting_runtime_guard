@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <menuitem id="menu_config_sale_report" name="Configuration Sale Report" parent="sale.menu_sale_config" groups="dtr_access_right_sales_group_sale_price_report,dtr_access_right_sales_group_sale_delivery_report,dtr_access_right_sales_group_sale_payment_product_report,dtr_access_right_sales_group_sale_payment_engineering_report,dtr_access_right_sales_group_sale_validity_report,dtr_access_right_sales_group_sale_warranty_report,dtr_access_right_sales_group_sale_credit_report"/>
+    </data>
+</odoo>

@@ -13,16 +13,15 @@
                     <page name="sale_report" string="Report">
                         <group>
                             <group>
-                                <field name="delivery_report"/>
-                                <field name="payment_report"/>
-                                <field name="payment_product"/>
-                                <field name="payment_report2"/>
-                                <field name="payment_engineering"/>
+                                <field name="dtr_sale_price_report_id"/>
+                                <field name="dtr_sale_delivery_report_id"/>
+                                <field name="dtr_sale_payment_product_report_id"/>
+                                <field name="dtr_sale_payment_engineering_report_id"/>
                             </group>
                             <group>
-                                <field name="validaity_report"/>
-                                <field name="warranty_report"/>
-                                <field name="credit_report"/>
+                                <field name="dtr_sale_validity_report_id"/>
+                                <field name="dtr_sale_warranty_report_id"/>
+                                <field name="dtr_sale_credit_report_id"/> 
                             </group>
                         </group>
                     </page>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="dtr_sale_warranty_report_tree" model="ir.ui.view">
+            <field name="name">dtr.sale.warranty.report.tree</field>
+            <field name="model">dtr.sale.warranty.report</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="dtr_sale_warranty_report_tree">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+         <record id="dtr_sale_warranty_report_form" model="ir.ui.view">
+            <field name="name">dtr.sale.warranty.report.form</field>
+            <field name="model">dtr.sale.warranty.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Sale Warranty Form">
+                    <header>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                        </div>
+                        <group>
+                            <field name="name" widget="html"/>                           
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+         </record>
+
+        <record id="dtr_sale_warranty_report_search" model="ir.ui.view">
+            <field name="name">dtr.sale.warranty.report.search</field>
+            <field name="model">dtr.sale.warranty.report</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="dtr_sale_warranty_report_search">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_dtr_sale_warranty_report" model="ir.actions.act_window">
+            <field name="name">Sale Warranty Report</field>
+            <field name="res_model">dtr.sale.warranty.report</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="dtr_sale_warranty_report_search" />
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add new Sale Warranty Report
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_sale_warranty_report" name="Sale Warranty Report" parent="menu_config_sale_report" groups="dtr_access_right_sales_group_sale_warranty_report" action="action_dtr_sale_warranty_report"/>
+    </data>
+</odoo>
