@@ -160,7 +160,7 @@
 	,so.plan_delivery_date
 	,so.effective_date
 		
-	,replace(sl.name,chr(10),'<br>') AS product_name
+	,replace(replace(sl.name,chr(10),'<br>'), concat('[',pro.default_code,']'), '') AS product_name
 	,pro.default_code AS product_code
 	,sl.product_uom_qty AS so_qty
 	,pu.name AS product_uom
