@@ -348,13 +348,13 @@
 	 ,COALESCE(pn.default_contact_name, '') as default_contact_name
 	 ,COALESCE(so.your_ref, '') as your_ref
 	 ,COALESCE(proj.name, '') as project_name
-	 ,COALESCE(sdr.name, '') as delivery_report
-	 ,COALESCE(svr.name, '') as validaity_report
-	 ,COALESCE(swr.name, '') as warranty_report
-	 ,COALESCE(scr.name, '') as credit_report
-	 ,COALESCE(sppr.name, '') as payment_product
-	 ,COALESCE(sper.name, '') as payment_engineering
-	 ,COALESCE(spr.name, '') as price_report
+	 ,COALESCE(sdr.description, '') as delivery_report
+	 ,COALESCE(svr.description, '') as validaity_report
+	 ,COALESCE(swr.description, '') as warranty_report
+	 ,COALESCE(scr.description, '') as credit_report
+	 ,COALESCE(sppr.description, '') as payment_product
+	 ,COALESCE(sper.description, '') as payment_engineering
+	 ,COALESCE(spr.description, '') as price_report
 	 
 FROM sale_order so
 LEFT JOIN sale_order_line sl on sl.order_id=so.id
@@ -1194,7 +1194,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<font fontName="TH Sarabun New" size="12" isBold="false"/>
 						<paragraph leftIndent="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA["<b>Remark: </b>" + "" + IF($F{note}==null,"",$F{note})]]></textFieldExpression>
+					<textFieldExpression><![CDATA["<b>Remark : </b>" + IF($F{note}==null,"",$F{note})]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement mode="Opaque" x="410" y="0" width="72" height="17" backcolor="#FFFFFF" uuid="9809220a-6c8f-416b-9827-f8f0f14b8ad9"/>
@@ -1439,7 +1439,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
-						<textElement textAlignment="Left" verticalAlignment="Middle">
+						<textElement textAlignment="Left" verticalAlignment="Top">
 							<font fontName="TH Sarabun New" size="12" isBold="true" isUnderline="false"/>
 							<paragraph leftIndent="3"/>
 						</textElement>
@@ -1453,7 +1453,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
-						<textElement textAlignment="Left" verticalAlignment="Middle">
+						<textElement textAlignment="Left" verticalAlignment="Top">
 							<font fontName="TH Sarabun New" size="12" isBold="true" isUnderline="false"/>
 							<paragraph leftIndent="3"/>
 						</textElement>
@@ -1467,7 +1467,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
-						<textElement textAlignment="Left" verticalAlignment="Middle">
+						<textElement textAlignment="Left" verticalAlignment="Top">
 							<font fontName="TH Sarabun New" size="12" isBold="true" isUnderline="false"/>
 							<paragraph leftIndent="3"/>
 						</textElement>
@@ -1523,7 +1523,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
-						<textElement textAlignment="Left" verticalAlignment="Middle">
+						<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
 							<font fontName="TH Sarabun New" size="12" isBold="false" isUnderline="false"/>
 							<paragraph lineSpacing="Fixed" lineSpacingSize="3.0" leftIndent="3"/>
 						</textElement>
@@ -1537,7 +1537,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
-						<textElement textAlignment="Left" verticalAlignment="Middle">
+						<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
 							<font fontName="TH Sarabun New" size="12" isBold="false" isUnderline="false"/>
 							<paragraph lineSpacing="Fixed" lineSpacingSize="3.0" leftIndent="3"/>
 						</textElement>
@@ -1551,7 +1551,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
-						<textElement textAlignment="Left" verticalAlignment="Middle">
+						<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
 							<font fontName="TH Sarabun New" size="12" isBold="false" isUnderline="false"/>
 							<paragraph lineSpacing="Fixed" lineSpacingSize="3.0" leftIndent="3"/>
 						</textElement>
@@ -1607,7 +1607,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
-						<textElement textAlignment="Left" verticalAlignment="Middle">
+						<textElement textAlignment="Left" verticalAlignment="Top">
 							<font fontName="TH Sarabun New" size="12" isBold="true" isUnderline="false"/>
 							<paragraph leftIndent="3"/>
 						</textElement>
@@ -1621,7 +1621,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
-						<textElement textAlignment="Left" verticalAlignment="Middle">
+						<textElement textAlignment="Left" verticalAlignment="Top">
 							<font fontName="TH Sarabun New" size="12" isBold="true" isUnderline="false"/>
 							<paragraph leftIndent="3"/>
 						</textElement>
@@ -1635,7 +1635,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
-						<textElement textAlignment="Left" verticalAlignment="Middle">
+						<textElement textAlignment="Left" verticalAlignment="Top">
 							<font fontName="TH Sarabun New" size="12" isBold="true" isUnderline="false"/>
 							<paragraph leftIndent="3"/>
 						</textElement>

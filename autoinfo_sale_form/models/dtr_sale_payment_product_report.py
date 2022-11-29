@@ -6,4 +6,5 @@ class DtrSalePaymentProductReport(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Sale Payment Product Report'
 
-    name = fields.Text(string='Description', required=True)
+    name = fields.Char(string='Name', required=True)
+    description = fields.Text(string='Description', required=True)

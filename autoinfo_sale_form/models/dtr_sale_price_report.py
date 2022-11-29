@@ -6,4 +6,5 @@ class DtrSalePriceReport(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Sale Price Report'
 
-    name = fields.Text(string='Description', required=True)
+    name = fields.Char(string='Name', required=True)
+    description = fields.Text(string='Description', required=True)

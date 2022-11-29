@@ -23,8 +23,13 @@
                     <sheet>
                         <div class="oe_button_box" name="button_box">
                         </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
                         <group>
-                            <field name="name" widget="html"/>                           
+                            <field name="description" widget="html"/>                           
                         </group>
                     </sheet>
                     <div class="oe_chatter">
