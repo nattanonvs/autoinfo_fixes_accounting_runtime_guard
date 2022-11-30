@@ -238,20 +238,6 @@ $P!{p_Where}]]>
 		<groupHeader>
 			<band height="802">
 				<textField>
-					<reportElement x="0" y="89" width="554" height="17" uuid="682e917c-c410-487b-bed6-2c9c55b0314e"/>
-					<box>
-						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="TH Sarabun New" size="12" isBold="true"/>
-						<paragraph lineSpacing="Fixed" lineSpacingSize="4.0" leftIndent="5"/>
-					</textElement>
-					<textFieldExpression><![CDATA["ใบแจ้งงาน"]]></textFieldExpression>
-				</textField>
-				<textField>
 					<reportElement x="0" y="106" width="189" height="17" uuid="c8bd8f3d-f50f-46c1-bc1b-3a90e4b76c6f"/>
 					<box>
 						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -732,7 +718,7 @@ $P!{p_Where}]]>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -1487,8 +1473,15 @@ $P!{p_Where}]]>
 					<reportElement x="0" y="0" width="77" height="80" uuid="f5509cd1-9e5a-47b6-b194-9a6d97fd853c"/>
 					<imageExpression><![CDATA[new java.io.ByteArrayInputStream(org.apache.commons.codec.binary.Base64.decodeBase64($F{company_logo}.getBytes()))]]></imageExpression>
 				</image>
+				<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
+					<reportElement x="412" y="0" width="141" height="44" uuid="a94253bf-95bb-48ca-899f-00857ad769cd"/>
+					<imageExpression><![CDATA[IF( $F{logo_iso} == null
+	,IF($F{logo_iso}== null,null,$P{p_Path} +$F{logo_iso})
+	,$P{p_Path} +$F{logo_iso}
+)]]></imageExpression>
+				</image>
 				<textField isBlankWhenNull="true">
-					<reportElement x="77" y="0" width="322" height="40" uuid="02bdbc3f-24c1-477c-8c4b-b0e9a0cea4e8"/>
+					<reportElement x="77" y="0" width="322" height="47" uuid="13f1974e-f5e9-494e-9648-1e7e774a2c3b"/>
 					<box leftPadding="1" bottomPadding="1">
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1497,12 +1490,12 @@ $P!{p_Where}]]>
 					</box>
 					<textElement textAlignment="Left" verticalAlignment="Top">
 						<font fontName="TH Sarabun New" size="18" isBold="true" isItalic="false"/>
-						<paragraph lineSpacing="Fixed" lineSpacingSize="6.0" leftIndent="3" rightIndent="0"/>
+						<paragraph lineSpacing="Fixed" lineSpacingSize="10.0" leftIndent="3" rightIndent="0"/>
 					</textElement>
 					<textFieldExpression><![CDATA["THE AUTO-INFO CO., LTD. (HEAD OFFICE)\nบริษัท ออโต้อินโฟ จำกัด (สำนักงานใหญ่)"]]></textFieldExpression>
 				</textField>
 				<textField isBlankWhenNull="true">
-					<reportElement x="77" y="31" width="370" height="45" uuid="492be021-57b3-4219-95d3-b16e46fd1628"/>
+					<reportElement x="77" y="37" width="370" height="63" uuid="c11526ec-1620-48fa-b8a0-a982429937ab"/>
 					<box leftPadding="1" bottomPadding="1">
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1511,17 +1504,27 @@ $P!{p_Where}]]>
 					</box>
 					<textElement textAlignment="Left" verticalAlignment="Top">
 						<font fontName="TH Sarabun New" size="12" isBold="false" isItalic="false"/>
-						<paragraph lineSpacing="Fixed" lineSpacingSize="4.0" leftIndent="3" rightIndent="0"/>
+						<paragraph lineSpacing="Fixed" lineSpacingSize="9.0" leftIndent="3" rightIndent="0"/>
 					</textElement>
-					<textFieldExpression><![CDATA["Tax ID / เลขประจำตัวผู้เสียภาษี: 0105540010417\n1359 Soi Ladprao94 (Panjamitr), Ladprao Rd., Plubpla, Wangthonglang, Bangkok 10310, Thailand.\n1359 ซ.ลาดพร้าว 94 (ปัญจมิตร) ถ.ลาดพร้าว แขวงพลับพลา เขตวังทองหลาง กรุงเทพฯ  10310\nTel : (662) 934 5410-6 Fax : (662) 934 5417    www.auto-info.co.th "]]></textFieldExpression>
+					<textFieldExpression><![CDATA["Tax ID / เลขประจำตัวผู้เสียภาษี: 0105540010417\n1359 Soi Ladprao94 (Panjamitr), Ladprao Rd., Plubpla, Wangthonglang, Bangkok 10310, Thailand.\n1359 ซอยลาดพร้าว 94 (ปัญจมิตร) ถนนลาดพร้าว แขวงพลับพลา เขตวังทองหลาง กรุงเทพฯ  10310\nTel : (662) 934 5410-6 Fax : (662) 934 5417    www.auto-info.co.th "]]></textFieldExpression>
 				</textField>
-				<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
-					<reportElement x="412" y="0" width="141" height="44" uuid="a94253bf-95bb-48ca-899f-00857ad769cd"/>
-					<imageExpression><![CDATA[IF( $F{logo_iso} == null
-	,IF($F{logo_iso}== null,null,$P{p_Path} +$F{logo_iso})
-	,$P{p_Path} +$F{logo_iso}
-)]]></imageExpression>
-				</image>
+				<rectangle radius="10">
+					<reportElement key="" x="447" y="47" width="107" height="46" backcolor="#FFFFFF" uuid="719f08f4-1f07-4797-b0a6-13e95366a1ac"/>
+				</rectangle>
+				<textField>
+					<reportElement mode="Transparent" x="447" y="47" width="107" height="46" backcolor="#FFFFFF" uuid="cbe63a3e-5827-4ec7-b0f8-2ba1b34635b5"/>
+					<box leftPadding="1" bottomPadding="1">
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+						<font fontName="TH Sarabun New" size="16" isBold="false" isItalic="false"/>
+						<paragraph rightIndent="0"/>
+					</textElement>
+					<textFieldExpression><![CDATA["ใบแจ้งงาน"]]></textFieldExpression>
+				</textField>
 			</band>
 		</groupHeader>
 		<groupFooter>

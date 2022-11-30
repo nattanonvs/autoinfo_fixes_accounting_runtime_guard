@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Project Form',
-    'version': '1.4',
+    'version': '1.5',
     'category': 'DTR - ERP Project',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -15,6 +15,9 @@ Customize Report Project.
 
 Changelog
 ---------
+
+**Version 1.5**
+    - Revised header company information in report
 
 **Version 1.4**
     - Changed font to sarabun
