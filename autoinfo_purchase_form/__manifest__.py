@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Purchase Form',
-    'version': '1.6',
+    'version': '1.7',
     'category': 'DTR - ERP Purchase',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -15,6 +15,9 @@ Customize Report Purchase.
 
 Changelog
 ---------
+
+**Version 1.7**
+    - Changed font to sarabun (FM-PU-02)
 
 **Version 1.6**
     - Changed font to sarabun (FM-PU-01, FM-PU-03)
@@ -56,6 +59,7 @@ Changelog
         'views/dtr_purchase_warranty_report_view.xml',
         'views/dtr_purchase_delivery_to_report_view.xml',
         'views/dtr_purchase_term_report_view.xml',
-        'views/dtr_purchase_shipment_report_view.xml'
+        'views/dtr_purchase_shipment_report_view.xml',
+        'views/dtr_purchase_weight_report_view.xml'
     ],
 }

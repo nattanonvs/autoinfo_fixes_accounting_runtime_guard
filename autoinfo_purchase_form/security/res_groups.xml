@@ -28,5 +28,12 @@
             <field name="is_dtr_group" eval="True"/>
             <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
         </record>
+
+        <record id="dtr_access_right_purchase_group_purchase_weight_report" model="res.groups">
+            <field name="name">Purchase Weight Report</field>
+            <field name="category_id" ref="dtr_access_right_base.dtr_access_right_base_category_purchase"/>
+            <field name="is_dtr_group" eval="True"/>
+            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        </record>
     </data>
 </odoo>
