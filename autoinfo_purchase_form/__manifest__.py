@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Purchase Form',
-    'version': '1.7',
+    'version': '1.8',
     'category': 'DTR - ERP Purchase',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -15,6 +15,9 @@ Customize Report Purchase.
 
 Changelog
 ---------
+
+**Version 1.8**
+    - Revised header company information in report
 
 **Version 1.7**
     - Changed font to sarabun (FM-PU-02)
