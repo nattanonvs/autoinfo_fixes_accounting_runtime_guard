@@ -21,7 +21,8 @@
                             <group>
                                 <field name="dtr_sale_validity_report_id"/>
                                 <field name="dtr_sale_warranty_report_id"/>
-                                <field name="dtr_sale_credit_report_id"/> 
+                                <field name="dtr_sale_credit_report_id"/>
+                                <field name="project_name_report"/>
                             </group>
                         </group>
                     </page>

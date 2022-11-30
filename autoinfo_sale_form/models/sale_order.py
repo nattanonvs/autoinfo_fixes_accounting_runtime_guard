@@ -12,3 +12,4 @@ class SaleOrder(models.Model):
     dtr_sale_validity_report_id = fields.Many2one('dtr.sale.validity.report', string='Validity', required=True)
     dtr_sale_warranty_report_id = fields.Many2one('dtr.sale.warranty.report', string='Warranty', required=True)
     dtr_sale_credit_report_id = fields.Many2one('dtr.sale.credit.report', string='Credit', required=True)
+    project_name_report = fields.Char(string='Project Name', required=True)

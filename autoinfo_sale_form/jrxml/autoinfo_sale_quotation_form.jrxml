@@ -355,6 +355,7 @@
 	 ,COALESCE(sppr.description, '') as payment_product
 	 ,COALESCE(sper.description, '') as payment_engineering
 	 ,COALESCE(spr.description, '') as price_report
+	 ,COALESCE(so.project_name_report, '') as project_name_report
 	 
 FROM sale_order so
 LEFT JOIN sale_order_line sl on sl.order_id=so.id
@@ -773,6 +774,9 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 	<field name="price_report" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="price_report"/>
 	</field>
+	<field name="project_name_report" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="project_name_report"/>
+	</field>
 	<variable name="Page" class="java.lang.String" resetType="Group" resetGroup="SONo">
 		<variableExpression><![CDATA[$V{PAGE_NUMBER} + " OF " + $V{MASTER_TOTAL_PAGES}]]></variableExpression>
 	</variable>
@@ -990,7 +994,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 								<font fontName="TH Sarabun New" size="12" isBold="false"/>
 								<paragraph lineSpacingSize="0.0" leftIndent="0"/>
 							</textElement>
-							<textFieldExpression><![CDATA[": " + $F{project_name}]]></textFieldExpression>
+							<textFieldExpression><![CDATA[": " + $F{project_name_report}]]></textFieldExpression>
 						</textField>
 						<textField>
 							<reportElement x="0" y="72" width="72" height="18" uuid="ccb51c0c-d179-421b-947c-27e50c9f90d2"/>
@@ -1131,7 +1135,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 					<textFieldExpression><![CDATA["Total Price" + "\n(" + $F{currency_name} + ")"]]></textFieldExpression>
 				</textField>
 				<textField isBlankWhenNull="true">
-					<reportElement x="77" y="0" width="322" height="40" uuid="730a6578-a032-41b5-9a2f-81e0a0b7bab1"/>
+					<reportElement x="77" y="0" width="322" height="47" uuid="730a6578-a032-41b5-9a2f-81e0a0b7bab1"/>
 					<box leftPadding="1" bottomPadding="1">
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1140,12 +1144,12 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 					</box>
 					<textElement textAlignment="Left" verticalAlignment="Top">
 						<font fontName="TH Sarabun New" size="18" isBold="true" isItalic="false"/>
-						<paragraph lineSpacing="Fixed" lineSpacingSize="6.0" leftIndent="3" rightIndent="0"/>
+						<paragraph lineSpacing="Fixed" lineSpacingSize="10.0" leftIndent="3" rightIndent="0"/>
 					</textElement>
 					<textFieldExpression><![CDATA["THE AUTO-INFO CO., LTD. (HEAD OFFICE)\nบริษัท ออโต้อินโฟ จำกัด (สำนักงานใหญ่)"]]></textFieldExpression>
 				</textField>
 				<textField isBlankWhenNull="true">
-					<reportElement x="77" y="31" width="370" height="45" uuid="c9418fff-69fd-4eac-9190-3c85ba99da88"/>
+					<reportElement x="77" y="37" width="370" height="63" uuid="c9418fff-69fd-4eac-9190-3c85ba99da88"/>
 					<box leftPadding="1" bottomPadding="1">
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1154,9 +1158,9 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 					</box>
 					<textElement textAlignment="Left" verticalAlignment="Top">
 						<font fontName="TH Sarabun New" size="12" isBold="false" isItalic="false"/>
-						<paragraph lineSpacing="Fixed" lineSpacingSize="4.0" leftIndent="3" rightIndent="0"/>
+						<paragraph lineSpacing="Fixed" lineSpacingSize="9.0" leftIndent="3" rightIndent="0"/>
 					</textElement>
-					<textFieldExpression><![CDATA["Tax ID / เลขประจำตัวผู้เสียภาษี: 0105540010417\n1359 Soi Ladprao94 (Panjamitr), Ladprao Rd., Plubpla, Wangthonglang, Bangkok 10310, Thailand.\n1359 ซ.ลาดพร้าว 94 (ปัญจมิตร) ถ.ลาดพร้าว แขวงพลับพลา เขตวังทองหลาง กรุงเทพฯ  10310\nTel : (662) 934 5410-6 Fax : (662) 934 5417    www.auto-info.co.th "]]></textFieldExpression>
+					<textFieldExpression><![CDATA["Tax ID / เลขประจำตัวผู้เสียภาษี: 0105540010417\n1359 Soi Ladprao94 (Panjamitr), Ladprao Rd., Plubpla, Wangthonglang, Bangkok 10310, Thailand.\n1359 ซอยลาดพร้าว 94 (ปัญจมิตร) ถนนลาดพร้าว แขวงพลับพลา เขตวังทองหลาง กรุงเทพฯ  10310\nTel : (662) 934 5410-6 Fax : (662) 934 5417    www.auto-info.co.th "]]></textFieldExpression>
 				</textField>
 				<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
 					<reportElement x="412" y="0" width="141" height="44" uuid="9f76d915-07da-4a29-b489-8daf1f74d068"/>

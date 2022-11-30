@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Sales Form',
-    'version': '1.6',
+    'version': '1.7',
     'category': 'DTR - ERP Sales',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -15,6 +15,10 @@ Customize Report Sales.
 
 Changelog
 ---------
+
+**Version 1.7**
+    - Revised header company information in report
+    - Add new field project name for display in report
 
 **Version 1.6**
     - Changed font to sarabun and add new field in quotation report
