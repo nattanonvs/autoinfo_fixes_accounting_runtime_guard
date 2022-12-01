@@ -940,7 +940,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
-						<textElement textAlignment="Left" verticalAlignment="Top" markup="styled">
+						<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
 							<font fontName="TH Sarabun New" size="12" isBold="false" isUnderline="false"/>
 							<paragraph leftIndent="3" rightIndent="0"/>
 						</textElement>
@@ -988,7 +988,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<font fontName="TH Sarabun New" size="12" isBold="false"/>
 							<paragraph rightIndent="3"/>
 						</textElement>
-						<textFieldExpression><![CDATA[$F{po_amount_total}.subtract($F{tariff}).subtract($F{shipping_standard})]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$F{po_amount_total}.add($F{tariff}).add($F{shipping_standard})]]></textFieldExpression>
 					</textField>
 					<textField isBlankWhenNull="true">
 						<reportElement x="0" y="34" width="77" height="34" uuid="d8a893b6-3cb6-410f-b57e-7f4ad537bf89">
@@ -1016,7 +1016,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
-						<textElement textAlignment="Left" verticalAlignment="Top" markup="styled">
+						<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
 							<font fontName="TH Sarabun New" size="12" isBold="false" isUnderline="false"/>
 							<paragraph leftIndent="3" rightIndent="0"/>
 						</textElement>
@@ -1302,6 +1302,20 @@ order by po.id, po_line.sequence, po_line.id]]>
 						<line>
 							<reportElement x="11" y="88" width="67" height="1" uuid="c7d381a3-106e-454a-8b0e-ff338aa7ee25"/>
 						</line>
+						<textField>
+							<reportElement mode="Transparent" x="12" y="70" width="66" height="20" uuid="c6838af0-d93e-44d6-be8d-88e82a9e6c8d"/>
+							<box leftPadding="5">
+								<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle">
+								<font fontName="TH Sarabun New" size="10" isBold="false"/>
+								<paragraph rightIndent="0"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{po_number}]]></textFieldExpression>
+						</textField>
 					</frame>
 					<frame>
 						<reportElement x="90" y="0" width="160" height="102" uuid="947a71f9-1968-4673-b22d-9a11c69b47ce"/>

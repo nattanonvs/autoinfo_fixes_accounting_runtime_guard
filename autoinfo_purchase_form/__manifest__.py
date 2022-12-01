@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Purchase Form',
-    'version': '1.8',
+    'version': '1.9',
     'category': 'DTR - ERP Purchase',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -15,6 +15,10 @@ Customize Report Purchase.
 
 Changelog
 ---------
+
+**Version 1.9**
+    - Remove require field
+    - Add form code for setting jasper report
 
 **Version 1.8**
     - Revised header company information in report
@@ -50,9 +54,10 @@ Changelog
     'author': 'Dataroot Asia Co., Ltd.',
     'created_by': 'Varawit Termwaraporn',
     'depends': ['dtr_purchase_form', 'dtr_purchase_project', 'dtr_partner_master', 'product', 'autoinfo_logo', 'dtr_access_right_base',
-        'mail', 'purchase'],
+        'mail', 'purchase', 'dtr_report_base'],
     'application': False,
     'data': [
+        'data/form_code.xml',
         'security/res_groups.xml',
         'security/ir.model.access.csv',
         'views/menu_item.xml',

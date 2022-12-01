@@ -29,7 +29,15 @@ class PurchaseOrderReport(models.TransientModel):
         if self.report_template == '1':
             self.name = 'ใบสั่งซื้อ/สั่งจ้าง (PURCHASE ORDER) FM-PU-01'
         elif self.report_template == '2':
+            rpt = self.env.ref('autoinfo_purchase_form.purchase_order_fm_pu_02')
+            res['p_ISO'] = rpt.iso_no or ''
+            res['p_EName'] = str(rpt.e_name)
+            res['p_ESignature'] = str(rpt.e_signature)
             self.name = 'PURCHASE ORDER (INDENT IA BA)  FM-PU-02'
         elif self.report_template == '3':
+            rpt = self.env.ref('autoinfo_purchase_form.purchase_order_fm_pu_03')
+            res['p_ISO'] = rpt.iso_no or ''
+            res['p_EName'] = str(rpt.e_name)
+            res['p_ESignature'] = str(rpt.e_signature)
             self.name = 'PURCHASE ORDER (INDENT TA ) FM-PU-03'
         return res
