@@ -1500,7 +1500,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 					<font fontName="TH Sarabun New" size="12" isBold="false"/>
 					<paragraph rightIndent="0"/>
 				</textElement>
-				<textFieldExpression><![CDATA[IF($F{display_type} == null, new java.text.DecimalFormat("#,##0.00").format($F{product_price_unit}), "")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[IF($F{display_type} == null, $F{product_qty}.compareTo(BigDecimal.ZERO) == 0 ? "" : new java.text.DecimalFormat("#,##0.00").format($F{product_price_total}.divide($F{product_qty})), "")]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement key="" style="Section Line" x="489" y="0" width="65" height="17" uuid="4e7b0ff6-334b-4dad-9159-2d292de08c64">

@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Purchase Form',
-    'version': '1.9',
+    'version': '1.10',
     'category': 'DTR - ERP Purchase',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -15,6 +15,9 @@ Customize Report Purchase.
 
 Changelog
 ---------
+
+**Version 1.10**
+    - Fixed issue display unit price in FM-PU-03
 
 **Version 1.9**
     - Remove require field
