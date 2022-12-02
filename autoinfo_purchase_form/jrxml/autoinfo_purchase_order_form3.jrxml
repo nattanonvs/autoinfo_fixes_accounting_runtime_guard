@@ -556,44 +556,12 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textField>
-							<reportElement x="0" y="17" width="80" height="17" uuid="6bed96c5-bce7-4f6f-a018-46dd0fa79a20"/>
-							<textElement textAlignment="Right" verticalAlignment="Top">
-								<font fontName="TH Sarabun New" size="12" isBold="true"/>
-								<paragraph lineSpacingSize="0.0" leftIndent="0" rightIndent="3"/>
-							</textElement>
-							<textFieldExpression><![CDATA["Vendor : "]]></textFieldExpression>
-						</textField>
-						<textField>
 							<reportElement x="80" y="17" width="298" height="34" uuid="bb1ec0fa-a7da-4090-b276-de37d10d59ed"/>
 							<textElement textAlignment="Left" verticalAlignment="Top">
 								<font fontName="TH Sarabun New" size="12" isBold="false"/>
 								<paragraph lineSpacing="Single" lineSpacingSize="4.0" leftIndent="5"/>
 							</textElement>
 							<textFieldExpression><![CDATA[$F{partner_name} + "\n" + $F{partner_address_1} + IF($F{partner_address_2} == null, "", "\n" + $F{partner_address_2})]]></textFieldExpression>
-						</textField>
-						<textField>
-							<reportElement x="0" y="51" width="80" height="17" uuid="f22c84b0-5539-4f76-affc-8102fb04d5f5"/>
-							<textElement textAlignment="Right" verticalAlignment="Top">
-								<font fontName="TH Sarabun New" size="12" isBold="true"/>
-								<paragraph lineSpacingSize="0.0" leftIndent="0" rightIndent="3"/>
-							</textElement>
-							<textFieldExpression><![CDATA["Tel : "]]></textFieldExpression>
-						</textField>
-						<textField>
-							<reportElement x="0" y="68" width="80" height="17" uuid="9b0382b4-728d-43ba-b9ab-c36ebd14f456"/>
-							<textElement textAlignment="Right" verticalAlignment="Top">
-								<font fontName="TH Sarabun New" size="12" isBold="true"/>
-								<paragraph lineSpacingSize="0.0" leftIndent="0" rightIndent="3"/>
-							</textElement>
-							<textFieldExpression><![CDATA["Fax : "]]></textFieldExpression>
-						</textField>
-						<textField>
-							<reportElement x="0" y="85" width="80" height="17" uuid="f26c3ddb-dbeb-4f28-b9e2-b2fc40688d12"/>
-							<textElement textAlignment="Right" verticalAlignment="Top">
-								<font fontName="TH Sarabun New" size="12" isBold="true"/>
-								<paragraph lineSpacingSize="0.0" leftIndent="0" rightIndent="3"/>
-							</textElement>
-							<textFieldExpression><![CDATA["Email : "]]></textFieldExpression>
 						</textField>
 						<textField>
 							<reportElement x="80" y="51" width="298" height="17" uuid="b2d8e04c-239f-4d4e-baac-1fbd4181619b"/>
@@ -628,12 +596,84 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<textFieldExpression><![CDATA[$F{default_contact_name}]]></textFieldExpression>
 						</textField>
 						<textField>
-							<reportElement x="0" y="0" width="80" height="17" uuid="478b9222-03f7-426d-b8a9-61d98ec93389"/>
-							<textElement textAlignment="Right" verticalAlignment="Top">
+							<reportElement x="0" y="0" width="75" height="17" uuid="7c51768a-8ac7-493b-9a19-738cbfeeca66"/>
+							<textElement textAlignment="Left" verticalAlignment="Top">
 								<font fontName="TH Sarabun New" size="12" isBold="true"/>
-								<paragraph lineSpacingSize="0.0" leftIndent="0" rightIndent="3"/>
+								<paragraph lineSpacingSize="0.0" leftIndent="10" rightIndent="0"/>
 							</textElement>
-							<textFieldExpression><![CDATA["Attn : "]]></textFieldExpression>
+							<textFieldExpression><![CDATA["Attention"]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="75" y="0" width="5" height="17" uuid="acc0b5b4-7f28-4ee5-b22b-ec0e7cd176d1"/>
+							<textElement textAlignment="Center" verticalAlignment="Top">
+								<font fontName="TH Sarabun New" size="12" isBold="true"/>
+								<paragraph lineSpacingSize="0.0" leftIndent="0"/>
+							</textElement>
+							<textFieldExpression><![CDATA[":"]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="0" y="17" width="75" height="17" uuid="de4a9d36-feb0-495b-828e-9ca5197ec60a"/>
+							<textElement textAlignment="Left" verticalAlignment="Top">
+								<font fontName="TH Sarabun New" size="12" isBold="true"/>
+								<paragraph lineSpacingSize="0.0" leftIndent="10" rightIndent="0"/>
+							</textElement>
+							<textFieldExpression><![CDATA["Vendor"]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="75" y="17" width="5" height="17" uuid="eec82b24-9166-42bc-9da8-aa83ff33d770"/>
+							<textElement textAlignment="Center" verticalAlignment="Top">
+								<font fontName="TH Sarabun New" size="12" isBold="true"/>
+								<paragraph lineSpacingSize="0.0" leftIndent="0"/>
+							</textElement>
+							<textFieldExpression><![CDATA[":"]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="0" y="51" width="75" height="17" uuid="5d16fcb1-3ca1-4d67-9051-f07c4af4f832"/>
+							<textElement textAlignment="Left" verticalAlignment="Top">
+								<font fontName="TH Sarabun New" size="12" isBold="true"/>
+								<paragraph lineSpacingSize="0.0" leftIndent="10" rightIndent="0"/>
+							</textElement>
+							<textFieldExpression><![CDATA["Tel"]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="75" y="51" width="5" height="17" uuid="62c4f103-e96c-4f1a-96fc-f378bf313136"/>
+							<textElement textAlignment="Center" verticalAlignment="Top">
+								<font fontName="TH Sarabun New" size="12" isBold="true"/>
+								<paragraph lineSpacingSize="0.0" leftIndent="0"/>
+							</textElement>
+							<textFieldExpression><![CDATA[":"]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="0" y="68" width="75" height="17" uuid="e620de2e-a5fa-41ad-8dc1-126d0077397c"/>
+							<textElement textAlignment="Left" verticalAlignment="Top">
+								<font fontName="TH Sarabun New" size="12" isBold="true"/>
+								<paragraph lineSpacingSize="0.0" leftIndent="10" rightIndent="0"/>
+							</textElement>
+							<textFieldExpression><![CDATA["Fax"]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="75" y="68" width="5" height="17" uuid="ea850b68-1e8d-4c45-bcc1-f1c9ed6350e6"/>
+							<textElement textAlignment="Center" verticalAlignment="Top">
+								<font fontName="TH Sarabun New" size="12" isBold="true"/>
+								<paragraph lineSpacingSize="0.0" leftIndent="0"/>
+							</textElement>
+							<textFieldExpression><![CDATA[":"]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="0" y="85" width="75" height="17" uuid="09882817-edae-43d2-a3e1-2d75bd4dba06"/>
+							<textElement textAlignment="Left" verticalAlignment="Top">
+								<font fontName="TH Sarabun New" size="12" isBold="true"/>
+								<paragraph lineSpacingSize="0.0" leftIndent="10" rightIndent="0"/>
+							</textElement>
+							<textFieldExpression><![CDATA["Email"]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="75" y="85" width="5" height="17" uuid="281fc3aa-9d91-4425-b662-0adb745abe3e"/>
+							<textElement textAlignment="Center" verticalAlignment="Top">
+								<font fontName="TH Sarabun New" size="12" isBold="true"/>
+								<paragraph lineSpacingSize="0.0" leftIndent="0"/>
+							</textElement>
+							<textFieldExpression><![CDATA[":"]]></textFieldExpression>
 						</textField>
 					</frame>
 					<frame>
@@ -871,14 +911,14 @@ order by po.id, po_line.sequence, po_line.id]]>
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="312">
+			<band height="211">
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<frame>
-					<reportElement mode="Opaque" x="0" y="0" width="554" height="88" uuid="9b25b2e0-4b66-4131-a50a-602f94d65d42"/>
+					<reportElement mode="Opaque" x="0" y="0" width="425" height="68" uuid="9b25b2e0-4b66-4131-a50a-602f94d65d42"/>
 					<box>
 						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textField isBlankWhenNull="true">
@@ -887,9 +927,9 @@ order by po.id, po_line.sequence, po_line.id]]>
 						</reportElement>
 						<box leftPadding="5">
 							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textElement textAlignment="Left" verticalAlignment="Top" markup="styled">
 							<font fontName="TH Sarabun New" size="12" isBold="true" isUnderline="true"/>
@@ -903,7 +943,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 						</reportElement>
 						<box leftPadding="5">
 							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
@@ -921,7 +961,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
 							<font fontName="TH Sarabun New" size="12" isBold="false" isUnderline="false"/>
@@ -929,41 +969,13 @@ order by po.id, po_line.sequence, po_line.id]]>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{shipment_report}]]></textFieldExpression>
 					</textField>
-					<textField>
-						<reportElement mode="Transparent" x="0" y="68" width="489" height="20" uuid="cddf5ec3-ed39-4a39-a88a-5f35324b5f52"/>
-						<box leftPadding="5">
-							<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-							<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-							<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-							<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-						</box>
-						<textElement textAlignment="Right" verticalAlignment="Middle">
-							<font fontName="TH Sarabun New" size="12" isBold="true"/>
-							<paragraph rightIndent="4"/>
-						</textElement>
-						<textFieldExpression><![CDATA["Grand Total Price in " + $F{currency_name}]]></textFieldExpression>
-					</textField>
-					<textField pattern="#,##0.00" isBlankWhenNull="true">
-						<reportElement x="489" y="68" width="65" height="20" uuid="09df4484-5975-4244-ae9d-6aa5e2355088"/>
-						<box rightPadding="5">
-							<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-							<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-							<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-							<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-						</box>
-						<textElement textAlignment="Right" verticalAlignment="Middle">
-							<font fontName="TH Sarabun New" size="12" isBold="false"/>
-							<paragraph rightIndent="3"/>
-						</textElement>
-						<textFieldExpression><![CDATA[$F{po_amount_total}.subtract($F{discount_report}).add($F{shipping_standard}).add($F{tariff})]]></textFieldExpression>
-					</textField>
 					<textField isBlankWhenNull="true">
 						<reportElement x="0" y="17" width="82" height="17" uuid="19947e3e-9f2c-4c38-bf10-a925faf19e01">
 							<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 						</reportElement>
 						<box leftPadding="5">
 							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
@@ -981,7 +993,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
 							<font fontName="TH Sarabun New" size="12" isBold="false" isUnderline="false"/>
@@ -1023,29 +1035,52 @@ order by po.id, po_line.sequence, po_line.id]]>
 					</textField>
 				</frame>
 				<frame>
-					<reportElement mode="Opaque" x="-1" y="88" width="556" height="224" uuid="6daffc5a-e1ad-4fc3-be68-c2f17eaefdce"/>
+					<reportElement mode="Opaque" x="0" y="68" width="554" height="20" uuid="db11f738-5c25-465b-8274-76a89a050ec4"/>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textField>
+						<reportElement mode="Transparent" x="0" y="0" width="489" height="20" uuid="02e6ef69-ca35-4414-9872-cf3233d38db4"/>
+						<box leftPadding="5">
+							<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="TH Sarabun New" size="12" isBold="true"/>
+							<paragraph rightIndent="4"/>
+						</textElement>
+						<textFieldExpression><![CDATA["Grand Total Price in " + $F{currency_name}]]></textFieldExpression>
+					</textField>
+					<textField pattern="#,##0.00" isBlankWhenNull="true">
+						<reportElement x="489" y="0" width="65" height="20" uuid="505c940d-65ef-472d-9ef7-b6bb7bfc1c4d"/>
+						<box rightPadding="5">
+							<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Right" verticalAlignment="Middle">
+							<font fontName="TH Sarabun New" size="12" isBold="false"/>
+							<paragraph rightIndent="3"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{po_amount_total}.subtract($F{discount_report}).add($F{shipping_standard}).add($F{tariff})]]></textFieldExpression>
+					</textField>
+				</frame>
+				<frame>
+					<reportElement mode="Opaque" x="0" y="88" width="555" height="102" uuid="bb1e51b8-514f-4b09-a710-ee585594088c"/>
 					<box>
 						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
-					<textField>
-						<reportElement mode="Transparent" x="0" y="204" width="230" height="20" uuid="9b7a874c-18a9-4b26-99bc-d2fc9432a46c"/>
-						<box leftPadding="5">
-							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						</box>
-						<textElement textAlignment="Left" verticalAlignment="Middle">
-							<font fontName="TH Sarabun New" size="12" isBold="false"/>
-							<paragraph leftIndent="4" rightIndent="0"/>
-						</textElement>
-						<textFieldExpression><![CDATA[IF($P{p_ISO}==null,"",$P{p_ISO})]]></textFieldExpression>
-					</textField>
 					<frame>
-						<reportElement x="0" y="0" width="90" height="204" uuid="f6c5a108-742a-478f-b234-cf941046b51b"/>
+						<reportElement x="0" y="0" width="90" height="102" uuid="0356ad85-0ab2-4546-8b57-c2f32da15bea"/>
 						<box>
 							<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 							<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1053,7 +1088,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textField>
-							<reportElement mode="Transparent" x="33" y="25" width="22" height="20" uuid="a8a33256-f2d6-4f66-904e-792cbfa82127"/>
+							<reportElement mode="Transparent" x="33" y="25" width="22" height="20" uuid="5a7411dc-7f80-4c75-bf1f-ca953f688799"/>
 							<box leftPadding="5">
 								<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 								<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1067,7 +1102,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<textFieldExpression><![CDATA["I"]]></textFieldExpression>
 						</textField>
 						<textField>
-							<reportElement mode="Transparent" x="1" y="9" width="88" height="20" uuid="85a9d465-5938-452c-ab61-3896ef89198a"/>
+							<reportElement mode="Transparent" x="1" y="9" width="88" height="20" uuid="e43c22a5-176c-4170-b782-c0d78281349e"/>
 							<box leftPadding="5">
 								<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 								<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1081,13 +1116,13 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<textFieldExpression><![CDATA["SHIPPING MARKS"]]></textFieldExpression>
 						</textField>
 						<line direction="BottomUp">
-							<reportElement x="11" y="45" width="33" height="43" uuid="1dc88f78-64a3-482e-bf4b-8588ace3fc56"/>
+							<reportElement x="11" y="45" width="33" height="43" uuid="9c05c56e-8673-4388-b28b-ad101606de39"/>
 						</line>
 						<line>
-							<reportElement x="44" y="45" width="35" height="43" uuid="4df91fed-a0d4-4cc9-af51-6e742d856b08"/>
+							<reportElement x="44" y="45" width="35" height="43" uuid="505ac2c4-36bf-4382-9752-d5695545028b"/>
 						</line>
 						<textField>
-							<reportElement mode="Transparent" x="0" y="80" width="16" height="20" uuid="9d6bb67e-236a-49e6-8285-883eb2aebfb5"/>
+							<reportElement mode="Transparent" x="0" y="80" width="16" height="20" uuid="ce3f08a0-7bf8-4a2f-a2ec-1407bca402d3"/>
 							<box leftPadding="5">
 								<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 								<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1101,7 +1136,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<textFieldExpression><![CDATA["A"]]></textFieldExpression>
 						</textField>
 						<textField>
-							<reportElement mode="Transparent" x="69" y="80" width="18" height="20" uuid="acfaccb3-accc-4570-a63a-ec8710dda097"/>
+							<reportElement mode="Transparent" x="69" y="80" width="18" height="20" uuid="b85b6714-bc41-4abd-b345-2cba4659b87a"/>
 							<box leftPadding="5">
 								<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 								<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1115,10 +1150,10 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<textFieldExpression><![CDATA["C"]]></textFieldExpression>
 						</textField>
 						<line>
-							<reportElement x="11" y="88" width="67" height="1" uuid="19b00a7d-e60f-4bf6-9131-78989b354ecb"/>
+							<reportElement x="11" y="88" width="67" height="1" uuid="a9ba5185-586f-4613-83b3-c2249cd1888c"/>
 						</line>
 						<textField>
-							<reportElement mode="Transparent" x="12" y="70" width="66" height="20" uuid="a9c1fd86-ee50-47f5-91c9-8e6c78dd6d76"/>
+							<reportElement mode="Transparent" x="12" y="70" width="66" height="20" uuid="993b508c-3260-405c-8ce8-b50883ded007"/>
 							<box leftPadding="5">
 								<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 								<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1133,52 +1168,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 						</textField>
 					</frame>
 					<frame>
-						<reportElement x="90" y="0" width="160" height="102" uuid="cdea1ebd-649d-47e5-b144-8b19eef70007"/>
-						<box>
-							<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-							<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-							<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-							<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-						</box>
-						<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
-							<reportElement x="27" y="6" width="105" height="60" uuid="40a74ecc-75b0-4de7-b4bf-a82aaca3fb0c"/>
-							<imageExpression><![CDATA[IF($F{prepare_signature}== null,null, $P{p_Path} +$F{prepare_signature})]]></imageExpression>
-						</image>
-						<textField isBlankWhenNull="true">
-							<reportElement x="0" y="69" width="160" height="17" uuid="60090c46-5271-4e11-923f-ee561c91dd55">
-								<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
-							</reportElement>
-							<box leftPadding="5">
-								<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-								<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-								<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-								<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							</box>
-							<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-								<font fontName="TH Sarabun New" size="12" isBold="false" isUnderline="false"/>
-								<paragraph leftIndent="0" rightIndent="0"/>
-							</textElement>
-							<textFieldExpression><![CDATA[$F{create_name_en}]]></textFieldExpression>
-						</textField>
-						<textField isBlankWhenNull="true">
-							<reportElement x="0" y="86" width="160" height="17" uuid="82c6ef90-1012-4067-8731-a4c097911f4c">
-								<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
-							</reportElement>
-							<box leftPadding="5">
-								<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-								<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-								<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-								<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							</box>
-							<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
-								<font fontName="TH Sarabun New" size="12" isBold="false" isUnderline="false"/>
-								<paragraph leftIndent="0" rightIndent="0"/>
-							</textElement>
-							<textFieldExpression><![CDATA[$F{prepare_position}]]></textFieldExpression>
-						</textField>
-					</frame>
-					<frame>
-						<reportElement x="90" y="102" width="160" height="102" uuid="8d2642e0-d052-4be8-ad3b-11c04d2594f4"/>
+						<reportElement x="245" y="0" width="155" height="102" uuid="813bdb93-aeb2-455b-a7cd-dbcc27d9bcef"/>
 						<box>
 							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1186,11 +1176,11 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
-							<reportElement x="27" y="6" width="105" height="60" uuid="f239bd20-4df7-4781-945c-cc89d1371ccf"/>
+							<reportElement x="23" y="6" width="105" height="60" uuid="9a17d8b1-a7de-4891-bbfd-85177ea1321d"/>
 							<imageExpression><![CDATA[IF($F{pre_signature}== null,null, $P{p_Path} +$F{pre_signature})]]></imageExpression>
 						</image>
 						<textField isBlankWhenNull="true">
-							<reportElement x="0" y="68" width="160" height="17" uuid="bb840146-1481-44c9-996e-12fb93a9d6dc">
+							<reportElement x="0" y="68" width="154" height="17" uuid="c2872340-0125-4f94-8a6f-300ab8e8f6be">
 								<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 							</reportElement>
 							<box leftPadding="5">
@@ -1206,7 +1196,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<textFieldExpression><![CDATA[$F{pre_approved_name_en}]]></textFieldExpression>
 						</textField>
 						<textField isBlankWhenNull="true">
-							<reportElement x="0" y="85" width="160" height="17" uuid="736d24f6-cddd-4066-a63b-a2ca5e3ada42">
+							<reportElement x="0" y="85" width="154" height="17" uuid="e9308f2a-24dd-4783-bb81-322a0d1d3192">
 								<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 							</reportElement>
 							<box leftPadding="5">
@@ -1223,7 +1213,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 						</textField>
 					</frame>
 					<frame>
-						<reportElement x="250" y="0" width="305" height="204" uuid="ee3ddf62-3c57-4587-9edf-badbc5af31fd"/>
+						<reportElement x="400" y="0" width="154" height="102" uuid="81882f3e-fe2f-42b6-8ef1-77228e61166b"/>
 						<box>
 							<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 							<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1231,11 +1221,11 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
-							<reportElement x="70" y="34" width="175" height="109" uuid="3686dd6d-e0d3-4778-ba7f-b6e47d97578f"/>
+							<reportElement x="23" y="6" width="105" height="60" uuid="754ec279-9667-4410-80e6-288bb6992894"/>
 							<imageExpression><![CDATA[IF($F{approved_signature}== null,null, $P{p_Path} +$F{approved_signature})]]></imageExpression>
 						</image>
 						<textField isBlankWhenNull="true">
-							<reportElement x="0" y="152" width="302" height="17" uuid="56ab3e23-926d-4350-9559-f7d2097e61c7">
+							<reportElement x="0" y="68" width="154" height="17" uuid="64b91c21-9297-477b-8f0a-663625af4a7b">
 								<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 							</reportElement>
 							<box leftPadding="5">
@@ -1251,7 +1241,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<textFieldExpression><![CDATA[$F{approved_name_en}]]></textFieldExpression>
 						</textField>
 						<textField isBlankWhenNull="true">
-							<reportElement x="0" y="169" width="302" height="17" uuid="1c1135f0-535b-4955-8f2c-72b0d00d9c94">
+							<reportElement x="0" y="85" width="154" height="17" uuid="bb20e21f-7259-4b12-a64b-b832697b5e61">
 								<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 							</reportElement>
 							<box leftPadding="5">
@@ -1266,8 +1256,21 @@ order by po.id, po_line.sequence, po_line.id]]>
 							</textElement>
 							<textFieldExpression><![CDATA[$F{approved_position}]]></textFieldExpression>
 						</textField>
+					</frame>
+					<frame>
+						<reportElement x="90" y="0" width="155" height="102" uuid="824f83c1-7c20-40e6-a960-31a0bc2cdb49"/>
+						<box>
+							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
+							<reportElement x="23" y="6" width="105" height="60" uuid="ea884846-1dfa-4c22-acbe-cd9778b1b048"/>
+							<imageExpression><![CDATA[IF($F{prepare_signature}== null,null, $P{p_Path} +$F{prepare_signature})]]></imageExpression>
+						</image>
 						<textField isBlankWhenNull="true">
-							<reportElement x="0" y="187" width="302" height="17" uuid="e314fc04-b110-43ed-aeed-9723f5dbf52e">
+							<reportElement x="0" y="68" width="154" height="17" uuid="912e8aa1-2892-49b0-86e8-a1af1be179e7">
 								<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 							</reportElement>
 							<box leftPadding="5">
@@ -1280,9 +1283,42 @@ order by po.id, po_line.sequence, po_line.id]]>
 								<font fontName="TH Sarabun New" size="12" isBold="false" isUnderline="false"/>
 								<paragraph leftIndent="0" rightIndent="0"/>
 							</textElement>
-							<textFieldExpression><![CDATA[IF($F{approved_date}==null,"", new SimpleDateFormat($P{p_DateFormat}, new Locale($P{p_locale}, $P{p_locale})).format($F{approved_date}))]]></textFieldExpression>
+							<textFieldExpression><![CDATA[$F{create_name_en}]]></textFieldExpression>
+						</textField>
+						<textField isBlankWhenNull="true">
+							<reportElement x="0" y="85" width="154" height="17" uuid="99b1ecb8-2768-4e9a-b72b-f4a3c3534c93">
+								<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+							</reportElement>
+							<box leftPadding="5">
+								<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+								<font fontName="TH Sarabun New" size="12" isBold="false" isUnderline="false"/>
+								<paragraph leftIndent="0" rightIndent="0"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{prepare_position}]]></textFieldExpression>
 						</textField>
 					</frame>
+				</frame>
+				<frame>
+					<reportElement mode="Opaque" x="-1" y="190" width="556" height="20" uuid="2348a643-db3d-435a-ab1b-e618915af042"/>
+					<textField>
+						<reportElement mode="Transparent" x="1" y="0" width="555" height="20" uuid="225feeb3-077f-435b-8186-4d0ddbafd61d"/>
+						<box leftPadding="5">
+							<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Left" verticalAlignment="Middle">
+							<font fontName="TH Sarabun New" size="12" isBold="false"/>
+							<paragraph leftIndent="4" rightIndent="0"/>
+						</textElement>
+						<textFieldExpression><![CDATA[IF($P{p_ISO}==null,"",$P{p_ISO})]]></textFieldExpression>
+					</textField>
 				</frame>
 			</band>
 		</groupFooter>
