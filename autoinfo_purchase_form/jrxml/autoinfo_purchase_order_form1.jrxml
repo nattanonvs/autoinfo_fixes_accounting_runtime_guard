@@ -495,7 +495,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 			<band/>
 		</groupHeader>
 		<groupFooter>
-			<band height="339">
+			<band height="360">
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<frame>
 					<reportElement mode="Opaque" x="0" y="0" width="554" height="229" uuid="75639ded-8fa6-43f5-855f-62f8744db872"/>
@@ -967,6 +967,23 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<textFieldExpression><![CDATA[$F{approved_position}]]></textFieldExpression>
 						</textField>
 					</frame>
+				</frame>
+				<frame>
+					<reportElement mode="Opaque" x="-1" y="339" width="556" height="20" uuid="9df1b22e-a1fa-4a35-9def-6ed20afa0e08"/>
+					<textField>
+						<reportElement mode="Transparent" x="1" y="0" width="555" height="20" uuid="f6db0b10-b3f4-467d-b8f7-1f95176b1880"/>
+						<box leftPadding="5">
+							<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Left" verticalAlignment="Middle">
+							<font fontName="TH Sarabun New" size="12" isBold="false"/>
+							<paragraph leftIndent="4" rightIndent="0"/>
+						</textElement>
+						<textFieldExpression><![CDATA[IF($P{p_ISO}==null,"",$P{p_ISO})]]></textFieldExpression>
+					</textField>
 				</frame>
 			</band>
 		</groupFooter>
