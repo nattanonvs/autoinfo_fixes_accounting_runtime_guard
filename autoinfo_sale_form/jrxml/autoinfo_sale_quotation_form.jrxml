@@ -1436,7 +1436,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textFieldExpression><![CDATA["Payment Product"]]></textFieldExpression>
 					</textField>
 					<textField>
-						<reportElement mode="Opaque" x="1" y="136" width="92" height="28" backcolor="#FFFFFF" uuid="feabeb2b-67d6-4cf7-a6c3-02bef82a47eb"/>
+						<reportElement mode="Opaque" x="1" y="130" width="92" height="28" backcolor="#FFFFFF" uuid="feabeb2b-67d6-4cf7-a6c3-02bef82a47eb"/>
 						<box leftPadding="1" bottomPadding="1">
 							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1450,7 +1450,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textFieldExpression><![CDATA["Validity"]]></textFieldExpression>
 					</textField>
 					<textField>
-						<reportElement mode="Opaque" x="1" y="164" width="92" height="28" backcolor="#FFFFFF" uuid="ca7f76a3-01c6-47c7-870b-22ae96991029"/>
+						<reportElement mode="Opaque" x="1" y="158" width="92" height="28" backcolor="#FFFFFF" uuid="ca7f76a3-01c6-47c7-870b-22ae96991029"/>
 						<box leftPadding="1" bottomPadding="1">
 							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1464,7 +1464,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textFieldExpression><![CDATA["Warranty"]]></textFieldExpression>
 					</textField>
 					<textField>
-						<reportElement mode="Opaque" x="1" y="192" width="92" height="28" backcolor="#FFFFFF" uuid="21c2c9c6-3a6b-4f8f-a810-ec7ffc6b7b22"/>
+						<reportElement mode="Opaque" x="1" y="186" width="92" height="28" backcolor="#FFFFFF" uuid="21c2c9c6-3a6b-4f8f-a810-ec7ffc6b7b22"/>
 						<box leftPadding="1" bottomPadding="1">
 							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1520,7 +1520,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textFieldExpression><![CDATA[$F{payment_product}]]></textFieldExpression>
 					</textField>
 					<textField>
-						<reportElement mode="Opaque" x="103" y="136" width="167" height="28" backcolor="#FFFFFF" uuid="0ac056aa-f0c0-4776-9d76-b2b67afadbaf"/>
+						<reportElement mode="Opaque" x="103" y="130" width="167" height="28" backcolor="#FFFFFF" uuid="0ac056aa-f0c0-4776-9d76-b2b67afadbaf"/>
 						<box leftPadding="1" bottomPadding="1">
 							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1534,7 +1534,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textFieldExpression><![CDATA[$F{validaity_report}]]></textFieldExpression>
 					</textField>
 					<textField>
-						<reportElement mode="Opaque" x="103" y="164" width="167" height="28" backcolor="#FFFFFF" uuid="e2e97b82-6354-40bb-b57d-ca1205da81e0"/>
+						<reportElement mode="Opaque" x="103" y="158" width="167" height="28" backcolor="#FFFFFF" uuid="e2e97b82-6354-40bb-b57d-ca1205da81e0"/>
 						<box leftPadding="1" bottomPadding="1">
 							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1548,7 +1548,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textFieldExpression><![CDATA[$F{warranty_report}]]></textFieldExpression>
 					</textField>
 					<textField>
-						<reportElement mode="Opaque" x="103" y="192" width="166" height="28" backcolor="#FFFFFF" uuid="e420523f-a974-495d-9a95-faaf41889849"/>
+						<reportElement mode="Opaque" x="103" y="186" width="166" height="28" backcolor="#FFFFFF" uuid="e420523f-a974-495d-9a95-faaf41889849"/>
 						<box leftPadding="1" bottomPadding="1">
 							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1604,7 +1604,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textFieldExpression><![CDATA[":"]]></textFieldExpression>
 					</textField>
 					<textField>
-						<reportElement mode="Opaque" x="93" y="136" width="10" height="28" backcolor="#FFFFFF" uuid="ee133091-38d2-4e81-8c69-613d5c07f610"/>
+						<reportElement mode="Opaque" x="93" y="130" width="10" height="28" backcolor="#FFFFFF" uuid="ee133091-38d2-4e81-8c69-613d5c07f610"/>
 						<box leftPadding="1" bottomPadding="1">
 							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1618,7 +1618,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textFieldExpression><![CDATA[":"]]></textFieldExpression>
 					</textField>
 					<textField>
-						<reportElement mode="Opaque" x="93" y="164" width="10" height="28" backcolor="#FFFFFF" uuid="410ea646-a597-4d83-98e3-2f23faf2ed34"/>
+						<reportElement mode="Opaque" x="93" y="158" width="10" height="28" backcolor="#FFFFFF" uuid="410ea646-a597-4d83-98e3-2f23faf2ed34"/>
 						<box leftPadding="1" bottomPadding="1">
 							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1632,7 +1632,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textFieldExpression><![CDATA[":"]]></textFieldExpression>
 					</textField>
 					<textField>
-						<reportElement mode="Opaque" x="93" y="192" width="10" height="28" backcolor="#FFFFFF" uuid="3239537d-3282-4eaf-a013-0f72bbd7a7b6"/>
+						<reportElement mode="Opaque" x="93" y="186" width="10" height="28" backcolor="#FFFFFF" uuid="3239537d-3282-4eaf-a013-0f72bbd7a7b6"/>
 						<box leftPadding="1" bottomPadding="1">
 							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1646,7 +1646,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textFieldExpression><![CDATA[":"]]></textFieldExpression>
 					</textField>
 					<textField>
-						<reportElement mode="Opaque" x="1" y="102" width="92" height="34" backcolor="#FFFFFF" uuid="92fde144-4a0e-45ea-8d19-9584b6a2ed7f"/>
+						<reportElement mode="Opaque" x="1" y="102" width="92" height="28" backcolor="#FFFFFF" uuid="92fde144-4a0e-45ea-8d19-9584b6a2ed7f"/>
 						<box leftPadding="1" bottomPadding="1">
 							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1660,7 +1660,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textFieldExpression><![CDATA["Payment Engineering"]]></textFieldExpression>
 					</textField>
 					<textField>
-						<reportElement mode="Opaque" x="93" y="102" width="10" height="34" backcolor="#FFFFFF" uuid="b80b99d4-4f47-428d-8d0b-b6c5fa5ca142"/>
+						<reportElement mode="Opaque" x="93" y="102" width="10" height="28" backcolor="#FFFFFF" uuid="b80b99d4-4f47-428d-8d0b-b6c5fa5ca142"/>
 						<box leftPadding="1" bottomPadding="1">
 							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1674,7 +1674,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textFieldExpression><![CDATA[":"]]></textFieldExpression>
 					</textField>
 					<textField>
-						<reportElement mode="Opaque" x="103" y="102" width="167" height="34" backcolor="#FFFFFF" uuid="abc0d651-2933-4a79-b77a-6cada2800b70"/>
+						<reportElement mode="Opaque" x="103" y="102" width="167" height="28" backcolor="#FFFFFF" uuid="abc0d651-2933-4a79-b77a-6cada2800b70"/>
 						<box leftPadding="1" bottomPadding="1">
 							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
