@@ -1506,7 +1506,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textFieldExpression><![CDATA[$F{delivery_report}]]></textFieldExpression>
 					</textField>
 					<textField>
-						<reportElement mode="Opaque" x="103" y="74" width="451" height="28" backcolor="#FFFFFF" uuid="b165df27-b1ce-49bd-9905-fb4c3e0a20ab"/>
+						<reportElement mode="Opaque" x="103" y="74" width="167" height="28" backcolor="#FFFFFF" uuid="b165df27-b1ce-49bd-9905-fb4c3e0a20ab"/>
 						<box leftPadding="1" bottomPadding="1">
 							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1688,7 +1688,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textFieldExpression><![CDATA[$F{payment_engineering}]]></textFieldExpression>
 					</textField>
 					<textField>
-						<reportElement mode="Opaque" x="411" y="208" width="139" height="17" backcolor="#FFFFFF" uuid="58c6082b-205f-4ee8-8c95-c000fc8f011e"/>
+						<reportElement mode="Opaque" x="411" y="180" width="139" height="17" backcolor="#FFFFFF" uuid="58c6082b-205f-4ee8-8c95-c000fc8f011e"/>
 						<box leftPadding="1" bottomPadding="1">
 							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1702,7 +1702,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textFieldExpression><![CDATA[IF($F{sale_person1_en} != null, $F{sale_person1_en}, "")]]></textFieldExpression>
 					</textField>
 					<textField>
-						<reportElement mode="Opaque" x="411" y="225" width="139" height="17" backcolor="#FFFFFF" uuid="fd15f6ed-0c6a-494c-93c5-5001050d7975"/>
+						<reportElement mode="Opaque" x="411" y="197" width="139" height="17" backcolor="#FFFFFF" uuid="fd15f6ed-0c6a-494c-93c5-5001050d7975"/>
 						<box leftPadding="1" bottomPadding="1">
 							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1716,7 +1716,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textFieldExpression><![CDATA[IF($F{sale_person1_position} != null, $F{sale_person1_position}, "")]]></textFieldExpression>
 					</textField>
 					<textField>
-						<reportElement mode="Opaque" x="412" y="102" width="139" height="17" backcolor="#FFFFFF" uuid="27fa7b20-5640-406a-aa18-8bbf2c102ae2"/>
+						<reportElement mode="Opaque" x="412" y="74" width="139" height="17" backcolor="#FFFFFF" uuid="27fa7b20-5640-406a-aa18-8bbf2c102ae2"/>
 						<box leftPadding="1" bottomPadding="1">
 							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1730,7 +1730,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textFieldExpression><![CDATA["Authorized Signature"]]></textFieldExpression>
 					</textField>
 					<textField>
-						<reportElement mode="Opaque" x="270" y="102" width="139" height="17" backcolor="#FFFFFF" uuid="96e400c1-6c22-4215-98dd-fb370076af48">
+						<reportElement mode="Opaque" x="270" y="74" width="139" height="17" backcolor="#FFFFFF" uuid="96e400c1-6c22-4215-98dd-fb370076af48">
 							<printWhenExpression><![CDATA[IF($F{amount_subtotal_before_tax}.compareTo(new BigDecimal(1000000)) == 1, true, false)]]></printWhenExpression>
 						</reportElement>
 						<box leftPadding="1" bottomPadding="1">
@@ -1746,13 +1746,13 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textFieldExpression><![CDATA["Approved Signature"]]></textFieldExpression>
 					</textField>
 					<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
-						<reportElement x="270" y="119" width="139" height="84" uuid="460615ce-4089-4178-ac99-a7c539956985">
+						<reportElement x="270" y="91" width="139" height="84" uuid="460615ce-4089-4178-ac99-a7c539956985">
 							<printWhenExpression><![CDATA[IF($F{amount_subtotal_before_tax}.compareTo(new BigDecimal(1000000)) == 1, true, false)]]></printWhenExpression>
 						</reportElement>
 						<imageExpression><![CDATA[IF($F{approved_signature}== null,null, $P{p_Path} +$F{approved_signature})]]></imageExpression>
 					</image>
 					<textField>
-						<reportElement mode="Opaque" x="269" y="208" width="139" height="17" backcolor="#FFFFFF" uuid="0968aee8-8300-4d99-b4c8-6f605de201ed">
+						<reportElement mode="Opaque" x="269" y="180" width="139" height="17" backcolor="#FFFFFF" uuid="0968aee8-8300-4d99-b4c8-6f605de201ed">
 							<printWhenExpression><![CDATA[IF($F{amount_subtotal_before_tax}.compareTo(new BigDecimal(1000000)) == 1, true, false)]]></printWhenExpression>
 						</reportElement>
 						<box leftPadding="1" bottomPadding="1">
@@ -1768,7 +1768,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textFieldExpression><![CDATA[IF($F{approved_name_en} != null, $F{approved_name_en}, "")]]></textFieldExpression>
 					</textField>
 					<textField>
-						<reportElement mode="Opaque" x="269" y="225" width="139" height="17" backcolor="#FFFFFF" uuid="f94d6618-96e7-4efa-859f-4200858c429c">
+						<reportElement mode="Opaque" x="269" y="197" width="139" height="17" backcolor="#FFFFFF" uuid="f94d6618-96e7-4efa-859f-4200858c429c">
 							<printWhenExpression><![CDATA[IF($F{amount_subtotal_before_tax}.compareTo(new BigDecimal(1000000)) == 1, true, false)]]></printWhenExpression>
 						</reportElement>
 						<box leftPadding="1" bottomPadding="1">
@@ -1784,7 +1784,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textFieldExpression><![CDATA[IF($F{approved_position} != null, $F{approved_position}, "")]]></textFieldExpression>
 					</textField>
 					<textField>
-						<reportElement mode="Opaque" x="269" y="203" width="139" height="5" backcolor="#FFFFFF" uuid="839f569e-7d25-48b3-8cb9-1e800b21c536">
+						<reportElement mode="Opaque" x="269" y="175" width="139" height="5" backcolor="#FFFFFF" uuid="839f569e-7d25-48b3-8cb9-1e800b21c536">
 							<printWhenExpression><![CDATA[IF($F{amount_subtotal_before_tax}.compareTo(new BigDecimal(1000000)) == 1, true, false)]]></printWhenExpression>
 						</reportElement>
 						<box leftPadding="1" bottomPadding="1">
@@ -1800,11 +1800,11 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textFieldExpression><![CDATA[""]]></textFieldExpression>
 					</textField>
 					<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
-						<reportElement x="412" y="119" width="139" height="84" uuid="75829969-364b-4eb3-b821-1baf1935a97d"/>
+						<reportElement x="412" y="91" width="139" height="84" uuid="75829969-364b-4eb3-b821-1baf1935a97d"/>
 						<imageExpression><![CDATA[IF($F{sale_person1_signature}== null,null, $P{p_Path} +$F{sale_person1_signature})]]></imageExpression>
 					</image>
 					<textField>
-						<reportElement mode="Opaque" x="411" y="203" width="139" height="5" backcolor="#FFFFFF" uuid="4b87cbbd-aaa4-4d34-ba00-44d5a428ff2f"/>
+						<reportElement mode="Opaque" x="411" y="175" width="139" height="5" backcolor="#FFFFFF" uuid="4b87cbbd-aaa4-4d34-ba00-44d5a428ff2f"/>
 						<box leftPadding="1" bottomPadding="1">
 							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
