@@ -1208,11 +1208,11 @@ order by po.id, po_line.sequence, po_line.id]]>
 					</textField>
 				</frame>
 				<frame>
-					<reportElement mode="Opaque" x="0" y="85" width="555" height="102" uuid="1072072e-d53a-4628-8c17-fb9f69fa1473"/>
+					<reportElement mode="Opaque" x="0" y="85" width="555" height="122" uuid="1072072e-d53a-4628-8c17-fb9f69fa1473"/>
 					<box>
-						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<frame>
@@ -1286,7 +1286,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<textFieldExpression><![CDATA["C"]]></textFieldExpression>
 						</textField>
 						<line>
-							<reportElement x="11" y="88" width="67" height="1" uuid="c7d381a3-106e-454a-8b0e-ff338aa7ee25"/>
+							<reportElement x="11" y="88" width="68" height="1" uuid="c7d381a3-106e-454a-8b0e-ff338aa7ee25"/>
 						</line>
 						<textField>
 							<reportElement mode="Transparent" x="12" y="70" width="66" height="20" uuid="c6838af0-d93e-44d6-be8d-88e82a9e6c8d"/>
@@ -1306,7 +1306,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 					<frame>
 						<reportElement x="245" y="0" width="155" height="102" uuid="494d1eff-dd17-4760-aca2-4c90769b88f4"/>
 						<box>
-							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 							<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 							<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 							<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1396,7 +1396,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 					<frame>
 						<reportElement x="90" y="0" width="155" height="102" uuid="3148baa7-027b-47c4-b1ed-1a4b6ef81728"/>
 						<box>
-							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 							<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 							<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 							<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1438,23 +1438,29 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<textFieldExpression><![CDATA[$F{prepare_position}]]></textFieldExpression>
 						</textField>
 					</frame>
-				</frame>
-				<frame>
-					<reportElement mode="Opaque" x="-1" y="187" width="556" height="20" uuid="d857822c-49db-482b-8b8c-4ce785459066"/>
-					<textField>
-						<reportElement mode="Transparent" x="1" y="0" width="555" height="20" uuid="48c4192a-7b24-42f2-8b53-0087a1d99ede"/>
-						<box leftPadding="5">
-							<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<frame>
+						<reportElement mode="Opaque" x="-1" y="102" width="555" height="20" uuid="b4719710-a22e-4b73-9dfe-50634fd83836"/>
+						<box>
+							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
-						<textElement textAlignment="Left" verticalAlignment="Middle">
-							<font fontName="TH Sarabun New" size="12" isBold="false"/>
-							<paragraph leftIndent="4" rightIndent="0"/>
-						</textElement>
-						<textFieldExpression><![CDATA[IF($P{p_ISO}==null,"",$P{p_ISO})]]></textFieldExpression>
-					</textField>
+						<textField>
+							<reportElement mode="Transparent" x="1" y="0" width="554" height="20" uuid="0ba5bc20-de72-47ee-96cf-0a16fff6e364"/>
+							<box leftPadding="5">
+								<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+								<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textElement textAlignment="Left" verticalAlignment="Middle">
+								<font fontName="TH Sarabun New" size="12" isBold="false"/>
+								<paragraph leftIndent="4" rightIndent="0"/>
+							</textElement>
+							<textFieldExpression><![CDATA[IF($P{p_ISO}==null,"",$P{p_ISO})]]></textFieldExpression>
+						</textField>
+					</frame>
 				</frame>
 			</band>
 		</groupFooter>
