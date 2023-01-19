@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="autoinfo_invoice_form" pageWidth="595" pageHeight="842" columnWidth="575" leftMargin="10" rightMargin="10" topMargin="20" bottomMargin="5" uuid="9d429c61-ca07-45fd-95b2-54aea3253cab">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="autoinfo_invoice_inv2_form" pageWidth="595" pageHeight="842" columnWidth="575" leftMargin="10" rightMargin="10" topMargin="20" bottomMargin="5" isFloatColumnFooter="true" uuid="9d429c61-ca07-45fd-95b2-54aea3253cab">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="autoinfo_DB.xml"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="274"/>
@@ -24,39 +24,6 @@
 	<style name="Style1" mode="Transparent" forecolor="#000000" backcolor="#CC8899">
 		<conditionalStyle>
 			<conditionExpression><![CDATA[$F{flag}.equals( 1 )]]></conditionExpression>
-			<style mode="Opaque" forecolor="#000000" backcolor="#D2691E">
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-			</style>
-		</conditionalStyle>
-		<conditionalStyle>
-			<conditionExpression><![CDATA[$F{flag}.equals( 2 )]]></conditionExpression>
-			<style mode="Opaque" forecolor="#000000" backcolor="#FF007F">
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-			</style>
-		</conditionalStyle>
-		<conditionalStyle>
-			<conditionExpression><![CDATA[$F{flag}.equals( 3 )]]></conditionExpression>
-			<style mode="Opaque" forecolor="#000000" backcolor="#A020F0">
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-			</style>
-		</conditionalStyle>
-		<conditionalStyle>
-			<conditionExpression><![CDATA[$F{flag}.equals( 4 )]]></conditionExpression>
 			<style mode="Opaque" forecolor="#000000" backcolor="#228C22">
 				<box>
 					<topPen lineWidth="1.0"/>
@@ -67,7 +34,7 @@
 			</style>
 		</conditionalStyle>
 		<conditionalStyle>
-			<conditionExpression><![CDATA[$F{flag}.equals( 5 )]]></conditionExpression>
+			<conditionExpression><![CDATA[$F{flag}.equals( 2)]]></conditionExpression>
 			<style mode="Opaque" forecolor="#000000" backcolor="#E32227">
 				<box>
 					<topPen lineWidth="1.0"/>
@@ -78,7 +45,40 @@
 			</style>
 		</conditionalStyle>
 		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{flag}.equals( 3 )]]></conditionExpression>
+			<style mode="Opaque" forecolor="#000000" backcolor="#9ACEEB">
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+			</style>
+		</conditionalStyle>
+		<conditionalStyle>
 			<conditionExpression><![CDATA[$F{flag}.equals( 6 )]]></conditionExpression>
+			<style mode="Opaque" forecolor="#000000" backcolor="#D2691E">
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+			</style>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{flag}.equals( 5 )]]></conditionExpression>
+			<style mode="Opaque" forecolor="#000000" backcolor="#FF007F">
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+			</style>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{flag}.equals( 4 )]]></conditionExpression>
 			<style mode="Opaque" forecolor="#000000" backcolor="#808080">
 				<box>
 					<topPen lineWidth="1.0"/>
@@ -123,7 +123,7 @@
 		<![CDATA[select		line.report_sequence  as rowid,
                 line.display_type  as display_type,
 				--tmp.id as flag,
-				generate_series(1, 6) as flag,
+				generate_series(1, 4) as flag,
 				invoice.id, 
 				invoice.invoice_date as date, 
 				invoice.name as inv_no,
@@ -503,18 +503,12 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<paragraph lineSpacing="Fixed" lineSpacingSize="5.0" leftIndent="0" rightIndent="0"/>
 					</textElement>
 					<textFieldExpression><![CDATA[IF($F{flag}.equals( 1 ),
-	"ต้นฉบับใบเสร็จรับเงิน\nORIGINAL RECEIPT",
+	"ต้นฉบับใบส่งของ / ใบแจ้งหนี้\nORIGINAL  DELIVERY ORDER / INVOICE",
 	IF($F{flag}.equals( 2 ),
-		"สำเนาใบเสร็จรับเงิน\nRECEIPT COPY",
+		"สำเนาใบส่งของ / ใบแจ้งหนี้\nDELIVERY ORDER  COPY / INVOICE",
 		IF($F{flag}.equals( 3 ),
-			"ต้นฉบับใบกำกับภาษี\nORIGINAL TAX INVOICE",
-			IF($F{flag}.equals( 4 ),
-				"ต้นฉบับใบส่งของ / ใบแจ้งหนี้\nORIGINAL DELIVERY ORDER / INVOICE",
-				IF($F{flag}.equals( 5 ),
-					"สำเนาใบส่งของ / ใบแจ้งหนี้\nDELIVERY ORDER COPY / INVOICE",
-					"สำเนาใบกำกับภาษี\nTAX INVOICE COPY"
-				)
-			)
+			"สำเนาใบส่งของ / ใบแจ้งหนี้\nDELIVERY ORDER  COPY / INVOICE",
+			"สำเนาใบส่งของ / ใบแจ้งหนี้\nDELIVERY ORDER  COPY / INVOICE"
 		)
 	)
 )]]></textFieldExpression>
@@ -724,18 +718,12 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<paragraph leftIndent="0" spacingBefore="-3"/>
 					</textElement>
 					<textFieldExpression><![CDATA[IF($F{flag}.equals( 1 ),
-	"ไม่ใช่ใบกำกับภาษี          (สำหรับลูกค้า)",
+	"(สำหรับลูกค้า)",
 	IF($F{flag}.equals( 2 ),
-		"ไม่ใช่ใบกำกับภาษี      (สำหรับการเงิน)",
+		"(สำหรับบัญชี)",
 		IF($F{flag}.equals( 3 ),
-			"(สำหรับลูกค้า)",
-			IF($F{flag}.equals( 4 ),
-				"ไม่ใช่ใบกำกับภาษี          (สำหรับลูกค้า)",
-				IF($F{flag}.equals( 5 ),
-					"ไม่ใช่ใบกำกับภาษี          (สำหรับคลังสินค้า)",
-					"ไม่ใช่ใบกำกับภาษี      (สำหรับบัญชี)"
-				)
-			)
+			"(สำหรับการเงิน)",
+			"(สำหรับคลังสินค้า)"
 		)
 	)
 )]]></textFieldExpression>
@@ -1436,7 +1424,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 					</textField>
 					<frame>
 						<reportElement x="1" y="4" width="575" height="46" uuid="f59f0722-daaa-4d05-95d2-4c884ba2bac3">
-							<printWhenExpression><![CDATA[$F{flag}.equals( 1 )||$F{flag}.equals( 2 )]]></printWhenExpression>
+							<printWhenExpression><![CDATA[false]]></printWhenExpression>
 						</reportElement>
 						<textField>
 							<reportElement mode="Transparent" x="0" y="15" width="39" height="12" backcolor="#FFFFFF" uuid="c8b98588-044d-4e63-a056-6d0944ab55a1">
@@ -1883,7 +1871,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 					<textFieldExpression><![CDATA[IF($P{p_language}.toString().equals("thai"),"หมายเหตุ : ","Remark : ") + "" + IF($F{narration} != null, $F{narration}, "")]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="group_id" pattern="#,##0.00">
-					<reportElement mode="Transparent" x="267" y="129" width="103" height="20" uuid="d76db2eb-df19-47e2-a431-ff9003ece4c8">
+					<reportElement mode="Transparent" x="266" y="127" width="103" height="20" uuid="ea9dd948-8166-4995-875f-a048b5e3c771">
 						<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 					</reportElement>
 					<box>

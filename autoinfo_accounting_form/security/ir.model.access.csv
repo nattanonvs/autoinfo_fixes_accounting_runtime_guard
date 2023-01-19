@@ -1,3 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 
 access_autoinfo_tax_invoice_pp_form,access_autoinfo_tax_invoice_pp_form,autoinfo_accounting_form.model_autoinfo_tax_invoice_pp_form,account.group_account_invoice,1,1,1,1
+access_autoinfo_invoice_form,access_autoinfo_invoice_form,autoinfo_accounting_form.model_autoinfo_invoice_form,account.group_account_invoice,1,1,1,1
+access_autoinfo_receipt_pp_form,access_autoinfo_receipt_pp_form,autoinfo_accounting_form.model_autoinfo_receipt_pp_form,account.group_account_invoice,1,1,1,1

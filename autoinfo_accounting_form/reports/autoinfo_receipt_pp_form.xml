@@ -17,7 +17,7 @@
             </field>
         </record>
         <record id="action_autoinfo_receipt_pp_form" model="ir.actions.act_window">
-            <field name="name">Customer Receipt Form (autoinfo)</field>
+            <field name="name">Customer Receipt Preprint Form (autoinfo)</field>
             <field name="res_model">autoinfo.receipt.pp.form</field>
             <field name="target">new</field>
             <field name="view_id" ref="autoinfo_receipt_pp_form"/>
