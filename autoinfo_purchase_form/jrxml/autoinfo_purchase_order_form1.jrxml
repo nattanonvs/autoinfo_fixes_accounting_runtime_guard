@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="autoinfo_purchase_order_form1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8f72a463-64e4-4b71-ab9c-a3e1e7e0679e">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="215"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="779"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Localhost"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="autoinfo_DB.xml"/>
 	<style name="Section Line">
 		<conditionalStyle>
 			<conditionExpression><![CDATA[$F{display_type}.toString().equals("line_section")]]></conditionExpression>
@@ -12,7 +12,7 @@
 		</conditionalStyle>
 	</style>
 	<parameter name="p_Where" class="java.lang.String">
-		<defaultValueExpression><![CDATA["where po.id in (27)"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["where po.id in (31)"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="p_language" class="java.lang.String">
 		<defaultValueExpression><![CDATA["eng"]]></defaultValueExpression>
@@ -26,7 +26,7 @@
 	<parameter name="p_EName" class="java.lang.Boolean"/>
 	<parameter name="p_ESignature" class="java.lang.Boolean"/>
 	<parameter name="p_Path" class="java.lang.String">
-		<defaultValueExpression><![CDATA["/home/dtr0048/DTR/Filestores/filestore/v15_autoinfo/"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["/odoo15_dtr/.local/share/Odoo/filestore/autoinfo_16012023/"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="p_ISO" class="java.lang.String"/>
 	<queryString>
@@ -125,26 +125,47 @@ att.store_fname AS logo_iso,
 		WHERE a.user_id=po.create_uid  limit 1
 	 ) AS prepare_signature
 	 
-	    -- *********************************************************************************************** For Pre Approval By
-	,(SELECT b.name FROM resource_resource a
+	   -- *********************************************************************************************** For Pre1 Approval By
+	 ,(SELECT b.name FROM resource_resource a
 		LEFT JOIN hr_employee b ON a.id = b.resource_id
-		WHERE a.user_id = (SELECT a.done_by FROM (SELECT * FROM tier_review WHERE model='purchase.order' and res_id=po.id and status='approved' ORDER BY sequence DESC LIMIT 2) a ORDER BY a.sequence LIMIT 1)) AS pre_approved_name
+		WHERE a.user_id = (SELECT a.done_by FROM (SELECT * FROM tier_review WHERE model='purchase.order' and res_id=po.id and status='approved' ORDER BY sequence DESC LIMIT 3) a ORDER BY a.sequence LIMIT 1)) AS pre1_approved_name
 	,(SELECT c.name FROM resource_resource a
 		LEFT JOIN hr_employee b ON a.id = b.resource_id
 		LEFT JOIN hr_department c ON c.id = b.department_id
-		WHERE a.user_id = (SELECT a.done_by FROM (SELECT * FROM tier_review WHERE model='purchase.order' and res_id=po.id and status='approved' ORDER BY sequence DESC LIMIT 2) a ORDER BY a.sequence LIMIT 1)) AS pre_department
+		WHERE a.user_id = (SELECT a.done_by FROM (SELECT * FROM tier_review WHERE model='purchase.order' and res_id=po.id and status='approved' ORDER BY sequence DESC LIMIT 3) a ORDER BY a.sequence LIMIT 1)) AS pre1_department
 	,(SELECT c.name FROM resource_resource a
 		LEFT JOIN hr_employee b ON a.id = b.resource_id
 		LEFT JOIN hr_job c ON c.id = b.job_id
-		WHERE a.user_id = (SELECT a.done_by FROM (SELECT * FROM tier_review WHERE model='purchase.order' and res_id=po.id and status='approved' ORDER BY sequence DESC LIMIT 2) a ORDER BY a.sequence LIMIT 1)) AS pre_position
-	,(SELECT a.reviewed_date FROM (SELECT * FROM tier_review WHERE model='purchase.order' and res_id=po.id and status='approved' ORDER BY sequence DESC LIMIT 2) a ORDER BY a.sequence LIMIT 1)AS pre_date_decided
+		WHERE a.user_id = (SELECT a.done_by FROM (SELECT * FROM tier_review WHERE model='purchase.order' and res_id=po.id and status='approved' ORDER BY sequence DESC LIMIT 3) a ORDER BY a.sequence LIMIT 1)) AS pre1_position
+	,(SELECT a.reviewed_date FROM (SELECT * FROM tier_review WHERE model='purchase.order' and res_id=po.id and status='approved' ORDER BY sequence DESC LIMIT 3) a ORDER BY a.sequence LIMIT 1)AS pre1_date_decided
 	,(SELECT c.store_fname FROM resource_resource a
 		LEFT JOIN hr_employee b ON a.id = b.resource_id
 		LEFT JOIN ir_attachment c ON c.res_id = b.id and c.res_model = 'hr.employee' and c.res_field='signature'
-		WHERE a.user_id = (SELECT a.done_by FROM (SELECT * FROM tier_review WHERE model='purchase.order' and res_id=po.id and status='approved' ORDER BY sequence DESC LIMIT 2) a ORDER BY a.sequence LIMIT 1)) AS pre_signature
+		WHERE a.user_id = (SELECT a.done_by FROM (SELECT * FROM tier_review WHERE model='purchase.order' and res_id=po.id and status='approved' ORDER BY sequence DESC LIMIT 3) a ORDER BY a.sequence LIMIT 1)) AS pre1_signature
 	,(SELECT b.name_en FROM resource_resource a
 		LEFT JOIN hr_employee b ON a.id = b.resource_id
-		WHERE a.user_id = (SELECT a.done_by FROM (SELECT * FROM tier_review WHERE model='purchase.order' and res_id=po.id and status='approved' ORDER BY sequence DESC LIMIT 2) a ORDER BY a.sequence LIMIT 1)) AS pre_approved_name_en
+		WHERE a.user_id = (SELECT a.done_by FROM (SELECT * FROM tier_review WHERE model='purchase.order' and res_id=po.id and status='approved' ORDER BY sequence DESC LIMIT 3) a ORDER BY a.sequence LIMIT 1)) AS pre1_approved_name_en
+	 
+	    -- *********************************************************************************************** For Pre2 Approval By
+	,(SELECT b.name FROM resource_resource a
+		LEFT JOIN hr_employee b ON a.id = b.resource_id
+		WHERE a.user_id = (SELECT a.done_by FROM (SELECT * FROM tier_review WHERE model='purchase.order' and res_id=po.id and status='approved' ORDER BY sequence DESC LIMIT 2) a ORDER BY a.sequence LIMIT 1)) AS pre2_approved_name
+	,(SELECT c.name FROM resource_resource a
+		LEFT JOIN hr_employee b ON a.id = b.resource_id
+		LEFT JOIN hr_department c ON c.id = b.department_id
+		WHERE a.user_id = (SELECT a.done_by FROM (SELECT * FROM tier_review WHERE model='purchase.order' and res_id=po.id and status='approved' ORDER BY sequence DESC LIMIT 2) a ORDER BY a.sequence LIMIT 1)) AS pre2_department
+	,(SELECT c.name FROM resource_resource a
+		LEFT JOIN hr_employee b ON a.id = b.resource_id
+		LEFT JOIN hr_job c ON c.id = b.job_id
+		WHERE a.user_id = (SELECT a.done_by FROM (SELECT * FROM tier_review WHERE model='purchase.order' and res_id=po.id and status='approved' ORDER BY sequence DESC LIMIT 2) a ORDER BY a.sequence LIMIT 1)) AS pre2_position
+	,(SELECT a.reviewed_date FROM (SELECT * FROM tier_review WHERE model='purchase.order' and res_id=po.id and status='approved' ORDER BY sequence DESC LIMIT 2) a ORDER BY a.sequence LIMIT 1)AS pre2_date_decided
+	,(SELECT c.store_fname FROM resource_resource a
+		LEFT JOIN hr_employee b ON a.id = b.resource_id
+		LEFT JOIN ir_attachment c ON c.res_id = b.id and c.res_model = 'hr.employee' and c.res_field='signature'
+		WHERE a.user_id = (SELECT a.done_by FROM (SELECT * FROM tier_review WHERE model='purchase.order' and res_id=po.id and status='approved' ORDER BY sequence DESC LIMIT 2) a ORDER BY a.sequence LIMIT 1)) AS pre2_signature
+	,(SELECT b.name_en FROM resource_resource a
+		LEFT JOIN hr_employee b ON a.id = b.resource_id
+		WHERE a.user_id = (SELECT a.done_by FROM (SELECT * FROM tier_review WHERE model='purchase.order' and res_id=po.id and status='approved' ORDER BY sequence DESC LIMIT 2) a ORDER BY a.sequence LIMIT 1)) AS pre2_approved_name_en
 	  -- *********************************************************************************************** For Final Approval By
 	,(SELECT b.name FROM resource_resource a
 		LEFT JOIN hr_employee b ON a.id = b.resource_id
@@ -233,12 +254,15 @@ order by po.id, po_line.sequence, po_line.id]]>
 	</queryString>
 	<field name="seq" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="seq"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="purchase_order_line"/>
 	</field>
 	<field name="company_name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="company_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="res_company"/>
 	</field>
 	<field name="logo_iso" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="logo_iso"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ir_attachment"/>
 	</field>
 	<field name="company_name_thai" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="company_name_thai"/>
@@ -281,6 +305,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 	</field>
 	<field name="partner_name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="partner_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="res_partner"/>
 	</field>
 	<field name="partner_address_1" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="partner_address_1"/>
@@ -290,36 +315,46 @@ order by po.id, po_line.sequence, po_line.id]]>
 	</field>
 	<field name="partner_code" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="partner_code"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="res_partner"/>
 	</field>
 	<field name="partner_tax" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="partner_tax"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="res_partner"/>
 	</field>
 	<field name="partner_branch_code" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="partner_branch_code"/>
 	</field>
 	<field name="COLUMN_23" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="partner_tax"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="res_partner"/>
 	</field>
 	<field name="partner_phone" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="partner_phone"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="res_partner"/>
 	</field>
 	<field name="partner_mobile" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="partner_mobile"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="res_partner"/>
 	</field>
 	<field name="partner_fax" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="partner_fax"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="res_partner"/>
 	</field>
 	<field name="partner_email" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="partner_email"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="res_partner"/>
 	</field>
 	<field name="po_number" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="po_number"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="purchase_order"/>
 	</field>
 	<field name="po_date" class="java.sql.Timestamp">
 		<property name="com.jaspersoft.studio.field.label" value="po_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="purchase_order"/>
 	</field>
 	<field name="po_date_planned" class="java.sql.Timestamp">
 		<property name="com.jaspersoft.studio.field.label" value="po_date_planned"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="purchase_order"/>
 	</field>
 	<field name="po_payment_term" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="po_payment_term"/>
@@ -329,24 +364,30 @@ order by po.id, po_line.sequence, po_line.id]]>
 	</field>
 	<field name="po_department" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="po_department"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_department"/>
 	</field>
 	<field name="display_type" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="display_type"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="purchase_order_line"/>
 	</field>
 	<field name="product_code" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="product_code"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="product_product"/>
 	</field>
 	<field name="product_name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="product_name"/>
 	</field>
 	<field name="product_qty" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="product_qty"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="purchase_order_line"/>
 	</field>
 	<field name="product_uom" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="product_uom"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="uom_uom"/>
 	</field>
 	<field name="product_price_unit" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="product_price_unit"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="purchase_order_line"/>
 	</field>
 	<field name="product_discount" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="product_discount"/>
@@ -356,33 +397,42 @@ order by po.id, po_line.sequence, po_line.id]]>
 	</field>
 	<field name="product_price_total" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="product_price_total"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="purchase_order_line"/>
 	</field>
 	<field name="po_untaxed_amount" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="po_untaxed_amount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="purchase_order"/>
 	</field>
 	<field name="po_trade_discount" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="po_trade_discount"/>
 	</field>
 	<field name="po_amount_before_tax" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="po_amount_before_tax"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="purchase_order"/>
 	</field>
 	<field name="po_tax" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="po_tax"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="purchase_order"/>
 	</field>
 	<field name="po_amount_total" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="po_amount_total"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="purchase_order"/>
 	</field>
 	<field name="creator_name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="creator_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="res_partner"/>
 	</field>
 	<field name="currency_symbol" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="currency_symbol"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="res_currency"/>
 	</field>
 	<field name="currency_position" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="currency_position"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="res_currency"/>
 	</field>
 	<field name="remark" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="remark"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="purchase_order"/>
 	</field>
 	<field name="po_amount_total_bahttext" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="po_amount_total_bahttext"/>
@@ -392,9 +442,11 @@ order by po.id, po_line.sequence, po_line.id]]>
 	</field>
 	<field name="prepare_date" class="java.sql.Timestamp">
 		<property name="com.jaspersoft.studio.field.label" value="prepare_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="purchase_order"/>
 	</field>
 	<field name="create_date" class="java.sql.Timestamp">
 		<property name="com.jaspersoft.studio.field.label" value="create_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="purchase_order"/>
 	</field>
 	<field name="prepare_name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="prepare_name"/>
@@ -408,23 +460,41 @@ order by po.id, po_line.sequence, po_line.id]]>
 	<field name="prepare_signature" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="prepare_signature"/>
 	</field>
-	<field name="pre_approved_name" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="pre_approved_name"/>
+	<field name="pre1_approved_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="pre1_approved_name"/>
 	</field>
-	<field name="pre_department" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="pre_department"/>
+	<field name="pre1_department" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="pre1_department"/>
 	</field>
-	<field name="pre_position" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="pre_position"/>
+	<field name="pre1_position" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="pre1_position"/>
 	</field>
-	<field name="pre_date_decided" class="java.sql.Timestamp">
-		<property name="com.jaspersoft.studio.field.label" value="pre_date_decided"/>
+	<field name="pre1_date_decided" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="pre1_date_decided"/>
 	</field>
-	<field name="pre_signature" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="pre_signature"/>
+	<field name="pre1_signature" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="pre1_signature"/>
 	</field>
-	<field name="pre_approved_name_en" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="pre_approved_name_en"/>
+	<field name="pre1_approved_name_en" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="pre1_approved_name_en"/>
+	</field>
+	<field name="pre2_approved_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="pre2_approved_name"/>
+	</field>
+	<field name="pre2_department" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="pre2_department"/>
+	</field>
+	<field name="pre2_position" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="pre2_position"/>
+	</field>
+	<field name="pre2_date_decided" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="pre2_date_decided"/>
+	</field>
+	<field name="pre2_signature" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="pre2_signature"/>
+	</field>
+	<field name="pre2_approved_name_en" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="pre2_approved_name_en"/>
 	</field>
 	<field name="approved_name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="approved_name"/>
@@ -449,6 +519,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 	</field>
 	<field name="currency_name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="currency_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="res_currency"/>
 	</field>
 	<field name="project_name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="project_name"/>
@@ -461,6 +532,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 	</field>
 	<field name="list_price" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="list_price"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="product_template"/>
 	</field>
 	<field name="po_taxes" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="po_taxes"/>
@@ -473,6 +545,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 	</field>
 	<field name="delivery_date_report" class="java.sql.Date">
 		<property name="com.jaspersoft.studio.field.label" value="delivery_date_report"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="purchase_order"/>
 	</field>
 	<field name="warranty_report" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="warranty_report"/>
@@ -631,7 +704,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<font fontName="TH Sarabun New" size="12" isBold="true" isUnderline="false"/>
 							<paragraph leftIndent="1" rightIndent="0"/>
 						</textElement>
-						<textFieldExpression><![CDATA["VAT" + IF($F{po_taxes}==null,"", String.format("%.0f", $F{po_taxes}.doubleValue())+" %")]]></textFieldExpression>
+						<textFieldExpression><![CDATA["VAT"]]></textFieldExpression>
 					</textField>
 					<textField pattern="#,##0.00#;(#,##0.00#)" isBlankWhenNull="true">
 						<reportElement x="482" y="161" width="72" height="34" uuid="417065b7-ba89-462b-8eaa-93abf12bc7f8">
@@ -737,7 +810,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 							</textElement>
 							<textFieldExpression><![CDATA["PREPARED BY(จัดเตรียมโดย) :"]]></textFieldExpression>
 						</textField>
-						<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
+						<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle" onErrorType="Icon">
 							<reportElement x="4" y="31" width="105" height="60" uuid="08df83e2-ea22-45f7-8c98-a01474f2c3bf"/>
 							<imageExpression><![CDATA[IF($F{prepare_signature}== null,null, $P{p_Path} +$F{prepare_signature})]]></imageExpression>
 						</image>
@@ -753,7 +826,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 								<font fontName="TH Sarabun New" size="10" isBold="false" isUnderline="false"/>
 								<paragraph leftIndent="0"/>
 							</textElement>
-							<textFieldExpression><![CDATA["SORACHAK DASAKORNVALAISIRI"]]></textFieldExpression>
+							<textFieldExpression><![CDATA[$F{prepare_name}]]></textFieldExpression>
 						</textField>
 						<textField>
 							<reportElement mode="Opaque" x="1" y="110" width="108" height="17" backcolor="#FFFFFF" uuid="a56035ea-7a68-40c1-a24e-90ec5ea25664"/>
@@ -814,7 +887,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 					<frame>
 						<reportElement x="410" y="0" width="72" height="59" uuid="8c86cc88-e85f-4950-b48a-72a79e78aeab"/>
 						<box>
-							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 							<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 							<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 							<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -857,7 +930,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 								<font fontName="TH Sarabun New" size="12" isBold="false" isUnderline="false"/>
 								<paragraph leftIndent="0" rightIndent="0"/>
 							</textElement>
-							<textFieldExpression><![CDATA[$F{pr_create_name_en}]]></textFieldExpression>
+							<textFieldExpression><![CDATA[$F{pre1_approved_name}]]></textFieldExpression>
 						</textField>
 						<textField isBlankWhenNull="true">
 							<reportElement x="-1" y="89" width="184" height="20" uuid="f1527751-46a3-4165-8f32-c510a59d8c38">
@@ -873,11 +946,11 @@ order by po.id, po_line.sequence, po_line.id]]>
 								<font fontName="TH Sarabun New" size="12" isBold="false" isUnderline="false"/>
 								<paragraph leftIndent="0" rightIndent="0"/>
 							</textElement>
-							<textFieldExpression><![CDATA["Requested By"]]></textFieldExpression>
+							<textFieldExpression><![CDATA[$F{pre1_position}]]></textFieldExpression>
 						</textField>
-						<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
+						<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle" onErrorType="Icon">
 							<reportElement x="16" y="6" width="153" height="60" uuid="93be968b-6e4d-48cd-8b0b-8f4aa8f40e82"/>
-							<imageExpression><![CDATA[IF($F{pr_create_signature}== null,null, $P{p_Path} +$F{pr_create_signature})]]></imageExpression>
+							<imageExpression><![CDATA[IF($F{pre1_signature}== null,null, $P{p_Path} +$F{pre1_signature})]]></imageExpression>
 						</image>
 					</frame>
 					<frame>
@@ -885,9 +958,9 @@ order by po.id, po_line.sequence, po_line.id]]>
 						<box>
 							<rightPen lineWidth="1.0"/>
 						</box>
-						<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
+						<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle" onErrorType="Icon">
 							<reportElement x="16" y="6" width="153" height="60" uuid="fb4108d2-da49-41d2-a38b-229c763b2c01"/>
-							<imageExpression><![CDATA[IF($F{pre_signature}== null,null, $P{p_Path} +$F{pre_signature})]]></imageExpression>
+							<imageExpression><![CDATA[IF($F{pre2_signature}== null,null, $P{p_Path} +$F{pre2_signature})]]></imageExpression>
 						</image>
 						<textField isBlankWhenNull="true">
 							<reportElement x="0" y="69" width="184" height="20" uuid="cdc0249c-5b24-4bd7-b15f-c431113d4243">
@@ -903,7 +976,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 								<font fontName="TH Sarabun New" size="12" isBold="false" isUnderline="false"/>
 								<paragraph leftIndent="0" rightIndent="0"/>
 							</textElement>
-							<textFieldExpression><![CDATA[$F{pre_approved_name_en}]]></textFieldExpression>
+							<textFieldExpression><![CDATA[$F{pre2_approved_name_en}]]></textFieldExpression>
 						</textField>
 						<textField isBlankWhenNull="true">
 							<reportElement x="0" y="89" width="184" height="20" uuid="c90cf1c3-9a81-49bd-b3a5-800d9e0eaa05">
@@ -919,7 +992,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 								<font fontName="TH Sarabun New" size="12" isBold="false" isUnderline="false"/>
 								<paragraph leftIndent="0" rightIndent="0"/>
 							</textElement>
-							<textFieldExpression><![CDATA[$F{pre_position}]]></textFieldExpression>
+							<textFieldExpression><![CDATA[$F{pre2_position}]]></textFieldExpression>
 						</textField>
 					</frame>
 					<frame>
@@ -930,7 +1003,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
-						<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
+						<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle" onErrorType="Icon">
 							<reportElement x="16" y="6" width="153" height="60" uuid="2ca8a9f4-9699-419b-b0f5-5c6a2ec5f645"/>
 							<imageExpression><![CDATA[IF($F{approved_signature}== null,null, $P{p_Path} +$F{approved_signature})]]></imageExpression>
 						</image>
@@ -1021,8 +1094,9 @@ order by po.id, po_line.sequence, po_line.id]]>
 					</box>
 				</frame>
 				<frame>
-					<reportElement x="110" y="0" width="200" height="502" uuid="3e9fc7d8-96c2-49d4-945f-3b30d1b2c56e">
+					<reportElement x="110" y="0" width="172" height="502" uuid="3e9fc7d8-96c2-49d4-945f-3b30d1b2c56e">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					</reportElement>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1032,7 +1106,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 					</box>
 				</frame>
 				<frame>
-					<reportElement x="360" y="0" width="50" height="502" uuid="a1f40f51-08bd-4c4b-9499-6a4585fff76d">
+					<reportElement x="332" y="0" width="50" height="502" uuid="a1f40f51-08bd-4c4b-9499-6a4585fff76d">
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					</reportElement>
 					<box>
@@ -1054,8 +1128,9 @@ order by po.id, po_line.sequence, po_line.id]]>
 					</box>
 				</frame>
 				<frame>
-					<reportElement x="410" y="0" width="72" height="502" uuid="2674fa40-5c4d-4a36-a65d-fccdaec79147">
+					<reportElement x="382" y="0" width="50" height="502" uuid="2674fa40-5c4d-4a36-a65d-fccdaec79147">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					</reportElement>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1065,7 +1140,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 					</box>
 				</frame>
 				<frame>
-					<reportElement x="310" y="0" width="50" height="502" uuid="150440c8-ebe8-481f-a723-78b8f61be38b">
+					<reportElement x="282" y="0" width="50" height="502" uuid="150440c8-ebe8-481f-a723-78b8f61be38b">
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					</reportElement>
 					<box>
@@ -1109,7 +1184,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 					</textElement>
 					<textFieldExpression><![CDATA["ใบสั่งซื้อ/สั่งจ้าง\nPURCHASE ORDER"]]></textFieldExpression>
 				</textField>
-				<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
+				<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle" onErrorType="Icon">
 					<reportElement x="412" y="0" width="141" height="44" uuid="552add63-117d-4a2b-b0a2-98ef4336e763"/>
 					<imageExpression><![CDATA[IF( $F{logo_iso} == null
 	,IF($F{logo_iso}== null,null,$P{p_Path} +$F{logo_iso})
@@ -1590,7 +1665,9 @@ order by po.id, po_line.sequence, po_line.id]]>
 					<textFieldExpression><![CDATA["Part Number"]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement mode="Opaque" x="110" y="0" width="200" height="25" backcolor="#FFFFFF" uuid="0e8587f1-5c75-4636-aeb9-5c9f2a2867f6"/>
+					<reportElement mode="Opaque" x="110" y="0" width="172" height="25" backcolor="#FFFFFF" uuid="0e8587f1-5c75-4636-aeb9-5c9f2a2867f6">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
 					<box>
 						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1603,7 +1680,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 					<textFieldExpression><![CDATA["Description"]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement mode="Opaque" x="360" y="0" width="50" height="25" backcolor="#FFFFFF" uuid="a6ba1d89-a544-4f31-90c7-67010c43f5c4"/>
+					<reportElement mode="Opaque" x="332" y="0" width="50" height="25" backcolor="#FFFFFF" uuid="a6ba1d89-a544-4f31-90c7-67010c43f5c4"/>
 					<box>
 						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1616,7 +1693,9 @@ order by po.id, po_line.sequence, po_line.id]]>
 					<textFieldExpression><![CDATA["UOM"]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement mode="Opaque" x="410" y="0" width="72" height="25" backcolor="#FFFFFF" uuid="9cb133e0-33f2-4ee2-8d36-0771f1745d47"/>
+					<reportElement mode="Opaque" x="382" y="0" width="50" height="25" backcolor="#FFFFFF" uuid="9cb133e0-33f2-4ee2-8d36-0771f1745d47">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
 					<box>
 						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1644,7 +1723,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 					<textFieldExpression><![CDATA["Total Price" + "\n(" + $F{currency_name} + ")"]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement mode="Opaque" x="310" y="0" width="50" height="25" backcolor="#FFFFFF" uuid="0b0f0dfb-2959-4bc8-8625-89554e2b1c93"/>
+					<reportElement mode="Opaque" x="282" y="0" width="50" height="25" backcolor="#FFFFFF" uuid="0b0f0dfb-2959-4bc8-8625-89554e2b1c93"/>
 					<box>
 						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1655,6 +1734,22 @@ order by po.id, po_line.sequence, po_line.id]]>
 						<font fontName="TH Sarabun New" size="12" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA["Q'ty"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement mode="Opaque" x="432" y="0" width="50" height="25" backcolor="#FFFFFF" uuid="3ecf8344-3679-48fb-b7bd-4d3b211558e9">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="TH Sarabun New" size="12" isBold="true"/>
+						<paragraph lineSpacing="Fixed" lineSpacingSize="3.0"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Discount"]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>
@@ -1703,7 +1798,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 				<textFieldExpression><![CDATA[$F{product_name}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement key="" x="310" y="0" width="50" height="17" uuid="8de78fa4-571c-4326-97ee-6cd9c889a254">
+				<reportElement key="" x="282" y="0" width="50" height="17" uuid="8de78fa4-571c-4326-97ee-6cd9c889a254">
 					<printWhenExpression><![CDATA[$F{display_type} == null]]></printWhenExpression>
 				</reportElement>
 				<box leftPadding="1" bottomPadding="1">
@@ -1719,7 +1814,8 @@ order by po.id, po_line.sequence, po_line.id]]>
 				<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format($F{product_qty})]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
-				<reportElement key="" x="410" y="0" width="72" height="17" uuid="fe2e2c40-6bf0-44a7-8679-068dab01fbea">
+				<reportElement key="" x="382" y="0" width="50" height="17" uuid="fe2e2c40-6bf0-44a7-8679-068dab01fbea">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<printWhenExpression><![CDATA[$F{display_type} == null]]></printWhenExpression>
 				</reportElement>
 				<box leftPadding="0" bottomPadding="0" rightPadding="5">
@@ -1752,7 +1848,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 				<textFieldExpression><![CDATA[$F{product_price_total}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement key="" x="360" y="0" width="50" height="17" uuid="be7d2720-0367-464b-b542-5e4a1050e652">
+				<reportElement key="" x="332" y="0" width="50" height="17" uuid="be7d2720-0367-464b-b542-5e4a1050e652">
 					<printWhenExpression><![CDATA[$F{display_type} == null]]></printWhenExpression>
 				</reportElement>
 				<box leftPadding="1" bottomPadding="1">
@@ -1766,6 +1862,23 @@ order by po.id, po_line.sequence, po_line.id]]>
 					<paragraph rightIndent="0"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{product_uom}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement key="" x="432" y="0" width="50" height="17" uuid="19b65c0d-7340-4dbd-873a-dd34098e4945">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<printWhenExpression><![CDATA[$F{display_type} == null]]></printWhenExpression>
+				</reportElement>
+				<box leftPadding="0" bottomPadding="0" rightPadding="5">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="TH Sarabun New" size="12" isBold="false"/>
+					<paragraph rightIndent="0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{product_discount}+" "+$F{product_discount_sign}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

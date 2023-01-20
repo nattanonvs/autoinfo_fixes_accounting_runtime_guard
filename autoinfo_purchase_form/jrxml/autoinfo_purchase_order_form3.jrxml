@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="autoinfo_purchase_order_form3" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8f72a463-64e4-4b71-ab9c-a3e1e7e0679e">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="215"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="779"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Localhost"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="autoinfo_DB.xml"/>
 	<style name="Section Line">
 		<conditionalStyle>
 			<conditionExpression><![CDATA[$F{display_type}.toString().equals("line_section")]]></conditionExpression>
@@ -12,7 +12,7 @@
 		</conditionalStyle>
 	</style>
 	<parameter name="p_Where" class="java.lang.String">
-		<defaultValueExpression><![CDATA["where po.id in (21)"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["where po.id in (32)"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="p_language" class="java.lang.String">
 		<defaultValueExpression><![CDATA["eng"]]></defaultValueExpression>
@@ -500,7 +500,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 						</textElement>
 						<textFieldExpression><![CDATA["PURCHASE ORDER\n(INDENT)"]]></textFieldExpression>
 					</textField>
-					<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
+					<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle" onErrorType="Icon">
 						<reportElement x="412" y="0" width="141" height="44" uuid="21409be0-03cd-455b-8720-2d44e8f49c8d"/>
 						<imageExpression><![CDATA[IF( $F{logo_iso} == null
 	,IF($F{logo_iso}== null,null,$P{p_Path} +$F{logo_iso})
@@ -911,10 +911,10 @@ order by po.id, po_line.sequence, po_line.id]]>
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="211">
+			<band height="272">
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<frame>
-					<reportElement mode="Opaque" x="0" y="0" width="425" height="68" uuid="9b25b2e0-4b66-4131-a50a-602f94d65d42"/>
+					<reportElement mode="Opaque" x="0" y="0" width="425" height="130" uuid="9b25b2e0-4b66-4131-a50a-602f94d65d42"/>
 					<box>
 						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -954,7 +954,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 						<textFieldExpression><![CDATA["SHIPMENT"]]></textFieldExpression>
 					</textField>
 					<textField isBlankWhenNull="true">
-						<reportElement x="87" y="34" width="338" height="34" uuid="3473d062-dc0f-45d8-b037-eabc96685334">
+						<reportElement x="87" y="34" width="338" height="96" uuid="3473d062-dc0f-45d8-b037-eabc96685334">
 							<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 						</reportElement>
 						<box leftPadding="5">
@@ -965,7 +965,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 						</box>
 						<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
 							<font fontName="TH Sarabun New" size="12" isBold="false" isUnderline="false"/>
-							<paragraph leftIndent="4" rightIndent="0"/>
+							<paragraph lineSpacing="Fixed" lineSpacingSize="5.0" leftIndent="4" rightIndent="0"/>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{shipment_report}]]></textFieldExpression>
 					</textField>
@@ -1035,7 +1035,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 					</textField>
 				</frame>
 				<frame>
-					<reportElement mode="Opaque" x="0" y="68" width="554" height="20" uuid="db11f738-5c25-465b-8274-76a89a050ec4"/>
+					<reportElement mode="Opaque" x="0" y="130" width="554" height="20" uuid="db11f738-5c25-465b-8274-76a89a050ec4"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1072,7 +1072,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 					</textField>
 				</frame>
 				<frame>
-					<reportElement mode="Opaque" x="0" y="88" width="555" height="122" uuid="bb1e51b8-514f-4b09-a710-ee585594088c"/>
+					<reportElement mode="Opaque" x="0" y="150" width="555" height="122" uuid="bb1e51b8-514f-4b09-a710-ee585594088c"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1175,7 +1175,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 							<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
-						<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
+						<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle" onErrorType="Icon">
 							<reportElement x="23" y="6" width="105" height="60" uuid="9a17d8b1-a7de-4891-bbfd-85177ea1321d"/>
 							<imageExpression><![CDATA[IF($F{pre_signature}== null,null, $P{p_Path} +$F{pre_signature})]]></imageExpression>
 						</image>
@@ -1220,7 +1220,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 							<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
-						<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
+						<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle" onErrorType="Icon">
 							<reportElement x="23" y="6" width="105" height="60" uuid="754ec279-9667-4410-80e6-288bb6992894"/>
 							<imageExpression><![CDATA[IF($F{approved_signature}== null,null, $P{p_Path} +$F{approved_signature})]]></imageExpression>
 						</image>
@@ -1265,7 +1265,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 							<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
-						<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
+						<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle" onErrorType="Icon">
 							<reportElement x="23" y="6" width="105" height="60" uuid="ea884846-1dfa-4c22-acbe-cd9778b1b048"/>
 							<imageExpression><![CDATA[IF($F{prepare_signature}== null,null, $P{p_Path} +$F{prepare_signature})]]></imageExpression>
 						</image>
@@ -1512,7 +1512,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 					<font fontName="TH Sarabun New" size="12" isBold="false"/>
 					<paragraph rightIndent="0"/>
 				</textElement>
-				<textFieldExpression><![CDATA[IF($F{display_type} == null, new java.text.DecimalFormat("#,##0.00").format($F{list_price}), "")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[IF($F{display_type} == null, new java.text.DecimalFormat("#,##0.00").format($F{product_price_unit}), "")]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement key="" style="Section Line" x="380" y="0" width="45" height="17" uuid="fa7e80fe-dce9-4461-8b21-51064a54004a">
