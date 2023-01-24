@@ -119,6 +119,9 @@
 	<parameter name="p_com_website" class="java.lang.String">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
+	<parameter name="p_remark" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[select		line.report_sequence  as rowid,
                 line.display_type  as display_type,
@@ -1866,9 +1869,9 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 					</box>
 					<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
 						<font fontName="Sarabun" size="12"/>
-						<paragraph leftIndent="5"/>
+						<paragraph lineSpacing="Fixed" lineSpacingSize="6.0" leftIndent="5"/>
 					</textElement>
-					<textFieldExpression><![CDATA[IF($P{p_language}.toString().equals("thai"),"หมายเหตุ : ","Remark : ") + "" + IF($F{narration} != null, $F{narration}, "")]]></textFieldExpression>
+					<textFieldExpression><![CDATA[IF($P{p_language}.toString().equals("thai"),"หมายเหตุ : ","Remark : ") + "" + IF($P{p_remark} != null, $P{p_remark}, "")]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="group_id" pattern="#,##0.00">
 					<reportElement mode="Transparent" x="266" y="127" width="103" height="20" uuid="ea9dd948-8166-4995-875f-a048b5e3c771">
