@@ -1289,7 +1289,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 							<font fontName="Sarabun" size="12"/>
 							<paragraph lineSpacing="Fixed" lineSpacingSize="5.0" leftIndent="5" spacingBefore="0"/>
 						</textElement>
-						<textFieldExpression><![CDATA["........................................................\n.ผู้มีอำนาจลงนาม / AUTHORIZED BY"]]></textFieldExpression>
+						<textFieldExpression><![CDATA["........................................................\nผู้มีอำนาจลงนาม / AUTHORIZED BY"]]></textFieldExpression>
 					</textField>
 					<frame>
 						<reportElement x="1" y="4" width="575" height="46" uuid="f59f0722-daaa-4d05-95d2-4c884ba2bac3">
