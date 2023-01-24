@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Sales Form',
-    'version': '1.8',
+    'version': '1.9',
     'category': 'DTR - ERP Sales',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -15,6 +15,8 @@ Customize Report Sales.
 
 Changelog
 ---------
+**Version 1.9**
+    - Fix task A433-T70 (Quotation Form)
 
 **Version 1.8**
     - Resize height of textbox in quotation report
