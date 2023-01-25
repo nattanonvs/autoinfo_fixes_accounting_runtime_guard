@@ -208,7 +208,9 @@
 				department.name as department,
 				invoice.invoice_date_due,
 				sale.date_order as so_date,
-				(select job_no from project_project project where project.id = sale.customer_project limit 1)as job_no
+				(select job_no from project_project project where project.id = sale.customer_project limit 1)as job_no,
+				sale.client_order_ref as so_client_order_ref,
+				sale.po_date as so_po_date
 				--(	select	string_agg(distinct customer_po, ', ')
 				--	from	sale_order
 				--	where	position( name in invoice.origin_second ) > 0  or
@@ -262,7 +264,7 @@ left join	account_payment_term term on ( term.id = invoice.invoice_payment_term_
 left join	company_address_header_report c on ( c.id=invoice.company_id )
 left join	res_partner partner on ( partner.id = invoice.partner_id )
 left join	( select name, max(id) as id from stock_picking group by name ) picking on ( picking.name = line.customer_source_doc )
-left join	( select name, customer_project, date_order, min(id) as id from sale_order group by name, date_order,customer_project ) sale on (  sale.name =invoice.ref )
+left join	( select name, client_order_ref, po_date,customer_project, date_order, min(id) as id from sale_order group by name, client_order_ref, po_date, date_order,customer_project ) sale on (  sale.name =invoice.origin_second )
 left join hr_department department on department.id = invoice.department_id
 $P!{ids}
 ORDER BY invoice.id,flag, line.sequence, line.id]]>
@@ -452,6 +454,14 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 	</field>
 	<field name="job_no" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="job_no"/>
+	</field>
+	<field name="so_client_order_ref" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="so_client_order_ref"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="sale_order"/>
+	</field>
+	<field name="so_po_date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="so_po_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="sale_order"/>
 	</field>
 	<variable name="vat_percent" class="java.math.BigDecimal" calculation="Highest">
 		<variableExpression><![CDATA[$F{vat_order}]]></variableExpression>
@@ -1041,7 +1051,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="14" isBold="false"/>
 						<paragraph lineSpacing="Fixed" lineSpacingSize="5.0" leftIndent="5" spacingBefore="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA[($F{customer_reference}==null?"":$F{customer_reference})+($F{so_date}==null ?"": " / "+new SimpleDateFormat($P{p_DateFormat}, new Locale($P{p_locale}, $P{p_locale})).format($F{so_date}))]]></textFieldExpression>
+					<textFieldExpression><![CDATA[($F{so_client_order_ref}==null?"":$F{so_client_order_ref})+($F{so_po_date}==null ?"": " / "+new SimpleDateFormat($P{p_DateFormat}, new Locale($P{p_locale}, $P{p_locale})).format($F{so_po_date}))]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="group_id" isBlankWhenNull="true">
 					<reportElement x="182" y="38" width="95" height="25" isRemoveLineWhenBlank="true" uuid="69e781f0-1dcd-44fd-ad5b-c21da32fc888">
