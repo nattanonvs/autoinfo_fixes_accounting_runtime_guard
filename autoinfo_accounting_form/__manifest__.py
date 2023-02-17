@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Account Form',
-    'version': '1.7',
+    'version': '1.8',
     'category': 'DTR - ERP Accounting',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -17,6 +17,12 @@ Customize Report Accounting.
 
 Changelog
 ---------
+
+**Version 1.8**
+    - Add new selection date format
+    - Revise template report receipt and invoice
+    - Add field remark payment for display in report
+
 **Version 1.7**
     - Fix 
     
@@ -47,6 +53,7 @@ Changelog
     'depends': [
         'dtr_accounting_form',
         'autoinfo_employees',
+        'account'
     ],
     'application': False,
     'data': [
@@ -55,5 +62,6 @@ Changelog
         'reports/autoinfo_receipt_pp_form.xml',
         'reports/receipt_form.xml',
         'reports/autoinfo_invoice_form.xml',
+        'views/account_payment_view.xml'
     ],
 }

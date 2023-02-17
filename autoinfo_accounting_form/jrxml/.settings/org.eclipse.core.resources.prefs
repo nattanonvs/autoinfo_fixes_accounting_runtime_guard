@@ -1,4 +1,7 @@
 eclipse.preferences.version=1
 encoding/autoinfo_credit_note_form.jrxml=UTF-8
 encoding/autoinfo_debit_note_form.jrxml=UTF-8
+encoding/autoinfo_invoice_form.jrxml=UTF-8
+encoding/autoinfo_invoice_inv2_form.jrxml=UTF-8
+encoding/autoinfo_invoice_inv3_form.jrxml=UTF-8
 encoding/autoinfo_receipt_form.jrxml=UTF-8

@@ -19,8 +19,8 @@ class ReceiptForm(models.TransientModel):
 
         res['p_company_en'] = "THE AUTO-INFO CO.,LTD."
         res['p_company_th'] = "บริษัท ออโต้อินโฟ จำกัด"
-        res['p_com_address_en'] = "1359 Soi Ladprao 94 (Panjamitr) Ladprao Rd.,Plubpla, Wangthonglang Bangkok 10310, Thailand."
-        res['p_com_address_th'] = "1359 ซ.ลาดพร้าว 94 (ปัญจมิตร) ถ.ลาดพร้าว แขวงพลับพลา เขตวังทองหลาง กรุงเทพฯ 10310"
+        res['p_com_address_en'] = "1359 Soi Ladprao 94 (Panjamitr) Ladprao Rd.,Plubpla, Wangthonglang Bangkok 10310"
+        res['p_com_address_th'] = "1359 ซ.ลาดพร้าว 94 (ปัญจมิตร) ถ.ลาดพร้าว แขวงพลับพลา เขตวังทองหลาง กรุงเทพมหานคร 10310"
 
         return res
 

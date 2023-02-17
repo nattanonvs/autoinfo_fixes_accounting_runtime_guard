@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="autoinfo_invoice_inv3_form" pageWidth="595" pageHeight="842" columnWidth="575" leftMargin="10" rightMargin="10" topMargin="20" bottomMargin="5" isFloatColumnFooter="true" uuid="9d429c61-ca07-45fd-95b2-54aea3253cab">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="autoinfo_DB.xml"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -175,8 +175,8 @@
 				partner.name as customer,
 				CONCAT(partner.street,' ',partner.street2) AS  partner_address,
 				partner.ref as customer_code,
-				partner.vat as customer_tax_id,
-				partner.branch_code as customer_branch_code,
+				COALESCE(partner.vat, '') as customer_tax_id,
+				COALESCE(partner.branch_code, '') as customer_branch_code,
 				COALESCE(c.company_tax_id,'') as company_tax_id,
 				COALESCE(c.company_branch,'') as company_branch,
 				COALESCE(c.company_name_thai,'') as company_name_thai,
@@ -738,15 +738,12 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 )]]></textFieldExpression>
 				</textField>
 			</band>
-			<band height="92">
+			<band height="109">
 				<rectangle radius="10">
-					<reportElement mode="Transparent" x="0" y="0" width="460" height="90" uuid="6b0cfcbc-0273-497f-a4d7-3f6db365c062"/>
-				</rectangle>
-				<rectangle radius="10">
-					<reportElement mode="Transparent" x="470" y="0" width="105" height="90" uuid="60f7f648-b013-4ff3-b3c0-37305a878186"/>
+					<reportElement mode="Transparent" x="0" y="0" width="460" height="103" uuid="1f542f48-c7a4-4935-a84a-67b0d6d55a7a"/>
 				</rectangle>
 				<textField evaluationTime="Group" evaluationGroup="group_id">
-					<reportElement x="0" y="0" width="112" height="35" uuid="66e7f057-7491-4405-af00-d19a1da9b2bf">
+					<reportElement x="0" y="0" width="112" height="34" uuid="63adf154-8bf0-42dc-8714-57c879ca4d51">
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
@@ -764,61 +761,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 					<textFieldExpression><![CDATA["ชื่อลูกค้า\nCUSTOMER NAME"]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="group_id">
-					<reportElement x="0" y="44" width="112" height="35" uuid="9c7df495-5708-4ed3-abb1-1094cc19a12c">
-						<property name="com.jaspersoft.studio.unit.x" value="px"/>
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					</reportElement>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					</box>
-					<textElement textAlignment="Left">
-						<font fontName="Sarabun" size="14" isBold="true"/>
-						<paragraph lineSpacing="Fixed" lineSpacingSize="5.0" leftIndent="5" spacingBefore="3"/>
-					</textElement>
-					<textFieldExpression><![CDATA["ที่อยู่\nADDRESS"]]></textFieldExpression>
-				</textField>
-				<textField evaluationTime="Group" evaluationGroup="group_id">
-					<reportElement x="470" y="0" width="30" height="35" uuid="05faf821-9157-4a8a-a2c9-41b525804206">
-						<property name="com.jaspersoft.studio.unit.x" value="px"/>
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					</reportElement>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					</box>
-					<textElement textAlignment="Left">
-						<font fontName="Sarabun" size="14" isBold="true"/>
-						<paragraph lineSpacing="Fixed" lineSpacingSize="5.0" leftIndent="5" spacingBefore="3"/>
-					</textElement>
-					<textFieldExpression><![CDATA["เลขที่\nNO."]]></textFieldExpression>
-				</textField>
-				<textField evaluationTime="Group" evaluationGroup="group_id">
-					<reportElement x="470" y="44" width="40" height="35" uuid="1b39fced-c93d-4c25-a3cf-4c6c20faa182">
-						<property name="com.jaspersoft.studio.unit.x" value="px"/>
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					</reportElement>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					</box>
-					<textElement textAlignment="Left">
-						<font fontName="Sarabun" size="14" isBold="true"/>
-						<paragraph lineSpacing="Fixed" lineSpacingSize="5.0" leftIndent="5" spacingBefore="3"/>
-					</textElement>
-					<textFieldExpression><![CDATA["วันที่\nDATE"]]></textFieldExpression>
-				</textField>
-				<textField evaluationTime="Group" evaluationGroup="group_id">
-					<reportElement x="112" y="0" width="338" height="35" isRemoveLineWhenBlank="true" uuid="8bfcebd8-ab6a-4174-b2e3-836db916f09c">
+					<reportElement x="112" y="0" width="346" height="34" isRemoveLineWhenBlank="true" uuid="75ae31d4-2e57-4acc-8220-b0b796d31fbb">
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
@@ -836,7 +779,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 					<textFieldExpression><![CDATA[$F{customer}]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="group_id">
-					<reportElement x="112" y="44" width="338" height="35" isRemoveLineWhenBlank="true" uuid="6259fef2-8cc4-403b-9867-9cbdab97bc6c">
+					<reportElement x="112" y="34" width="346" height="34" isRemoveLineWhenBlank="true" uuid="8eb53f4e-b085-4d89-aadf-56198f0babc1">
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
@@ -854,7 +797,136 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 					<textFieldExpression><![CDATA[$F{partner_address}]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="group_id">
-					<reportElement x="500" y="0" width="75" height="35" uuid="4e481165-5a9a-458a-8e69-2d61d9c2ea39">
+					<reportElement x="0" y="34" width="112" height="34" uuid="987bc89f-740f-448d-9896-2770b7cb2895">
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left">
+						<font fontName="Sarabun" size="14" isBold="true"/>
+						<paragraph lineSpacing="Fixed" lineSpacingSize="5.0" leftIndent="5" spacingBefore="3"/>
+					</textElement>
+					<textFieldExpression><![CDATA["ที่อยู่\nADDRESS"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="group_id">
+					<reportElement x="0" y="69" width="130" height="34" uuid="51e11e72-6ea5-4893-8ccc-5d26e68386cf">
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left">
+						<font fontName="Sarabun" size="14" isBold="true"/>
+						<paragraph lineSpacing="Fixed" lineSpacingSize="5.0" leftIndent="5" spacingBefore="3"/>
+					</textElement>
+					<textFieldExpression><![CDATA["เลชประจำตัวผู้เสียภาษี\nTax ID"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="group_id">
+					<reportElement x="130" y="69" width="118" height="34" isRemoveLineWhenBlank="true" uuid="a17a3c1c-5279-4e24-ace9-15faf3b0a208">
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font fontName="Sarabun" size="14" isBold="false"/>
+						<paragraph lineSpacing="Fixed" lineSpacingSize="5.0" leftIndent="5" spacingBefore="3"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{customer_tax_id}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="group_id">
+					<reportElement x="249" y="69" width="112" height="34" uuid="a35ea14e-de93-4006-8b05-601667928087">
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left">
+						<font fontName="Sarabun" size="14" isBold="true"/>
+						<paragraph lineSpacing="Fixed" lineSpacingSize="5.0" leftIndent="5" spacingBefore="3"/>
+					</textElement>
+					<textFieldExpression><![CDATA["สาขา\nBranch Code"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="group_id">
+					<reportElement x="361" y="69" width="98" height="34" isRemoveLineWhenBlank="true" uuid="0a80ea7f-0199-4540-9a90-00228203a503">
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font fontName="Sarabun" size="14" isBold="false"/>
+						<paragraph lineSpacing="Fixed" lineSpacingSize="5.0" leftIndent="5" spacingBefore="3"/>
+					</textElement>
+					<textFieldExpression><![CDATA[IF($F{customer_branch_code}.toString().equals("00000"),"สำนักงานใหญ่",$F{customer_branch_code})]]></textFieldExpression>
+				</textField>
+				<rectangle radius="10">
+					<reportElement mode="Transparent" x="470" y="0" width="105" height="103" uuid="3fc43a2e-b897-4986-aa25-374c7c4d7385"/>
+				</rectangle>
+				<textField evaluationTime="Group" evaluationGroup="group_id">
+					<reportElement x="470" y="34" width="40" height="34" uuid="39869ed3-140b-415f-b106-886dc4210392">
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left">
+						<font fontName="Sarabun" size="14" isBold="true"/>
+						<paragraph lineSpacing="Fixed" lineSpacingSize="5.0" leftIndent="5" spacingBefore="3"/>
+					</textElement>
+					<textFieldExpression><![CDATA["วันที่\nDATE"]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="group_id">
+					<reportElement x="470" y="0" width="30" height="34" uuid="6d6a18fd-5639-4c03-806e-5dd2a2a2e0d6">
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left">
+						<font fontName="Sarabun" size="14" isBold="true"/>
+						<paragraph lineSpacing="Fixed" lineSpacingSize="5.0" leftIndent="5" spacingBefore="3"/>
+					</textElement>
+					<textFieldExpression><![CDATA["เลขที่\nNO."]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="group_id">
+					<reportElement x="500" y="0" width="75" height="34" uuid="63831e3c-65a0-4b25-9c5f-3a956bfb32a0">
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						<property name="com.jaspersoft.studio.unit.spacingBefore" value="px"/>
@@ -874,7 +946,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 					<textFieldExpression><![CDATA[$F{inv_no}]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="group_id">
-					<reportElement x="510" y="44" width="65" height="35" uuid="49fe507f-5081-440f-a6c3-983792e05486">
+					<reportElement x="510" y="34" width="65" height="34" uuid="0b87850d-f988-4ed2-9864-d8c882106191">
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						<property name="com.jaspersoft.studio.unit.spacingBefore" value="px"/>
@@ -982,7 +1054,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="14" isBold="true"/>
 						<paragraph lineSpacing="Fixed" lineSpacingSize="5.0" leftIndent="5" spacingBefore="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA["แผนก\nDEPARTMENT"]]></textFieldExpression>
+					<textFieldExpression><![CDATA["โครงการ\nPROJECT NO."]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="group_id">
 					<reportElement x="473" y="0" width="102" height="35" uuid="fc4951be-333e-4ee7-b510-3c0cc06b20c1">
@@ -1860,7 +1932,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 	<background>
 		<band height="802">
 			<staticText>
-				<reportElement x="472" y="282" width="103" height="518" uuid="ac06b334-306b-4cb4-8f64-e5897c8ba63f">
+				<reportElement x="472" y="299" width="103" height="503" uuid="ac06b334-306b-4cb4-8f64-e5897c8ba63f">
 					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1877,7 +1949,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="375" y="282" width="97" height="518" uuid="1ef919a0-fe18-4be4-bef8-06f39f533def">
+				<reportElement x="375" y="299" width="97" height="503" uuid="1ef919a0-fe18-4be4-bef8-06f39f533def">
 					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1894,7 +1966,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="278" y="282" width="97" height="518" uuid="f0844afd-dd3a-4d44-99f7-9bf4d7c3492b">
+				<reportElement x="278" y="299" width="97" height="503" uuid="f0844afd-dd3a-4d44-99f7-9bf4d7c3492b">
 					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1911,7 +1983,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="282" width="51" height="518" uuid="0d044a36-8ea9-46f2-8658-7cf2730b8f0d">
+				<reportElement x="0" y="299" width="51" height="503" uuid="0d044a36-8ea9-46f2-8658-7cf2730b8f0d">
 					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
@@ -1929,7 +2001,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="51" y="282" width="227" height="518" uuid="70d48abd-cb88-401f-b1ff-990a26f31a60">
+				<reportElement x="51" y="299" width="227" height="503" uuid="70d48abd-cb88-401f-b1ff-990a26f31a60">
 					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
