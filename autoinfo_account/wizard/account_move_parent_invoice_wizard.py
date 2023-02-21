@@ -10,7 +10,6 @@ class AccountMoveInvoiceParentWizard(models.TransientModel):
 
     def action_save(self):
         res = super(AccountMoveInvoiceParentWizard, self).action_save()
-        print ('===============invoice ', self.invoice_id)
         parent_invoice_ids = self.parent_invoice_ids.filtered(lambda x: x.invoice_user_id)
         if parent_invoice_ids:
             self.invoice_id.write({'invoice_user_id': parent_invoice_ids[0].invoice_user_id.id})
