@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Account',
-    'version': '1.1',
+    'version': '1.2',
     'category': 'DTR - ERP Accounting',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -16,6 +16,9 @@ Extends the functionality of Account.
 Changelog
 ---------
 
+**Version 1.2**
+    - Auto stamp salesperson from parent invoice in credit note and debit note
+
 **Version 1.1**
     - Auto stamp internal note from customer in billing
 
@@ -25,7 +28,7 @@ Changelog
     """,
     'author': 'Dataroot Asia Co., Ltd.',
     'created_by': 'Varawit Termwaraporn',
-    'depends': ['base', 'account', 'purchase_request', 'purchase', 'dtr_taxation', 'dtr_billing'],
+    'depends': ['base', 'account', 'purchase_request', 'purchase', 'dtr_taxation', 'dtr_billing', 'dtr_dncn'],
     'application': False,
     'data': [
         'security/ir.model.access.csv',
