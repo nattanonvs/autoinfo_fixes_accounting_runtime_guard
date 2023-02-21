@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Sale',
-    'version': '1.2',
+    'version': '1.3',
     'category': 'DTR - ERP Sale',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -15,6 +15,9 @@ Extends the functionality of Sale.
 
 Changelog
 ---------
+
+**Version 1.3**
+    - Set allow field customer reference and customer reference date can edit after approve sale order
 
 **Version 1.2**
     - Auto stamp analytic account from project in sale order
@@ -28,7 +31,7 @@ Changelog
     """,
     'author': 'Dataroot Asia Co., Ltd.',
     'created_by': 'Varawit Termwaraporn',
-    'depends': ['sale', 'stock', 'sale_stock', 'base', 'hr', 'dtr_sales_department', 'dtr_access_right_base', 'dtr_sales'],
+    'depends': ['sale', 'stock', 'sale_stock', 'base', 'hr', 'dtr_sales_department', 'dtr_access_right_base', 'dtr_sales', 'sale_tier_validation'],
     'application': False,
     'data': [
         'security/ir.model.access.csv',

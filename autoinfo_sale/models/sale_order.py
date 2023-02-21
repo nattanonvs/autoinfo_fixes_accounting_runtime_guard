@@ -46,3 +46,10 @@ class SaleOrder(models.Model):
     def onchange_customer_project(self):
         if self.customer_project and self.customer_project.analytic_account_id:
             self.analytic_account_id = self.customer_project.analytic_account_id.id
+
+    @api.model
+    def _get_under_validation_exceptions(self):
+        res = super(SaleOrder, self)._get_under_validation_exceptions()
+        res.append('client_order_ref')
+        res.append('po_date')
+        return res
