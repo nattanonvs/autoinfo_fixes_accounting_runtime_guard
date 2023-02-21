@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Account Form',
-    'version': '1.8',
+    'version': '1.9',
     'category': 'DTR - ERP Accounting',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -17,6 +17,9 @@ Customize Report Accounting.
 
 Changelog
 ---------
+
+**Version 1.9**
+    - Revise template credit note and debit note report (A433-T100)
 
 **Version 1.8**
     - Add new selection date format

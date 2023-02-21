@@ -35,6 +35,24 @@
 	<parameter name="p_locale" class="java.lang.String">
 		<defaultValueExpression><![CDATA["th"]]></defaultValueExpression>
 	</parameter>
+	<parameter name="p_company_en" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="p_company_th" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="p_com_address_en" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="p_com_address_th" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="p_com_website" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="p_remark" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[select		line.report_sequence  as rowid,
                 COALESCE(line.display_type, '')  as display_type,
@@ -170,7 +188,8 @@
 					inner join account_move parent_move on parent_move.id = am_rel.name
 					 where am_rel.id=invoice.id limit 1) as parent_invoice_date,
 				dept.name as department_name,
-				sale_part.name as sale_person
+				sale_part.name as sale_person,
+				COALESCE(proj.name, '') as project_name
 from		account_move invoice
 left join res_currency cur on cur.id = invoice.currency_id
 left join	account_move_line line on ( line.move_id = invoice.id ) and line.exclude_from_invoice_tab = False
@@ -189,6 +208,7 @@ LEFT JOIN res_partner as cpartner on cpartner.id = comp.partner_id
 LEFT JOIN hr_department dept ON dept.id = invoice.department_id
 LEFT JOIN res_users sale_user ON sale_user.id = invoice.invoice_user_id
 LEFT JOIN res_partner sale_part ON sale_part.id = sale_user.partner_id
+LEFT JOIN project_project proj on proj.id = invoice.project_id
 --LEFT JOIN res_country_state as cp on cp.id = cpartner.state_id
 --LEFT JOIN res_country as cc on cc.id = cpartner.country_id
 --LEFT JOIN res_currency cu ON cu.id = comp.currency_id
@@ -389,6 +409,9 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 	<field name="sale_person" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="sale_person"/>
 	</field>
+	<field name="project_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="project_name"/>
+	</field>
 	<variable name="vat_percent" class="java.math.BigDecimal" calculation="Highest">
 		<variableExpression><![CDATA[$F{vat_order}]]></variableExpression>
 	</variable>
@@ -396,42 +419,7 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 	<group name="group_id" isResetPageNumber="true" isReprintHeaderOnEachPage="true" footerPosition="ForceAtBottom" keepTogether="true" preventOrphanFooter="true">
 		<groupExpression><![CDATA[$F{id}]]></groupExpression>
 		<groupHeader>
-			<band height="82">
-				<textField evaluationTime="Group" evaluationGroup="group_id">
-					<reportElement x="100" y="0" width="272" height="38" uuid="a34c528a-a1a8-4038-ab3a-bee7a72dd0c5">
-						<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					</reportElement>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					</box>
-					<textElement textAlignment="Left" verticalAlignment="Top">
-						<font fontName="TH Sarabun New" size="18" isBold="true"/>
-						<paragraph lineSpacing="Fixed" lineSpacingSize="6.0" leftIndent="0"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{company_name_thai} + "\n" + $F{company_name_en}]]></textFieldExpression>
-				</textField>
-				<textField evaluationTime="Group" evaluationGroup="group_id">
-					<reportElement x="100" y="38" width="370" height="44" uuid="d3c83ba0-8750-452b-a2bf-0486d01457df">
-						<property name="com.jaspersoft.studio.unit.x" value="px"/>
-					</reportElement>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					</box>
-					<textElement textAlignment="Left" verticalAlignment="Top">
-						<font fontName="TH Sarabun New" size="12" isBold="false"/>
-						<paragraph lineSpacing="Fixed" lineSpacingSize="7.0" leftIndent="0"/>
-					</textElement>
-					<textFieldExpression><![CDATA[IF($F{c_street_th}==null,"",$F{c_street_th}) + " " + IF($F{c_street_th2}==null,"",$F{c_street_th2}) + "\n" + IF($F{company_address_en}==null,"",$F{company_address_en})
- + "\n" + "TEL : " + IF($F{company_phone}==null,"",$F{company_phone} ) + "   Fax : " + IF($F{company_fax}==null,"",$F{company_fax}) + "  เลขประจำตัวผู้เสียภาษี : " + IF($F{company_tax_id}==null,"",$F{company_tax_id} ) + " (" + IF($F{company_branch}.toString().equals("00000"),"สำนักงานใหญ่",$F{company_branch}.toString()) + ")"]]></textFieldExpression>
-				</textField>
+			<band height="88">
 				<textField evaluationTime="Group" evaluationGroup="group_id">
 					<reportElement mode="Transparent" x="470" y="0" width="80" height="44" backcolor="#EDEDED" uuid="89e2d79a-816e-4e50-99b2-524229d32d2b"/>
 					<box>
@@ -456,6 +444,174 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 					</reportElement>
 					<imageExpression><![CDATA[new java.io.ByteArrayInputStream(org.apache.commons.codec.binary.Base64.decodeBase64($F{company_logo}.getBytes()))]]></imageExpression>
 				</image>
+				<textField evaluationTime="Group" evaluationGroup="group_id">
+					<reportElement x="90" y="0" width="150" height="19" uuid="4cc9f984-66c0-4a7f-8e2e-267baf087b85">
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.spacingBefore" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font fontName="TH Sarabun New" size="18" isBold="true"/>
+						<paragraph leftIndent="0" spacingBefore="-5"/>
+					</textElement>
+					<textFieldExpression><![CDATA[IF($P{p_company_en}==null,"",$P{p_company_en})]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="group_id">
+					<reportElement x="240" y="0" width="121" height="19" uuid="c1eedd01-06c4-422b-b488-988bab58f1a7">
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.spacingBefore" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Top">
+						<font fontName="TH Sarabun New" size="18" isBold="true"/>
+						<paragraph leftIndent="0" spacingBefore="-5"/>
+					</textElement>
+					<textFieldExpression><![CDATA[IF($F{company_branch}.equals("00000"),"(HEAD OFFICE)","")]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="group_id">
+					<reportElement x="220" y="19" width="150" height="19" uuid="40349d09-4639-4240-9947-7bf44ff31ee7">
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.spacingBefore" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left">
+						<font fontName="TH Sarabun New" size="18" isBold="true"/>
+						<paragraph leftIndent="0" spacingBefore="-5"/>
+					</textElement>
+					<textFieldExpression><![CDATA[IF($F{company_branch}.equals("00000"),"(สำนักงานใหญ่)","")]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="group_id">
+					<reportElement x="90" y="19" width="130" height="19" uuid="b4d2adcd-8a43-4922-97fa-3a60d42d1f34">
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.spacingBefore" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left">
+						<font fontName="TH Sarabun New" size="18" isBold="true"/>
+						<paragraph leftIndent="0" spacingBefore="-5"/>
+					</textElement>
+					<textFieldExpression><![CDATA[IF($P{p_company_th}==null,"",$P{p_company_th})]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="group_id">
+					<reportElement x="215" y="38" width="75" height="12" uuid="97545fdb-cce3-4bc5-a81f-7a35a1bead22">
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.spacingBefore" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="TH Sarabun New" size="12" isBold="false"/>
+						<paragraph leftIndent="0" spacingBefore="-5"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{company_tax_id}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="group_id">
+					<reportElement x="90" y="38" width="125" height="12" uuid="997a12c5-8b53-482e-becc-f681684ceda3">
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.spacingBefore" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="TH Sarabun New" size="12" isBold="false"/>
+						<paragraph leftIndent="0" spacingBefore="-5"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Tax ID / เลขประจำตัวเสียภาษี : "]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="group_id">
+					<reportElement x="90" y="50" width="349" height="12" uuid="09075315-e034-4af0-b68f-9f131ab1ac29">
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.spacingBefore" value="px"/>
+					</reportElement>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="TH Sarabun New" size="12" isBold="false"/>
+						<paragraph leftIndent="0" spacingBefore="-5"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{p_com_address_en}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="group_id">
+					<reportElement x="90" y="62" width="349" height="12" uuid="baadeed1-a317-4bce-9473-3b88d1411e65">
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.spacingBefore" value="px"/>
+					</reportElement>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="TH Sarabun New" size="12" isBold="false"/>
+						<paragraph leftIndent="0" spacingBefore="-5"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{p_com_address_th}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="group_id">
+					<reportElement x="90" y="74" width="349" height="12" uuid="ce917b5b-3ef2-411c-bc2c-da91ce4d00b0">
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						<property name="com.jaspersoft.studio.unit.spacingBefore" value="px"/>
+					</reportElement>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="TH Sarabun New" size="12" isBold="false"/>
+						<paragraph leftIndent="0" spacingBefore="-5"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Tel : "+$F{company_phone}+" Fax : "+$F{company_fax} +" "+$P{p_com_website}]]></textFieldExpression>
+				</textField>
 			</band>
 			<band height="144">
 				<textField evaluationTime="Group" evaluationGroup="group_id" isBlankWhenNull="true">
@@ -503,7 +659,7 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 						<font fontName="TH Sarabun New" size="12" isBold="true"/>
 						<paragraph lineSpacing="Fixed" lineSpacingSize="6.0" leftIndent="10" spacingBefore="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{customer_code} == null ? $F{customer} : msg("{0} - {1}",$F{customer_code}, $F{customer})]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{customer_code} == null ? $F{customer} : msg("{0} - {1}",$F{customer_code}, $F{customer}) + " " + IF($F{customer_branch_code}.toString().equals("00000"),"สำนักงานใหญ่",$F{customer_branch_code})]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="group_id">
 					<reportElement x="50" y="35" width="280" height="57" uuid="17e9092b-dd37-44c4-ae55-eb63b5efb10e">
@@ -526,7 +682,10 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 						<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 					</reportElement>
 					<box>
-						<topPen lineWidth="0.5"/>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Left" verticalAlignment="Top">
 						<font fontName="TH Sarabun New" size="12"/>
@@ -664,7 +823,7 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 						<font fontName="TH Sarabun New" size="12"/>
 						<paragraph leftIndent="0"/>
 					</textElement>
-					<textFieldExpression><![CDATA["แผนก\nDEPARTMENT"]]></textFieldExpression>
+					<textFieldExpression><![CDATA["ชื่อโครงการ\nPROJECT NO."]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="442" y="92" width="113" height="32" uuid="a5fdaacb-2b63-4c6e-bdce-08b384e18b03">
@@ -694,7 +853,7 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 						<font fontName="TH Sarabun New" size="12"/>
 						<paragraph leftIndent="0"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{parent_invoice_name} + " " + IF($F{parent_invoice_date}==null,"", new SimpleDateFormat($P{p_DateFormat}, new Locale($P{p_locale}, $P{p_locale})).format($F{parent_invoice_date}))]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{parent_invoice_name} + "/" + IF($F{parent_invoice_date}==null,"", new SimpleDateFormat($P{p_DateFormat}, new Locale($P{p_locale}, $P{p_locale})).format($F{parent_invoice_date}))]]></textFieldExpression>
 				</textField>
 				<textField isBlankWhenNull="true">
 					<reportElement x="144" y="124" width="93" height="20" uuid="97960143-18b5-4c2b-9e65-f22d42311c49">
@@ -733,7 +892,7 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 						<font fontName="TH Sarabun New" size="12"/>
 						<paragraph leftIndent="0"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{department_name}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{project_name}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="442" y="124" width="113" height="20" uuid="1d46d6c6-5a3b-41e1-b3e0-028c3bd13614">
@@ -776,7 +935,7 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="TH Sarabun New" size="12"/>
 					</textElement>
-					<textFieldExpression><![CDATA[IF($P{p_language}.toString().equals("thai"),"รายการสินค้า","Product Description")]]></textFieldExpression>
+					<textFieldExpression><![CDATA[IF($P{p_language}.toString().equals("thai"),"รายการสินค้า","Description")]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="237" y="0" width="93" height="35" uuid="6de02648-1a80-4450-9003-71c1bc2e89db"/>
@@ -818,7 +977,7 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="266">
+			<band height="298">
 				<textField>
 					<reportElement mode="Opaque" x="31" y="0" width="205" height="35" uuid="8813d059-95ad-4c57-8cf4-c2a222c2cde5">
 						<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
@@ -837,7 +996,7 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 					<textFieldExpression><![CDATA["**เหตุผลในการลดหนี้**\n" + $F{remark}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement mode="Opaque" x="0" y="124" width="330" height="16" backcolor="#FFFFFF" uuid="2ad9969b-6cca-4e80-ae7a-583a2d5ea2c4"/>
+					<reportElement mode="Opaque" x="0" y="130" width="330" height="16" backcolor="#FFFFFF" uuid="2ad9969b-6cca-4e80-ae7a-583a2d5ea2c4"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
@@ -868,20 +1027,20 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 					<textFieldExpression><![CDATA[$F{parent_inv_amount}.subtract($F{amount_untaxed})]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement mode="Opaque" x="330" y="156" width="225" height="40" uuid="3ad01d38-43bb-4003-ba18-244ea3de83f1"/>
+					<reportElement mode="Opaque" x="330" y="162" width="225" height="40" uuid="3ad01d38-43bb-4003-ba18-244ea3de83f1"/>
 					<box>
 						<topPen lineWidth="0.5"/>
 						<leftPen lineWidth="0.5"/>
 						<rightPen lineWidth="0.5"/>
 					</box>
-					<textElement textAlignment="Left" verticalAlignment="Top">
+					<textElement textAlignment="Center" verticalAlignment="Top">
 						<font fontName="TH Sarabun New"/>
 						<paragraph leftIndent="5"/>
 					</textElement>
-					<textFieldExpression><![CDATA["ในนาม " + $F{company_name_thai} + "\nFor " + $F{company_name_en}]]></textFieldExpression>
+					<textFieldExpression><![CDATA["ในนาม " + $P{p_company_th} + "\nFOR " + $P{p_company_en}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement mode="Opaque" x="0" y="196" width="165" height="70" uuid="dbba7967-4a26-4367-99c0-1caadefb661e"/>
+					<reportElement mode="Opaque" x="0" y="202" width="165" height="70" uuid="dbba7967-4a26-4367-99c0-1caadefb661e"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
@@ -895,7 +1054,7 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 					<textFieldExpression><![CDATA["ผู้รับของ/วันที่\nRECEIVED BY/DATE"]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement mode="Opaque" x="165" y="196" width="165" height="70" uuid="7889035b-cee0-41aa-a78a-a2688588a83a"/>
+					<reportElement mode="Opaque" x="165" y="202" width="165" height="70" uuid="7889035b-cee0-41aa-a78a-a2688588a83a"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -909,20 +1068,20 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 					<textFieldExpression><![CDATA["ผู้ส่งของ/วันที่\nDELIVERED BY/DATE"]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement mode="Opaque" x="330" y="196" width="225" height="70" uuid="52059275-a1cd-4b30-8a4d-365800e1d544"/>
+					<reportElement mode="Opaque" x="330" y="202" width="225" height="70" uuid="52059275-a1cd-4b30-8a4d-365800e1d544"/>
 					<box>
 						<leftPen lineWidth="0.5"/>
 						<bottomPen lineWidth="0.5"/>
 						<rightPen lineWidth="0.5"/>
 					</box>
-					<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
 						<font fontName="TH Sarabun New"/>
 						<paragraph leftIndent="5"/>
 					</textElement>
-					<textFieldExpression><![CDATA["ผู้มีอำนาจลงนาม\nAuthorized Signature"]]></textFieldExpression>
+					<textFieldExpression><![CDATA["ผู้มีอำนาจลงนาม\nAUTHORIZED SIGNATURE"]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Report">
-					<reportElement mode="Opaque" x="330" y="60" width="112" height="32" uuid="756cfb39-4a7b-4c5d-9559-b74922ba8227">
+					<reportElement mode="Opaque" x="330" y="60" width="112" height="35" uuid="756cfb39-4a7b-4c5d-9559-b74922ba8227">
 						<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 					</reportElement>
 					<box>
@@ -990,7 +1149,7 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 					<textFieldExpression><![CDATA[$F{parent_inv_amount}]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="group_id" pattern="#,##0.00">
-					<reportElement mode="Opaque" x="442" y="60" width="113" height="32" uuid="85b081f3-9b7f-4d9e-957b-5d42615ba332">
+					<reportElement mode="Opaque" x="442" y="60" width="113" height="35" uuid="85b081f3-9b7f-4d9e-957b-5d42615ba332">
 						<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 					</reportElement>
 					<box>
@@ -1041,7 +1200,7 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 					<textFieldExpression><![CDATA[$F{amount_untaxed}]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Report">
-					<reportElement mode="Opaque" x="330" y="92" width="112" height="32" uuid="790a10ff-42f9-419e-8b86-2441da1a8580">
+					<reportElement mode="Opaque" x="330" y="95" width="112" height="35" uuid="790a10ff-42f9-419e-8b86-2441da1a8580">
 						<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 					</reportElement>
 					<box>
@@ -1058,7 +1217,7 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 					<textFieldExpression><![CDATA["ภาษีมูลค่าเพิ่ม\nVAT"]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="group_id" pattern="#,##0.00">
-					<reportElement mode="Opaque" x="442" y="92" width="113" height="32" uuid="e09b6174-675d-44af-85be-69a1a01e2795">
+					<reportElement mode="Opaque" x="442" y="95" width="113" height="35" uuid="e09b6174-675d-44af-85be-69a1a01e2795">
 						<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 					</reportElement>
 					<box>
@@ -1075,7 +1234,7 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 					<textFieldExpression><![CDATA[$F{tax}]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Report">
-					<reportElement mode="Opaque" x="330" y="124" width="112" height="32" uuid="c48f5670-196f-4228-ae7a-5bea00edd054">
+					<reportElement mode="Opaque" x="330" y="130" width="112" height="32" uuid="c48f5670-196f-4228-ae7a-5bea00edd054">
 						<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 					</reportElement>
 					<box>
@@ -1092,7 +1251,7 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 					<textFieldExpression><![CDATA["จำนวนเงินรวมทั้งสิ้น\nGRAND TOTAL"]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="group_id" pattern="#,##0.00">
-					<reportElement mode="Opaque" x="442" y="124" width="113" height="32" uuid="06b57607-cf28-4ab9-b818-93688cea6bfd">
+					<reportElement mode="Opaque" x="442" y="130" width="113" height="32" uuid="06b57607-cf28-4ab9-b818-93688cea6bfd">
 						<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 					</reportElement>
 					<box>
@@ -1109,7 +1268,7 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 					<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Report">
-					<reportElement mode="Opaque" x="0" y="60" width="330" height="64" uuid="b0874c4b-1ca8-4955-8d40-ce2bb26d36a9">
+					<reportElement mode="Opaque" x="0" y="60" width="330" height="70" uuid="b0874c4b-1ca8-4955-8d40-ce2bb26d36a9">
 						<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 					</reportElement>
 					<box>
@@ -1119,14 +1278,14 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
 					</box>
-					<textElement textAlignment="Left" verticalAlignment="Top">
+					<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
 						<font fontName="TH Sarabun New" size="12"/>
 						<paragraph lineSpacing="Fixed" lineSpacingSize="5.0" leftIndent="5"/>
 					</textElement>
-					<textFieldExpression><![CDATA["สินค้าขายขาดไม่รับคืน GOODS SOLD ARE NOT RETURNABLE\nบริษัทคิดดอกเบี้ย 1.25% ต่อเดือน และคิดตามทวงถาม .25% ต่อเดือน เมื่อชำระเกินกำหนด\nINTEREST AT 1.5% PER MONTH AND ALL EXPENSES .25% PER MONTH WILL BE\nCHARGE ON OVER DUE ACCOUNT"]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$P{p_remark}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement mode="Opaque" x="0" y="140" width="330" height="16" backcolor="#FFFFFF" uuid="97600753-0fb8-4597-8d9c-5cb5da7ecf50"/>
+					<reportElement mode="Opaque" x="0" y="146" width="330" height="16" backcolor="#FFFFFF" uuid="97600753-0fb8-4597-8d9c-5cb5da7ecf50"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
@@ -1140,7 +1299,7 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 					<textFieldExpression><![CDATA[$F{total_word}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement mode="Opaque" x="0" y="156" width="330" height="40" uuid="5793ca78-c3b4-4f47-9c3b-b8855d0801a3"/>
+					<reportElement mode="Opaque" x="0" y="162" width="330" height="40" uuid="5793ca78-c3b4-4f47-9c3b-b8855d0801a3"/>
 					<box>
 						<topPen lineWidth="0.5"/>
 						<leftPen lineWidth="0.5"/>
@@ -1246,7 +1405,7 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 	<background>
 		<band height="802">
 			<textField>
-				<reportElement x="0" y="82" width="555" height="716" uuid="00e64fb7-4320-4d21-9e5c-b310908e3ef6">
+				<reportElement x="0" y="88" width="555" height="704" uuid="00e64fb7-4320-4d21-9e5c-b310908e3ef6">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<box>
