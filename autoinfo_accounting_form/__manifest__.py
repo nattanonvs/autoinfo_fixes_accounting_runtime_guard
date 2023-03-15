@@ -19,7 +19,7 @@ Changelog
 ---------
 
 **Version 1.10**
-    - Task A433-T100, A433-T109, A433-T92, A433-T93, A433-T94, A433-T90, A433-T91, A433-T110
+    - Task A433-T100, A433-T109, A433-T92, A433-T93, A433-T94
 
 **Version 1.9**
     - Revise template credit note and debit note report (A433-T100)
