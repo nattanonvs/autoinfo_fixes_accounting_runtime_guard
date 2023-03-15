@@ -189,7 +189,9 @@
 					 where am_rel.id=invoice.id limit 1) as parent_invoice_date,
 				dept.name as department_name,
 				sale_part.name as sale_person,
-				COALESCE(proj.name, '') as project_name
+				COALESCE(proj.name, '') as project_name,
+				COALESCE(partner.phone, '-') as partner_phone,
+				COALESCE(partner.fax, '-') as partner_fax
 from		account_move invoice
 left join res_currency cur on cur.id = invoice.currency_id
 left join	account_move_line line on ( line.move_id = invoice.id ) and line.exclude_from_invoice_tab = False
@@ -411,6 +413,12 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 	</field>
 	<field name="project_name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="project_name"/>
+	</field>
+	<field name="partner_phone" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="partner_phone"/>
+	</field>
+	<field name="partner_fax" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="partner_fax"/>
 	</field>
 	<variable name="vat_percent" class="java.math.BigDecimal" calculation="Highest">
 		<variableExpression><![CDATA[$F{vat_order}]]></variableExpression>
@@ -675,7 +683,8 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 						<font fontName="TH Sarabun New" size="12" isBold="true"/>
 						<paragraph lineSpacing="Fixed" lineSpacingSize="6.0" leftIndent="10" spacingBefore="0"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{partner_address} + "\nเลขประจำตัวผู้เสียภาษี " + $F{customer_tax_id} + IF($F{customer_branch_code}.toString().equals(""), "", " (" + ($F{customer_branch_code}.compareTo( "00000" ) == 0  ? "สำนักงานใหญ่" : $F{customer_branch_code}) + ")")]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{partner_address} + "\nเลขประจำตัวผู้เสียภาษี " + $F{customer_tax_id} + IF($F{customer_branch_code}.toString().equals(""), "", " (" + ($F{customer_branch_code}.compareTo( "00000" ) == 0  ? "สำนักงานใหญ่" : $F{customer_branch_code}) + ")") + 
+"\nโทร. " + $F{partner_phone} + "  Fax " + $F{partner_fax}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="0" y="0" width="50" height="35" uuid="26242147-8e53-4f74-89e0-9503c97317f5">
@@ -935,7 +944,7 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="TH Sarabun New" size="12"/>
 					</textElement>
-					<textFieldExpression><![CDATA[IF($P{p_language}.toString().equals("thai"),"รายการสินค้า","Description")]]></textFieldExpression>
+					<textFieldExpression><![CDATA["รายการสินค้า\nDescription"]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="237" y="0" width="93" height="35" uuid="6de02648-1a80-4450-9003-71c1bc2e89db"/>
@@ -1214,7 +1223,7 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 						<font fontName="TH Sarabun New" size="12"/>
 						<paragraph lineSpacing="Fixed" lineSpacingSize="5.0" leftIndent="5"/>
 					</textElement>
-					<textFieldExpression><![CDATA["ภาษีมูลค่าเพิ่ม\nVAT"]]></textFieldExpression>
+					<textFieldExpression><![CDATA[msg("ภาษีมูลค่าเพิ่ม\nVAT {0}%", $F{vat_order})]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="group_id" pattern="#,##0.00">
 					<reportElement mode="Opaque" x="442" y="95" width="113" height="35" uuid="e09b6174-675d-44af-85be-69a1a01e2795">

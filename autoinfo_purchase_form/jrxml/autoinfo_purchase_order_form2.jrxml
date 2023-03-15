@@ -183,6 +183,16 @@ att.store_fname AS logo_iso,
 	 ,(SELECT b.name_en FROM resource_resource a
 		LEFT JOIN hr_employee b ON a.id = b.resource_id
 		WHERE a.user_id = po.create_uid) AS create_name_en
+	,(SELECT b.name FROM resource_resource a
+		LEFT JOIN hr_employee b ON a.id = b.resource_id
+		WHERE a.user_id = (SELECT done_by FROM tier_review WHERE model='purchase.order' and res_id=po.id and status='approved' ORDER BY sequence ASC LIMIT 1)) AS first_approved_name
+	,(SELECT b.name_en FROM resource_resource a
+		LEFT JOIN hr_employee b ON a.id = b.resource_id
+		WHERE a.user_id = (SELECT done_by FROM tier_review WHERE model='purchase.order' and res_id=po.id and status='approved' ORDER BY sequence ASC LIMIT 1)) AS first_approved_name_en
+	,(SELECT c.name FROM resource_resource a
+		LEFT JOIN hr_employee b ON a.id = b.resource_id
+		LEFT JOIN hr_job c ON c.id = b.job_id
+		WHERE a.user_id = (SELECT done_by FROM tier_review WHERE model='purchase.order' and res_id=po.id and status='approved' ORDER BY sequence ASC LIMIT 1)) AS first_approved_position
 
 from purchase_order_line as po_line
 inner join purchase_order as po on po.id = po_line.order_id
@@ -468,6 +478,15 @@ order by po.id, po_line.sequence, po_line.id]]>
 	</field>
 	<field name="create_name_en" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="create_name_en"/>
+	</field>
+	<field name="first_approved_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="first_approved_name"/>
+	</field>
+	<field name="first_approved_name_en" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="first_approved_name_en"/>
+	</field>
+	<field name="first_approved_position" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="first_approved_position"/>
 	</field>
 	<variable name="Page" class="java.lang.String">
 		<variableExpression><![CDATA[$V{PAGE_NUMBER} + " OF " + $V{MASTER_TOTAL_PAGES}]]></variableExpression>
@@ -1419,7 +1438,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 								<font fontName="TH Sarabun New" size="12" isBold="false" isUnderline="false"/>
 								<paragraph leftIndent="0" rightIndent="0"/>
 							</textElement>
-							<textFieldExpression><![CDATA[$F{create_name_en}]]></textFieldExpression>
+							<textFieldExpression><![CDATA[$F{first_approved_name_en}]]></textFieldExpression>
 						</textField>
 						<textField isBlankWhenNull="true">
 							<reportElement x="0" y="85" width="154" height="17" uuid="a9a687a6-382b-4765-8d4c-7ea14267227d">
@@ -1435,7 +1454,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 								<font fontName="TH Sarabun New" size="12" isBold="false" isUnderline="false"/>
 								<paragraph leftIndent="0" rightIndent="0"/>
 							</textElement>
-							<textFieldExpression><![CDATA[$F{prepare_position}]]></textFieldExpression>
+							<textFieldExpression><![CDATA[$F{first_approved_position}]]></textFieldExpression>
 						</textField>
 					</frame>
 					<frame>

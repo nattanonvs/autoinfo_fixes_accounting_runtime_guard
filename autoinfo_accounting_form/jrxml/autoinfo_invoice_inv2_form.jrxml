@@ -267,7 +267,7 @@ left join	res_partner partner on ( partner.id = invoice.partner_id )
 left join	( select name, max(id) as id from stock_picking group by name ) picking on ( picking.name = line.customer_source_doc )
 left join	( select name, client_order_ref, po_date,customer_project, date_order, min(id) as id from sale_order group by name, client_order_ref, po_date, date_order,customer_project ) sale on (  sale.name =invoice.origin_second )
 left join hr_department department on department.id = invoice.department_id
-$P!{ids}
+$P!{ids} and line.is_trade_discount = False
 ORDER BY invoice.id,flag, line.sequence, line.id]]>
 	</queryString>
 	<field name="rowid" class="java.lang.Integer">
@@ -621,7 +621,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="12" isBold="false"/>
 						<paragraph leftIndent="0" spacingBefore="-5"/>
 					</textElement>
-					<textFieldExpression><![CDATA["Tax ID / เลขประจำตัวเสียภาษี : "]]></textFieldExpression>
+					<textFieldExpression><![CDATA["Tax ID / เลขประจำตัวผู้เสียภาษี : "]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="group_id">
 					<reportElement x="215" y="38" width="75" height="12" uuid="6cbba06d-f646-4edf-a385-574ee5c063d6">
@@ -1457,7 +1457,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 							<font fontName="Sarabun" size="12"/>
 							<paragraph lineSpacing="Fixed" lineSpacingSize="3.0" leftIndent="5" spacingBefore="2"/>
 						</textElement>
-						<textFieldExpression><![CDATA["ในนาม "+$P{p_company_th}+"\nFor "+$P{p_company_en}]]></textFieldExpression>
+						<textFieldExpression><![CDATA["ในนาม "+$P{p_company_th}+"\nFOR "+$P{p_company_en}]]></textFieldExpression>
 					</textField>
 					<textField>
 						<reportElement mode="Transparent" x="437" y="106" width="140" height="35" backcolor="#FFFFFF" uuid="edb393ad-6515-48ed-8e1e-142eeaee70cf">
@@ -1473,7 +1473,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 							<font fontName="Sarabun" size="12"/>
 							<paragraph lineSpacing="Fixed" lineSpacingSize="5.0" leftIndent="5" spacingBefore="0"/>
 						</textElement>
-						<textFieldExpression><![CDATA["........................................................\n.ผู้มีอำนาจลงนาม / AUTHORIZED BY"]]></textFieldExpression>
+						<textFieldExpression><![CDATA["........................................................\nผู้มีอำนาจลงนาม / AUTHORIZED BY"]]></textFieldExpression>
 					</textField>
 					<textField>
 						<reportElement mode="Transparent" x="437" y="141" width="140" height="30" backcolor="#FFFFFF" uuid="3baea9eb-0f02-4bbb-9c97-71da1c0293c0"/>
@@ -1858,7 +1858,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="12" isBold="true"/>
 						<paragraph lineSpacing="Fixed" lineSpacingSize="3.0" leftIndent="5"/>
 					</textElement>
-					<textFieldExpression><![CDATA["ภาษีมูลค่าเพิ่ม\nVAT"]]></textFieldExpression>
+					<textFieldExpression><![CDATA[msg("ภาษีมูลค่าเพิ่ม\nVAT {0}%", $F{vat_order})]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Report">
 					<reportElement mode="Opaque" x="375" y="150" width="97" height="25" backcolor="#F2F2F2" uuid="26229a72-0f96-4178-8198-d1e0f319d9f3">

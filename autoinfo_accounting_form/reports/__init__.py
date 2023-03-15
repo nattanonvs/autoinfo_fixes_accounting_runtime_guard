@@ -4,3 +4,5 @@ from . import autoinfo_tax_invoice_pp_form
 from . import autoinfo_receipt_pp_form
 from . import receipt_form
 from . import autoinfo_invoice_form
+from . import billing_form
+from . import prepayment_form

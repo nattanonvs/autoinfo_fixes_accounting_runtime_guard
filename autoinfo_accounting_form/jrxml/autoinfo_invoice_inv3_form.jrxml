@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="autoinfo_invoice_inv3_form" pageWidth="595" pageHeight="842" columnWidth="575" leftMargin="10" rightMargin="10" topMargin="20" bottomMargin="5" isFloatColumnFooter="true" uuid="9d429c61-ca07-45fd-95b2-54aea3253cab">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="autoinfo_DB.xml"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Localhost"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="274"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="719"/>
@@ -251,7 +251,19 @@
 				--	) as cust_addr_line4,
 				--( select count(id) from dtr_sale_order_note where sale_id = sale.id ) as note_cnt
 				,sale.client_order_ref as so_client_order_ref,
-				sale.po_date as so_po_date
+				sale.po_date as so_po_date,
+				COALESCE(partner.phone, '-') as partner_phone,
+				COALESCE(partner.fax, '-') as partner_fax,
+				(select string_agg(distinct(a.payment_name), ', ') from ((select COALESCE(mov1.name, '') as payment_name from account_move_account_payment_rel rel1
+					left join account_payment p1 on rel1.account_payment_id = p1.id
+					left join account_move mov1 on mov1.id = p1.move_id
+					where rel1.account_move_id = invoice.id
+					union
+					select COALESCE(mov2.name, '') as payment_name from account_payment_account_billing_rel rel2
+					left join account_payment p2 on rel2.account_payment_id = p2.id
+					left join account_move mov2 on mov2.id = p2.move_id
+					where rel2.account_move_id = invoice.id
+				))a) as payment_no
 from		account_move invoice
 left join res_currency cur on cur.id = invoice.currency_id
 left join	account_move_line line on ( line.move_id = invoice.id ) and (line.exclude_from_invoice_tab = False or line.exclude_from_invoice_tab is null) and ( line.display_type is null)
@@ -266,7 +278,7 @@ left join	res_partner partner on ( partner.id = invoice.partner_id )
 left join	( select name, max(id) as id from stock_picking group by name ) picking on ( picking.name = line.customer_source_doc )
 left join	( select name, client_order_ref, po_date,customer_project, date_order, min(id) as id from sale_order group by name, client_order_ref, po_date, date_order,customer_project ) sale on (  sale.name =invoice.origin_second )
 left join hr_department department on department.id = invoice.department_id
-$P!{ids}
+$P!{ids} and line.is_trade_discount = False
 ORDER BY invoice.id,flag, line.sequence, line.id]]>
 	</queryString>
 	<field name="rowid" class="java.lang.Integer">
@@ -463,6 +475,15 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 		<property name="com.jaspersoft.studio.field.label" value="so_po_date"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="sale_order"/>
 	</field>
+	<field name="partner_phone" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="partner_phone"/>
+	</field>
+	<field name="partner_fax" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="partner_fax"/>
+	</field>
+	<field name="payment_no" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="payment_no"/>
+	</field>
 	<variable name="vat_percent" class="java.math.BigDecimal" calculation="Highest">
 		<variableExpression><![CDATA[$F{vat_order}]]></variableExpression>
 	</variable>
@@ -614,7 +635,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="12" isBold="false"/>
 						<paragraph leftIndent="0" spacingBefore="-5"/>
 					</textElement>
-					<textFieldExpression><![CDATA["Tax ID / เลขประจำตัวเสียภาษี : "]]></textFieldExpression>
+					<textFieldExpression><![CDATA["Tax ID / เลขประจำตัวผู้เสียภาษี : "]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="group_id">
 					<reportElement x="215" y="38" width="75" height="12" uuid="6cbba06d-f646-4edf-a385-574ee5c063d6">
@@ -794,7 +815,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="14" isBold="false"/>
 						<paragraph lineSpacing="Fixed" lineSpacingSize="5.0" leftIndent="5" spacingBefore="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{partner_address}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{partner_address} + " โทร. " + $F{partner_phone} + "  Fax " + $F{partner_fax}]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="group_id">
 					<reportElement x="0" y="34" width="112" height="34" uuid="987bc89f-740f-448d-9896-2770b7cb2895">
@@ -830,7 +851,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="14" isBold="true"/>
 						<paragraph lineSpacing="Fixed" lineSpacingSize="5.0" leftIndent="5" spacingBefore="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA["เลชประจำตัวผู้เสียภาษี\nTax ID"]]></textFieldExpression>
+					<textFieldExpression><![CDATA["เลขประจำตัวผู้เสียภาษี\nTax ID"]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="group_id">
 					<reportElement x="130" y="69" width="118" height="34" isRemoveLineWhenBlank="true" uuid="a17a3c1c-5279-4e24-ace9-15faf3b0a208">
@@ -943,7 +964,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="14" isBold="false"/>
 						<paragraph lineSpacing="Fixed" lineSpacingSize="5.0" leftIndent="0" spacingBefore="0"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{inv_no}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{payment_no}]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="group_id">
 					<reportElement x="510" y="34" width="65" height="34" uuid="0b87850d-f988-4ed2-9864-d8c882106191">
@@ -963,7 +984,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="14" isBold="false"/>
 						<paragraph lineSpacing="Fixed" lineSpacingSize="5.0" leftIndent="0" spacingBefore="0"/>
 					</textElement>
-					<textFieldExpression><![CDATA[($F{date}==null ?"-": new SimpleDateFormat($P{p_DateFormat}, new Locale($P{p_locale}, $P{p_locale})).format($F{date}))]]></textFieldExpression>
+					<textFieldExpression><![CDATA[($F{invoice_date_due}==null ?"-": new SimpleDateFormat($P{p_DateFormat}, new Locale($P{p_locale}, $P{p_locale})).format($F{invoice_date_due}))]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="65">
@@ -986,7 +1007,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="14" isBold="true"/>
 						<paragraph lineSpacing="Fixed" lineSpacingSize="5.0" leftIndent="5" spacingBefore="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA["เลขที่ใบสั่งซื้อ/วันที่\nP/O NO./ DATE"]]></textFieldExpression>
+					<textFieldExpression><![CDATA["อ้างถึงเลขที่ใบแจ้งหนี้/วันที่\nINVOICE NO./ DATE"]]></textFieldExpression>
 				</textField>
 				<rectangle radius="5">
 					<reportElement mode="Transparent" x="182" y="0" width="95" height="36" uuid="2fabba4c-b723-4747-b1df-57a5f8a2f6fb"/>
@@ -1107,7 +1128,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="14" isBold="false"/>
 						<paragraph lineSpacing="Fixed" lineSpacingSize="5.0" leftIndent="5" spacingBefore="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA[($F{so_client_order_ref}==null?"":$F{so_client_order_ref})+($F{so_po_date}==null ?"": " / "+new SimpleDateFormat($P{p_DateFormat}, new Locale($P{p_locale}, $P{p_locale})).format($F{so_po_date}))]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{inv_no} + " / "+new SimpleDateFormat($P{p_DateFormat}, new Locale($P{p_locale}, $P{p_locale})).format($F{date})]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="group_id" isBlankWhenNull="true">
 					<reportElement x="182" y="38" width="95" height="25" isRemoveLineWhenBlank="true" uuid="69e781f0-1dcd-44fd-ad5b-c21da32fc888">
@@ -1355,7 +1376,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 							<font fontName="Sarabun" size="12"/>
 							<paragraph lineSpacing="Fixed" lineSpacingSize="3.0" leftIndent="5" spacingBefore="2"/>
 						</textElement>
-						<textFieldExpression><![CDATA["ในนาม "+$P{p_company_th}+"\nFor "+$P{p_company_en}]]></textFieldExpression>
+						<textFieldExpression><![CDATA["ในนาม "+$P{p_company_th}+"\nFOR "+$P{p_company_en}]]></textFieldExpression>
 					</textField>
 					<textField>
 						<reportElement mode="Transparent" x="400" y="141" width="176" height="30" backcolor="#FFFFFF" uuid="edb393ad-6515-48ed-8e1e-142eeaee70cf">
@@ -1742,7 +1763,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="12" isBold="true"/>
 						<paragraph lineSpacing="Fixed" lineSpacingSize="3.0" leftIndent="5"/>
 					</textElement>
-					<textFieldExpression><![CDATA["ภาษีมูลค่าเพิ่ม\nVAT"]]></textFieldExpression>
+					<textFieldExpression><![CDATA[msg("ภาษีมูลค่าเพิ่ม\nVAT {0}%", $F{vat_order})]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Report">
 					<reportElement mode="Opaque" x="375" y="150" width="97" height="25" backcolor="#F2F2F2" uuid="26229a72-0f96-4178-8198-d1e0f319d9f3">

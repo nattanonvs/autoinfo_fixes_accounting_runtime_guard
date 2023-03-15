@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="autoinfo_purchase_order_form3" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8f72a463-64e4-4b71-ab9c-a3e1e7e0679e">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="215"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="779"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="autoinfo_DB.xml"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Localhost"/>
 	<style name="Section Line">
 		<conditionalStyle>
 			<conditionExpression><![CDATA[$F{display_type}.toString().equals("line_section")]]></conditionExpression>
@@ -182,6 +182,16 @@ c.name as company_name,
 	 ,(SELECT b.name_en FROM resource_resource a
 		LEFT JOIN hr_employee b ON a.id = b.resource_id
 		WHERE a.user_id = po.create_uid) AS create_name_en
+	,(SELECT b.name FROM resource_resource a
+		LEFT JOIN hr_employee b ON a.id = b.resource_id
+		WHERE a.user_id = (SELECT done_by FROM tier_review WHERE model='purchase.order' and res_id=po.id and status='approved' ORDER BY sequence ASC LIMIT 1)) AS first_approved_name
+	,(SELECT b.name_en FROM resource_resource a
+		LEFT JOIN hr_employee b ON a.id = b.resource_id
+		WHERE a.user_id = (SELECT done_by FROM tier_review WHERE model='purchase.order' and res_id=po.id and status='approved' ORDER BY sequence ASC LIMIT 1)) AS first_approved_name_en
+	,(SELECT c.name FROM resource_resource a
+		LEFT JOIN hr_employee b ON a.id = b.resource_id
+		LEFT JOIN hr_job c ON c.id = b.job_id
+		WHERE a.user_id = (SELECT done_by FROM tier_review WHERE model='purchase.order' and res_id=po.id and status='approved' ORDER BY sequence ASC LIMIT 1)) AS first_approved_position
 
 from purchase_order_line as po_line
 inner join purchase_order as po on po.id = po_line.order_id
@@ -463,6 +473,15 @@ order by po.id, po_line.sequence, po_line.id]]>
 	</field>
 	<field name="create_name_en" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="create_name_en"/>
+	</field>
+	<field name="first_approved_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="first_approved_name"/>
+	</field>
+	<field name="first_approved_name_en" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="first_approved_name_en"/>
+	</field>
+	<field name="first_approved_position" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="first_approved_position"/>
 	</field>
 	<variable name="Page" class="java.lang.String">
 		<variableExpression><![CDATA[$V{PAGE_NUMBER} + " OF " + $V{MASTER_TOTAL_PAGES}]]></variableExpression>
@@ -1283,7 +1302,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 								<font fontName="TH Sarabun New" size="12" isBold="false" isUnderline="false"/>
 								<paragraph leftIndent="0" rightIndent="0"/>
 							</textElement>
-							<textFieldExpression><![CDATA[$F{create_name_en}]]></textFieldExpression>
+							<textFieldExpression><![CDATA[$F{first_approved_name_en}]]></textFieldExpression>
 						</textField>
 						<textField isBlankWhenNull="true">
 							<reportElement x="0" y="85" width="154" height="17" uuid="99b1ecb8-2768-4e9a-b72b-f4a3c3534c93">
@@ -1299,7 +1318,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 								<font fontName="TH Sarabun New" size="12" isBold="false" isUnderline="false"/>
 								<paragraph leftIndent="0" rightIndent="0"/>
 							</textElement>
-							<textFieldExpression><![CDATA[$F{prepare_position}]]></textFieldExpression>
+							<textFieldExpression><![CDATA[$F{first_approved_position}]]></textFieldExpression>
 						</textField>
 					</frame>
 					<frame>
