@@ -45,7 +45,15 @@
 	,COALESCE(c.company_tax_id,'') AS company_tax_id
 	,COALESCE(c.company_branch,'00000') AS company_branch
 	,encode(c.company_logo,'escape') AS company_logo      
-	,REPLACE(COALESCE(c.company_address_thai,''), COALESCE(ct.name, ''), '') AS company_address_thai
+	--,REPLACE(COALESCE(c.company_address_thai,''), COALESCE(ct.name, ''), '') AS company_address_thai
+	,REPLACE(COALESCE((concat(cpart.street,
+                                (case when cpart.street2 is not null then concat('\n', cpart.street2) else '' end), ' ',
+                                cpart.city,
+                                case when cp.name is not null then ' จังหวัด' else '' end,
+                                cp.name, ' ', 
+                                cpart.zip,
+                                case when ct.name is not null then ' ' else '' end,
+                                ct.name)), ''),COALESCE(ct.name, ''), '')  as company_address_thai
 	,REPLACE(COALESCE(c.company_address_en,''), COALESCE(ct.name, ''), '') AS company_address_en
 	,COALESCE(c.company_heaer_report,'') AS company_heaer_report
 	,COALESCE(c.company_footer_report,'') AS company_footer_report
@@ -255,6 +263,7 @@ left join	res_partner partner on ( partner.id = bill.partner_id )
 left join res_company comp on comp.id = bill.company_id
 left join res_partner cpart on cpart.id = comp.partner_id
 left join res_country ct on ct.id = cpart.country_id
+left join res_country_state cp on cp.id = cpart.state_id
 
 $P!{ids}
 

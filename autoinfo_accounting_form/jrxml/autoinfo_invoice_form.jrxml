@@ -925,7 +925,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="14" isBold="true"/>
 						<paragraph lineSpacing="Fixed" lineSpacingSize="5.0" leftIndent="5" spacingBefore="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA["เลชประจำตัวผู้เสียภาษี\nTax ID"]]></textFieldExpression>
+					<textFieldExpression><![CDATA["เลขประจำตัวผู้เสียภาษี\nTax ID"]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="group_id">
 					<reportElement x="130" y="69" width="118" height="34" isRemoveLineWhenBlank="true" uuid="38954a2b-ed0e-4d86-b341-cb3ae351712f">

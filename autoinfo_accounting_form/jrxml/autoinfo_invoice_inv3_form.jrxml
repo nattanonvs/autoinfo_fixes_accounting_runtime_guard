@@ -1007,7 +1007,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="14" isBold="true"/>
 						<paragraph lineSpacing="Fixed" lineSpacingSize="5.0" leftIndent="5" spacingBefore="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA["อ้างถึงเลขที่ใบแจ้งหนี้/วันที่\nINVOICE NO./ DATE"]]></textFieldExpression>
+					<textFieldExpression><![CDATA["อ้างถึงเลขที่ใบแจ้งหนี้/วันที่\nREF: INVOICE NO./ DATE"]]></textFieldExpression>
 				</textField>
 				<rectangle radius="5">
 					<reportElement mode="Transparent" x="182" y="0" width="95" height="36" uuid="2fabba4c-b723-4747-b1df-57a5f8a2f6fb"/>

@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Account Form',
-    'version': '1.10',
+    'version': '1.11',
     'category': 'DTR - ERP Accounting',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -17,6 +17,9 @@ Customize Report Accounting.
 
 Changelog
 ---------
+
+**Version 1.11**
+    - Fixed wrong wording in invoice report, billing report, prepayment report and debit note report
 
 **Version 1.10**
     - Task A433-T100, A433-T109, A433-T92, A433-T93, A433-T94
