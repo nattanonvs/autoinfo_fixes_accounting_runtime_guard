@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.10.0-unknown  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="autoinfo_purchase_order_form2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8f72a463-64e4-4b71-ab9c-a3e1e7e0679e">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="215"/>
@@ -524,7 +524,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 						</textElement>
 						<textFieldExpression><![CDATA["PURCHASE ORDER\n(INDENT)"]]></textFieldExpression>
 					</textField>
-					<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
+					<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle" onErrorType="Blank">
 						<reportElement x="412" y="0" width="141" height="44" uuid="eb490b38-abac-4284-a675-01cd35f19934"/>
 						<imageExpression><![CDATA[IF( $F{logo_iso} == null
 	,IF($F{logo_iso}== null,null,$P{p_Path} +$F{logo_iso})
@@ -1330,7 +1330,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 							<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
-						<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
+						<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle" onErrorType="Blank">
 							<reportElement x="23" y="6" width="105" height="60" uuid="2094b569-9bf6-485e-a12b-f5adc7b00e82"/>
 							<imageExpression><![CDATA[IF($F{pre_signature}== null,null, $P{p_Path} +$F{pre_signature})]]></imageExpression>
 						</image>
@@ -1375,7 +1375,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 							<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
-						<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
+						<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle" onErrorType="Blank">
 							<reportElement x="23" y="6" width="105" height="60" uuid="dc9ce375-b8a7-482f-a2bf-62f6d9dc1ee6"/>
 							<imageExpression><![CDATA[IF($F{approved_signature}== null,null, $P{p_Path} +$F{approved_signature})]]></imageExpression>
 						</image>
@@ -1420,7 +1420,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 							<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
-						<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
+						<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle" onErrorType="Blank">
 							<reportElement x="23" y="6" width="105" height="60" uuid="f6aad951-41ae-4f41-ac56-ee0ab9942111"/>
 							<imageExpression><![CDATA[IF($F{prepare_signature}== null,null, $P{p_Path} +$F{prepare_signature})]]></imageExpression>
 						</image>
