@@ -53,3 +53,7 @@ class SaleOrder(models.Model):
         res.append('client_order_ref')
         res.append('po_date')
         return res
+
+    your_ref = fields.Char(string='Your Ref.')
+    ai_partner_phone = fields.Char(string='Phone')
+    ai_partner_email = fields.Char(string='Email')
