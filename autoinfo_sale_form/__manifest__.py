@@ -49,7 +49,7 @@ Changelog
     """,
     'author': 'Dataroot Asia Co., Ltd.',
     'created_by': 'Varawit Termwaraporn',
-    'depends': ['dtr_sales_form', 'sale', 'autoinfo_logo', 'dtr_access_right_sales', 'mail', 'base'],
+    'depends': ['autoinfo_sale', 'autoinfo_logo', 'dtr_sales_form', 'dtr_access_right_sales', 'sale', 'mail', 'base'],
     'application': False,
     'data': [
         'security/res_groups.xml',
