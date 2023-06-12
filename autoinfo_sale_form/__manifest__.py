@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Sales Form',
-    'version': '1.9',
+    'version': '1.9a',
     'category': 'DTR - ERP Sales',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -15,7 +15,8 @@ Customize Report Sales.
 
 Changelog
 ---------
-**Version 1.9**
+**Version 1.9-1.9a**
+    - A21B-T1
     - Fix task A433-T70 (Quotation Form)
 
 **Version 1.8**

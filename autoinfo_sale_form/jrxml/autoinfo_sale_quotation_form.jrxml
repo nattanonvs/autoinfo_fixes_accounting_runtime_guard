@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.10.0-unknown  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="autoinfo_sale_quotation_form" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8f72a463-64e4-4b71-ab9c-a3e1e7e0679e">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="autoinfo_DB.xml"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="140 autoinfo"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="270"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="725"/>
@@ -70,12 +70,14 @@
 	,COALESCE(pn.default_contact_name,'') AS customer_contact
 	
 	,COALESCE(pn.phone,'') AS customer_phone
+	,COALESCE(so.ai_partner_phone,'') AS customer_phone2
     ,COALESCE(pn.mobile, '') as customer_mobile
 	,COALESCE(pn.fax,'') AS customer_fax
 	,COALESCE(pn.vat,'') AS customer_tax
 	,COALESCE(pn.branch_code,'') AS customer_branch
 	,COALESCE(pn.email,'') AS customer_email
-	
+	,COALESCE(so.ai_partner_email,'') AS customer_email2
+
 	,COALESCE((SELECT pn.name
 		FROM res_partner pn
 		WHERE pn.id=so.partner_shipping_id AND pn.company_id=so.company_id 
@@ -201,7 +203,6 @@
 	,convert_num_en_with_currency(so.amount_total,sl.currency_id) AS so_amout_total_engtext
 
 	,so.state
-	,so.client_order_ref
 	,sl.price_subtotal AS amount_total_item
 	,sl.product_uom_qty
 	,sl.qty_delivered
@@ -213,7 +214,6 @@
 	--,sc.display_detail as category_display_detail
 	--,sc.display_detail_price as category_display_detail_price
 	
-	,so.state AS state
 	   -- *********************************************************************************************** For Prepare By
 	  ,so.write_date as prepare_date
 	  
@@ -478,6 +478,9 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 	<field name="customer_phone" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="customer_phone"/>
 	</field>
+	<field name="customer_phone2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="customer_phone2"/>
+	</field>
 	<field name="customer_mobile" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="customer_mobile"/>
 	</field>
@@ -492,6 +495,9 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 	</field>
 	<field name="customer_email" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="customer_email"/>
+	</field>
+	<field name="customer_email2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="customer_email2"/>
 	</field>
 	<field name="customer_shipping_name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="customer_shipping_name"/>
@@ -675,10 +681,6 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 		<property name="com.jaspersoft.studio.field.label" value="state"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="sale_order"/>
 	</field>
-	<field name="COLUMN_85" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="client_order_ref"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="sale_order"/>
-	</field>
 	<field name="amount_total_item" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="amount_total_item"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="sale_order_line"/>
@@ -694,10 +696,6 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 	<field name="display_type" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="display_type"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="sale_order_line"/>
-	</field>
-	<field name="COLUMN_90" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="state"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="sale_order"/>
 	</field>
 	<field name="prepare_date" class="java.sql.Timestamp">
 		<property name="com.jaspersoft.studio.field.label" value="prepare_date"/>
@@ -875,7 +873,8 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 								<font fontName="TH Sarabun New" size="12" isBold="false"/>
 								<paragraph lineSpacingSize="0.0" leftIndent="5"/>
 							</textElement>
-							<textFieldExpression><![CDATA[": " + IF($F{customer_phone} == null, "", $F{customer_phone} + " ") + "" + IF($F{customer_mobile} == null, "", $F{customer_mobile})]]></textFieldExpression>
+							<textFieldExpression><![CDATA[/*": " + IF($F{customer_phone} == null, "", $F{customer_phone} + " ") + "" + IF($F{customer_mobile} == null, "", $F{customer_mobile})*/
+": " + ($F{customer_phone2} == null? "": $F{customer_phone2})]]></textFieldExpression>
 						</textField>
 						<textField>
 							<reportElement x="80" y="90" width="250" height="18" uuid="3220ee7a-db29-42dd-a47b-90ab29dbe72c"/>
@@ -891,7 +890,8 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 								<font fontName="TH Sarabun New" size="12" isBold="false"/>
 								<paragraph lineSpacingSize="0.0" leftIndent="5"/>
 							</textElement>
-							<textFieldExpression><![CDATA[": " + IF($F{customer_email} == null, "", $F{customer_email})]]></textFieldExpression>
+							<textFieldExpression><![CDATA[/*": " + IF($F{customer_email} == null, "", $F{customer_email})*/
+": " + ($F{customer_email2} == null? "": $F{customer_email2})]]></textFieldExpression>
 						</textField>
 						<textField>
 							<reportElement x="80" y="0" width="250" height="18" uuid="523526bf-5358-47e3-8a71-78e4b932c364"/>
@@ -1995,7 +1995,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 					<font fontName="TH Sarabun New" size="12" isBold="false"/>
 					<paragraph rightIndent="3"/>
 				</textElement>
-				<textFieldExpression><![CDATA[IF($F{display_type} == null, new java.text.DecimalFormat("#,##0.00").format($F{product_unitprice}), "")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{display_type} == null? new java.text.DecimalFormat("#,##0.00").format($F{product_unitprice}): ""]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0.00#" isBlankWhenNull="true">
 				<reportElement style="Section Line" x="482" y="0" width="72" height="17" uuid="3f446053-07ce-4c1a-a921-b497bde4cd14"/>
@@ -2009,7 +2009,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 					<font fontName="TH Sarabun New" size="12" isBold="false"/>
 					<paragraph rightIndent="3"/>
 				</textElement>
-				<textFieldExpression><![CDATA[IF($F{display_type} == null, new java.text.DecimalFormat("#,##0.00").format($F{price_subtotal}), "")]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{display_type} == null? new java.text.DecimalFormat("#,##0.00").format($F{price_subtotal}): "")]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement style="Section Line" x="310" y="0" width="50" height="17" uuid="bb8be427-7321-48a7-bf4b-5e76788afa29"/>
