@@ -65,8 +65,9 @@ Changelog
     """,
     'author': 'Dataroot Asia Co., Ltd.',
     'created_by': 'Varawit Termwaraporn',
-    'depends': ['dtr_purchase_form', 'dtr_purchase_project', 'dtr_partner_master', 'product', 'autoinfo_logo', 'dtr_access_right_base',
-        'mail', 'purchase', 'dtr_report_base'],
+    'depends': ['dtr_purchase_form', 'dtr_purchase_project', 'dtr_partner_master', 'dtr_document_sequence_group_purchase',
+        'dtr_access_right_base', 'dtr_report_base', 'autoinfo_logo', 'product', 'mail', 'purchase',
+    ],
     'application': False,
     'data': [
         'data/form_code.xml',
@@ -82,5 +83,6 @@ Changelog
         'views/dtr_purchase_term_report_view.xml',
         'views/dtr_purchase_shipment_report_view.xml',
         'views/dtr_purchase_weight_report_view.xml',
+        'views/purchase_request_view.xml',
     ],
 }

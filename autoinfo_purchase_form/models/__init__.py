@@ -5,3 +5,4 @@ from . import dtr_purchase_term_report
 from . import dtr_purchase_shipment_report
 from . import dtr_purchase_weight_report
 from . import purchase_order
+from . import purchase_request

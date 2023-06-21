@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="purchase_request_form" model="ir.ui.view">
+        <field name="name">purchase.request.form</field>
+        <field name="model">purchase.request</field>
+        <field name="priority">60</field>
+        <field name="inherit_id" ref="purchase_request.view_purchase_request_form"/>
+        <field name="arch" type="xml">
+            <field name="project_analytic_account_id" position="after">
+                <field name="attention_id" attrs="{'readonly': [('is_editable','=', False)]}"/>
+            </field>
+            <field name="dtr_document_sequence_group_id" position="before">
+                 <field name="partner_id" widget="res_partner_many2one" context="{'res_partner_search_mode': 'supplier', 'show_vat': True}"
+                    attrs="{'readonly': [('is_editable','=', False)], 'required': True}" domain="[('supplier', '=', True)]"
+                    force_save="1" placeholder="Name, TIN, Email, or Reference"
+                    options="{'always_reload': True, 'no_quick_create':True,'no_create_edit':True}"/>
+            </field>
+            <xpath expr="//field[@name='line_ids']//tree" position="inside">
+                <field name="display_type" invisible="1"/>
+            </xpath>
+            <!-- <field name="line_ids" position="attributes">
+                <attribute name="widget">section_and_note_one2many</attribute>
+            </field> -->
+            <field name="line_ids" position="replace">
+                <field name="line_ids" context="{'default_analytic_account_id': project_analytic_account_id}"
+                    widget="section_and_note_one2many"/>
+            </field>
+
+
+
+        </field>
+    </record>
+</odoo>
