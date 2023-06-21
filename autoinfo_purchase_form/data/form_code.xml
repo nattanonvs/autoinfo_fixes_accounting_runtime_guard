@@ -14,5 +14,12 @@
             <field name="s_model">Purchases</field>
             <field name="iso_no">-</field>
         </record>
+
+        <record id="f_p_100" model="dtr.report.base">
+            <field name="name">F-P-100</field>
+            <field name="description">Purchase Request Form (Auto)</field>
+            <field name="s_model">Purchases</field>
+            <field name="iso_no">-</field>
+        </record>
     </data>
 </odoo>

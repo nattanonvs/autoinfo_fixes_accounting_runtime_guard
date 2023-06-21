@@ -74,12 +74,13 @@ Changelog
         'security/ir.model.access.csv',
         'views/menu_item.xml',
         'reports/purchase_order_report.xml',
+        'reports/po_purchase_request_at_report.xml',
         'views/purchase_order_view.xml',
         'views/product_template_view.xml',
         'views/dtr_purchase_warranty_report_view.xml',
         'views/dtr_purchase_delivery_to_report_view.xml',
         'views/dtr_purchase_term_report_view.xml',
         'views/dtr_purchase_shipment_report_view.xml',
-        'views/dtr_purchase_weight_report_view.xml'
+        'views/dtr_purchase_weight_report_view.xml',
     ],
 }

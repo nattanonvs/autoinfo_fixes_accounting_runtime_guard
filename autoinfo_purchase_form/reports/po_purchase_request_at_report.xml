@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="po_purchase_request_at_report" model="ir.ui.view">
+            <field name="name">Purchase Request Form (Auto)</field>
+            <field name="model">po.purchase.request.at.report</field>
+            <field name="inherit_id" ref="dtr_jasper.jasper_report_wizard"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='parameters']" position="inside">
+                    <group colspan="4">
+                        <field name="p_language" required="1" default_focus="1"/>
+                        <field name="date_type" required="1"/>
+                        <field name="date_format" required="1"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        <record id="action_po_purchase_request_at_report" model="ir.actions.act_window">
+            <field name="name">Purchase Request Form (Auto)</field>
+            <field name="res_model">po.purchase.request.at.report</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="po_purchase_request_at_report"/>
+            <field name="binding_model_id" ref="purchase_request.model_purchase_request"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>
