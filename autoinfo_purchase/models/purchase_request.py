@@ -14,3 +14,24 @@ class PurchaseRequest(models.Model):
             if department_id and department_id.pr_sequence_id:
                 vals['name'] = department_id.pr_sequence_id.next_by_id(sequence_date=vals.get('date_start')) or '/'
         return super(PurchaseRequest, self).create(vals)
+
+    READONLY_STATES = {
+        'purchase': [('readonly', True)],
+        'done': [('readonly', True)],
+        'cancel': [('readonly', True)],
+    }
+    attention_id = fields.Many2one('res.users', string='Attention', tracking=True, index=True)
+    partner_id = fields.Many2one('res.partner', string='Vendor', required=True, states=READONLY_STATES, change_default=True, tracking=True, 
+        domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]", help="You can find a vendor by its Name, TIN, Email or Internal Reference.")
+
+
+class PurchaseRequestLine(models.Model):
+    _inherit = 'purchase.request.line'
+    _order = 'request_id, sequence, id'
+
+    partner_id = fields.Many2one('res.partner', related='request_id.partner_id', string='Partner', readonly=True, store=True)
+
+    display_type = fields.Selection([
+        ('line_section', "Section"),
+        ('line_note', "Note")], default=False, help="Technical field for UX purpose.")
+    sequence = fields.Integer(string='Sequence', default=10)

@@ -6,7 +6,7 @@
         <field name="priority">60</field>
         <field name="inherit_id" ref="purchase_request.view_purchase_request_form"/>
         <field name="arch" type="xml">
-            <field name="project_analytic_account_id" position="after">
+            <!-- <field name="project_analytic_account_id" position="after">
                 <field name="attention_id" attrs="{'readonly': [('is_editable','=', False)]}"/>
             </field>
             <field name="dtr_document_sequence_group_id" position="before">
@@ -18,13 +18,94 @@
             <xpath expr="//field[@name='line_ids']//tree" position="inside">
                 <field name="display_type" invisible="1"/>
             </xpath>
+            <xpath expr="//field[@name='line_ids']//tree//field[1]" position="before">
+                <control>
+                    <create name="add_product_control" string="Add a product"/>
+                    <create name="add_section_control" string="Add a section" context="{'default_display_type': 'line_section'}"/>
+                    <create name="add_note_control" string="Add a note" context="{'default_display_type': 'line_note'}"/>
+                </control>
+            </xpath> -->
+            <field name="line_ids" position="attributes">
+                <attribute name="widget">section_and_note_one2many</attribute>
+            </field>
+
+
+
+
+            <!-- <xpath expr="//field[@name='line_ids']" position="after">
+                <field name="line_ids" widget="section_and_note_one2many" mode="tree">
+                    <tree decoration-muted="cancelled == True" editable="bottom">
+                        <control>
+                            <create name="add_product_control" string="Add a product"/>
+                            <create name="add_section_control" string="Add a section" context="{'default_display_type': 'line_section'}"/>
+                            <create name="add_note_control" string="Add a note" context="{'default_display_type': 'line_note'}"/>
+                        </control>
+                        <field name="display_type" invisible="1"/>
+
+
+
+
+                                    <field name="product_id" />
+                                    <field name="name" />
+                                    <field name="product_qty" />
+                                    <field
+                                        name="product_uom_id"
+                                        groups="uom.group_uom"
+                                    />
+                                    <field
+                                        name="analytic_account_id"
+                                        groups="analytic.group_analytic_accounting"
+                                    />
+                                    <field
+                                        name="analytic_tag_ids"
+                                        groups="analytic.group_analytic_accounting"
+                                    />
+                                    <field name="date_required" />
+                                    <field name="estimated_cost" widget="monetary" />
+                                    <field name="currency_id" invisible="1" />
+                                    <field
+                                        name="company_id"
+                                        groups="base.group_multi_company"
+                                        widget="selection"
+                                    />
+                                    <field name="cancelled" invisible="1" />
+                                    <field name="is_editable" invisible="1" />
+                                    <field name="purchased_qty" />
+                                    <field
+                                        name="purchase_state"
+                                        widget="badge"
+                                        decoration-success="purchase_state == ('done')"
+                                        decoration-muted="purchase_state == ('draft')"
+                                        decoration-info="purchase_state in ('sent', 'purchase')"
+                                        decoration-warning="purchase_state == ('to_approve')"
+                                        decoration-danger="purchase_state == 'cancelled'"
+                                    />
+                                    <button
+                                        name="action_show_details"
+                                        type="object"
+                                        icon="fa-list"
+                                        width="0.1"
+                                        options='{"warn": true}'
+                                    />
+                                </tree>
+                            </field>
+
+
+
+
+            </xpath> -->
+
+
+
+
+
             <!-- <field name="line_ids" position="attributes">
                 <attribute name="widget">section_and_note_one2many</attribute>
             </field> -->
-            <field name="line_ids" position="replace">
+            <!-- <field name="line_ids" position="after">
                 <field name="line_ids" context="{'default_analytic_account_id': project_analytic_account_id}"
                     widget="section_and_note_one2many"/>
-            </field>
+            </field> -->
 
 
 
