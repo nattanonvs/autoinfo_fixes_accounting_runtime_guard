@@ -83,6 +83,6 @@ Changelog
         'views/dtr_purchase_term_report_view.xml',
         'views/dtr_purchase_shipment_report_view.xml',
         'views/dtr_purchase_weight_report_view.xml',
-        # 'views/purchase_request_view.xml',
+        'views/purchase_request_view.xml',
     ],
 }
