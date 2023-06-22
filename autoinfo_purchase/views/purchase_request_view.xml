@@ -30,6 +30,9 @@
                     force_save="1" placeholder="Name, TIN, Email, or Reference"
                     options="{'always_reload': True, 'no_quick_create':True,'no_create_edit':True}"/>
             </field>
+            <xpath expr="//field[@name='line_ids']//tree//field[@name='purchase_state']" position="replace">
+                <field name="purchase_state"/>
+            </xpath>
         </field>
     </record>
 </odoo>
