@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="po_purchase_request_report" model="ir.ui.view">
+            <field name="name">Purchase Request Form</field>
+            <field name="model">po.purchase.request.report</field>
+            <field name="inherit_id" ref="dtr_purchase_form.po_purchase_request_report"/>
+            <field name="arch" type="xml">
+                <field name="date_format" position="after">
+                    <field name="report_template"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

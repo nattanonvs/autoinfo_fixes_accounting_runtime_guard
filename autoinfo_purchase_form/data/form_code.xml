@@ -15,9 +15,9 @@
             <field name="iso_no">-</field>
         </record>
 
-        <record id="f_p_100" model="dtr.report.base">
-            <field name="name">F-P-100</field>
-            <field name="description">Purchase Request Form (Auto)</field>
+        <record id="purchase_request_fm_pu_04" model="dtr.report.base">
+            <field name="name">FM-PU-04</field>
+            <field name="description">Purchase Request Form (FM-PU-04)</field>
             <field name="s_model">Purchases</field>
             <field name="iso_no">-</field>
         </record>
