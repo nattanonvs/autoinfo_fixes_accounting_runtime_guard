@@ -28,7 +28,9 @@ Changelog
     """,
     'author': 'Dataroot Asia Co., Ltd.',
     'created_by': 'Varawit Termwaraporn',
-    'depends': ['autoinfo_project', 'dtr_purchase', 'hr', 'purchase_request', 'dtr_purchase_department', 'purchase'],
+    'depends': ['autoinfo_project', 'dtr_purchase', 'dtr_purchase_department', 'dtr_analytic_require',
+        'hr', 'purchase_request', 'purchase',
+    ],
     'application': False,
     'data': [
         'views/purchase_request_view.xml',

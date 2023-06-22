@@ -27,11 +27,5 @@ class PurchaseRequest(models.Model):
 
 class PurchaseRequestLine(models.Model):
     _inherit = 'purchase.request.line'
-    _order = 'request_id, sequence, id'
 
     partner_id = fields.Many2one('res.partner', related='request_id.partner_id', string='Partner', readonly=True, store=True)
-
-    display_type = fields.Selection([
-        ('line_section', "Section"),
-        ('line_note', "Note")], default=False, help="Technical field for UX purpose.")
-    sequence = fields.Integer(string='Sequence', default=10)
