@@ -23,4 +23,5 @@ class PurchaseRequestLineMakePurchaseOrder(models.TransientModel):
             item.dtr_purchase_weight_report_id = request_id.dtr_purchase_weight_report_id
             item.shipping_standard = request_id.shipping_standard
             item.tariff = request_id.tariff
+            item.your_ref = request_id.your_ref
         return vals
