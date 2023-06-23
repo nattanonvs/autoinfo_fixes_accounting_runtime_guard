@@ -23,5 +23,7 @@ class PurchaseRequestLineMakePurchaseOrder(models.TransientModel):
             item.dtr_purchase_weight_report_id = request_id.dtr_purchase_weight_report_id
             item.shipping_standard = request_id.shipping_standard
             item.tariff = request_id.tariff
+            item.attention_id = request_id.attention_id
             item.your_ref = request_id.your_ref
+            item.project_id = request_id.project_id
         return vals

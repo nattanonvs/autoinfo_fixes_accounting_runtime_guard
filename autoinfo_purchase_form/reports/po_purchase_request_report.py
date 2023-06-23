@@ -23,5 +23,7 @@ class PoPurchaseRequestReport(models.TransientModel):
             res['p_ISO'] = rpt.iso_no or ''
             res['p_EName'] = str(rpt.e_name)
             res['p_ESignature'] = str(rpt.e_signature)
+
+            ids = self.env.context.get('active_ids')
             self.name = self.get_file_name(ids, 'purchase.request', 'Purchase Request Form (FM-PU-04)')
         return res

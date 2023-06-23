@@ -14,3 +14,5 @@ class PurchaseOrder(models.Model):
                     seq_date = fields.Datetime.context_timestamp(self, fields.Datetime.to_datetime(vals['date_order']))
                 vals['name'] = department_id.po_sequence_id.next_by_id(sequence_date=seq_date) or '/'
         return super(PurchaseOrder, self).create(vals)
+
+    attention_id = fields.Many2one('res.users', string='Attention', tracking=True, index=True)
