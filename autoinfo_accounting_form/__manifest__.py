@@ -19,7 +19,7 @@ Changelog
 ---------
 
 **Version 1.11-1.11a**
-    - Task A21B-T17, A21B-T19
+    - Task A21B-T17
     - Fixed wrong wording in invoice report, billing report, prepayment report and debit note report
 
 **Version 1.10**

@@ -1063,17 +1063,17 @@ order by po.id, po_line.sequence, po_line.id]]>
 		</groupFooter>
 	</group>
 	<background>
-		<band height="787" splitType="Stretch">
+		<band height="802" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
 			<frame>
 				<reportElement x="0" y="0" width="555" height="285" uuid="f99afb27-438c-435b-9dcd-cfb402e8a7c7"/>
 			</frame>
 			<frame>
-				<reportElement x="0" y="285" width="555" height="502" uuid="f0af9973-5ca4-4d98-89f5-49f9c1b8e9c3">
+				<reportElement x="0" y="285" width="555" height="515" uuid="f0af9973-5ca4-4d98-89f5-49f9c1b8e9c3">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
 				<frame>
-					<reportElement x="0" y="0" width="30" height="502" uuid="30efd68a-350c-4aeb-918c-97a08e8842fe">
+					<reportElement x="0" y="0" width="30" height="515" uuid="30efd68a-350c-4aeb-918c-97a08e8842fe">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
 					<box>
@@ -1084,7 +1084,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 					</box>
 				</frame>
 				<frame>
-					<reportElement x="30" y="0" width="80" height="502" uuid="b833bbd4-69a9-456a-b61c-a58cd2d63be7">
+					<reportElement x="30" y="0" width="80" height="515" uuid="b833bbd4-69a9-456a-b61c-a58cd2d63be7">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
 					<box>
@@ -1095,9 +1095,9 @@ order by po.id, po_line.sequence, po_line.id]]>
 					</box>
 				</frame>
 				<frame>
-					<reportElement x="110" y="0" width="172" height="502" uuid="3e9fc7d8-96c2-49d4-945f-3b30d1b2c56e">
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<reportElement x="110" y="0" width="172" height="515" uuid="3e9fc7d8-96c2-49d4-945f-3b30d1b2c56e">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1107,7 +1107,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 					</box>
 				</frame>
 				<frame>
-					<reportElement x="332" y="0" width="50" height="502" uuid="a1f40f51-08bd-4c4b-9499-6a4585fff76d">
+					<reportElement x="332" y="0" width="50" height="515" uuid="a1f40f51-08bd-4c4b-9499-6a4585fff76d">
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					</reportElement>
 					<box>
@@ -1118,7 +1118,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 					</box>
 				</frame>
 				<frame>
-					<reportElement x="482" y="0" width="72" height="502" uuid="8ef9ef6f-eaba-4036-82bf-1b68e8012cca">
+					<reportElement x="482" y="0" width="72" height="515" uuid="8ef9ef6f-eaba-4036-82bf-1b68e8012cca">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
 					<box>
@@ -1129,9 +1129,9 @@ order by po.id, po_line.sequence, po_line.id]]>
 					</box>
 				</frame>
 				<frame>
-					<reportElement x="382" y="0" width="50" height="502" uuid="2674fa40-5c4d-4a36-a65d-fccdaec79147">
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<reportElement x="382" y="0" width="50" height="515" uuid="2674fa40-5c4d-4a36-a65d-fccdaec79147">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1141,7 +1141,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 					</box>
 				</frame>
 				<frame>
-					<reportElement x="282" y="0" width="50" height="502" uuid="150440c8-ebe8-481f-a723-78b8f61be38b">
+					<reportElement x="282" y="0" width="50" height="515" uuid="150440c8-ebe8-481f-a723-78b8f61be38b">
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					</reportElement>
 					<box>
@@ -1152,7 +1152,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 					</box>
 				</frame>
 				<frame>
-					<reportElement x="432" y="0" width="50" height="502" uuid="e0da9063-022e-4aeb-96ab-a2005ff81d69">
+					<reportElement x="432" y="0" width="50" height="515" uuid="e0da9063-022e-4aeb-96ab-a2005ff81d69">
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					</reportElement>
@@ -1799,7 +1799,9 @@ order by po.id, po_line.sequence, po_line.id]]>
 				<textFieldExpression><![CDATA[$F{product_code}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="110" y="0" width="200" height="17" uuid="5a4367e2-13e2-47e1-a220-ac00dac09db8"/>
+				<reportElement x="110" y="0" width="172" height="17" uuid="5a4367e2-13e2-47e1-a220-ac00dac09db8">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
 				<box leftPadding="3" bottomPadding="1">
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
