@@ -18,7 +18,7 @@ Changelog
 
 **Version 1.13-1.13b**
     - Add (FM-PU-04) Purchase Request Form
-    - Task A433-T90, A433-T91, A433-T110, A21B-T7
+    - Task A433-T90, A433-T91, A433-T110, A21B-T7, A21B-T19
 
 **Version 1.12**
     - Fixed task A433-T89, A433-T90
