@@ -35,7 +35,8 @@
 	,c1.name as company_name
 	,encode(c2.company_logo,'escape') AS company_logo
 	,att.store_fname AS company_logo_iso
-	,COALESCE(rp.default_contact_name, '') as partner_contact_name
+	--,COALESCE(rp.default_contact_name, '') as partner_contact_name
+	,(SELECT COALESCE(b.name,'') FROM res_users a LEFT JOIN res_partner b ON b.id=a.partner_id WHERE a.id=p.attention_id) as partner_contact_name
 	,rp.display_name as partner_name
 	,concat(rp.street) as partner_address_1
 	,concat(rp.street2) as partner_address_2

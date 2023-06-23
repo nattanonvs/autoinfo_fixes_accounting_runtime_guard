@@ -4,31 +4,31 @@
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="215"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="779"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="autoinfo_DB.xml"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="140 autoinfo"/>
 	<style name="Section Line">
 		<conditionalStyle>
 			<conditionExpression><![CDATA[$F{display_type}.toString().equals("line_section")]]></conditionExpression>
 			<style mode="Opaque" backcolor="#DBDBDB"/>
 		</conditionalStyle>
 	</style>
-	<parameter name="p_Where" class="java.lang.String">
-		<defaultValueExpression><![CDATA["where po.id in (31)"]]></defaultValueExpression>
+	<parameter name="p_Where" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["where po.id in (1170)"]]></defaultValueExpression>
 	</parameter>
-	<parameter name="p_language" class="java.lang.String">
+	<parameter name="p_language" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["eng"]]></defaultValueExpression>
 	</parameter>
-	<parameter name="p_DateFormat" class="java.lang.String">
+	<parameter name="p_DateFormat" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["yyyy-MMM-dd"]]></defaultValueExpression>
 	</parameter>
-	<parameter name="p_locale" class="java.lang.String">
+	<parameter name="p_locale" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["th"]]></defaultValueExpression>
 	</parameter>
-	<parameter name="p_EName" class="java.lang.Boolean"/>
-	<parameter name="p_ESignature" class="java.lang.Boolean"/>
-	<parameter name="p_Path" class="java.lang.String">
+	<parameter name="p_EName" class="java.lang.Boolean" isForPrompting="false"/>
+	<parameter name="p_ESignature" class="java.lang.Boolean" isForPrompting="false"/>
+	<parameter name="p_Path" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["/odoo15_dtr/.local/share/Odoo/filestore/autoinfo_16012023/"]]></defaultValueExpression>
 	</parameter>
-	<parameter name="p_ISO" class="java.lang.String"/>
+	<parameter name="p_ISO" class="java.lang.String" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[select po_line.report_sequence as seq,
 c.name as company_name,
@@ -191,7 +191,8 @@ att.store_fname AS logo_iso,
 	 ,cur.name AS currency_name
 	 ,COALESCE(proj.name, '') as project_name
 	 ,COALESCE(po.your_ref, '') as your_ref
-	 ,COALESCE(p.default_contact_name, '') as default_contact_name
+	 --,COALESCE(p.default_contact_name, '') as default_contact_name
+	 ,(SELECT COALESCE(b.name,'') FROM res_users a LEFT JOIN res_partner b ON b.id=a.partner_id WHERE a.id=po.attention_id) as default_contact_name
 	 ,prot.autoinfo_list_price as list_price
 	 ,(SELECT max(b.amount) 
 		  FROM account_tax_purchase_order_line_rel a
@@ -1183,7 +1184,9 @@ order by po.id, po_line.sequence, po_line.id]]>
 					<reportElement key="" x="447" y="47" width="107" height="46" backcolor="#FFFFFF" uuid="99dea743-5ed9-46bc-ba03-0d4e7388e6bc"/>
 				</rectangle>
 				<textField>
-					<reportElement mode="Transparent" x="447" y="47" width="107" height="46" backcolor="#FFFFFF" uuid="a7382315-ec31-4207-a8ba-a7d83f95b458"/>
+					<reportElement mode="Transparent" x="447" y="47" width="107" height="46" backcolor="#FFFFFF" uuid="a7382315-ec31-4207-a8ba-a7d83f95b458">
+						<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+					</reportElement>
 					<box leftPadding="1" bottomPadding="1">
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1192,7 +1195,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
 						<font fontName="TH Sarabun New" size="16" isBold="false" isItalic="false"/>
-						<paragraph rightIndent="0"/>
+						<paragraph lineSpacing="Fixed" lineSpacingSize="10.0"/>
 					</textElement>
 					<textFieldExpression><![CDATA["ใบสั่งซื้อ/สั่งจ้าง\nPURCHASE ORDER"]]></textFieldExpression>
 				</textField>
@@ -1323,7 +1326,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 						</textElement>
 						<textFieldExpression><![CDATA["Attention"]]></textFieldExpression>
 					</textField>
-					<textField>
+					<textField isBlankWhenNull="true">
 						<reportElement x="90" y="0" width="260" height="17" uuid="f57917b5-5f8e-43e4-9b7a-7653b2bb6d78"/>
 						<textElement textAlignment="Left" verticalAlignment="Top">
 							<font fontName="TH Sarabun New" size="12" isBold="false"/>
