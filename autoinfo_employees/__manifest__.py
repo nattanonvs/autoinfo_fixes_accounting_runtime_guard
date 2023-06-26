@@ -7,7 +7,7 @@
     'category': 'DTR - ERP Employees',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
-    'summary': 'DTR - ERP Employees',
+    'summary': 'Customize Employees',
     'description': """
 Description
 -----------
