@@ -34,6 +34,18 @@
             <xpath expr="//field[@name='line_ids']//tree//field[@name='purchase_state']" position="replace">
                 <field name="purchase_state"/>
             </xpath>
+            <xpath expr="//field[@name='line_ids']//tree//field[@name='date_required']" position="after">
+                <field name="price_unit" optional="show"/>
+                <field name="discount" optional="show"/>
+                <field name="discount_type" optional="show"/>
+                <field name="taxes_id" widget="many2many_tags" domain="[('type_tax_use','=','purchase'), ('company_id', '=', parent.company_id)]" context="{'default_type_tax_use': 'purchase', 'search_view_ref': 'account.account_tax_view_search'}" options="{'no_create': True}" optional="show"/>
+                <field name="price_subtotal" widget="monetary" optional="show"/>
+                <field name="price_total" invisible="1"/>
+                <field name="price_tax" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='line_ids']//tree//field[@name='estimated_cost']" position="attributes">
+                <attribute name="optional">show</attribute>
+            </xpath>
         </field>
     </record>
 </odoo>

@@ -25,6 +25,9 @@
                     </group>
                 </page>
             </xpath>
+            <xpath expr="//field[@name='line_ids']//tree//field[@name='date_required']" position="after">
+                <field name="autoinfo_list_price" optional="show"/>
+            </xpath>
         </field>
     </record>
 </odoo>
