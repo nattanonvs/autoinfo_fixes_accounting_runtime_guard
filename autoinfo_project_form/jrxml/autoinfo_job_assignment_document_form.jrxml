@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.10.0-unknown  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="autoinfo_job_assignment_document_form" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="58f938af-f613-42eb-a0b7-5a61fcffd70d">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Localhost"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="140 autoinfo"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="0"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="1000"/>
 	<parameter name="p_ISO" class="java.lang.String"/>
 	<parameter name="p_Where" class="java.lang.String">
 		<defaultValueExpression><![CDATA["WHERE pro.id=7"]]></defaultValueExpression>
@@ -74,6 +76,13 @@
     ,pro.attachment_other_description AS attachment_other_description
     ,pro.report_remark AS report_remark
     ,att.store_fname AS logo_iso
+
+	,(SELECT b.name FROM resource_resource a
+		LEFT JOIN hr_employee b ON a.id = b.resource_id
+		WHERE a.user_id=pro.sale_person_id) AS sale_person_name
+	,(SELECT b.name_en FROM resource_resource a
+		LEFT JOIN hr_employee b ON a.id = b.resource_id
+		WHERE a.user_id=pro.sale_person_id) AS sale_person_name_en
 from project_project pro
 left join res_company c on c.id = pro.company_id
 left join company_address_header_report c2 ON c2.id = pro.company_id
@@ -86,6 +95,7 @@ $P!{p_Where}]]>
 	</queryString>
 	<field name="company_name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="company_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="res_company"/>
 	</field>
 	<field name="company_name_thai" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="company_name_thai"/>
@@ -128,111 +138,153 @@ $P!{p_Where}]]>
 	</field>
 	<field name="job_no" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="job_no"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="project_project"/>
 	</field>
 	<field name="job_name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="job_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="project_project"/>
 	</field>
 	<field name="job_type" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="job_type"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="project_project"/>
 	</field>
 	<field name="reference_po" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="reference_po"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="project_project"/>
 	</field>
 	<field name="responsible1" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="responsible1"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_employee"/>
 	</field>
 	<field name="responsible2" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="responsible2"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_employee"/>
 	</field>
 	<field name="responsible3" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="responsible3"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_employee"/>
 	</field>
 	<field name="autoinfo_coordinator" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="autoinfo_coordinator"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_employee"/>
 	</field>
 	<field name="customer_coordinator" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="customer_coordinator"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="project_project"/>
 	</field>
 	<field name="customer_coordinator_tel" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="customer_coordinator_tel"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="project_project"/>
 	</field>
 	<field name="customer_coordinator_email" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="customer_coordinator_email"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="project_project"/>
 	</field>
 	<field name="scope_of_work" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="scope_of_work"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="project_project"/>
 	</field>
 	<field name="date_start" class="java.sql.Date">
 		<property name="com.jaspersoft.studio.field.label" value="date_start"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="project_project"/>
 	</field>
 	<field name="date_end" class="java.sql.Date">
 		<property name="com.jaspersoft.studio.field.label" value="date_end"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="project_project"/>
 	</field>
 	<field name="has_spare_part" class="java.lang.Boolean">
 		<property name="com.jaspersoft.studio.field.label" value="has_spare_part"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="project_project"/>
 	</field>
 	<field name="spare_part" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="spare_part"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="project_project"/>
 	</field>
 	<field name="document_required_entry_to_work" class="java.lang.Boolean">
 		<property name="com.jaspersoft.studio.field.label" value="document_required_entry_to_work"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="project_project"/>
 	</field>
 	<field name="maintenance_wo" class="java.lang.Boolean">
 		<property name="com.jaspersoft.studio.field.label" value="maintenance_wo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="project_project"/>
 	</field>
 	<field name="jsa" class="java.lang.Boolean">
 		<property name="com.jaspersoft.studio.field.label" value="jsa"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="project_project"/>
 	</field>
 	<field name="copy_id_card" class="java.lang.Boolean">
 		<property name="com.jaspersoft.studio.field.label" value="copy_id_card"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="project_project"/>
 	</field>
 	<field name="copy_social_security" class="java.lang.Boolean">
 		<property name="com.jaspersoft.studio.field.label" value="copy_social_security"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="project_project"/>
 	</field>
 	<field name="medeical_certificate" class="java.lang.Boolean">
 		<property name="com.jaspersoft.studio.field.label" value="medeical_certificate"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="project_project"/>
 	</field>
 	<field name="document_required_entry_to_work_other" class="java.lang.Boolean">
 		<property name="com.jaspersoft.studio.field.label" value="document_required_entry_to_work_other"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="project_project"/>
 	</field>
 	<field name="document_required_entry_to_work_other_description" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="document_required_entry_to_work_other_description"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="project_project"/>
 	</field>
 	<field name="service_report" class="java.lang.Boolean">
 		<property name="com.jaspersoft.studio.field.label" value="service_report"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="project_project"/>
 	</field>
 	<field name="work_delivery" class="java.lang.Boolean">
 		<property name="com.jaspersoft.studio.field.label" value="work_delivery"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="project_project"/>
 	</field>
 	<field name="list_of_trainees" class="java.lang.Boolean">
 		<property name="com.jaspersoft.studio.field.label" value="list_of_trainees"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="project_project"/>
 	</field>
 	<field name="temporary_delivery" class="java.lang.Boolean">
 		<property name="com.jaspersoft.studio.field.label" value="temporary_delivery"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="project_project"/>
 	</field>
 	<field name="document_required_after_entering_other" class="java.lang.Boolean">
 		<property name="com.jaspersoft.studio.field.label" value="document_required_after_entering_other"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="project_project"/>
 	</field>
 	<field name="document_required_after_entering_other_description" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="document_required_after_entering_other_description"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="project_project"/>
 	</field>
 	<field name="tor" class="java.lang.Boolean">
 		<property name="com.jaspersoft.studio.field.label" value="tor"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="project_project"/>
 	</field>
 	<field name="unprice" class="java.lang.Boolean">
 		<property name="com.jaspersoft.studio.field.label" value="unprice"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="project_project"/>
 	</field>
 	<field name="attachment_other" class="java.lang.Boolean">
 		<property name="com.jaspersoft.studio.field.label" value="attachment_other"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="project_project"/>
 	</field>
 	<field name="attachment_other_description" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="attachment_other_description"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="project_project"/>
 	</field>
 	<field name="report_remark" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="report_remark"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="project_project"/>
 	</field>
 	<field name="logo_iso" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="logo_iso"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ir_attachment"/>
+	</field>
+	<field name="sale_person_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="sale_person_name"/>
+	</field>
+	<field name="sale_person_name_en" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="sale_person_name_en"/>
 	</field>
 	<group name="Group_Report">
 		<groupHeader>
@@ -265,7 +317,7 @@ $P!{p_Where}]]>
 					</textElement>
 					<textFieldExpression><![CDATA["ผู้แจ้งงาน:"]]></textFieldExpression>
 				</textField>
-				<textField>
+				<textField isBlankWhenNull="true">
 					<reportElement x="244" y="106" width="150" height="17" uuid="519f5587-2902-4583-8c03-79fe762b4711"/>
 					<box>
 						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -277,7 +329,7 @@ $P!{p_Where}]]>
 						<font fontName="TH Sarabun New" size="12" isBold="true"/>
 						<paragraph lineSpacing="Fixed" lineSpacingSize="4.0" leftIndent="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$P{p_Printby}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{sale_person_name}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="394" y="106" width="34" height="17" uuid="ba5fff4b-125b-446e-8ac5-6abc5e8de748"/>
@@ -1473,7 +1525,7 @@ $P!{p_Where}]]>
 					<reportElement x="0" y="0" width="77" height="80" uuid="f5509cd1-9e5a-47b6-b194-9a6d97fd853c"/>
 					<imageExpression><![CDATA[new java.io.ByteArrayInputStream(org.apache.commons.codec.binary.Base64.decodeBase64($F{company_logo}.getBytes()))]]></imageExpression>
 				</image>
-				<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
+				<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle" onErrorType="Blank">
 					<reportElement x="412" y="0" width="141" height="44" uuid="a94253bf-95bb-48ca-899f-00857ad769cd"/>
 					<imageExpression><![CDATA[IF( $F{logo_iso} == null
 	,IF($F{logo_iso}== null,null,$P{p_Path} +$F{logo_iso})

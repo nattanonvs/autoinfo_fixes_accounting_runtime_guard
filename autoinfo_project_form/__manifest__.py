@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Project Form',
-    'version': '1.5',
+    'version': '1.5a',
     'category': 'DTR - ERP Project',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -16,7 +16,8 @@ Customize Report Project.
 Changelog
 ---------
 
-**Version 1.5**
+**Version 1.5-1.5a**
+    - A21B-T18 Z-005 ใบแจ้งงาน : ชื่อผู้แจ้งงานไม่ถูกต้อง
     - Revised header company information in report
 
 **Version 1.4**
