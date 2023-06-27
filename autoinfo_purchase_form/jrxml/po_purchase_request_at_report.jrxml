@@ -13,7 +13,7 @@
 		</conditionalStyle>
 	</style>
 	<parameter name="p_PRNo" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["WHERE p.id in (537)"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["WHERE p.id in (859)"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="p_language" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["eng"]]></defaultValueExpression>
@@ -58,9 +58,14 @@
 	,COALESCE(pwr.description, '') as p_warranty_report
 	,COALESCE(ptr.description, '') as p_payment_term
 	,p.estimated_cost as p_estimated_cost
+	,p.amount_untaxed_before_discount as p_amount_untaxed_before_discount
+	,p.amount_discount as p_amount_discount
+	,p.amount_untaxed as p_amount_untaxed
+	,p.amount_tax as p_amount_tax
+	,p.amount_total as p_amount_total
 
-	,convert_num_th_with_currency(CAST(p.estimated_cost*1.07 as numeric(14,2)), p.currency_id) AS bahttext
-	,convert_num_en_with_currency(CAST(p.estimated_cost*1.07 as numeric(14,2)), p.currency_id) AS bahttext_en
+	,convert_num_th_with_currency(CAST(p.amount_total as numeric(14,2)), p.currency_id) AS bahttext
+	,convert_num_en_with_currency(CAST(p.amount_total as numeric(14,2)), p.currency_id) AS bahttext_en
 	,cur.name as currency_name
 	,0 as seq,
 
@@ -68,10 +73,19 @@
 	REPLACE(pl.name, CONCAT('[', pro.default_code, ']'), '') AS product_name,
 	pl.product_qty AS product_qty,
 	uom.name AS product_uom,
-	CASE WHEN pl.product_qty is null OR pl.product_qty=0.0 THEN 0.0 ELSE CAST(pl.estimated_cost/pl.product_qty as numeric(14,2)) END AS product_price_unit,
-	0.0 AS product_discount,
-	'' AS product_discount_sign,
-	pl.estimated_cost AS product_price_total,
+	--CASE WHEN pl.product_qty is null OR pl.product_qty=0.0 THEN 0.0 ELSE CAST(pl.estimated_cost/pl.product_qty as numeric(14,2)) END AS product_price_unit,
+	pl.price_unit AS product_price_unit,
+       case 
+               when pl.discount_type = 'amount_per_unit' 
+               then pl.discount * pl.product_qty
+               else pl.discount
+       end AS product_discount,
+        case 
+               when pl.discount_type = 'percent' 
+               then '%'
+               else ''
+       end AS product_discount_sign,
+	pl.price_subtotal AS product_price_subtotal,
 	pl.display_type
 
   --__________________________________
@@ -235,6 +249,26 @@ ORDER BY p_id, pl_seq, pl_id;]]>
 		<property name="com.jaspersoft.studio.field.label" value="p_estimated_cost"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="purchase_request"/>
 	</field>
+	<field name="p_amount_untaxed_before_discount" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="p_amount_untaxed_before_discount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="purchase_request"/>
+	</field>
+	<field name="p_amount_discount" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="p_amount_discount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="purchase_request"/>
+	</field>
+	<field name="p_amount_untaxed" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="p_amount_untaxed"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="purchase_request"/>
+	</field>
+	<field name="p_amount_tax" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="p_amount_tax"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="purchase_request"/>
+	</field>
+	<field name="p_amount_total" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="p_amount_total"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="purchase_request"/>
+	</field>
 	<field name="bahttext" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="bahttext"/>
 	</field>
@@ -265,6 +299,7 @@ ORDER BY p_id, pl_seq, pl_id;]]>
 	</field>
 	<field name="product_price_unit" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="product_price_unit"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="purchase_request_line"/>
 	</field>
 	<field name="product_discount" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="product_discount"/>
@@ -272,8 +307,8 @@ ORDER BY p_id, pl_seq, pl_id;]]>
 	<field name="product_discount_sign" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="product_discount_sign"/>
 	</field>
-	<field name="product_price_total" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="product_price_total"/>
+	<field name="product_price_subtotal" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="product_price_subtotal"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="purchase_request_line"/>
 	</field>
 	<field name="display_type" class="java.lang.String">
@@ -440,7 +475,7 @@ ORDER BY p_id, pl_seq, pl_id;]]>
 							<font fontName="TH Sarabun New" size="12" isBold="false" isUnderline="false"/>
 							<paragraph leftIndent="0" rightIndent="5"/>
 						</textElement>
-						<textFieldExpression><![CDATA[$F{p_estimated_cost}]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$F{p_amount_untaxed_before_discount}]]></textFieldExpression>
 					</textField>
 					<textField pattern="#,##0.00#;(#,##0.00#)" isBlankWhenNull="true">
 						<reportElement mode="Opaque" x="482" y="17" width="73" height="17" uuid="a51ba2f7-11bb-45c6-9b0f-99cfab225ed8">
@@ -458,7 +493,7 @@ ORDER BY p_id, pl_seq, pl_id;]]>
 							<font fontName="TH Sarabun New" size="12" isBold="false" isUnderline="false"/>
 							<paragraph leftIndent="0" rightIndent="5"/>
 						</textElement>
-						<textFieldExpression><![CDATA[0.0]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$F{p_amount_discount}]]></textFieldExpression>
 					</textField>
 					<textField pattern="#,##0.00#;(#,##0.00#)" isBlankWhenNull="true">
 						<reportElement mode="Opaque" x="482" y="34" width="73" height="17" uuid="8648eaec-87a9-43da-8f61-a2d3b0d427c5">
@@ -476,7 +511,7 @@ ORDER BY p_id, pl_seq, pl_id;]]>
 							<font fontName="TH Sarabun New" size="12" isBold="false" isUnderline="false"/>
 							<paragraph leftIndent="0" rightIndent="5"/>
 						</textElement>
-						<textFieldExpression><![CDATA[$F{p_estimated_cost}]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$F{p_amount_untaxed}]]></textFieldExpression>
 					</textField>
 					<textField pattern="#,##0.00#;(#,##0.00#)" isBlankWhenNull="true">
 						<reportElement mode="Opaque" x="482" y="51" width="73" height="17" uuid="12881155-19f5-442b-a020-4e2dcb8b206e">
@@ -494,7 +529,7 @@ ORDER BY p_id, pl_seq, pl_id;]]>
 							<font fontName="TH Sarabun New" size="12" isBold="false" isUnderline="false"/>
 							<paragraph leftIndent="0" rightIndent="5"/>
 						</textElement>
-						<textFieldExpression><![CDATA[($F{p_estimated_cost}.doubleValue()*1.07)-$F{p_estimated_cost}.doubleValue()]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$F{p_amount_tax}]]></textFieldExpression>
 					</textField>
 					<textField pattern="#,##0.00#;(#,##0.00#)" isBlankWhenNull="true">
 						<reportElement mode="Opaque" x="482" y="68" width="73" height="17" uuid="6a351a0a-ec30-471f-9ef2-6ba3160de7a4">
@@ -513,7 +548,7 @@ ORDER BY p_id, pl_seq, pl_id;]]>
 							<font fontName="TH Sarabun New" size="12" isBold="false" isUnderline="false"/>
 							<paragraph leftIndent="0" rightIndent="5"/>
 						</textElement>
-						<textFieldExpression><![CDATA[$F{p_estimated_cost}.doubleValue()*1.07]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$F{p_amount_total}]]></textFieldExpression>
 					</textField>
 					<textField isBlankWhenNull="true">
 						<reportElement mode="Opaque" x="0" y="68" width="382" height="17" uuid="d2b40586-f919-41ef-bf0c-bb38982a5e20">
@@ -1514,7 +1549,9 @@ ORDER BY p_id, pl_seq, pl_id;]]>
 					<textFieldExpression><![CDATA[$F{product_code}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-					<reportElement x="110" y="0" width="200" height="17" uuid="2beab2e8-0b7d-4095-be66-1e6aa1425ba2"/>
+					<reportElement x="110" y="0" width="172" height="17" uuid="2beab2e8-0b7d-4095-be66-1e6aa1425ba2">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
 					<box leftPadding="3" bottomPadding="1">
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1543,41 +1580,6 @@ ORDER BY p_id, pl_seq, pl_id;]]>
 					</textElement>
 					<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format($F{product_qty})]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
-					<reportElement key="" x="382" y="0" width="50" height="17" uuid="a99257f2-4554-4f53-9f7c-69e3c20978b8">
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-						<printWhenExpression><![CDATA[$F{display_type} == null]]></printWhenExpression>
-					</reportElement>
-					<box leftPadding="0" bottomPadding="0" rightPadding="5">
-						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					</box>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="TH Sarabun New" size="12" isBold="false"/>
-						<paragraph rightIndent="0"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{product_price_unit}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
-					<reportElement key="" x="482" y="0" width="73" height="17" uuid="e975d4b8-4869-41e7-b845-f365f33c3310">
-						<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-						<printWhenExpression><![CDATA[$F{display_type} == null]]></printWhenExpression>
-					</reportElement>
-					<box leftPadding="0" bottomPadding="0" rightPadding="5">
-						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					</box>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="TH Sarabun New" size="12" isBold="false"/>
-						<paragraph rightIndent="0"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{product_price_total}]]></textFieldExpression>
-				</textField>
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 					<reportElement key="" x="332" y="0" width="50" height="17" uuid="1443e3e3-881a-4919-96f3-d04532839899">
 						<printWhenExpression><![CDATA[$F{display_type} == null]]></printWhenExpression>
@@ -1595,6 +1597,23 @@ ORDER BY p_id, pl_seq, pl_id;]]>
 					<textFieldExpression><![CDATA[$F{product_uom}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+					<reportElement key="" x="382" y="0" width="50" height="17" uuid="a99257f2-4554-4f53-9f7c-69e3c20978b8">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<printWhenExpression><![CDATA[$F{display_type} == null]]></printWhenExpression>
+					</reportElement>
+					<box leftPadding="0" bottomPadding="0" rightPadding="5">
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="TH Sarabun New" size="12" isBold="false"/>
+						<paragraph rightIndent="0"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{product_price_unit}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 					<reportElement key="" x="432" y="0" width="50" height="17" uuid="34c74063-dd0b-42c6-ba09-1c88b5307103">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						<printWhenExpression><![CDATA[$F{display_type} == null]]></printWhenExpression>
@@ -1609,7 +1628,25 @@ ORDER BY p_id, pl_seq, pl_id;]]>
 						<font fontName="TH Sarabun New" size="12" isBold="false"/>
 						<paragraph rightIndent="0"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{product_discount}+" "+$F{product_discount_sign}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[new java.text.DecimalFormat("#,##0.00").format($F{product_discount})+" "+$F{product_discount_sign}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+					<reportElement key="" x="482" y="0" width="73" height="17" uuid="e975d4b8-4869-41e7-b845-f365f33c3310">
+						<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<printWhenExpression><![CDATA[$F{display_type} == null]]></printWhenExpression>
+					</reportElement>
+					<box leftPadding="0" bottomPadding="0" rightPadding="5">
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="TH Sarabun New" size="12" isBold="false"/>
+						<paragraph rightIndent="0"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{product_price_subtotal}]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>
