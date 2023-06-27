@@ -25,6 +25,30 @@ class PurchaseRequest(models.Model):
         domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]", help="You can find a vendor by its Name, TIN, Email or Internal Reference.")
     your_ref = fields.Char(string='Your Ref.')
 
+    amount_untaxed_before_discount = fields.Float(string='Untaxed Amount before Discount', store=True, compute="_amount_all", readonly=True, digits='Discount')
+    amount_discount = fields.Monetary(string='Discount Amount', store=True, compute="_amount_all", readonly=True)
+    amount_untaxed = fields.Monetary(string='Untaxed Amount', store=True, readonly=True, compute='_amount_all', tracking=True)
+    amount_tax = fields.Monetary(string='Taxes', store=True, readonly=True, compute='_amount_all')
+    amount_total = fields.Monetary(string='Total', store=True, readonly=True, compute='_amount_all')
+
+    @api.depends('line_ids.price_total')
+    def _amount_all(self):
+        for request in self:
+            amount_untaxed = amount_tax = amount_untaxed_before_discount = 0.0
+            for line in request.line_ids.filtered(lambda line: not line.display_type):
+                line._compute_amount()
+                amount_untaxed += line.price_subtotal
+                amount_tax += line.price_tax
+                amount_untaxed_before_discount += line.product_qty * line.price_unit
+            currency = request.currency_id or request.partner_id.property_purchase_currency_id or self.env.company.currency_id
+            request.update({
+                'amount_untaxed': currency.round(amount_untaxed),
+                'amount_tax': currency.round(amount_tax),
+                'amount_total': amount_untaxed + amount_tax,
+                'amount_untaxed_before_discount': amount_untaxed_before_discount,
+                'amount_discount': amount_untaxed_before_discount - amount_untaxed,
+            })
+
 
 class PurchaseRequestLine(models.Model):
     _inherit = 'purchase.request.line'

@@ -46,6 +46,25 @@
             <xpath expr="//field[@name='line_ids']//tree//field[@name='estimated_cost']" position="attributes">
                 <attribute name="optional">show</attribute>
             </xpath>
+            <xpath expr="//page[1]//group[1]" position="replace">
+                <group>
+                    <group>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="estimated_cost" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    </group>
+                    <group class="oe_subtotal_footer oe_right">
+                        <field name="amount_untaxed_before_discount" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                        <field name="amount_discount" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                        <field name="amount_untaxed" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        <field name="amount_tax" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        <div class="oe_subtotal_footer_separator oe_inline">
+                            <label for="amount_total" style="font-weight:700;"/>
+                        </div>
+                        <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    </group>
+                </group>
+                <div class="oe_clear"/>
+            </xpath>
         </field>
     </record>
 </odoo>
