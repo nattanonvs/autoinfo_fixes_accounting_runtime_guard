@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Purchase',
-    'version': '1.2',
+    'version': '1.2a',
     'category': 'DTR - ERP Purchase',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -16,7 +16,7 @@ Extends the functionality of Purchase.
 Changelog
 ---------
 
-**Version 1.2**
+**Version 1.2-1.2a**
     - Auto default analytic account from project to PR lines
 
 **Version 1.1**
