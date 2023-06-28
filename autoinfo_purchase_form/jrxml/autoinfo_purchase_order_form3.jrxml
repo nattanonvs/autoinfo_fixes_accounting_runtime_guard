@@ -52,7 +52,6 @@ c.name as company_name,
        p.ref as partner_code, 
        p.vat as partner_tax,  
        case when p.branch_code is null or p.branch_code = '00000' then 'สำนักงานใหญ่' else p.branch_code end as partner_branch_code, 
-       p.vat as partner_tax,
        p.phone as partner_phone,
        p.mobile as partner_mobile,
        p.fax as partner_fax,
@@ -124,7 +123,28 @@ c.name as company_name,
 		FROM company_employee_signature a
 		WHERE a.user_id=po.create_uid  limit 1
 	 ) AS prepare_signature
-	 
+
+	   -- *********************************************************************************************** For Pre1 Approval By
+	 ,(SELECT b.name FROM resource_resource a
+		LEFT JOIN hr_employee b ON a.id = b.resource_id
+		WHERE a.user_id = (SELECT a.done_by FROM (SELECT * FROM tier_review WHERE model='purchase.order' and res_id=po.id and status='approved' ORDER BY sequence DESC LIMIT 3) a ORDER BY a.sequence LIMIT 1)) AS pre1_approved_name
+	,(SELECT c.name FROM resource_resource a
+		LEFT JOIN hr_employee b ON a.id = b.resource_id
+		LEFT JOIN hr_department c ON c.id = b.department_id
+		WHERE a.user_id = (SELECT a.done_by FROM (SELECT * FROM tier_review WHERE model='purchase.order' and res_id=po.id and status='approved' ORDER BY sequence DESC LIMIT 3) a ORDER BY a.sequence LIMIT 1)) AS pre1_department
+	,(SELECT c.name FROM resource_resource a
+		LEFT JOIN hr_employee b ON a.id = b.resource_id
+		LEFT JOIN hr_job c ON c.id = b.job_id
+		WHERE a.user_id = (SELECT a.done_by FROM (SELECT * FROM tier_review WHERE model='purchase.order' and res_id=po.id and status='approved' ORDER BY sequence DESC LIMIT 3) a ORDER BY a.sequence LIMIT 1)) AS pre1_position
+	,(SELECT a.reviewed_date FROM (SELECT * FROM tier_review WHERE model='purchase.order' and res_id=po.id and status='approved' ORDER BY sequence DESC LIMIT 3) a ORDER BY a.sequence LIMIT 1)AS pre1_date_decided
+	,(SELECT c.store_fname FROM resource_resource a
+		LEFT JOIN hr_employee b ON a.id = b.resource_id
+		LEFT JOIN ir_attachment c ON c.res_id = b.id and c.res_model = 'hr.employee' and c.res_field='signature'
+		WHERE a.user_id = (SELECT a.done_by FROM (SELECT * FROM tier_review WHERE model='purchase.order' and res_id=po.id and status='approved' ORDER BY sequence DESC LIMIT 3) a ORDER BY a.sequence LIMIT 1)) AS pre1_signature
+	,(SELECT b.name_en FROM resource_resource a
+		LEFT JOIN hr_employee b ON a.id = b.resource_id
+		WHERE a.user_id = (SELECT a.done_by FROM (SELECT * FROM tier_review WHERE model='purchase.order' and res_id=po.id and status='approved' ORDER BY sequence DESC LIMIT 3) a ORDER BY a.sequence LIMIT 1)) AS pre1_approved_name_en
+
 	    -- *********************************************************************************************** For Pre Approval By
 	,(SELECT b.name FROM resource_resource a
 		LEFT JOIN hr_employee b ON a.id = b.resource_id
@@ -295,10 +315,6 @@ order by po.id, po_line.sequence, po_line.id]]>
 	<field name="partner_branch_code" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="partner_branch_code"/>
 	</field>
-	<field name="COLUMN_23" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="partner_tax"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="res_partner"/>
-	</field>
 	<field name="partner_phone" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="partner_phone"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="res_partner"/>
@@ -431,6 +447,24 @@ order by po.id, po_line.sequence, po_line.id]]>
 	</field>
 	<field name="prepare_signature" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="prepare_signature"/>
+	</field>
+	<field name="pre1_approved_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="pre1_approved_name"/>
+	</field>
+	<field name="pre1_department" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="pre1_department"/>
+	</field>
+	<field name="pre1_position" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="pre1_position"/>
+	</field>
+	<field name="pre1_date_decided" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="pre1_date_decided"/>
+	</field>
+	<field name="pre1_signature" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="pre1_signature"/>
+	</field>
+	<field name="pre1_approved_name_en" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="pre1_approved_name_en"/>
 	</field>
 	<field name="pre_approved_name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="pre_approved_name"/>
@@ -1234,11 +1268,13 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle" onErrorType="Blank">
-							<reportElement x="23" y="6" width="105" height="60" uuid="9a17d8b1-a7de-4891-bbfd-85177ea1321d"/>
+							<reportElement x="23" y="6" width="105" height="67" uuid="9a17d8b1-a7de-4891-bbfd-85177ea1321d">
+								<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							</reportElement>
 							<imageExpression><![CDATA[IF($F{pre_signature}== null,null, $P{p_Path} +$F{pre_signature})]]></imageExpression>
 						</image>
 						<textField isBlankWhenNull="true">
-							<reportElement x="0" y="68" width="154" height="17" uuid="c2872340-0125-4f94-8a6f-300ab8e8f6be">
+							<reportElement x="0" y="75" width="154" height="17" uuid="c2872340-0125-4f94-8a6f-300ab8e8f6be">
 								<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 							</reportElement>
 							<box leftPadding="5">
@@ -1279,11 +1315,13 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle" onErrorType="Blank">
-							<reportElement x="23" y="6" width="105" height="60" uuid="754ec279-9667-4410-80e6-288bb6992894"/>
+							<reportElement x="23" y="6" width="105" height="67" uuid="754ec279-9667-4410-80e6-288bb6992894">
+								<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							</reportElement>
 							<imageExpression><![CDATA[IF($F{approved_signature}== null,null, $P{p_Path} +$F{approved_signature})]]></imageExpression>
 						</image>
 						<textField isBlankWhenNull="true">
-							<reportElement x="0" y="68" width="154" height="17" uuid="64b91c21-9297-477b-8f0a-663625af4a7b">
+							<reportElement x="0" y="75" width="154" height="17" uuid="64b91c21-9297-477b-8f0a-663625af4a7b">
 								<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 							</reportElement>
 							<box leftPadding="5">
@@ -1324,11 +1362,13 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle" onErrorType="Blank">
-							<reportElement x="23" y="6" width="105" height="60" uuid="ea884846-1dfa-4c22-acbe-cd9778b1b048"/>
-							<imageExpression><![CDATA[IF($F{prepare_signature}== null,null, $P{p_Path} +$F{prepare_signature})]]></imageExpression>
+							<reportElement x="23" y="6" width="105" height="67" uuid="ea884846-1dfa-4c22-acbe-cd9778b1b048">
+								<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							</reportElement>
+							<imageExpression><![CDATA[IF($F{pre1_signature}== null,null, $P{p_Path} +$F{pre1_signature})]]></imageExpression>
 						</image>
 						<textField isBlankWhenNull="true">
-							<reportElement x="0" y="68" width="154" height="17" uuid="912e8aa1-2892-49b0-86e8-a1af1be179e7">
+							<reportElement x="0" y="75" width="154" height="17" uuid="912e8aa1-2892-49b0-86e8-a1af1be179e7">
 								<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 							</reportElement>
 							<box leftPadding="5">
@@ -1341,7 +1381,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 								<font fontName="TH Sarabun New" size="12" isBold="false" isUnderline="false"/>
 								<paragraph leftIndent="0" rightIndent="0"/>
 							</textElement>
-							<textFieldExpression><![CDATA[$F{first_approved_name_en}]]></textFieldExpression>
+							<textFieldExpression><![CDATA[$F{pre1_approved_name_en}]]></textFieldExpression>
 						</textField>
 						<textField isBlankWhenNull="true">
 							<reportElement x="0" y="85" width="154" height="17" uuid="99b1ecb8-2768-4e9a-b72b-f4a3c3534c93">
@@ -1357,7 +1397,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 								<font fontName="TH Sarabun New" size="12" isBold="false" isUnderline="false"/>
 								<paragraph leftIndent="0" rightIndent="0"/>
 							</textElement>
-							<textFieldExpression><![CDATA[$F{first_approved_position}]]></textFieldExpression>
+							<textFieldExpression><![CDATA[$F{pre1_position}]]></textFieldExpression>
 						</textField>
 					</frame>
 					<frame>

@@ -52,7 +52,6 @@ att.store_fname AS logo_iso,
        p.ref as partner_code, 
        p.vat as partner_tax,  
        case when p.branch_code is null or p.branch_code = '00000' then 'สำนักงานใหญ่' else p.branch_code end as partner_branch_code, 
-       p.vat as partner_tax,
        p.phone as partner_phone,
        p.mobile as partner_mobile,
        p.fax as partner_fax,
@@ -324,10 +323,6 @@ order by po.id, po_line.sequence, po_line.id]]>
 	</field>
 	<field name="partner_branch_code" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="partner_branch_code"/>
-	</field>
-	<field name="COLUMN_23" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="partner_tax"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="res_partner"/>
 	</field>
 	<field name="partner_phone" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="partner_phone"/>
@@ -918,11 +913,13 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<rightPen lineWidth="1.0"/>
 						</box>
 						<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle" onErrorType="Blank">
-							<reportElement x="16" y="6" width="153" height="60" uuid="93be968b-6e4d-48cd-8b0b-8f4aa8f40e82"/>
+							<reportElement x="16" y="6" width="153" height="66" uuid="93be968b-6e4d-48cd-8b0b-8f4aa8f40e82">
+								<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							</reportElement>
 							<imageExpression><![CDATA[IF($F{pre1_signature}== null,null, $P{p_Path} +$F{pre1_signature})]]></imageExpression>
 						</image>
 						<textField isBlankWhenNull="true">
-							<reportElement x="-1" y="69" width="184" height="20" uuid="f868fda8-33ab-4516-9275-6cd479af4f77">
+							<reportElement x="-1" y="75" width="184" height="20" uuid="f868fda8-33ab-4516-9275-6cd479af4f77">
 								<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 							</reportElement>
 							<box leftPadding="5">
@@ -935,7 +932,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 								<font fontName="TH Sarabun New" size="12" isBold="false" isUnderline="false"/>
 								<paragraph leftIndent="0" rightIndent="0"/>
 							</textElement>
-							<textFieldExpression><![CDATA[$F{pre1_approved_name}]]></textFieldExpression>
+							<textFieldExpression><![CDATA[$F{pre1_approved_name_en}]]></textFieldExpression>
 						</textField>
 						<textField isBlankWhenNull="true">
 							<reportElement x="-1" y="89" width="184" height="20" uuid="f1527751-46a3-4165-8f32-c510a59d8c38">
@@ -960,11 +957,13 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<rightPen lineWidth="1.0"/>
 						</box>
 						<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle" onErrorType="Blank">
-							<reportElement x="16" y="6" width="153" height="60" uuid="fb4108d2-da49-41d2-a38b-229c763b2c01"/>
+							<reportElement x="16" y="6" width="153" height="66" uuid="fb4108d2-da49-41d2-a38b-229c763b2c01">
+								<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							</reportElement>
 							<imageExpression><![CDATA[IF($F{pre2_signature}== null,null, $P{p_Path} +$F{pre2_signature})]]></imageExpression>
 						</image>
 						<textField isBlankWhenNull="true">
-							<reportElement x="0" y="69" width="184" height="20" uuid="cdc0249c-5b24-4bd7-b15f-c431113d4243">
+							<reportElement x="0" y="75" width="184" height="20" uuid="cdc0249c-5b24-4bd7-b15f-c431113d4243">
 								<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 							</reportElement>
 							<box leftPadding="5">
@@ -1005,11 +1004,13 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle" onErrorType="Blank">
-							<reportElement x="16" y="6" width="153" height="60" uuid="2ca8a9f4-9699-419b-b0f5-5c6a2ec5f645"/>
+							<reportElement x="16" y="6" width="153" height="66" uuid="2ca8a9f4-9699-419b-b0f5-5c6a2ec5f645">
+								<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							</reportElement>
 							<imageExpression><![CDATA[IF($F{approved_signature}== null,null, $P{p_Path} +$F{approved_signature})]]></imageExpression>
 						</image>
 						<textField isBlankWhenNull="true">
-							<reportElement x="0" y="69" width="184" height="20" uuid="9415a4dc-d8d9-44a6-87df-c4a5bf89c7f5">
+							<reportElement x="0" y="75" width="184" height="20" uuid="9415a4dc-d8d9-44a6-87df-c4a5bf89c7f5">
 								<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 							</reportElement>
 							<box leftPadding="5">
