@@ -192,8 +192,8 @@ c.name as company_name,
 	 ,cur.name AS currency_name
 	 ,COALESCE(proj.name, '') as project_name
 	 ,COALESCE(po.your_ref, '') as your_ref
-	 --,COALESCE(p.default_contact_name, '') as default_contact_name
-	 ,(SELECT COALESCE(b.name,'') FROM res_users a LEFT JOIN res_partner b ON b.id=a.partner_id WHERE a.id=po.attention_id) as default_contact_name
+	 ,COALESCE(p.default_contact_name, '') as default_contact_name
+	 ,(SELECT COALESCE(b.name,'') FROM res_users a LEFT JOIN res_partner b ON b.id=a.partner_id WHERE a.id=po.attention_id) as default_contact_name2
 	 ,COALESCE(prot.autoinfo_list_price, 0) as list_price
 	 ,po.discount_report as discount_report
 	 ,po.tariff as tariff
@@ -520,6 +520,9 @@ order by po.id, po_line.sequence, po_line.id]]>
 	</field>
 	<field name="default_contact_name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="default_contact_name"/>
+	</field>
+	<field name="default_contact_name2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="default_contact_name2"/>
 	</field>
 	<field name="list_price" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="list_price"/>

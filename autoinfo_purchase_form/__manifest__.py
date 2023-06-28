@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Purchase Form',
-    'version': '1.13c',
+    'version': '1.13d',
     'category': 'DTR - ERP Purchase',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -16,9 +16,10 @@ Customize Report Purchase.
 Changelog
 ---------
 
-**Version 1.13-1.13c**
+**Version 1.13-1.13d**
+    - Fixed task A21B-T31
     - Add (FM-PU-04) Purchase Request Form
-    - Task A433-T90, A433-T91, A433-T110, A21B-T7, A21B-T19
+    - Fixed task A433-T90, A433-T91, A433-T110, A21B-T7, A21B-T19
 
 **Version 1.12**
     - Fixed task A433-T89, A433-T90
