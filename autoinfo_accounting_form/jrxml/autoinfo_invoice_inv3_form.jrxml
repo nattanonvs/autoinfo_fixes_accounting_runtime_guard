@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.10.0-unknown  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="autoinfo_invoice_inv3_form" pageWidth="595" pageHeight="842" columnWidth="575" leftMargin="10" rightMargin="10" topMargin="20" bottomMargin="5" isFloatColumnFooter="true" uuid="9d429c61-ca07-45fd-95b2-54aea3253cab">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Localhost"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="140 autoinfo"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="274"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="719"/>
@@ -142,7 +142,7 @@
 				--coalesce(invoice.comment, '-') as remark,
 				line.customer_source_doc as doc_no,
 				line.quantity as qty, 
-				btrim(regexp_replace(line.name, E'\\s+$', '  ', 'g')) as inv_description, 
+				btrim(regexp_replace(line.name, E'\\s+$', '  ', 'g')) as inv_description,
 				line.price_unit, 
 				line.price_subtotal as subtotal,
 				
@@ -173,6 +173,7 @@
 					where a.move_id = invoice.id and a.exclude_from_invoice_tab = False and (a.display_type is null or a.display_type = '') limit 1) as tax_exigibility,
 				term.name as payment_term, 
 				partner.name as customer,
+				partner.tax_name as customer2,
 				CONCAT(partner.street,' ',partner.street2) AS  partner_address,
 				partner.ref as customer_code,
 				COALESCE(partner.vat, '') as customer_tax_id,
@@ -183,7 +184,6 @@
 				COALESCE(c.company_name_en,'') as company_name_en,
 				COALESCE(c.company_address_thai,'') as company_address_thai,
 			    COALESCE(c.company_address_en,'') as company_address_en,
-				COALESCE(c.company_address_thai,'') as company_address_thai,
 				COALESCE(c.company_footer_report,'') as company_footer_report,
 				COALESCE(c.company_phone,'') as company_phone,
 				COALESCE(c.company_fax,'') as company_fax,
@@ -382,6 +382,10 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 		<property name="com.jaspersoft.studio.field.label" value="customer"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="res_partner"/>
 	</field>
+	<field name="customer2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="customer2"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="res_partner"/>
+	</field>
 	<field name="partner_address" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="partner_address"/>
 	</field>
@@ -414,9 +418,6 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 	</field>
 	<field name="company_address_en" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="company_address_en"/>
-	</field>
-	<field name="COLUMN_38" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="company_address_thai"/>
 	</field>
 	<field name="company_footer_report" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="company_footer_report"/>
@@ -797,12 +798,13 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="14" isBold="false"/>
 						<paragraph lineSpacing="Fixed" lineSpacingSize="5.0" leftIndent="5" spacingBefore="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{customer}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{customer2}]]></textFieldExpression>
 				</textField>
-				<textField evaluationTime="Group" evaluationGroup="group_id">
-					<reportElement x="112" y="34" width="346" height="34" isRemoveLineWhenBlank="true" uuid="8eb53f4e-b085-4d89-aadf-56198f0babc1">
+				<textField isStretchWithOverflow="true" evaluationTime="Group" evaluationGroup="group_id">
+					<reportElement x="112" y="34" width="346" height="45" isRemoveLineWhenBlank="true" uuid="8eb53f4e-b085-4d89-aadf-56198f0babc1">
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					</reportElement>
 					<box>
 						<pen lineWidth="0.5"/>
@@ -815,7 +817,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="14" isBold="false"/>
 						<paragraph lineSpacing="Fixed" lineSpacingSize="5.0" leftIndent="5" spacingBefore="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{partner_address} + " โทร. " + $F{partner_phone} + "  Fax " + $F{partner_fax}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[TRIM($F{partner_address}) + "\nTel " + $F{partner_phone} + "  Fax " + $F{partner_fax}]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="group_id">
 					<reportElement x="0" y="34" width="112" height="34" uuid="987bc89f-740f-448d-9896-2770b7cb2895">

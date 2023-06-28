@@ -252,6 +252,8 @@
 				--	coalesce(partner.zip,'')
 				--	) as cust_addr_line4,
 				--( select count(id) from dtr_sale_order_note where sale_id = sale.id ) as note_cnt
+				,COALESCE(partner.phone, '-') as partner_phone,
+				COALESCE(partner.fax, '-') as partner_fax
 from		account_move invoice
 left join res_currency cur on cur.id = invoice.currency_id
 left join	account_move_line line on ( line.move_id = invoice.id ) and (line.exclude_from_invoice_tab = False or line.exclude_from_invoice_tab is null) and ( line.display_type is null)
@@ -463,6 +465,12 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 	<field name="so_po_date" class="java.sql.Date">
 		<property name="com.jaspersoft.studio.field.label" value="so_po_date"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="sale_order"/>
+	</field>
+	<field name="partner_phone" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="partner_phone"/>
+	</field>
+	<field name="partner_fax" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="partner_fax"/>
 	</field>
 	<variable name="vat_percent" class="java.math.BigDecimal" calculation="Highest">
 		<variableExpression><![CDATA[$F{vat_order}]]></variableExpression>
@@ -853,7 +861,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 					<textFieldExpression><![CDATA[$F{customer2}]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="group_id">
-					<reportElement x="112" y="34" width="346" height="34" isRemoveLineWhenBlank="true" uuid="6259fef2-8cc4-403b-9867-9cbdab97bc6c">
+					<reportElement x="112" y="34" width="346" height="45" isRemoveLineWhenBlank="true" uuid="6259fef2-8cc4-403b-9867-9cbdab97bc6c">
 						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
@@ -868,7 +876,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="14" isBold="false"/>
 						<paragraph lineSpacing="Fixed" lineSpacingSize="5.0" leftIndent="5" spacingBefore="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{partner_address}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[TRIM($F{partner_address}) + "\nTel " + $F{partner_phone} + "  Fax " + $F{partner_fax}]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="group_id">
 					<reportElement x="500" y="0" width="75" height="34" uuid="4e481165-5a9a-458a-8e69-2d61d9c2ea39">
