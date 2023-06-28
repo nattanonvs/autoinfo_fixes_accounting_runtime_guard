@@ -26,7 +26,7 @@
             </field>
             <field name="dtr_document_sequence_group_id" position="before">
                 <field name="partner_id" widget="res_partner_many2one" context="{'res_partner_search_mode': 'supplier', 'show_vat': True}"
-                    attrs="{'readonly': [('is_editable','=', False)], 'required': True}" domain="[('supplier', '=', True)]"
+                    attrs="{'readonly': [('is_editable','=', False)], 'required': False}" domain="[('supplier', '=', True)]"
                     force_save="1" placeholder="Name, TIN, Email, or Reference"
                     options="{'always_reload': True, 'no_quick_create':True,'no_create_edit':True}"/>
                 <field name="your_ref"/>
