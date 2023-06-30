@@ -52,8 +52,8 @@
                 </div>
                 <group>
                     <group>
-                        <field name="trade_discount"/>
-                        <field name="trade_discount_type"/>
+                        <field name="trade_discount" invisible="1"/>
+                        <field name="trade_discount_type" invisible="1"/>
                         <field name="currency_id" invisible="1"/>
                         <field name="estimated_cost" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                     </group>

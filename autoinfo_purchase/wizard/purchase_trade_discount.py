@@ -23,6 +23,12 @@ class PurchaseTradeDiscount(models.TransientModel):
         pr_id = self.env['purchase.request'].browse(ids)
         return pr_id.trade_discount_type
 
+    trade_discount = fields.Float(string='Trade Discount', store=True, default=_get_current_trade_discount)
+    trade_discount_type = fields.Selection([
+        ('percent', '%'),
+        ('amount', 'Amount'),
+    ], string='Discount Type', default=_get_current_trade_discount_type)
+
     def apply_trade_discount(self):
         if not self.env.context.get('is_pr', False):
             return super(PurchaseTradeDiscount, self).apply_trade_discount()
