@@ -28,12 +28,13 @@ Changelog
     """,
     'author': 'Dataroot Asia Co., Ltd.',
     'created_by': 'Varawit Termwaraporn',
-    'depends': ['autoinfo_project', 'dtr_purchase', 'dtr_purchase_department', 'dtr_analytic_require',
-        'hr', 'purchase_request', 'purchase', 'account',
+    'depends': ['autoinfo_project', 'dtr_purchase', 'dtr_purchase_department', 'dtr_analytic_require', 'dtr_product_master',
+        'dtr_purchase_discount', 'hr', 'purchase_request', 'purchase', 'account',
     ],
     'application': False,
     'data': [
+        'wizard/purchase_trade_discount_view.xml',
         'views/purchase_request_view.xml',
-        'views/hr_department_view.xml'
+        'views/hr_department_view.xml',
     ],
 }

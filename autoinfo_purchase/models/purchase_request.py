@@ -39,7 +39,7 @@ class PurchaseRequest(models.Model):
                 line._compute_amount()
                 amount_untaxed += line.price_subtotal
                 amount_tax += line.price_tax
-                amount_untaxed_before_discount += line.product_qty * line.price_unit
+                amount_untaxed_before_discount += line.product_qty * line.price_unit if not line.is_trade_discount else 0.0
             currency = request.currency_id or request.partner_id.property_purchase_currency_id or self.env.company.currency_id
             request.update({
                 'amount_untaxed': currency.round(amount_untaxed),
@@ -48,6 +48,12 @@ class PurchaseRequest(models.Model):
                 'amount_untaxed_before_discount': amount_untaxed_before_discount,
                 'amount_discount': amount_untaxed_before_discount - amount_untaxed,
             })
+
+    trade_discount = fields.Float(string='Trade Discount', store=True)
+    trade_discount_type = fields.Selection([
+        ('percent', '%'),
+        ('amount', 'Amount'),
+    ], string='Discount Type', default='percent')
 
 
 class PurchaseRequestLine(models.Model):
@@ -100,3 +106,5 @@ class PurchaseRequestLine(models.Model):
                 'price_total': taxes['total_included'],
                 'price_subtotal': taxes['total_excluded'],
             })
+
+    is_trade_discount = fields.Boolean('Is Trade Discount?', default=False)

@@ -47,8 +47,13 @@
                 <attribute name="optional">show</attribute>
             </xpath>
             <xpath expr="//page[1]//group[1]" position="replace">
+                <div class="oe_right">
+                    <button name="%(action_pr_trade_discount)d" string="Add/Update Trade Discount" type="action" class="btn btn-secondary" states="draft,to_approve"/>
+                </div>
                 <group>
                     <group>
+                        <field name="trade_discount"/>
+                        <field name="trade_discount_type"/>
                         <field name="currency_id" invisible="1"/>
                         <field name="estimated_cost" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                     </group>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="action_pr_trade_discount" model="ir.actions.act_window">
+            <field name="name">Apply Trade Discount</field>
+            <field name="res_model">purchase.trade.discount</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="dtr_purchase_discount.dtr_purchase_trade_discount_view"/>
+            <field name="context">{'is_pr':1}</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>
