@@ -39,7 +39,7 @@ class PurchaseRequest(models.Model):
                 line._compute_amount()
                 amount_untaxed += line.price_subtotal
                 amount_tax += line.price_tax
-                amount_untaxed_before_discount += line.product_qty * line.price_unit if not line.is_trade_discount else 0.0
+                amount_untaxed_before_discount += line.price_subtotal if not line.is_trade_discount else 0.0
             currency = request.currency_id or request.partner_id.property_purchase_currency_id or self.env.company.currency_id
             request.update({
                 'amount_untaxed': currency.round(amount_untaxed),
