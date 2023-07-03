@@ -290,7 +290,9 @@ left join res_partner cpart on cpart.id = comp.partner_id
 left join res_country ct on ct.id = cpart.country_id
 left join res_country_state cp on cp.id = cpart.state_id
 
-left join account_payment_term term on ( term.id = inv.invoice_payment_term_id )
+left join ir_property irp on irp.id = (SELECT MAX(id) FROM ir_property 
+	WHERE name='property_supplier_payment_term_id' AND res_id='res.partner,'||partner.id)
+left join account_payment_term term on ( term.id = (split_part(irp.value_reference,',',2)::integer) )
 left join account_payment_term_line terml on ( terml.id = (SELECT MAX(a.id) FROM account_payment_term_line a WHERE a.payment_id=term.id))
 
 $P!{ids}
