@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="dtr_account_prepayment_form" model="ir.ui.view">
+            <field name="name">dtr.account.prepayment.form</field>
+            <field name="model">dtr.account.prepayment</field>
+            <field name="priority">50</field>
+            <field name="inherit_id" ref="dtr_billing.view_prepayment_form"/>
+            <field name="arch" type="xml">
+                <field name="notes" position="after">
+                    <field name="payment_date"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

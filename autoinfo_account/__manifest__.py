@@ -38,6 +38,7 @@ Changelog
         'views/purchase_order_view.xml',
         'views/account_move_view.xml',
         'views/dtr_wht_view.xml',
-        'views/dtr_account_billing_view.xml'
+        'views/dtr_account_billing_view.xml',
+        'views/dtr_account_prepayment_view.xml',
     ],
 }
