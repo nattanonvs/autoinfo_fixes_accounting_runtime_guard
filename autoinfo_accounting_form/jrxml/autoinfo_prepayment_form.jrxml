@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.10.0-unknown  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="autoinfo_prepayment_form" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8f72a463-64e4-4b71-ab9c-a3e1e7e0679e">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="314"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="679"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Localhost"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="140 autoinfo"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
@@ -21,7 +21,7 @@
 		</conditionalStyle>
 	</style>
 	<parameter name="ids" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["WHERE bill.id  in (2)"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["WHERE bill.id  in (20,21)"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="p_language" class="java.lang.String" isForPrompting="false">
 		<parameterDescription><![CDATA["thai"]]></parameterDescription>
@@ -259,7 +259,20 @@
 	 	left join purchase_order po on po.id = apr.purchase_order_id
 	 	where apr.account_move_id = inv.id
 	 ) as po_number
-	 
+	 ,case when bill.document_date is null then (null) else (bill.document_date+ COALESCE(terml.days,0)) end as doc_term_date
+	 ,bill.payment_date as bill_payment_date
+	 ,bill.create_uid
+	 ,(SELECT b.name FROM resource_resource a
+		LEFT JOIN hr_employee b ON a.id = b.resource_id
+		WHERE a.user_id = bill.create_uid) AS biller_name
+	 ,(SELECT b.name_en FROM resource_resource a
+		LEFT JOIN hr_employee b ON a.id = b.resource_id
+		WHERE a.user_id = bill.create_uid) AS biller_name_en
+	,(SELECT c.store_fname FROM resource_resource a
+		LEFT JOIN hr_employee b ON a.id = b.resource_id
+		LEFT JOIN ir_attachment c ON c.res_id = b.id and c.res_model = 'hr.employee' and c.res_field='signature'
+		WHERE a.user_id = bill.create_uid) AS biller_signature
+
 from dtr_account_prepayment as bill
 left join dtr_account_invoice_payment_method as pm on pm.id = bill.payment_method_id
 
@@ -276,6 +289,9 @@ left join res_company comp on comp.id = bill.company_id
 left join res_partner cpart on cpart.id = comp.partner_id
 left join res_country ct on ct.id = cpart.country_id
 left join res_country_state cp on cp.id = cpart.state_id
+
+left join account_payment_term term on ( term.id = inv.invoice_payment_term_id )
+left join account_payment_term_line terml on ( terml.id = (SELECT MAX(a.id) FROM account_payment_term_line a WHERE a.payment_id=term.id))
 
 $P!{ids}
 
@@ -449,6 +465,26 @@ order by bill.id,bill.id,invoice_due_date]]>
 	<field name="po_number" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="po_number"/>
 	</field>
+	<field name="doc_term_date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="doc_term_date"/>
+	</field>
+	<field name="bill_payment_date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="bill_payment_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dtr_account_prepayment"/>
+	</field>
+	<field name="create_uid" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="create_uid"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="dtr_account_prepayment"/>
+	</field>
+	<field name="biller_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="biller_name"/>
+	</field>
+	<field name="biller_name_en" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="biller_name_en"/>
+	</field>
+	<field name="biller_signature" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="biller_signature"/>
+	</field>
 	<variable name="Page" class="java.lang.String">
 		<variableExpression><![CDATA[$V{PAGE_NUMBER} + " OF " + $V{MASTER_TOTAL_PAGES}]]></variableExpression>
 	</variable>
@@ -526,7 +562,7 @@ order by bill.id,bill.id,invoice_due_date]]>
 + " \nEmail : " + $F{company_email}.toString() + " Website : " + $F{company_website}.toString()
 )]]></textFieldExpression>
 				</textField>
-				<textField>
+				<textField isBlankWhenNull="true">
 					<reportElement x="434" y="55" width="97" height="20" uuid="78185703-7541-4545-ac36-c30811fefac0">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					</reportElement>
@@ -1000,7 +1036,8 @@ order by bill.id,bill.id,invoice_due_date]]>
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="211">
+			<band height="210">
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<frame>
 					<reportElement mode="Opaque" x="0" y="0" width="555" height="108" uuid="e1223d2a-db1c-4697-9f91-47276e5d3e36"/>
 					<box>
@@ -1066,57 +1103,6 @@ order by bill.id,bill.id,invoice_due_date]]>
 						<textFieldExpression><![CDATA[$V{sum_residual}]]></textFieldExpression>
 					</textField>
 				</frame>
-				<frame>
-					<reportElement mode="Opaque" x="0" y="122" width="555" height="88" uuid="20a118d2-4dda-4291-8f9b-72d353f757a3">
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-						<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					</reportElement>
-					<box>
-						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-					</box>
-					<textField pattern="MMM d, yyyy">
-						<reportElement x="22" y="60" width="150" height="20" uuid="7f00caee-1c53-4277-915f-0e78f2034932"/>
-						<box leftPadding="1" bottomPadding="1">
-							<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						</box>
-						<textElement textAlignment="Center" verticalAlignment="Bottom">
-							<font fontName="TH Sarabun New" size="12"/>
-						</textElement>
-						<textFieldExpression><![CDATA["ผู้รับวางบิล"]]></textFieldExpression>
-					</textField>
-					<textField pattern="MMM d, yyyy">
-						<reportElement x="202" y="60" width="150" height="20" uuid="6bf56878-e631-4f2a-817b-57b9bc7f9c36"/>
-						<box leftPadding="1" bottomPadding="1">
-							<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						</box>
-						<textElement textAlignment="Center" verticalAlignment="Bottom">
-							<font fontName="TH Sarabun New" size="12"/>
-						</textElement>
-						<textFieldExpression><![CDATA["วันที่รับวางบิล"]]></textFieldExpression>
-					</textField>
-					<textField pattern="MMM d, yyyy">
-						<reportElement x="383" y="60" width="150" height="20" uuid="1da030c8-4a79-4aaa-b56d-8b8267ed811a"/>
-						<box leftPadding="1" bottomPadding="1">
-							<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
-							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						</box>
-						<textElement textAlignment="Center" verticalAlignment="Bottom">
-							<font fontName="TH Sarabun New" size="12"/>
-						</textElement>
-						<textFieldExpression><![CDATA["วันที่นัดชำระเงิน"]]></textFieldExpression>
-					</textField>
-				</frame>
 				<textField>
 					<reportElement mode="Opaque" x="-1" y="108" width="557" height="14" uuid="6dd13c04-1755-4406-9ad2-a7b80895ea20"/>
 					<box>
@@ -1128,6 +1114,118 @@ order by bill.id,bill.id,invoice_due_date]]>
 					</box>
 					<textFieldExpression><![CDATA[""]]></textFieldExpression>
 				</textField>
+				<frame>
+					<reportElement mode="Opaque" x="0" y="122" width="555" height="88" uuid="1b909883-9198-42f7-b4ff-b45a5de73af6">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle" onErrorType="Blank">
+						<reportElement x="22" y="6" width="150" height="40" uuid="917bc037-3112-4fd2-81e4-ea57f369e22b">
+							<property name="com.jaspersoft.studio.unit.x" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						</reportElement>
+						<imageExpression><![CDATA[IF($F{biller_signature}== null,null, $P{p_Path} +$F{biller_signature})]]></imageExpression>
+					</image>
+					<textField pattern="MMM d, yyyy">
+						<reportElement x="22" y="60" width="150" height="20" uuid="0718f199-0158-492b-ab42-949458b2f0d6"/>
+						<box leftPadding="1" bottomPadding="1">
+							<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Bottom">
+							<font fontName="TH Sarabun New" size="12"/>
+						</textElement>
+						<textFieldExpression><![CDATA["ผู้รับวางบิล"]]></textFieldExpression>
+					</textField>
+					<textField pattern="MMM d, yyyy" isBlankWhenNull="true">
+						<reportElement x="22" y="43" width="150" height="20" uuid="575ea0dc-72c5-48eb-a1ae-bd90fe8d5322">
+							<property name="com.jaspersoft.studio.unit.x" value="px"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						</reportElement>
+						<box leftPadding="1" bottomPadding="1">
+							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Bottom">
+							<font fontName="TH Sarabun New" size="12"/>
+						</textElement>
+						<textFieldExpression><![CDATA[IF($P{p_language}.equals( "thai")
+	,$F{biller_name}
+	,$F{biller_name_en}
+)]]></textFieldExpression>
+					</textField>
+					<textField pattern="MMM d, yyyy">
+						<reportElement x="202" y="60" width="150" height="20" uuid="bf1e3ad0-48e3-412a-bc0f-0d62675b3979"/>
+						<box leftPadding="1" bottomPadding="1">
+							<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Bottom">
+							<font fontName="TH Sarabun New" size="12"/>
+						</textElement>
+						<textFieldExpression><![CDATA["วันที่รับวางบิล"]]></textFieldExpression>
+					</textField>
+					<textField pattern="MMM d, yyyy" isBlankWhenNull="true">
+						<reportElement x="202" y="43" width="150" height="20" uuid="19c69321-d4db-4f72-a902-474aaf31fa59">
+							<property name="com.jaspersoft.studio.unit.x" value="px"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						</reportElement>
+						<box leftPadding="1" bottomPadding="1">
+							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Bottom">
+							<font fontName="TH Sarabun New" size="12"/>
+						</textElement>
+						<textFieldExpression><![CDATA[IF($F{doc_date}==null,"", new SimpleDateFormat($P{p_DateFormat}, new Locale($P{p_locale}, $P{p_locale})).format($F{doc_date}))]]></textFieldExpression>
+					</textField>
+					<textField pattern="MMM d, yyyy">
+						<reportElement x="383" y="60" width="150" height="20" uuid="9f0c883f-1f8b-4688-8e20-12be0c8ec608"/>
+						<box leftPadding="1" bottomPadding="1">
+							<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Bottom">
+							<font fontName="TH Sarabun New" size="12"/>
+						</textElement>
+						<textFieldExpression><![CDATA["วันที่นัดชำระเงิน"]]></textFieldExpression>
+					</textField>
+					<textField pattern="MMM d, yyyy" isBlankWhenNull="true">
+						<reportElement x="383" y="43" width="150" height="20" uuid="5030d707-6d8f-4c0f-84df-0f6a36ebdf03">
+							<property name="com.jaspersoft.studio.unit.x" value="px"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						</reportElement>
+						<box leftPadding="1" bottomPadding="1">
+							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Bottom">
+							<font fontName="TH Sarabun New" size="12"/>
+						</textElement>
+						<textFieldExpression><![CDATA[IF($F{bill_payment_date}==null,"", new SimpleDateFormat($P{p_DateFormat}, new Locale($P{p_locale}, $P{p_locale})).format($F{bill_payment_date}))]]></textFieldExpression>
+					</textField>
+				</frame>
 			</band>
 		</groupFooter>
 	</group>
@@ -1294,7 +1392,7 @@ order by bill.id,bill.id,invoice_due_date]]>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="TH Sarabun New" size="12"/>
 					</textElement>
-					<textFieldExpression><![CDATA[IF($F{invoice_due_date}==null,"", new SimpleDateFormat($P{p_DateFormat}, new Locale($P{p_locale}, $P{p_locale})).format($F{invoice_due_date}))]]></textFieldExpression>
+					<textFieldExpression><![CDATA[IF($F{doc_term_date}==null,"", new SimpleDateFormat($P{p_DateFormat}, new Locale($P{p_locale}, $P{p_locale})).format($F{doc_term_date}))]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>
@@ -1302,10 +1400,14 @@ order by bill.id,bill.id,invoice_due_date]]>
 	<pageFooter>
 		<band height="15">
 			<frame>
-				<reportElement mode="Opaque" x="-1" y="0" width="556" height="15" uuid="5dd4da7e-7048-44fe-93f8-16e57a39527b"/>
+				<reportElement mode="Transparent" x="0" y="0" width="555" height="15" uuid="5dd4da7e-7048-44fe-93f8-16e57a39527b">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
 				<textField pattern="MMM d, yyyy">
-					<reportElement x="1" y="0" width="374" height="15" uuid="72b57fd6-94c7-43af-b26c-1fa334568924">
+					<reportElement x="0" y="0" width="374" height="15" uuid="72b57fd6-94c7-43af-b26c-1fa334568924">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
 					</reportElement>
 					<box leftPadding="1" bottomPadding="1">
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
