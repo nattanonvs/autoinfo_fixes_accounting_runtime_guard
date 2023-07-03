@@ -52,6 +52,9 @@
                 <field name="ai_partner_phone"/>
                 <field name="ai_partner_email"/>
             </field>
+            <field name="po_date" position="replace">
+                <field name="po_date"/>
+            </field>
         </field>
     </record>
 
