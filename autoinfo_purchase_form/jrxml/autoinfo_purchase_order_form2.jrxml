@@ -12,7 +12,7 @@
 		</conditionalStyle>
 	</style>
 	<parameter name="p_Where" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["where po.id in (1170)"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["where po.id in (1127)"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="p_language" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["eng"]]></defaultValueExpression>
@@ -1066,11 +1066,11 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 							<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
-						<textElement textAlignment="Right" verticalAlignment="Middle">
+						<textElement textAlignment="Center" verticalAlignment="Middle">
 							<font fontName="TH Sarabun New" size="12" isBold="false"/>
 							<paragraph rightIndent="4"/>
 						</textElement>
-						<textFieldExpression><![CDATA[""]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$F{po_amount_total_bahttext_en}]]></textFieldExpression>
 					</textField>
 					<textField pattern="#,##0.00" isBlankWhenNull="true">
 						<reportElement x="482" y="68" width="72" height="17" uuid="09df4484-5975-4244-ae9d-6aa5e2355088"/>

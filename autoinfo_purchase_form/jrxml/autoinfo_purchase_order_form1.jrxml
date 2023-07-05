@@ -12,7 +12,7 @@
 		</conditionalStyle>
 	</style>
 	<parameter name="p_Where" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["where po.id in (1170)"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["where po.id in (1127)"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="p_language" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["eng"]]></defaultValueExpression>
