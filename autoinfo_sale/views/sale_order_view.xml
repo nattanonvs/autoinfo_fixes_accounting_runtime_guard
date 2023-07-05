@@ -55,6 +55,9 @@
             <field name="po_date" position="replace">
                 <field name="po_date"/>
             </field>
+            <field name="customer_project" position="after">
+                <field name="ai_partner_category_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+            </field>
         </field>
     </record>
 

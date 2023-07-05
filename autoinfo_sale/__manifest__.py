@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Sale',
-    'version': '1.3b',
+    'version': '1.3c',
     'category': 'DTR - ERP Sale',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -16,8 +16,8 @@ Extends the functionality of Sale.
 Changelog
 ---------
 
-**Version 1.3-1.3b**
-    - A21B-T1, A21B-T32
+**Version 1.3-1.3c**
+    - A21B-T1, A21B-T32, A21B-T29
     - Set allow field customer reference and customer reference date can edit after approve sale order
 
 **Version 1.2**

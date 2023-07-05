@@ -57,3 +57,4 @@ class SaleOrder(models.Model):
     your_ref = fields.Char(string='Your Ref.')
     ai_partner_phone = fields.Char(string='Phone')
     ai_partner_email = fields.Char(string='Email')
+    ai_partner_category_ids = fields.Many2many(related='partner_id.category_id', string='Tags', readonly=True)
