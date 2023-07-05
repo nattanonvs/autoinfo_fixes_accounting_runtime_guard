@@ -15,82 +15,14 @@
 	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
-	<style name="Section Line">
+	<style name="Section Line" mode="Transparent">
 		<conditionalStyle>
 			<conditionExpression><![CDATA[$F{display_type}.toString().equals("line_section")]]></conditionExpression>
 			<style mode="Opaque" backcolor="#DBDBDB"/>
 		</conditionalStyle>
 	</style>
-	<style name="Style1" mode="Transparent" forecolor="#000000" backcolor="#CC8899">
-		<conditionalStyle>
-			<conditionExpression><![CDATA[$F{flag}.equals( 1 )]]></conditionExpression>
-			<style mode="Opaque" forecolor="#000000" backcolor="#228C22">
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-			</style>
-		</conditionalStyle>
-		<conditionalStyle>
-			<conditionExpression><![CDATA[$F{flag}.equals( 2)]]></conditionExpression>
-			<style mode="Opaque" forecolor="#000000" backcolor="#E32227">
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-			</style>
-		</conditionalStyle>
-		<conditionalStyle>
-			<conditionExpression><![CDATA[$F{flag}.equals( 3 )]]></conditionExpression>
-			<style mode="Opaque" forecolor="#000000" backcolor="#9ACEEB">
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-			</style>
-		</conditionalStyle>
-		<conditionalStyle>
-			<conditionExpression><![CDATA[$F{flag}.equals( 6 )]]></conditionExpression>
-			<style mode="Opaque" forecolor="#000000" backcolor="#D2691E">
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-			</style>
-		</conditionalStyle>
-		<conditionalStyle>
-			<conditionExpression><![CDATA[$F{flag}.equals( 5 )]]></conditionExpression>
-			<style mode="Opaque" forecolor="#000000" backcolor="#FF007F">
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-			</style>
-		</conditionalStyle>
-		<conditionalStyle>
-			<conditionExpression><![CDATA[$F{flag}.equals( 4 )]]></conditionExpression>
-			<style mode="Opaque" forecolor="#000000" backcolor="#808080">
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-			</style>
-		</conditionalStyle>
-	</style>
 	<parameter name="ids" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["where invoice.id in (57, 62)"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["where invoice.id in (4248,4245)"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="iscopy" class="java.lang.Integer" isForPrompting="false">
 		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
@@ -98,28 +30,28 @@
 	<parameter name="p_DateFormat" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["dd/MM/yyyy"]]></defaultValueExpression>
 	</parameter>
-	<parameter name="p_language" class="java.lang.String">
+	<parameter name="p_language" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["thai"]]></defaultValueExpression>
 	</parameter>
-	<parameter name="p_locale" class="java.lang.String">
+	<parameter name="p_locale" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["th"]]></defaultValueExpression>
 	</parameter>
-	<parameter name="p_company_en" class="java.lang.String">
+	<parameter name="p_company_en" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
-	<parameter name="p_company_th" class="java.lang.String">
+	<parameter name="p_company_th" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
-	<parameter name="p_com_address_en" class="java.lang.String">
+	<parameter name="p_com_address_en" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
-	<parameter name="p_com_address_th" class="java.lang.String">
+	<parameter name="p_com_address_th" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
-	<parameter name="p_com_website" class="java.lang.String">
+	<parameter name="p_com_website" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
-	<parameter name="p_remark" class="java.lang.String">
+	<parameter name="p_remark" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
 	<queryString>
@@ -257,7 +189,7 @@
 				COALESCE(partner.fax, '-') as partner_fax
 from		account_move invoice
 left join res_currency cur on cur.id = invoice.currency_id
-left join	account_move_line line on ( line.move_id = invoice.id ) and (line.exclude_from_invoice_tab = False or line.exclude_from_invoice_tab is null) and ( line.display_type is null)
+left join	account_move_line line on ( line.move_id = invoice.id ) and (line.exclude_from_invoice_tab = False or line.exclude_from_invoice_tab is null)
 left join	account_move_line_account_tax_rel tax_rel on ( tax_rel.account_move_line_id = line.id )
 left join	account_tax tax on ( tax.id = tax_rel.account_tax_id )
 left join	product_product product on ( product.id = line.product_id )
@@ -477,6 +409,10 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 		<variableExpression><![CDATA[$F{vat_order}]]></variableExpression>
 	</variable>
 	<variable name="customer_address" class="java.lang.String"/>
+	<variable name="v_count" class="java.lang.Integer" resetType="Group" resetGroup="group_id">
+		<variableExpression><![CDATA[$V{v_count} + ($F{display_type}==null?1:0)]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
 	<group name="group_id" isResetPageNumber="true" isReprintHeaderOnEachPage="true" footerPosition="ForceAtBottom" keepTogether="true">
 		<groupExpression><![CDATA[$F{flag}]]></groupExpression>
 		<groupHeader>
@@ -510,7 +446,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 					<imageExpression><![CDATA[new java.io.ByteArrayInputStream(org.apache.commons.codec.binary.Base64.decodeBase64($F{company_logo}.getBytes()))]]></imageExpression>
 				</image>
 				<rectangle radius="5">
-					<reportElement style="Style1" x="390" y="12" width="185" height="35" uuid="64ce4f77-8d03-4846-8c3d-66ef08356612"/>
+					<reportElement x="390" y="12" width="185" height="35" uuid="64ce4f77-8d03-4846-8c3d-66ef08356612"/>
 				</rectangle>
 				<textField evaluationTime="Group" evaluationGroup="group_id">
 					<reportElement mode="Transparent" x="390" y="12" width="184" height="35" forecolor="#FFFFFF" backcolor="#EDEDED" uuid="89e2d79a-816e-4e50-99b2-524229d32d2b"/>
@@ -2261,16 +2197,18 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 					<font fontName="Sarabun" size="12"/>
 					<paragraph leftIndent="0" spacingBefore="0"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{group_id_COUNT}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{v_count}]]></textFieldExpression>
 			</textField>
+		</band>
+		<band height="17">
+			<printWhenExpression><![CDATA[$F{display_type}!=null]]></printWhenExpression>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement style="Section Line" x="114" y="0" width="162" height="17" uuid="dc4cdec4-6ba3-47e9-8aa5-428863742a1c">
-					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
-					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				<reportElement style="Section Line" stretchType="ElementGroupBottom" mode="Opaque" x="53" y="1" width="224" height="16" uuid="b3f34387-c6f9-4d89-a6ca-a93719f5259c">
 					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
-					<printWhenExpression><![CDATA[false]]></printWhenExpression>
 				</reportElement>
 				<box leftPadding="3" bottomPadding="1">
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -2280,7 +2218,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle" markup="styled">
 					<font fontName="Sarabun" size="12"/>
-					<paragraph rightIndent="20"/>
+					<paragraph lineSpacing="Fixed" lineSpacingSize="7.0"/>
 				</textElement>
 				<textFieldExpression><![CDATA[IF($F{display_type}.toString().equals("line_section"),
 		"<b>" + $F{inv_description} + "</b>",
