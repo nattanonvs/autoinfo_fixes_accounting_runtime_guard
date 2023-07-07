@@ -138,7 +138,7 @@ JOIN res_company c1 ON c1.id=p.company_id
 LEFT JOIN company_address_header_report c2 ON c2.id=p.company_id
 LEFT JOIN ir_attachment att ON att.res_id=c1.id AND att.res_model='res.company' AND att.res_field='logo_iso'
 
-JOIN res_partner rp ON rp.id=p.partner_id
+LEFT JOIN res_partner rp ON rp.id=p.partner_id
 JOIN res_currency cur ON cur.id=p.currency_id
 LEFT JOIN project_project proj ON p.project_id=proj.id
 LEFT JOIN dtr_purchase_warranty_report pwr ON pwr.id=p.dtr_purchase_warranty_report_id
@@ -949,7 +949,7 @@ ORDER BY p_id, pl_seq, pl_id;]]>
 						</textElement>
 						<textFieldExpression><![CDATA["Address"]]></textFieldExpression>
 					</textField>
-					<textField>
+					<textField isBlankWhenNull="true">
 						<reportElement x="90" y="34" width="260" height="51" uuid="61660174-0fd1-4dfd-9cbf-e586e1087a66"/>
 						<textElement textAlignment="Left" verticalAlignment="Top">
 							<font fontName="TH Sarabun New" size="12" isBold="false"/>
@@ -981,7 +981,7 @@ ORDER BY p_id, pl_seq, pl_id;]]>
 						</textElement>
 						<textFieldExpression><![CDATA["Email"]]></textFieldExpression>
 					</textField>
-					<textField>
+					<textField isBlankWhenNull="true">
 						<reportElement x="90" y="85" width="260" height="17" uuid="4a0a2e68-fdea-4e84-8d35-7312460d8834"/>
 						<textElement textAlignment="Left" verticalAlignment="Top">
 							<font fontName="TH Sarabun New" size="12" isBold="false"/>
@@ -989,7 +989,7 @@ ORDER BY p_id, pl_seq, pl_id;]]>
 						</textElement>
 						<textFieldExpression><![CDATA[IF($F{partner_tax} == null, "", $F{partner_tax})]]></textFieldExpression>
 					</textField>
-					<textField>
+					<textField isBlankWhenNull="true">
 						<reportElement x="90" y="119" width="260" height="17" uuid="5ff649bb-8fe1-428b-8971-e020ba2ca3c3"/>
 						<textElement textAlignment="Left" verticalAlignment="Top">
 							<font fontName="TH Sarabun New" size="12" isBold="false"/>
@@ -997,7 +997,7 @@ ORDER BY p_id, pl_seq, pl_id;]]>
 						</textElement>
 						<textFieldExpression><![CDATA[IF($F{partner_fax} == null, "", $F{partner_fax})]]></textFieldExpression>
 					</textField>
-					<textField>
+					<textField isBlankWhenNull="true">
 						<reportElement x="90" y="136" width="260" height="17" uuid="4d38c4cb-04aa-43f5-9b05-81b7c3376a40"/>
 						<textElement textAlignment="Left" verticalAlignment="Top">
 							<font fontName="TH Sarabun New" size="12" isBold="false"/>
@@ -1013,7 +1013,7 @@ ORDER BY p_id, pl_seq, pl_id;]]>
 						</textElement>
 						<textFieldExpression><![CDATA["Attention"]]></textFieldExpression>
 					</textField>
-					<textField>
+					<textField isBlankWhenNull="true">
 						<reportElement x="90" y="0" width="260" height="17" uuid="f57917b5-5f8e-43e4-9b7a-7653b2bb6d78"/>
 						<textElement textAlignment="Left" verticalAlignment="Top">
 							<font fontName="TH Sarabun New" size="12" isBold="false"/>
@@ -1029,7 +1029,7 @@ ORDER BY p_id, pl_seq, pl_id;]]>
 						</textElement>
 						<textFieldExpression><![CDATA["Vendor"]]></textFieldExpression>
 					</textField>
-					<textField>
+					<textField isBlankWhenNull="true">
 						<reportElement x="90" y="17" width="260" height="17" uuid="dbd4393d-dabb-4223-ac76-6723c693d5e1"/>
 						<textElement textAlignment="Left" verticalAlignment="Top">
 							<font fontName="TH Sarabun New" size="12" isBold="false"/>
@@ -1045,7 +1045,7 @@ ORDER BY p_id, pl_seq, pl_id;]]>
 						</textElement>
 						<textFieldExpression><![CDATA["Tel"]]></textFieldExpression>
 					</textField>
-					<textField>
+					<textField isBlankWhenNull="true">
 						<reportElement x="90" y="102" width="260" height="17" uuid="8e6d45cc-eaaa-4a90-a387-6ba01d70c7d1"/>
 						<textElement textAlignment="Left" verticalAlignment="Top">
 							<font fontName="TH Sarabun New" size="12" isBold="false"/>
@@ -1164,7 +1164,7 @@ ORDER BY p_id, pl_seq, pl_id;]]>
 						</textElement>
 						<textFieldExpression><![CDATA["Project Name"]]></textFieldExpression>
 					</textField>
-					<textField>
+					<textField isBlankWhenNull="true">
 						<reportElement x="80" y="0" width="114" height="17" uuid="8b531842-d893-40f8-82d7-91868d260a4c"/>
 						<box>
 							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1178,7 +1178,7 @@ ORDER BY p_id, pl_seq, pl_id;]]>
 						</textElement>
 						<textFieldExpression><![CDATA[IF($F{p_date_start}==null,"", new SimpleDateFormat($P{p_DateFormat}, new Locale($P{p_locale}, $P{p_locale})).format($F{p_date_start}))]]></textFieldExpression>
 					</textField>
-					<textField>
+					<textField isBlankWhenNull="true">
 						<reportElement x="80" y="17" width="114" height="17" uuid="6f00dff3-6139-4a52-b8a9-9be792ac470c"/>
 						<box>
 							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1192,7 +1192,7 @@ ORDER BY p_id, pl_seq, pl_id;]]>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{p_name}]]></textFieldExpression>
 					</textField>
-					<textField>
+					<textField isBlankWhenNull="true">
 						<reportElement x="80" y="51" width="114" height="17" uuid="08619cda-1273-4299-886d-13bffdf96066"/>
 						<textElement textAlignment="Left" verticalAlignment="Top">
 							<font fontName="TH Sarabun New" size="12" isBold="false"/>
@@ -1200,7 +1200,7 @@ ORDER BY p_id, pl_seq, pl_id;]]>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{p_your_ref}]]></textFieldExpression>
 					</textField>
-					<textField>
+					<textField isBlankWhenNull="true">
 						<reportElement x="80" y="68" width="114" height="17" uuid="c90a041d-0856-4770-bfa1-9493d024dd49"/>
 						<textElement textAlignment="Left" verticalAlignment="Top">
 							<font fontName="TH Sarabun New" size="12" isBold="false"/>
@@ -1216,7 +1216,7 @@ ORDER BY p_id, pl_seq, pl_id;]]>
 						</textElement>
 						<textFieldExpression><![CDATA["Delivery To"]]></textFieldExpression>
 					</textField>
-					<textField>
+					<textField isBlankWhenNull="true">
 						<reportElement x="80" y="85" width="114" height="17" uuid="0c24a822-06d0-4038-9ec8-d2a06f9b2b35"/>
 						<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
 							<font fontName="TH Sarabun New" size="12" isBold="false"/>
@@ -1232,7 +1232,7 @@ ORDER BY p_id, pl_seq, pl_id;]]>
 						</textElement>
 						<textFieldExpression><![CDATA["Delivery Date"]]></textFieldExpression>
 					</textField>
-					<textField>
+					<textField isBlankWhenNull="true">
 						<reportElement x="80" y="102" width="114" height="17" uuid="4a8b2b81-9684-4ad0-89f6-664b3e54ccde"/>
 						<textElement textAlignment="Left" verticalAlignment="Top">
 							<font fontName="TH Sarabun New" size="12" isBold="false"/>
@@ -1248,7 +1248,7 @@ ORDER BY p_id, pl_seq, pl_id;]]>
 						</textElement>
 						<textFieldExpression><![CDATA["Payment Term."]]></textFieldExpression>
 					</textField>
-					<textField>
+					<textField isBlankWhenNull="true">
 						<reportElement x="80" y="119" width="114" height="17" uuid="f47d16e8-e74f-47dd-a307-7741149e9626"/>
 						<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
 							<font fontName="TH Sarabun New" size="12" isBold="false"/>
@@ -1256,7 +1256,7 @@ ORDER BY p_id, pl_seq, pl_id;]]>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{p_payment_term}]]></textFieldExpression>
 					</textField>
-					<textField evaluationTime="Auto">
+					<textField evaluationTime="Auto" isBlankWhenNull="true">
 						<reportElement x="80" y="136" width="114" height="17" uuid="9d090dcf-2e9f-4087-bd68-d9b4d150867f"/>
 						<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
 							<font fontName="TH Sarabun New" size="12" isBold="false"/>
