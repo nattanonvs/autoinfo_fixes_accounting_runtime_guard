@@ -21,6 +21,74 @@
 			<style mode="Opaque" backcolor="#DBDBDB"/>
 		</conditionalStyle>
 	</style>
+	<style name="Style1" mode="Transparent" forecolor="#000000" backcolor="#CC8899">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{flag}.equals( 1 )]]></conditionExpression>
+			<style mode="Opaque" forecolor="#000000" backcolor="#D2691E">
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+			</style>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{flag}.equals( 2 )]]></conditionExpression>
+			<style mode="Opaque" forecolor="#000000" backcolor="#FF007F">
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+			</style>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{flag}.equals( 3 )]]></conditionExpression>
+			<style mode="Opaque" forecolor="#000000" backcolor="#A020F0">
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+			</style>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{flag}.equals( 4 )]]></conditionExpression>
+			<style mode="Opaque" forecolor="#000000" backcolor="#228C22">
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+			</style>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{flag}.equals( 5 )]]></conditionExpression>
+			<style mode="Opaque" forecolor="#000000" backcolor="#E32227">
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+			</style>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{flag}.equals( 6 )]]></conditionExpression>
+			<style mode="Opaque" forecolor="#000000" backcolor="#808080">
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+			</style>
+		</conditionalStyle>
+	</style>
 	<parameter name="ids" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["where invoice.id in (4300)"]]></defaultValueExpression>
 	</parameter>
@@ -451,10 +519,10 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 					<imageExpression><![CDATA[new java.io.ByteArrayInputStream(org.apache.commons.codec.binary.Base64.decodeBase64($F{company_logo}.getBytes()))]]></imageExpression>
 				</image>
 				<rectangle radius="5">
-					<reportElement x="390" y="12" width="185" height="35" uuid="64ce4f77-8d03-4846-8c3d-66ef08356612"/>
+					<reportElement style="Style1" x="390" y="12" width="185" height="35" uuid="64ce4f77-8d03-4846-8c3d-66ef08356612"/>
 				</rectangle>
 				<textField evaluationTime="Group" evaluationGroup="group_id">
-					<reportElement mode="Transparent" x="390" y="12" width="184" height="35" forecolor="#000000" backcolor="#EDEDED" uuid="89e2d79a-816e-4e50-99b2-524229d32d2b"/>
+					<reportElement mode="Transparent" x="390" y="12" width="184" height="35" forecolor="#FFFFFF" backcolor="#EDEDED" uuid="89e2d79a-816e-4e50-99b2-524229d32d2b"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
