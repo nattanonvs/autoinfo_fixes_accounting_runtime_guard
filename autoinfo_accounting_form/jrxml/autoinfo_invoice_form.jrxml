@@ -22,7 +22,7 @@
 		</conditionalStyle>
 	</style>
 	<parameter name="ids" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["where invoice.id in (4248,4245)"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["where invoice.id in (4300)"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="iscopy" class="java.lang.Integer" isForPrompting="false">
 		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
@@ -58,6 +58,7 @@
 		<![CDATA[select		line.report_sequence  as rowid,
                 line.display_type  as display_type,
 				--tmp.id as flag,
+				
 				generate_series(1, 6) as flag,
 				invoice.id, 
 				invoice.invoice_date as date, 
@@ -198,7 +199,12 @@ left join	account_payment_term term on ( term.id = invoice.invoice_payment_term_
 left join	company_address_header_report c on ( c.id=invoice.company_id )
 left join	res_partner partner on ( partner.id = invoice.partner_id )
 left join	( select name, max(id) as id from stock_picking group by name ) picking on ( picking.name = line.customer_source_doc )
-left join	( select name, client_order_ref, po_date,customer_project, date_order, min(id) as id from sale_order group by name, client_order_ref, po_date, date_order,customer_project ) sale on (  sale.name =invoice.origin_second )
+--left join	( select name, client_order_ref, po_date,customer_project, date_order, min(id) as id from sale_order group by name, client_order_ref, po_date, date_order,customer_project ) sale on (  sale.name =invoice.origin_second )
+left join sale_order sale on sale.id=(SELECT min(id) FROM (
+	SELECT a.id, a.name FROM sale_order a WHERE a.name=invoice.origin_second
+	UNION
+	SELECT a.id, b.name FROM sale_order a join stock_picking b on b.sale_id=a.id WHERE b.name=invoice.origin_third
+) salex)
 left join hr_department department on department.id = invoice.department_id
 $P!{ids} and line.is_trade_discount = False
 ORDER BY invoice.id,flag, line.sequence, line.id]]>
@@ -448,7 +454,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 					<reportElement x="390" y="12" width="185" height="35" uuid="64ce4f77-8d03-4846-8c3d-66ef08356612"/>
 				</rectangle>
 				<textField evaluationTime="Group" evaluationGroup="group_id">
-					<reportElement mode="Transparent" x="390" y="12" width="184" height="35" forecolor="#FFFFFF" backcolor="#EDEDED" uuid="89e2d79a-816e-4e50-99b2-524229d32d2b"/>
+					<reportElement mode="Transparent" x="390" y="12" width="184" height="35" forecolor="#000000" backcolor="#EDEDED" uuid="89e2d79a-816e-4e50-99b2-524229d32d2b"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -456,7 +462,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
-					<textElement textAlignment="Center" verticalAlignment="Top">
+					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="Sarabun" size="14" isBold="true"/>
 						<paragraph lineSpacing="Fixed" lineSpacingSize="5.0" leftIndent="0" rightIndent="0"/>
 					</textElement>
