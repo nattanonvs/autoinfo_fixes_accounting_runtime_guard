@@ -535,12 +535,12 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<paragraph lineSpacing="Fixed" lineSpacingSize="5.0" leftIndent="0" rightIndent="0"/>
 					</textElement>
 					<textFieldExpression><![CDATA[IF($F{flag}.equals( 1 ),
-	"ต้นฉบับใบส่งของ / ใบแจ้งหนี้\nORIGINAL  DELIVERY ORDER / INVOICE",
+	"ต้นฉบับใบส่งของ / ใบแจ้งหนี้\nORIGINAL DELIVERY ORDER / INVOICE",
 	IF($F{flag}.equals( 2 ),
-		"สำเนาใบส่งของ / ใบแจ้งหนี้\nDELIVERY ORDER  COPY / INVOICE",
+		"สำเนาใบส่งของ / ใบแจ้งหนี้\nDELIVERY ORDER COPY / INVOICE",
 		IF($F{flag}.equals( 3 ),
-			"สำเนาใบส่งของ / ใบแจ้งหนี้\nDELIVERY ORDER  COPY / INVOICE",
-			"สำเนาใบส่งของ / ใบแจ้งหนี้\nDELIVERY ORDER  COPY / INVOICE"
+			"สำเนาใบส่งของ / ใบแจ้งหนี้\nDELIVERY ORDER COPY / INVOICE",
+			"สำเนาใบส่งของ / ใบแจ้งหนี้\nDELIVERY ORDER COPY / INVOICE"
 		)
 	)
 )]]></textFieldExpression>

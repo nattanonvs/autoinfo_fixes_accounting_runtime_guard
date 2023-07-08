@@ -547,7 +547,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<paragraph lineSpacing="Fixed" lineSpacingSize="5.0" leftIndent="0" rightIndent="0"/>
 					</textElement>
 					<textFieldExpression><![CDATA[IF($F{flag}.equals( 1 ),
-	"ต้นฉบับใบกำกับภาษี/ใบเสร็จรับเงิน\nORIGINAL TAX INVOICE  / RECEIPT",
+	"ต้นฉบับใบกำกับภาษี/ใบเสร็จรับเงิน\nORIGINAL TAX INVOICE / RECEIPT",
 	"สำเนาใบกำกับภาษี/ใบเสร็จรับเงิน\nTAX INVOICE COPY / RECEIPT"
 )]]></textFieldExpression>
 				</textField>
