@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Account Form',
-    'version': '1.11f',
+    'version': '1.11g',
     'category': 'DTR - ERP Accounting',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -18,8 +18,8 @@ Customize Report Accounting.
 Changelog
 ---------
 
-**Version 1.11-1.11f**
-    - Task A21B-T17, A21B-T26, A21B-T33, A21B-T36, A21B-T47
+**Version 1.11-1.11g**
+    - Task A21B-T17, A21B-T26, A21B-T33, A21B-T36, A21B-T47, A21B-T60
     - Fixed wrong wording in invoice report, billing report, prepayment report and debit note report
 
 **Version 1.10**

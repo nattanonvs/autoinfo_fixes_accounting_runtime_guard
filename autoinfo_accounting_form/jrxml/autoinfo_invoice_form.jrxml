@@ -269,9 +269,17 @@ left join	res_partner partner on ( partner.id = invoice.partner_id )
 left join	( select name, max(id) as id from stock_picking group by name ) picking on ( picking.name = line.customer_source_doc )
 --left join	( select name, client_order_ref, po_date,customer_project, date_order, min(id) as id from sale_order group by name, client_order_ref, po_date, date_order,customer_project ) sale on (  sale.name =invoice.origin_second )
 left join sale_order sale on sale.id=(SELECT min(id) FROM (
-	SELECT a.id, a.name FROM sale_order a WHERE a.name=invoice.origin_second
+	SELECT a.id, a.name FROM sale_order a WHERE a.name=split_part(invoice.origin_second,',', 1)
 	UNION
-	SELECT a.id, b.name FROM sale_order a join stock_picking b on b.sale_id=a.id WHERE b.name=invoice.origin_third
+	SELECT a.id, a.name FROM sale_order a WHERE a.name=split_part(invoice.origin_second,',', 2)
+	UNION
+	SELECT a.id, a.name FROM sale_order a WHERE a.name=split_part(invoice.origin_second,',', 3)
+	UNION
+	SELECT a.id, b.name FROM sale_order a join stock_picking b on b.sale_id=a.id WHERE b.name=split_part(invoice.origin_third,',', 1)
+	UNION
+	SELECT a.id, b.name FROM sale_order a join stock_picking b on b.sale_id=a.id WHERE b.name=split_part(invoice.origin_third,',', 2)
+	UNION
+	SELECT a.id, b.name FROM sale_order a join stock_picking b on b.sale_id=a.id WHERE b.name=split_part(invoice.origin_third,',', 3)
 ) salex)
 left join hr_department department on department.id = invoice.department_id
 $P!{ids} and line.is_trade_discount = False
