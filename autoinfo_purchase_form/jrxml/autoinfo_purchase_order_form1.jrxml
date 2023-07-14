@@ -222,6 +222,8 @@ att.store_fname AS logo_iso,
 		where a.purchase_order_line_id = po_line.id and b.request_state != 'rejected'
 		limit 1
 	) as pr_create_signature
+	,tax.id as tax_id
+	,abs(coalesce(tax.amount,0)) as tax_amount
 	
 from purchase_order_line as po_line
 inner join purchase_order as po on po.id = po_line.order_id
@@ -248,6 +250,10 @@ left outer join res_partner as up2 on up2.id = u2.partner_id
 left join project_project proj on po.project_id = proj.id
 left join dtr_purchase_warranty_report pwr on pwr.id = po.dtr_purchase_warranty_report_id
 left join dtr_purchase_delivery_to_report pdr on pdr.id = po.dtr_purchase_delivery_to_report_id
+
+left join	account_tax_purchase_order_line_rel tax_rel on ( tax_rel.purchase_order_line_id = po_line.id )
+left join	account_tax tax on ( tax.id = tax_rel.account_tax_id )
+
 $P!{p_Where}
   and (po_line.is_trade_discount is null or po_line.is_trade_discount = false)
 order by po.id, po_line.sequence, po_line.id]]>
@@ -564,6 +570,14 @@ order by po.id, po_line.sequence, po_line.id]]>
 	<field name="pr_create_signature" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="pr_create_signature"/>
 	</field>
+	<field name="tax_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="tax_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="account_tax"/>
+	</field>
+	<field name="tax_amount" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="tax_amount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="account_tax"/>
+	</field>
 	<variable name="Page" class="java.lang.String">
 		<variableExpression><![CDATA[$V{PAGE_NUMBER} + " OF " + $V{MASTER_TOTAL_PAGES}]]></variableExpression>
 	</variable>
@@ -709,7 +723,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<font fontName="TH Sarabun New" size="12" isBold="true" isUnderline="false"/>
 							<paragraph leftIndent="1" rightIndent="0"/>
 						</textElement>
-						<textFieldExpression><![CDATA["VAT"]]></textFieldExpression>
+						<textFieldExpression><![CDATA["VAT " + new java.text.DecimalFormat("#,##0").format($F{tax_amount}) + "%"]]></textFieldExpression>
 					</textField>
 					<textField pattern="#,##0.00#;(#,##0.00#)" isBlankWhenNull="true">
 						<reportElement x="482" y="161" width="72" height="34" uuid="417065b7-ba89-462b-8eaa-93abf12bc7f8">
@@ -1485,7 +1499,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<font fontName="TH Sarabun New" size="12" isBold="true"/>
 							<paragraph lineSpacingSize="0.0" leftIndent="0" rightIndent="5"/>
 						</textElement>
-						<textFieldExpression><![CDATA["Project Name"]]></textFieldExpression>
+						<textFieldExpression><![CDATA["Job No."]]></textFieldExpression>
 					</textField>
 					<textField>
 						<reportElement x="80" y="0" width="114" height="17" uuid="8b531842-d893-40f8-82d7-91868d260a4c"/>
