@@ -1561,7 +1561,9 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 							<font fontName="Sarabun" size="12"/>
 							<paragraph lineSpacing="Fixed" lineSpacingSize="3.0" leftIndent="5" spacingBefore="0"/>
 						</textElement>
-						<textFieldExpression><![CDATA[IF($F{approved_reviewed_date} == null,"วันที่/DATE......./........../..........",("วันที่/DATE " + new java.text.SimpleDateFormat("dd/MM/yyyy",   java.util.Locale.US).format($F{approved_reviewed_date})))]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$F{approved_reviewed_date} == null
+?"วันที่/DATE......./........../.........."
+:("วันที่/DATE " + new java.text.SimpleDateFormat("dd/MM/yyyy",   java.util.Locale.US).format($F{approved_reviewed_date}))]]></textFieldExpression>
 					</textField>
 					<image scaleImage="FillFrame" onErrorType="Blank">
 						<reportElement mode="Transparent" x="447" y="88" width="120" height="35" uuid="77673770-b14c-4f9e-bd5d-5ec1d59bb0f8">
