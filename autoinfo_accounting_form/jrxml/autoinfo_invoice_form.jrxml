@@ -122,6 +122,9 @@
 	<parameter name="p_remark" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
+	<parameter name="p_Path" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/odoo15_dtr/.local/share/Odoo/filestore/autoinfo_16012023/"]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[select		line.report_sequence  as rowid,
                 line.display_type  as display_type,
@@ -253,8 +256,16 @@
 				--	coalesce(partner.zip,'')
 				--	) as cust_addr_line4,
 				--( select count(id) from dtr_sale_order_note where sale_id = sale.id ) as note_cnt
-				,COALESCE(partner.phone, '-') as partner_phone,
-				COALESCE(partner.fax, '-') as partner_fax
+				,COALESCE(partner.phone, '-') as partner_phone
+				,COALESCE(partner.fax, '-') as partner_fax
+
+	,(SELECT a.reviewed_date FROM tier_review a
+		WHERE a.id = (SELECT id FROM tier_review WHERE model='account.move' and res_id=invoice.id and status='approved' ORDER BY sequence DESC LIMIT 1)) AS approved_reviewed_date
+	,(SELECT c.store_fname FROM resource_resource a
+		LEFT JOIN hr_employee b ON a.id = b.resource_id
+		LEFT JOIN ir_attachment c ON c.res_id = b.id and c.res_model = 'hr.employee' and c.res_field='signature'
+		WHERE a.user_id = (SELECT done_by FROM tier_review WHERE model='account.move' and res_id=invoice.id and status='approved' ORDER BY sequence DESC LIMIT 1)) AS approved_signature
+
 from		account_move invoice
 left join res_currency cur on cur.id = invoice.currency_id
 left join	account_move_line line on ( line.move_id = invoice.id ) and (line.exclude_from_invoice_tab = False or line.exclude_from_invoice_tab is null)
@@ -485,6 +496,12 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 	</field>
 	<field name="partner_fax" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="partner_fax"/>
+	</field>
+	<field name="approved_reviewed_date" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="approved_reviewed_date"/>
+	</field>
+	<field name="approved_signature" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="approved_signature"/>
 	</field>
 	<variable name="vat_percent" class="java.math.BigDecimal" calculation="Highest">
 		<variableExpression><![CDATA[$F{vat_order}]]></variableExpression>
@@ -1544,8 +1561,17 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 							<font fontName="Sarabun" size="12"/>
 							<paragraph lineSpacing="Fixed" lineSpacingSize="3.0" leftIndent="5" spacingBefore="0"/>
 						</textElement>
-						<textFieldExpression><![CDATA["วันที่/DATE......./........../.........."]]></textFieldExpression>
+						<textFieldExpression><![CDATA[IF($F{approved_reviewed_date} == null,"วันที่/DATE......./........../..........",("วันที่/DATE " + new java.text.SimpleDateFormat("dd/MM/yyyy",   java.util.Locale.US).format($F{approved_reviewed_date})))]]></textFieldExpression>
 					</textField>
+					<image scaleImage="FillFrame" onErrorType="Blank">
+						<reportElement mode="Transparent" x="447" y="88" width="120" height="35" uuid="77673770-b14c-4f9e-bd5d-5ec1d59bb0f8">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						</reportElement>
+						<imageExpression><![CDATA[IF($F{approved_signature}== null,null, $P{p_Path} +$F{approved_signature})]]></imageExpression>
+					</image>
 					<frame>
 						<reportElement x="1" y="4" width="575" height="46" uuid="f59f0722-daaa-4d05-95d2-4c884ba2bac3">
 							<printWhenExpression><![CDATA[$F{flag}.equals( 1 )||$F{flag}.equals( 2 )]]></printWhenExpression>
