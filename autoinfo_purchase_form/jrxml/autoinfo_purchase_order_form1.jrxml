@@ -104,26 +104,26 @@ att.store_fname AS logo_iso,
 	  ,po.write_date as prepare_date
 	  ,po.create_date as create_date
 	  
-	  ,(SELECT a.employee_name
-		FROM company_employee_name a
-		WHERE a.user_id=po.create_uid  limit 1
-	  ) AS prepare_name
-	 
-	 ,(SELECT a.position_name
-		FROM company_employee_name a
-		WHERE a.user_id=po.create_uid  limit 1
-	  ) AS prepare_position
-	  
-	   ,(SELECT a.department_name
-		FROM company_employee_name a
-		WHERE a.user_id=po.create_uid  limit 1
-	  ) AS prepare_department
-	  
-	 ,(SELECT a.store_fname
-		FROM company_employee_signature a
-		WHERE a.user_id=po.create_uid  limit 1
-	 ) AS prepare_signature
-	 
+	 ,(SELECT b.name FROM resource_resource a
+		LEFT JOIN hr_employee b ON a.id = b.resource_id
+		WHERE a.user_id = (SELECT a.requested_by FROM (SELECT * FROM tier_review WHERE model='purchase.order' and res_id=po.id and status='approved' ORDER BY sequence DESC LIMIT 3) a ORDER BY a.sequence LIMIT 1)) AS prepare_name
+	,(SELECT c.name FROM resource_resource a
+		LEFT JOIN hr_employee b ON a.id = b.resource_id
+		LEFT JOIN hr_department c ON c.id = b.department_id
+		WHERE a.user_id = (SELECT a.requested_by FROM (SELECT * FROM tier_review WHERE model='purchase.order' and res_id=po.id and status='approved' ORDER BY sequence DESC LIMIT 3) a ORDER BY a.sequence LIMIT 1)) AS prepare_department
+	,(SELECT c.name FROM resource_resource a
+		LEFT JOIN hr_employee b ON a.id = b.resource_id
+		LEFT JOIN hr_job c ON c.id = b.job_id
+		WHERE a.user_id = (SELECT a.requested_by FROM (SELECT * FROM tier_review WHERE model='purchase.order' and res_id=po.id and status='approved' ORDER BY sequence DESC LIMIT 3) a ORDER BY a.sequence LIMIT 1)) AS prepare_position
+	,(SELECT a.reviewed_date FROM (SELECT * FROM tier_review WHERE model='purchase.order' and res_id=po.id and status='approved' ORDER BY sequence DESC LIMIT 3) a ORDER BY a.sequence LIMIT 1)AS pre1_date_decided
+	,(SELECT c.store_fname FROM resource_resource a
+		LEFT JOIN hr_employee b ON a.id = b.resource_id
+		LEFT JOIN ir_attachment c ON c.res_id = b.id and c.res_model = 'hr.employee' and c.res_field='signature'
+		WHERE a.user_id = (SELECT a.requested_by FROM (SELECT * FROM tier_review WHERE model='purchase.order' and res_id=po.id and status='approved' ORDER BY sequence DESC LIMIT 3) a ORDER BY a.sequence LIMIT 1)) AS prepare_signature
+	,(SELECT b.name_en FROM resource_resource a
+		LEFT JOIN hr_employee b ON a.id = b.resource_id
+		WHERE a.user_id = (SELECT a.requested_by FROM (SELECT * FROM tier_review WHERE model='purchase.order' and res_id=po.id and status='approved' ORDER BY sequence DESC LIMIT 3) a ORDER BY a.sequence LIMIT 1)) AS prepare_name_en
+
 	   -- *********************************************************************************************** For Pre1 Approval By
 	 ,(SELECT b.name FROM resource_resource a
 		LEFT JOIN hr_employee b ON a.id = b.resource_id
@@ -447,14 +447,20 @@ order by po.id, po_line.sequence, po_line.id]]>
 	<field name="prepare_name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="prepare_name"/>
 	</field>
-	<field name="prepare_position" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.label" value="prepare_position"/>
-	</field>
 	<field name="prepare_department" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="prepare_department"/>
 	</field>
+	<field name="prepare_position" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="prepare_position"/>
+	</field>
+	<field name="pre1_date_decided" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="pre1_date_decided"/>
+	</field>
 	<field name="prepare_signature" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="prepare_signature"/>
+	</field>
+	<field name="prepare_name_en" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="prepare_name_en"/>
 	</field>
 	<field name="pre1_approved_name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="pre1_approved_name"/>
@@ -465,7 +471,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 	<field name="pre1_position" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="pre1_position"/>
 	</field>
-	<field name="pre1_date_decided" class="java.sql.Timestamp">
+	<field name="COLUMN_64" class="java.sql.Timestamp">
 		<property name="com.jaspersoft.studio.field.label" value="pre1_date_decided"/>
 	</field>
 	<field name="pre1_signature" class="java.lang.String">
