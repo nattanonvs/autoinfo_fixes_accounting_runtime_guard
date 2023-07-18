@@ -189,6 +189,7 @@ att.store_fname AS logo_iso,
 	 ,(SELECT status FROM tier_review WHERE model='purchase.order' and res_id=po.id ORDER BY sequence DESC LIMIT 1) AS approved_status
 	 ,cur.name AS currency_name
 	 ,COALESCE(proj.name, '') as project_name
+	 ,COALESCE(proj.job_no, '') as project_job_no
 	 ,COALESCE(po.your_ref, '') as your_ref
 	 ,COALESCE(p.default_contact_name, '') as default_contact_name
 	 ,(SELECT COALESCE(b.name,'') FROM res_users a LEFT JOIN res_partner b ON b.id=a.partner_id WHERE a.id=po.attention_id) as default_contact_name2
@@ -532,6 +533,9 @@ order by po.id, po_line.sequence, po_line.id]]>
 	<field name="project_name" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="project_name"/>
 	</field>
+	<field name="project_job_no" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="project_job_no"/>
+	</field>
 	<field name="your_ref" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="your_ref"/>
 	</field>
@@ -578,8 +582,8 @@ order by po.id, po_line.sequence, po_line.id]]>
 		<property name="com.jaspersoft.studio.field.label" value="tax_amount"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="account_tax"/>
 	</field>
-	<variable name="Page" class="java.lang.String">
-		<variableExpression><![CDATA[$V{PAGE_NUMBER} + " OF " + $V{MASTER_TOTAL_PAGES}]]></variableExpression>
+	<variable name="v_tax_amount_h" class="java.math.BigDecimal" resetType="Group" resetGroup="PONo" calculation="Highest">
+		<variableExpression><![CDATA[$F{tax_amount}]]></variableExpression>
 	</variable>
 	<group name="PONo" isReprintHeaderOnEachPage="true" footerPosition="StackAtBottom">
 		<groupExpression><![CDATA[$F{po_number}]]></groupExpression>
@@ -723,7 +727,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<font fontName="TH Sarabun New" size="12" isBold="true" isUnderline="false"/>
 							<paragraph leftIndent="1" rightIndent="0"/>
 						</textElement>
-						<textFieldExpression><![CDATA["VAT " + new java.text.DecimalFormat("#,##0").format($F{tax_amount}) + "%"]]></textFieldExpression>
+						<textFieldExpression><![CDATA["VAT " + new java.text.DecimalFormat("#,##0").format($V{v_tax_amount_h}) + "%"]]></textFieldExpression>
 					</textField>
 					<textField pattern="#,##0.00#;(#,##0.00#)" isBlankWhenNull="true">
 						<reportElement x="482" y="161" width="72" height="34" uuid="417065b7-ba89-462b-8eaa-93abf12bc7f8">
@@ -1543,7 +1547,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<font fontName="TH Sarabun New" size="12" isBold="false"/>
 							<paragraph lineSpacingSize="0.0" leftIndent="3"/>
 						</textElement>
-						<textFieldExpression><![CDATA[$F{project_name}]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$F{project_job_no}]]></textFieldExpression>
 					</textField>
 					<textField>
 						<reportElement x="0" y="85" width="70" height="17" uuid="86af3da1-3257-4351-be4f-7e7f4bdd9ef4"/>
@@ -1923,12 +1927,4 @@ order by po.id, po_line.sequence, po_line.id]]>
 			</textField>
 		</band>
 	</detail>
-	<pageFooter>
-		<band>
-			<property name="com.jaspersoft.studio.unit.height" value="px"/>
-		</band>
-	</pageFooter>
-	<lastPageFooter>
-		<band splitType="Stretch"/>
-	</lastPageFooter>
 </jasperReport>
