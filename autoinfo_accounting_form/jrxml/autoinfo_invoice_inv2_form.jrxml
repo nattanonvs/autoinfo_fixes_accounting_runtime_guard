@@ -122,6 +122,9 @@
 	<parameter name="p_remark" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
+	<parameter name="p_Path" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/odoo15_dtr/.local/share/Odoo/filestore/autoinfo_16012023/"]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[select		line.report_sequence  as rowid,
                 line.display_type  as display_type,
