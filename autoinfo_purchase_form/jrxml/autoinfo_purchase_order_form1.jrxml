@@ -684,6 +684,8 @@ order by po.id, po_line.sequence, po_line.id]]>
 					<textField isBlankWhenNull="true">
 						<reportElement x="0" y="144" width="410" height="51" uuid="a045a48b-d7f2-44e6-a351-2fb1d649c8f9">
 							<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+							<property name="com.jaspersoft.studio.unit.spacingBefore" value="px"/>
+							<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 						</reportElement>
 						<box leftPadding="5">
 							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -691,11 +693,11 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 							<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
-						<textElement textAlignment="Left" verticalAlignment="Top" markup="none">
-							<font fontName="TH Sarabun New" size="12" isBold="false" isUnderline="false"/>
-							<paragraph leftIndent="1" rightIndent="0" spacingBefore="3"/>
+						<textElement markup="none">
+							<font fontName="TH Sarabun New" size="11" isBold="false" isUnderline="false"/>
+							<paragraph lineSpacing="Fixed" lineSpacingSize="6.0"/>
 						</textElement>
-						<textFieldExpression><![CDATA["1.รับวางบิลทุกวันพฤหัส เวลา 8.30-17.00  พร้อมแนบใบสั่งซื้อ และใบกำกับภาษีตัวจริง ถ้าไม่มีไม่รับวางบิล\n2.จ่ายเช็คทุกวันศุกร์ที่ 3 ของเดือน  เวลา 13.00-17.00 น. โดยนับเครดิตจากวันวางบิล\n3.หากไม่สามารถมารับเช็คได้ในวันที่จ่ายเช็คต้องโทรแจ้งก่อน หากไม่แจ้งจะได้รับเช็คในรอบจ่ายเดือนถัดไป"]]></textFieldExpression>
+						<textFieldExpression><![CDATA["1. รับวางบิลทุกวันพฤหัส ทางไปรษณีย์ หรือหย่อนกล่องเท่านั้น เอกสารแนบวางบิล ต้นฉบับใบกำกับภาษี, ต้นฉบับใบเสร็จรับเงิน\n   หนังสือส่งมอบงาน (งานบริการ), สำเนาใบสั่งซื้อ พร้อมแนบซองติดแสตมป์ เพื่อส่งเอกสารกลับ\n2. ถ้าผู้ขายส่งมอบสินค้าหรือบริการล่าช้ากว่ากำหนด ผู้ขายต้องรับชอบค่าเสียหายที่เกิดขึ้น  ตามที่ลูกค้าเรียกร้องมา\n3. โอนเงินวันศุกร์ที่ 3 ของเดือน นับเครดิตจากวันวางบิล"]]></textFieldExpression>
 					</textField>
 					<textField isBlankWhenNull="true">
 						<reportElement x="410" y="127" width="72" height="34" uuid="14644b4d-3853-43a4-a942-d0fd4d0e6ff6">
