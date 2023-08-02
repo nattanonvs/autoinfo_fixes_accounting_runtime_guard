@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.10.0-unknown  -->
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="autoinfo_purchase_order_form1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8f72a463-64e4-4b71-ab9c-a3e1e7e0679e">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="215"/>
@@ -697,7 +697,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 							<font fontName="TH Sarabun New" size="11" isBold="false" isUnderline="false"/>
 							<paragraph lineSpacing="Fixed" lineSpacingSize="6.0"/>
 						</textElement>
-						<textFieldExpression><![CDATA["1. รับวางบิลทุกวันพฤหัส ทางไปรษณีย์ หรือหย่อนกล่องเท่านั้น เอกสารแนบวางบิล ต้นฉบับใบกำกับภาษี, ต้นฉบับใบเสร็จรับเงิน\n   หนังสือส่งมอบงาน (งานบริการ), สำเนาใบสั่งซื้อ พร้อมแนบซองติดแสตมป์ เพื่อส่งเอกสารกลับ\n2. ถ้าผู้ขายส่งมอบสินค้าหรือบริการล่าช้ากว่ากำหนด ผู้ขายต้องรับชอบค่าเสียหายที่เกิดขึ้น  ตามที่ลูกค้าเรียกร้องมา\n3. โอนเงินวันศุกร์ที่ 3 ของเดือน นับเครดิตจากวันวางบิล"]]></textFieldExpression>
+						<textFieldExpression><![CDATA["1. รับวางบิลทุกวันพฤหัส ทางไปรษณีย์ หรือหย่อนกล่องเท่านั้น เอกสารแนบวางบิล ต้นฉบับใบกำกับภาษี, ต้นฉบับใบเสร็จรับเงิน\n   หนังสือส่งมอบงาน (งานบริการ), สำเนาใบสั่งซื้อ พร้อมแนบซองติดแสตมป์ เพื่อส่งเอกสารกลับ\n2. ถ้าผู้ขายส่งมอบสินค้าหรือบริการล่าช้ากว่ากำหนด ผู้ขายต้องรับผิดชอบค่าเสียหายที่เกิดขึ้น  ตามที่ลูกค้าเรียกร้องมา\n3. โอนเงินวันศุกร์ที่ 3 ของเดือน นับเครดิตจากวันวางบิล"]]></textFieldExpression>
 					</textField>
 					<textField isBlankWhenNull="true">
 						<reportElement x="410" y="127" width="72" height="34" uuid="14644b4d-3853-43a4-a942-d0fd4d0e6ff6">
