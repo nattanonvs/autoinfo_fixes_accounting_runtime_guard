@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Account',
-    'version': '1.2',
+    'version': '1.3',
     'category': 'DTR - ERP Accounting',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -15,6 +15,8 @@ Extends the functionality of Account.
 
 Changelog
 ---------
+**Version 1.3**
+    - Fix task AHGU-T199 add field customer reference in customer invoice
 
 **Version 1.2**
     - Auto stamp salesperson from parent invoice in credit note and debit note

@@ -11,6 +11,7 @@
                 </xpath>
                 <xpath expr="//div[@name='journal_div']" position="after">
                     <field name="cancel_reason" attrs="{'invisible': ['|', ('state', '!=', 'cancel'), ('move_type', '==', 'entry')]}"/>
+                    <field name="dtr_customer_ref" attrs="{'invisible': [('move_type', '!=', 'out_invoice')]}"/>
                 </xpath>
             </field>
         </record>
