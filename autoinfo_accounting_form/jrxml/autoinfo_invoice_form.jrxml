@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.10.0-unknown  -->
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="autoinfo_invoice_form" pageWidth="595" pageHeight="842" columnWidth="575" leftMargin="10" rightMargin="10" topMargin="20" bottomMargin="5" uuid="9d429c61-ca07-45fd-95b2-54aea3253cab">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="140 autoinfo"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Localhost"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="274"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="719"/>
@@ -90,7 +90,7 @@
 		</conditionalStyle>
 	</style>
 	<parameter name="ids" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["where invoice.id in (4300)"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["where invoice.id in (5254)"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="iscopy" class="java.lang.Integer" isForPrompting="false">
 		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
@@ -265,10 +265,10 @@
 		LEFT JOIN hr_employee b ON a.id = b.resource_id
 		LEFT JOIN ir_attachment c ON c.res_id = b.id and c.res_model = 'hr.employee' and c.res_field='signature'
 		WHERE a.user_id = (SELECT done_by FROM tier_review WHERE model='account.move' and res_id=invoice.id and status='approved' ORDER BY sequence DESC LIMIT 1)) AS approved_signature
-
+	,(select sum(aml.price_subtotal) from account_move_line aml where aml.move_id = invoice.id and aml.is_deduct_down_payment = True) as down_payment_amount
 from		account_move invoice
 left join res_currency cur on cur.id = invoice.currency_id
-left join	account_move_line line on ( line.move_id = invoice.id ) and (line.exclude_from_invoice_tab = False or line.exclude_from_invoice_tab is null)
+left join	account_move_line line on ( line.move_id = invoice.id ) and (line.exclude_from_invoice_tab = False or line.exclude_from_invoice_tab is null) and is_deduct_down_payment is not True
 left join	account_move_line_account_tax_rel tax_rel on ( tax_rel.account_move_line_id = line.id )
 left join	account_tax tax on ( tax.id = tax_rel.account_tax_id )
 left join	product_product product on ( product.id = line.product_id )
@@ -502,6 +502,9 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 	</field>
 	<field name="approved_signature" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="approved_signature"/>
+	</field>
+	<field name="down_payment_amount" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="down_payment_amount"/>
 	</field>
 	<variable name="vat_percent" class="java.math.BigDecimal" calculation="Highest">
 		<variableExpression><![CDATA[$F{vat_order}]]></variableExpression>
@@ -1805,7 +1808,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="12" isBold="true"/>
 						<paragraph rightIndent="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{amount_untaxed}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{amount_untaxed}.add($F{down_payment_amount}.abs())]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="group_id" pattern="#,##0.00">
 					<reportElement mode="Transparent" x="472" y="25" width="103" height="25" uuid="1687cf93-ebda-416b-96f7-0cf6f7b56f37">
@@ -1840,7 +1843,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="12" isBold="true"/>
 						<paragraph rightIndent="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{amount_untaxed_before_trade_discount}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{amount_untaxed_before_trade_discount}.add($F{down_payment_amount}.abs())]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Report">
 					<reportElement mode="Opaque" x="375" y="0" width="97" height="25" backcolor="#F2F2F2" uuid="4ab0520c-b7be-49cc-91f2-aec95fa52576">
@@ -1996,7 +1999,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="12" isBold="true"/>
 						<paragraph rightIndent="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA[0]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{down_payment_amount}.abs()]]></textFieldExpression>
 				</textField>
 				<image scaleImage="FillFrame">
 					<reportElement mode="Transparent" x="68" y="59" width="189" height="90" uuid="4d723a5d-7a09-4491-88a9-af09958e7c33">
