@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Account Form',
-    'version': '1.12',
+    'version': '1.13',
     'category': 'DTR - ERP Accounting',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -17,6 +17,8 @@ Customize Report Accounting.
 
 Changelog
 ---------
+**Version 1.13**
+    - Fix task A21B-T99
 
 **Version 1.12**
     - Fixed issue not display down payment amount in report
