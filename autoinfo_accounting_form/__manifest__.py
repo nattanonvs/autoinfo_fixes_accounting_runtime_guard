@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Account Form',
-    'version': '1.13',
+    'version': '1.13a',
     'category': 'DTR - ERP Accounting',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -17,13 +17,13 @@ Customize Report Accounting.
 
 Changelog
 ---------
-**Version 1.13**
-    - Fix task A21B-T99
+**Version 1.13-1.13a**
+    - Fix task A21B-T99, A21B-T101
 
 **Version 1.12**
     - Fixed issue not display down payment amount in report
 
-**Version 1.11-1.11i**
+**Version 1.11**
     - Task A21B-T17, A21B-T26, A21B-T33, A21B-T36, A21B-T47, A21B-T60, A21B-T59
     - Fixed wrong wording in invoice report, billing report, prepayment report and debit note report
 

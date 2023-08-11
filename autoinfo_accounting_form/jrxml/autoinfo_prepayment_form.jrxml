@@ -21,7 +21,7 @@
 		</conditionalStyle>
 	</style>
 	<parameter name="ids" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["WHERE bill.id  in (20,21)"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["WHERE bill.id  in (50)"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="p_language" class="java.lang.String" isForPrompting="false">
 		<parameterDescription><![CDATA["thai"]]></parameterDescription>
@@ -94,13 +94,13 @@
         ,inv.move_type as invoice_type
         
        ,(case
-				when inv.move_type='out_refund' then inv.amount_total*-1
+				when inv.move_type='in_refund' then inv.amount_total*-1
 				else inv.amount_total
 		  end
 		  )invoice_amount
 
 		,(case
-				when inv.move_type='out_refund' then inv.amount_residual*-1
+				when inv.move_type='in_refund' then inv.amount_residual*-1
 				else inv.amount_residual
 		  end
 		  )invoice_residual
@@ -297,7 +297,7 @@ left join account_payment_term_line terml on ( terml.id = (SELECT MAX(a.id) FROM
 
 $P!{ids}
 
-order by bill.id,bill.id,invoice_due_date]]>
+order by bill.id,bill.id,invoice_due_date;]]>
 	</queryString>
 	<field name="company_id" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="company_id"/>
@@ -1317,11 +1317,13 @@ order by bill.id,bill.id,invoice_due_date]]>
 		</band>
 	</background>
 	<detail>
-		<band height="21" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<frame>
-				<reportElement x="0" y="0" width="555" height="21" uuid="0c2bcdd7-aec8-4ffd-b8fc-803b9aea2593"/>
+				<reportElement x="0" y="0" width="555" height="20" uuid="0c2bcdd7-aec8-4ffd-b8fc-803b9aea2593"/>
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-					<reportElement x="130" y="1" width="110" height="20" uuid="cc2d0081-a0d9-4b61-802d-e45e266ab72d"/>
+					<reportElement x="130" y="0" width="110" height="20" uuid="cc2d0081-a0d9-4b61-802d-e45e266ab72d">
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
 					<box leftPadding="1" bottomPadding="1">
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1335,7 +1337,9 @@ order by bill.id,bill.id,invoice_due_date]]>
 					<textFieldExpression><![CDATA[IF($F{invoice_date}==null,"", new SimpleDateFormat($P{p_DateFormat}, new Locale($P{p_locale}, $P{p_locale})).format($F{invoice_date}))]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-					<reportElement x="29" y="1" width="101" height="20" uuid="7f06a355-26c7-41a6-9e18-c48b646e4ebc"/>
+					<reportElement x="29" y="0" width="101" height="20" uuid="7f06a355-26c7-41a6-9e18-c48b646e4ebc">
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
 					<box leftPadding="0" bottomPadding="1">
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1349,7 +1353,9 @@ order by bill.id,bill.id,invoice_due_date]]>
 					<textFieldExpression><![CDATA[$F{invoice_number}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
-					<reportElement x="340" y="1" width="110" height="20" uuid="656400ad-6b0f-4a0a-bd05-5dab7e9e7255"/>
+					<reportElement x="340" y="0" width="110" height="20" uuid="656400ad-6b0f-4a0a-bd05-5dab7e9e7255">
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
 					<box leftPadding="0" bottomPadding="0" rightPadding="5">
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1363,7 +1369,9 @@ order by bill.id,bill.id,invoice_due_date]]>
 					<textFieldExpression><![CDATA[$F{po_number}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-					<reportElement x="0" y="1" width="29" height="20" uuid="d9ea968d-7b84-4062-9bdb-bd53df43e0b5"/>
+					<reportElement x="0" y="0" width="29" height="20" uuid="d9ea968d-7b84-4062-9bdb-bd53df43e0b5">
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1376,7 +1384,9 @@ order by bill.id,bill.id,invoice_due_date]]>
 					<textFieldExpression><![CDATA[$V{BillNo_COUNT}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
-					<reportElement x="450" y="1" width="105" height="20" uuid="325da069-1064-4537-b7b5-68a64b637ddf"/>
+					<reportElement x="450" y="0" width="105" height="20" uuid="325da069-1064-4537-b7b5-68a64b637ddf">
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
 					<box leftPadding="0" bottomPadding="0" rightPadding="5">
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1390,7 +1400,9 @@ order by bill.id,bill.id,invoice_due_date]]>
 					<textFieldExpression><![CDATA[$F{invoice_residual}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-					<reportElement x="240" y="1" width="100" height="20" uuid="372a6ad6-3df8-4847-aae2-494519d745c3"/>
+					<reportElement x="240" y="0" width="100" height="20" uuid="372a6ad6-3df8-4847-aae2-494519d745c3">
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="TH Sarabun New" size="12"/>
 					</textElement>
