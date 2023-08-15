@@ -1856,7 +1856,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{amount_trade_discount}]]></textFieldExpression>
 				</textField>
-				<textField evaluationTime="Group" evaluationGroup="group_id" pattern="#,##0.00">
+				<textField evaluationTime="Group" evaluationGroup="group_id" pattern="#,##0.00#;(#,##0.00#)">
 					<reportElement mode="Transparent" x="472" y="0" width="103" height="25" uuid="0adb8d54-89b4-4c7c-8ad0-21534f51fe0d">
 						<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
