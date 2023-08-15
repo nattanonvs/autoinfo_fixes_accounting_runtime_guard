@@ -90,7 +90,7 @@
 		</conditionalStyle>
 	</style>
 	<parameter name="ids" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["where invoice.id in (4278)"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["where invoice.id in (5256)"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="iscopy" class="java.lang.Integer" isForPrompting="false">
 		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
@@ -137,7 +137,8 @@
 				invoice.invoice_date_due as delivery_date,
 				invoice.amount_untaxed, 
 				invoice.amount_untaxed_before_trade_discount,
-				invoice.amount_trade_discount,
+				--invoice.amount_trade_discount,
+				COALESCE((select sum(abs(aml.balance)) from account_move_line aml where aml.move_id = invoice.id and aml.is_trade_discount = True), 0) as amount_trade_discount,
 				invoice.amount_tax as tax, 
 				invoice.amount_total as total,
 				convert_num_th_with_currency(ABS(invoice.amount_total_signed), comp.currency_id) as total_word,
@@ -265,12 +266,13 @@
 		LEFT JOIN hr_employee b ON a.id = b.resource_id
 		LEFT JOIN ir_attachment c ON c.res_id = b.id and c.res_model = 'hr.employee' and c.res_field='signature'
 		WHERE a.user_id = (SELECT done_by FROM tier_review WHERE model='account.move' and res_id=invoice.id and status='approved' ORDER BY sequence DESC LIMIT 1)) AS approved_signature
-	,COALESCE((select sum(aml.price_subtotal) from account_move_line aml where aml.move_id = invoice.id and aml.is_deduct_down_payment = True), 0) as down_payment_amount
+	,COALESCE((select sum(abs(aml.balance)) from account_move_line aml where aml.move_id = invoice.id and aml.is_deduct_down_payment = True), 0) as down_payment_amount
 	
 	,cur.name as  currency_name
 	,CASE WHEN invoice.exchange_rate = 0 THEN 1.0 ELSE invoice.exchange_rate END AS exchange_rate
 ,ABS(line.balance) as balance
 ,ABS(invoice.amount_total_signed) as amount_total_signed
+,COALESCE(line.is_trade_discount, False) as is_trade_discount
 	
 from		account_move invoice
 left join res_currency cur on cur.id = invoice.currency_id
@@ -526,6 +528,9 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 	<field name="amount_total_signed" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="amount_total_signed"/>
 	</field>
+	<field name="is_trade_discount" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.label" value="is_trade_discount"/>
+	</field>
 	<variable name="vat_percent" class="java.math.BigDecimal" calculation="Highest">
 		<variableExpression><![CDATA[$F{vat_order}]]></variableExpression>
 	</variable>
@@ -533,6 +538,10 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 	<variable name="v_count" class="java.lang.Integer" resetType="Group" resetGroup="group_id">
 		<variableExpression><![CDATA[$V{v_count} + ($F{display_type}==null?1:0)]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="v_amount_untaxed_before_trade_discount" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{is_trade_discount} == false ? $F{balance}.abs() : BigDecimal.ZERO]]></variableExpression>
+		<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 	</variable>
 	<group name="group_id" isResetPageNumber="true" isReprintHeaderOnEachPage="true" footerPosition="ForceAtBottom" keepTogether="true">
 		<groupExpression><![CDATA[$F{flag}]]></groupExpression>
@@ -1828,7 +1837,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="12" isBold="true"/>
 						<paragraph rightIndent="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{amount_untaxed}.add($F{down_payment_amount}.abs()).divide($F{exchange_rate}, RoundingMode.HALF_UP)]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{v_amount_untaxed_before_trade_discount}.add($F{down_payment_amount}).subtract($F{amount_trade_discount})]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="group_id" pattern="#,##0.00">
 					<reportElement mode="Transparent" x="472" y="25" width="103" height="25" uuid="1687cf93-ebda-416b-96f7-0cf6f7b56f37">
@@ -1845,7 +1854,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="12" isBold="true"/>
 						<paragraph rightIndent="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{amount_trade_discount}.divide($F{exchange_rate}, RoundingMode.HALF_UP)]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{amount_trade_discount}]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="group_id" pattern="#,##0.00">
 					<reportElement mode="Transparent" x="472" y="0" width="103" height="25" uuid="0adb8d54-89b4-4c7c-8ad0-21534f51fe0d">
@@ -1863,7 +1872,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="12" isBold="true"/>
 						<paragraph rightIndent="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{amount_untaxed_before_trade_discount}.add($F{down_payment_amount}.abs()).divide($F{exchange_rate}, RoundingMode.HALF_UP)]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{v_amount_untaxed_before_trade_discount}.add($F{down_payment_amount})]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Report">
 					<reportElement mode="Opaque" x="375" y="0" width="97" height="25" backcolor="#F2F2F2" uuid="4ab0520c-b7be-49cc-91f2-aec95fa52576">
@@ -2001,7 +2010,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="12" isBold="true"/>
 						<paragraph rightIndent="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{amount_untaxed}.divide($F{exchange_rate}, RoundingMode.HALF_UP)]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{v_amount_untaxed_before_trade_discount}.subtract($F{amount_trade_discount})]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="group_id" pattern="#,##0.00">
 					<reportElement mode="Transparent" x="472" y="75" width="103" height="25" uuid="9aab9688-19a2-4970-b18d-74fcd7f860b8">
@@ -2019,7 +2028,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="12" isBold="true"/>
 						<paragraph rightIndent="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{down_payment_amount}.abs().divide($F{exchange_rate}, RoundingMode.HALF_UP)]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{down_payment_amount}]]></textFieldExpression>
 				</textField>
 				<image scaleImage="FillFrame">
 					<reportElement mode="Transparent" x="68" y="59" width="189" height="90" uuid="4d723a5d-7a09-4491-88a9-af09958e7c33">
