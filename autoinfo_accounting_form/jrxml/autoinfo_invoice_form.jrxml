@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="autoinfo_invoice_form" pageWidth="595" pageHeight="842" columnWidth="575" leftMargin="10" rightMargin="10" topMargin="20" bottomMargin="5" uuid="9d429c61-ca07-45fd-95b2-54aea3253cab">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Autoinfo_DB.xml"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Localhost"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="274"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="719"/>
@@ -140,8 +140,8 @@
 				invoice.amount_trade_discount,
 				invoice.amount_tax as tax, 
 				invoice.amount_total as total,
-				convert_num_th_with_currency(invoice.amount_total, invoice.currency_id) as total_word,
-				convert_num_en_with_currency(invoice.amount_total,  invoice.currency_id) as total_word_en,
+				convert_num_th_with_currency(ABS(invoice.amount_total_signed), comp.currency_id) as total_word,
+				convert_num_en_with_currency(ABS(invoice.amount_total_signed),  comp.currency_id) as total_word_en,
 				invoice.ref as customer_reference,
 				--coalesce(invoice.comment, '-') as remark,
 				line.customer_source_doc as doc_no,
@@ -265,14 +265,12 @@
 		LEFT JOIN hr_employee b ON a.id = b.resource_id
 		LEFT JOIN ir_attachment c ON c.res_id = b.id and c.res_model = 'hr.employee' and c.res_field='signature'
 		WHERE a.user_id = (SELECT done_by FROM tier_review WHERE model='account.move' and res_id=invoice.id and status='approved' ORDER BY sequence DESC LIMIT 1)) AS approved_signature
-	,(select sum(aml.price_subtotal) from account_move_line aml where aml.move_id = invoice.id and aml.is_deduct_down_payment = True) as down_payment_amount
+	,COALESCE((select sum(aml.price_subtotal) from account_move_line aml where aml.move_id = invoice.id and aml.is_deduct_down_payment = True), 0) as down_payment_amount
 	
 	,cur.name as  currency_name
-	,COALESCE((select  
-(1.0/rate)
-from res_currency_rate
-where currency_id = cur.id
-order by name DESC limit 1 ), 1) as rate_th_per_unit
+	,CASE WHEN invoice.exchange_rate = 0 THEN 1.0 ELSE invoice.exchange_rate END AS exchange_rate
+,ABS(line.balance) as balance
+,ABS(invoice.amount_total_signed) as amount_total_signed
 	
 from		account_move invoice
 left join res_currency cur on cur.id = invoice.currency_id
@@ -301,6 +299,7 @@ left join sale_order sale on sale.id=(SELECT min(id) FROM (
 	SELECT a.id, b.name FROM sale_order a join stock_picking b on b.sale_id=a.id WHERE b.name=split_part(invoice.origin_third,',', 3)
 ) salex)
 left join hr_department department on department.id = invoice.department_id
+left join res_company comp ON comp.id = invoice.company_id
 $P!{ids} and line.is_trade_discount = False
 ORDER BY invoice.id,flag, line.sequence, line.id]]>
 	</queryString>
@@ -518,8 +517,14 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 		<property name="com.jaspersoft.studio.field.label" value="currency_name"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="res_currency"/>
 	</field>
-	<field name="rate_th_per_unit" class="java.math.BigDecimal">
-		<property name="com.jaspersoft.studio.field.label" value="rate_th_per_unit"/>
+	<field name="exchange_rate" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="exchange_rate"/>
+	</field>
+	<field name="balance" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="balance"/>
+	</field>
+	<field name="amount_total_signed" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="amount_total_signed"/>
 	</field>
 	<variable name="vat_percent" class="java.math.BigDecimal" calculation="Highest">
 		<variableExpression><![CDATA[$F{vat_order}]]></variableExpression>
@@ -1788,11 +1793,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="12" isBold="true"/>
 						<paragraph rightIndent="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA[IF($F{currency_name}.equals( "THB" ),
-	$F{total}
-	,$F{total}.doubleValue()*$F{rate_th_per_unit}.doubleValue()
-)
-]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{amount_total_signed}]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="group_id" pattern="#,##0.00">
 					<reportElement mode="Transparent" x="472" y="125" width="103" height="25" uuid="9a798409-104c-4ee0-80ee-e9df4879d12e">
@@ -1809,10 +1810,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="12" isBold="true"/>
 						<paragraph rightIndent="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA[IF($F{currency_name}.equals( "THB" ),
-	$F{tax}
-	,$F{tax}.doubleValue()*$F{rate_th_per_unit}.doubleValue()
-)]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{tax}.divide($F{exchange_rate}, RoundingMode.HALF_UP)]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="group_id" pattern="#,##0.00">
 					<reportElement mode="Transparent" x="472" y="50" width="103" height="25" uuid="7c15d068-d9e2-490c-be82-1aee3db56e35">
@@ -1830,9 +1828,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="12" isBold="true"/>
 						<paragraph rightIndent="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA[IF($F{currency_name}.equals( "THB" ),
-	$F{amount_untaxed}.add($F{down_payment_amount}.abs())
-	,$F{amount_untaxed}.add($F{down_payment_amount}.abs()).doubleValue()*$F{rate_th_per_unit}.doubleValue())]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{amount_untaxed}.add($F{down_payment_amount}.abs()).divide($F{exchange_rate}, RoundingMode.HALF_UP)]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="group_id" pattern="#,##0.00">
 					<reportElement mode="Transparent" x="472" y="25" width="103" height="25" uuid="1687cf93-ebda-416b-96f7-0cf6f7b56f37">
@@ -1849,10 +1845,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="12" isBold="true"/>
 						<paragraph rightIndent="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA[IF($F{currency_name}.equals( "THB" ),
-	$F{amount_trade_discount}
-	,$F{amount_trade_discount}.doubleValue()*$F{rate_th_per_unit}.doubleValue()
-)]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{amount_trade_discount}.divide($F{exchange_rate}, RoundingMode.HALF_UP)]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="group_id" pattern="#,##0.00">
 					<reportElement mode="Transparent" x="472" y="0" width="103" height="25" uuid="0adb8d54-89b4-4c7c-8ad0-21534f51fe0d">
@@ -1870,10 +1863,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="12" isBold="true"/>
 						<paragraph rightIndent="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA[IF($F{currency_name}.equals( "THB" ),
-	$F{amount_untaxed_before_trade_discount}.add($F{down_payment_amount}.abs())
-	,$F{amount_untaxed_before_trade_discount}.add($F{down_payment_amount}.abs()).doubleValue()*$F{rate_th_per_unit}.doubleValue()
-)]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{amount_untaxed_before_trade_discount}.add($F{down_payment_amount}.abs()).divide($F{exchange_rate}, RoundingMode.HALF_UP)]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Report">
 					<reportElement mode="Opaque" x="375" y="0" width="97" height="25" backcolor="#F2F2F2" uuid="4ab0520c-b7be-49cc-91f2-aec95fa52576">
@@ -2011,10 +2001,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="12" isBold="true"/>
 						<paragraph rightIndent="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA[IF($F{currency_name}.equals( "THB" ),
-	$F{amount_untaxed}
-	,$F{amount_untaxed}.doubleValue()*$F{rate_th_per_unit}.doubleValue()
-)]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{amount_untaxed}.divide($F{exchange_rate}, RoundingMode.HALF_UP)]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="group_id" pattern="#,##0.00">
 					<reportElement mode="Transparent" x="472" y="75" width="103" height="25" uuid="9aab9688-19a2-4970-b18d-74fcd7f860b8">
@@ -2032,10 +2019,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="12" isBold="true"/>
 						<paragraph rightIndent="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA[IF($F{currency_name}.equals( "THB" ),
-	$F{down_payment_amount}.abs()
-	,$F{down_payment_amount}.abs().doubleValue()*$F{rate_th_per_unit}.doubleValue()
-)]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{down_payment_amount}.abs().divide($F{exchange_rate}, RoundingMode.HALF_UP)]]></textFieldExpression>
 				</textField>
 				<image scaleImage="FillFrame">
 					<reportElement mode="Transparent" x="68" y="59" width="189" height="90" uuid="4d723a5d-7a09-4491-88a9-af09958e7c33">
@@ -2279,10 +2263,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 					<font fontName="Sarabun" size="12"/>
 					<paragraph leftIndent="0" rightIndent="5" spacingBefore="0"/>
 				</textElement>
-				<textFieldExpression><![CDATA[IF($F{currency_name}.equals( "THB" ),
-	$F{subtotal}
-	,$F{subtotal}.doubleValue()*$F{rate_th_per_unit}.doubleValue()
-)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{balance}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement key="" x="376" y="0" width="95" height="17" uuid="937c4ce7-c1f9-4721-bca4-4fdcae15a376">
@@ -2301,10 +2282,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 					<font fontName="Sarabun" size="12"/>
 					<paragraph leftIndent="0" rightIndent="5" spacingBefore="0"/>
 				</textElement>
-				<textFieldExpression><![CDATA[IF($F{currency_name}.equals( "THB" ),
-	$F{price_unit}
-	,$F{price_unit}.doubleValue()*$F{rate_th_per_unit}.doubleValue()
-)]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{balance}.divide($F{qty})]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement key="" x="279" y="0" width="95" height="17" uuid="52efbe81-ca49-4568-a053-6b0d076dee30">

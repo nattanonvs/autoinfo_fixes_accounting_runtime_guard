@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Account Form',
-    'version': '1.13a',
+    'version': '1.14',
     'category': 'DTR - ERP Accounting',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -17,6 +17,10 @@ Customize Report Accounting.
 
 Changelog
 ---------
+
+**Version 1.14**
+    - Display amount THB in invoice report
+
 **Version 1.13-1.13a**
     - Fix task A21B-T99, A21B-T101
 
