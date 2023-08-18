@@ -539,7 +539,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 		<variableExpression><![CDATA[$V{v_count} + ($F{display_type}==null?1:0)]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
-	<variable name="v_amount_untaxed_before_trade_discount" class="java.math.BigDecimal" calculation="Sum">
+	<variable name="v_amount_untaxed_before_trade_discount" class="java.math.BigDecimal" resetType="Group" resetGroup="group_id" calculation="Sum">
 		<variableExpression><![CDATA[$F{is_trade_discount} == false ? $F{balance}.abs() : BigDecimal.ZERO]]></variableExpression>
 		<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 	</variable>
@@ -1837,7 +1837,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="12" isBold="true"/>
 						<paragraph rightIndent="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$V{v_amount_untaxed_before_trade_discount}.add($F{down_payment_amount}).subtract($F{amount_trade_discount})]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{v_amount_untaxed_before_trade_discount}.subtract($F{amount_trade_discount})]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="group_id" pattern="#,##0.00">
 					<reportElement mode="Transparent" x="472" y="25" width="103" height="25" uuid="1687cf93-ebda-416b-96f7-0cf6f7b56f37">
@@ -1872,7 +1872,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="12" isBold="true"/>
 						<paragraph rightIndent="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$V{v_amount_untaxed_before_trade_discount}.add($F{down_payment_amount})]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{v_amount_untaxed_before_trade_discount}]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Report">
 					<reportElement mode="Opaque" x="375" y="0" width="97" height="25" backcolor="#F2F2F2" uuid="4ab0520c-b7be-49cc-91f2-aec95fa52576">
@@ -2010,7 +2010,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="12" isBold="true"/>
 						<paragraph rightIndent="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$V{v_amount_untaxed_before_trade_discount}.subtract($F{amount_trade_discount})]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{v_amount_untaxed_before_trade_discount}.subtract($F{amount_trade_discount}).subtract($F{down_payment_amount})]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="group_id" pattern="#,##0.00">
 					<reportElement mode="Transparent" x="472" y="75" width="103" height="25" uuid="9aab9688-19a2-4970-b18d-74fcd7f860b8">
