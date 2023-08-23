@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Account Form',
-    'version': '1.15',
+    'version': '1.16',
     'category': 'DTR - ERP Accounting',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -17,6 +17,9 @@ Customize Report Accounting.
 
 Changelog
 ---------
+
+**Version 1.16**
+    - Fixed issue display amount total in footer is null
 
 **Version 1.15**
     - Fixed issue display amount total in footer case down payment

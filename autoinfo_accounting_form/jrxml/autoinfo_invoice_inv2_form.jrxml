@@ -136,11 +136,12 @@
 				invoice.invoice_date_due as delivery_date,
 				invoice.amount_untaxed, 
 				invoice.amount_untaxed_before_trade_discount,
-				invoice.amount_trade_discount,
+				--invoice.amount_trade_discount,
+				COALESCE((select sum(abs(aml.balance)) from account_move_line aml where aml.move_id = invoice.id and aml.is_trade_discount = True), 0) as amount_trade_discount,
 				invoice.amount_tax as tax, 
 				invoice.amount_total as total,
-				convert_num_th_with_currency(invoice.amount_total, invoice.currency_id) as total_word,
-				convert_num_en_with_currency(invoice.amount_total,  invoice.currency_id) as total_word_en,
+				convert_num_th_with_currency(ABS(invoice.amount_total_signed), comp.currency_id) as total_word,
+				convert_num_en_with_currency(ABS(invoice.amount_total_signed),  comp.currency_id) as total_word_en,
 				invoice.ref as customer_reference,
 				--coalesce(invoice.comment, '-') as remark,
 				line.customer_source_doc as doc_no,
@@ -258,7 +259,13 @@
 				sale.po_date as so_po_date,
 				COALESCE(partner.phone, '-') as partner_phone,
 				COALESCE(partner.fax, '-') as partner_fax
-				,(select sum(aml.price_subtotal) from account_move_line aml where aml.move_id = invoice.id and aml.is_deduct_down_payment = True) as down_payment_amount
+				,COALESCE((select sum(abs(aml.balance)) from account_move_line aml where aml.move_id = invoice.id and aml.is_deduct_down_payment = True), 0) as down_payment_amount
+	
+	,cur.name as  currency_name
+	,CASE WHEN invoice.exchange_rate = 0 THEN 1.0 ELSE invoice.exchange_rate END AS exchange_rate
+,ABS(line.balance) as balance
+,ABS(invoice.amount_total_signed) as amount_total_signed
+,COALESCE(line.is_trade_discount, False) as is_trade_discount
 from		account_move invoice
 left join res_currency cur on cur.id = invoice.currency_id
 left join	account_move_line line on ( line.move_id = invoice.id ) and (line.exclude_from_invoice_tab = False or line.exclude_from_invoice_tab is null) and is_deduct_down_payment is not True
@@ -286,6 +293,7 @@ left join sale_order sale on sale.id=(SELECT min(id) FROM (
 	SELECT a.id, b.name FROM sale_order a join stock_picking b on b.sale_id=a.id WHERE b.name=split_part(invoice.origin_third,',', 3)
 ) salex)
 left join hr_department department on department.id = invoice.department_id
+left join res_company comp ON comp.id = invoice.company_id
 $P!{ids} and line.is_trade_discount = False
 ORDER BY invoice.id,flag, line.sequence, line.id]]>
 	</queryString>
@@ -493,6 +501,21 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 	<field name="down_payment_amount" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="down_payment_amount"/>
 	</field>
+	<field name="currency_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="currency_name"/>
+	</field>
+	<field name="exchange_rate" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="exchange_rate"/>
+	</field>
+	<field name="balance" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="balance"/>
+	</field>
+	<field name="amount_total_signed" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="amount_total_signed"/>
+	</field>
+	<field name="is_trade_discount" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.label" value="is_trade_discount"/>
+	</field>
 	<variable name="vat_percent" class="java.math.BigDecimal" calculation="Highest">
 		<variableExpression><![CDATA[$F{vat_order}]]></variableExpression>
 	</variable>
@@ -500,6 +523,10 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 	<variable name="v_count" class="java.lang.Integer" resetType="Group" resetGroup="group_id">
 		<variableExpression><![CDATA[$V{v_count} + ($F{display_type}==null?1:0)]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<variable name="v_amount_untaxed_before_trade_discount" class="java.math.BigDecimal" resetType="Group" resetGroup="group_id" calculation="Sum">
+		<variableExpression><![CDATA[$F{is_trade_discount} == false ? $F{balance}.abs() : BigDecimal.ZERO]]></variableExpression>
+		<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 	</variable>
 	<group name="group_id" isResetPageNumber="true" isReprintHeaderOnEachPage="true" footerPosition="ForceAtBottom" keepTogether="true">
 		<groupExpression><![CDATA[$F{flag}]]></groupExpression>
@@ -1703,57 +1730,6 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 					</textElement>
 					<textFieldExpression><![CDATA[IF($P{p_language}.toString().equals("thai"),msg("{0}", $F{total_word}),msg("Total : {0}", $F{total_word_en}))]]></textFieldExpression>
 				</textField>
-				<textField evaluationTime="Group" evaluationGroup="group_id" pattern="#,##0.00">
-					<reportElement mode="Transparent" x="472" y="150" width="103" height="25" uuid="ab0bebdf-ec81-4a09-80e4-6c2117e3f672">
-						<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
-					</reportElement>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
-						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
-					</box>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="Sarabun" size="12" isBold="true"/>
-						<paragraph rightIndent="3"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
-				</textField>
-				<textField evaluationTime="Group" evaluationGroup="group_id" pattern="#,##0.00">
-					<reportElement mode="Transparent" x="472" y="125" width="103" height="25" uuid="9a798409-104c-4ee0-80ee-e9df4879d12e">
-						<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
-					</reportElement>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
-						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
-					</box>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="Sarabun" size="12" isBold="true"/>
-						<paragraph rightIndent="3"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{tax}]]></textFieldExpression>
-				</textField>
-				<textField evaluationTime="Group" evaluationGroup="group_id" pattern="#,##0.00">
-					<reportElement mode="Transparent" x="472" y="25" width="103" height="25" uuid="1687cf93-ebda-416b-96f7-0cf6f7b56f37">
-						<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
-					</reportElement>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
-						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
-					</box>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="Sarabun" size="12" isBold="true"/>
-						<paragraph rightIndent="3"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{amount_trade_discount}]]></textFieldExpression>
-				</textField>
 				<textField evaluationTime="Report">
 					<reportElement mode="Opaque" x="375" y="0" width="97" height="25" backcolor="#F2F2F2" uuid="4ab0520c-b7be-49cc-91f2-aec95fa52576">
 						<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
@@ -1874,24 +1850,6 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 					</textElement>
 					<textFieldExpression><![CDATA["จำนวนเงินรวมทั้งสิ้น\nTOTAL NET AMOUNT"]]></textFieldExpression>
 				</textField>
-				<textField evaluationTime="Group" evaluationGroup="group_id" pattern="#,##0.00">
-					<reportElement mode="Transparent" x="472" y="100" width="103" height="25" uuid="37b22840-a9d9-4bfc-a439-b8e23f4d1173">
-						<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
-						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-					</reportElement>
-					<box>
-						<pen lineWidth="0.5"/>
-						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
-						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
-					</box>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="Sarabun" size="12" isBold="true"/>
-						<paragraph rightIndent="3"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{amount_untaxed}]]></textFieldExpression>
-				</textField>
 				<image scaleImage="FillFrame">
 					<reportElement mode="Transparent" x="68" y="59" width="189" height="90" uuid="4d723a5d-7a09-4491-88a9-af09958e7c33">
 						<property name="com.jaspersoft.studio.unit.width" value="px"/>
@@ -1933,8 +1891,8 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 					</textElement>
 					<textFieldExpression><![CDATA["ผิด ตก ยกเว้น E. & O.E.	"]]></textFieldExpression>
 				</textField>
-				<textField evaluationTime="Group" evaluationGroup="group_id" pattern="#,##0.00">
-					<reportElement mode="Transparent" x="472" y="0" width="103" height="25" uuid="b82b5e76-7272-4cab-8ab8-4c2b3a06026b">
+				<textField evaluationTime="Group" evaluationGroup="group_id" pattern="#,##0.00#;(#,##0.00#)">
+					<reportElement mode="Transparent" x="472" y="0" width="103" height="25" uuid="e1add485-8658-4db3-a443-a7102b53d3e9">
 						<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
@@ -1949,10 +1907,27 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="12" isBold="true"/>
 						<paragraph rightIndent="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{amount_untaxed_before_trade_discount}.add($F{down_payment_amount}.abs())]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{v_amount_untaxed_before_trade_discount}]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="group_id" pattern="#,##0.00">
-					<reportElement mode="Transparent" x="472" y="50" width="103" height="25" uuid="cc1c7149-33f1-4537-beca-3fae8ba15702">
+					<reportElement mode="Transparent" x="472" y="25" width="103" height="25" uuid="4adb8707-0d11-4859-ba45-1def824a295d">
+						<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+					</reportElement>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Sarabun" size="12" isBold="true"/>
+						<paragraph rightIndent="3"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{amount_trade_discount}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="group_id" pattern="#,##0.00">
+					<reportElement mode="Transparent" x="472" y="50" width="103" height="25" uuid="6d440baf-b9f4-47a6-b717-383bd8eb5e5e">
 						<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
@@ -1967,10 +1942,10 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="12" isBold="true"/>
 						<paragraph rightIndent="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{amount_untaxed}.add($F{down_payment_amount}.abs())]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{v_amount_untaxed_before_trade_discount}.subtract($F{amount_trade_discount})]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="group_id" pattern="#,##0.00">
-					<reportElement mode="Transparent" x="472" y="75" width="103" height="25" uuid="659e9816-3a93-4d03-a47e-792c1694cb92">
+					<reportElement mode="Transparent" x="472" y="75" width="103" height="25" uuid="65bbfcdc-649b-4ea6-9b51-523d2beb16ce">
 						<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
@@ -1985,7 +1960,59 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="12" isBold="true"/>
 						<paragraph rightIndent="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{down_payment_amount}.abs()]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{down_payment_amount}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="group_id" pattern="#,##0.00">
+					<reportElement mode="Transparent" x="472" y="100" width="103" height="25" uuid="0d33fe29-df34-434d-95d7-f8157322cf9c">
+						<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Sarabun" size="12" isBold="true"/>
+						<paragraph rightIndent="3"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{v_amount_untaxed_before_trade_discount}.subtract($F{amount_trade_discount}).subtract($F{down_payment_amount})]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="group_id" pattern="#,##0.00">
+					<reportElement mode="Transparent" x="472" y="125" width="103" height="25" uuid="c48df86a-79cc-4548-9f3b-d23485ccf4ad">
+						<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+					</reportElement>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Sarabun" size="12" isBold="true"/>
+						<paragraph rightIndent="3"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tax}.divide($F{exchange_rate}, RoundingMode.HALF_UP)]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="group_id" pattern="#,##0.00">
+					<reportElement mode="Transparent" x="472" y="150" width="103" height="25" uuid="36ae7516-d521-4d3b-9dc5-e888e87d3e3c">
+						<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
+					</reportElement>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Sarabun" size="12" isBold="true"/>
+						<paragraph rightIndent="3"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{amount_total_signed}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>
@@ -2188,7 +2215,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 					<font fontName="Sarabun" size="12"/>
 					<paragraph leftIndent="0" rightIndent="5" spacingBefore="0"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{subtotal}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{balance}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement key="" x="376" y="0" width="95" height="17" uuid="937c4ce7-c1f9-4721-bca4-4fdcae15a376">
