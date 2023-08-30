@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="autoinfo_invoice_form" pageWidth="595" pageHeight="842" columnWidth="575" leftMargin="10" rightMargin="10" topMargin="20" bottomMargin="5" uuid="9d429c61-ca07-45fd-95b2-54aea3253cab">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Localhost"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Autoinfo_DB.xml"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="274"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="719"/>
@@ -90,7 +90,7 @@
 		</conditionalStyle>
 	</style>
 	<parameter name="ids" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["where invoice.id in (5256)"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["where invoice.id in (5253)"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="iscopy" class="java.lang.Integer" isForPrompting="false">
 		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
@@ -271,9 +271,12 @@
 	,cur.name as  currency_name
 	,CASE WHEN invoice.exchange_rate = 0 THEN 1.0 ELSE invoice.exchange_rate END AS exchange_rate
 ,ABS(line.balance) as balance
+,CASE WHEN line.is_deposit_payment = true THEN line.balance ELSE ABS(line.balance) END AS balance_2
 ,ABS(invoice.amount_total_signed) as amount_total_signed
 ,COALESCE(line.is_trade_discount, False) as is_trade_discount
-	
+,COALESCE(line.is_deposit_payment, False) as is_deposit_payment
+,COALESCE((select sum(abs(aml.balance)) from account_move_line aml where aml.move_id = invoice.id and aml.is_deposit_payment = True), 0) as deposit_payment_amount
+
 from		account_move invoice
 left join res_currency cur on cur.id = invoice.currency_id
 left join	account_move_line line on ( line.move_id = invoice.id ) and (line.exclude_from_invoice_tab = False or line.exclude_from_invoice_tab is null) and is_deduct_down_payment is not True
@@ -525,11 +528,20 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 	<field name="balance" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="balance"/>
 	</field>
+	<field name="balance_2" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="balance_2"/>
+	</field>
 	<field name="amount_total_signed" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="amount_total_signed"/>
 	</field>
 	<field name="is_trade_discount" class="java.lang.Boolean">
 		<property name="com.jaspersoft.studio.field.label" value="is_trade_discount"/>
+	</field>
+	<field name="is_deposit_payment" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.label" value="is_deposit_payment"/>
+	</field>
+	<field name="deposit_payment_amount" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="deposit_payment_amount"/>
 	</field>
 	<variable name="vat_percent" class="java.math.BigDecimal" calculation="Highest">
 		<variableExpression><![CDATA[$F{vat_order}]]></variableExpression>
@@ -540,9 +552,13 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
 	<variable name="v_amount_untaxed_before_trade_discount" class="java.math.BigDecimal" resetType="Group" resetGroup="group_id" calculation="Sum">
-		<variableExpression><![CDATA[$F{is_trade_discount} == false ? $F{balance}.abs() : BigDecimal.ZERO]]></variableExpression>
+		<variableExpression><![CDATA[IF($F{is_trade_discount} == false,
+	($F{is_deposit_payment} == false? $F{balance_2}:BigDecimal.ZERO),
+	BigDecimal.ZERO
+)]]></variableExpression>
 		<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 	</variable>
+	<variable name="Variable_1" class="java.math.BigDecimal"/>
 	<group name="group_id" isResetPageNumber="true" isReprintHeaderOnEachPage="true" footerPosition="ForceAtBottom" keepTogether="true">
 		<groupExpression><![CDATA[$F{flag}]]></groupExpression>
 		<groupHeader>
@@ -2010,7 +2026,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="12" isBold="true"/>
 						<paragraph rightIndent="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$V{v_amount_untaxed_before_trade_discount}.subtract($F{amount_trade_discount}).subtract($F{down_payment_amount})]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{v_amount_untaxed_before_trade_discount}.subtract($F{amount_trade_discount}).subtract(BigDecimal.ZERO.compareTo($F{down_payment_amount})==0?$F{deposit_payment_amount}:$F{deposit_payment_amount})]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="group_id" pattern="#,##0.00">
 					<reportElement mode="Transparent" x="472" y="75" width="103" height="25" uuid="9aab9688-19a2-4970-b18d-74fcd7f860b8">
@@ -2028,7 +2044,10 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="12" isBold="true"/>
 						<paragraph rightIndent="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{down_payment_amount}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[IF(BigDecimal.ZERO.compareTo($F{down_payment_amount})==0,
+	$F{deposit_payment_amount},
+	$F{down_payment_amount}
+)]]></textFieldExpression>
 				</textField>
 				<image scaleImage="FillFrame">
 					<reportElement mode="Transparent" x="68" y="59" width="189" height="90" uuid="4d723a5d-7a09-4491-88a9-af09958e7c33">
