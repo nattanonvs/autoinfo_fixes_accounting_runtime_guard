@@ -104,6 +104,13 @@ class autoinfo_tax_receipt_form(models.TransientModel):
             'p_language': self.p_language,
             'p_locale': 'th' if self.date_type == 'BE' else 'en',
             'p_DateFormat': str(self.date_format),
+            'p_company_en': "THE AUTO-INFO CO.,LTD.",
+            'p_company_th': "บริษัท ออโต้อินโฟ จำกัด",
+            'p_com_address_en': "1359 Soi Ladprao 94 (Panjamitr) Ladprao Rd.,Plubpla, Wangthonglang Bangkok 10310, Thailand.",
+            'p_com_address_th': "1359 ซ.ลาดพร้าว 94 (ปัญจมิตร) ถ.ลาดพร้าว แขวงพลับพลา เขตวังทองหลาง กรุงเทพฯ 10310",
+            'p_com_website': "www.auto-info.co.th",
+            'p_remark': """<br>- โปรดสั่งจ่ายเช็คขีดคร่อมในนาม บริษัท ออโต้อินโฟ จำกัด <br>- กรุณาโอนเงินเข้าบัญชีธนาคารกสิกรไทย สาขาศรีวรา ทาว์อินทาวน์ เลขที่บัญชี 609-2-00057-3 (ออมทรัพย์)<br>- เมื่อพ้นกำหนดชำระเงินแล้ว บริษัทฯ จะคิดดอกเบี้ยในอัตราร้อยละ 1.5% ต่อเดือน<br>- สินค้าตามรายการข้างต้นยังเป็นสิทธิ์ของบริษัท ออโต้อินโฟ จำกัด จนกว่าผู้ซื้อจะชำระสินค้าครบเรียบร้อยแล้ว"""
+
         }
 
         return parm
