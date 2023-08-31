@@ -6,3 +6,4 @@ from . import receipt_form
 from . import autoinfo_invoice_form
 from . import billing_form
 from . import prepayment_form
+from . import autoinfo_tax_receipt_form
