@@ -90,7 +90,7 @@
 		</conditionalStyle>
 	</style>
 	<parameter name="ids" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["where invoice.id in (5253)"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["where invoice.id in (5259)"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="iscopy" class="java.lang.Integer" isForPrompting="false">
 		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
@@ -2026,7 +2026,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="12" isBold="true"/>
 						<paragraph rightIndent="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$V{v_amount_untaxed_before_trade_discount}.subtract($F{amount_trade_discount}).subtract(BigDecimal.ZERO.compareTo($F{down_payment_amount})==0?$F{deposit_payment_amount}:$F{deposit_payment_amount})]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{v_amount_untaxed_before_trade_discount}.subtract($F{amount_trade_discount}).subtract(BigDecimal.ZERO.compareTo($F{down_payment_amount})==0?$F{deposit_payment_amount}:$F{down_payment_amount})]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="group_id" pattern="#,##0.00">
 					<reportElement mode="Transparent" x="472" y="75" width="103" height="25" uuid="9aab9688-19a2-4970-b18d-74fcd7f860b8">
