@@ -277,7 +277,7 @@
 ,COALESCE(line.is_trade_discount, False) as is_trade_discount
 from		account_move invoice
 left join res_currency cur on cur.id = invoice.currency_id
-left join	account_move_line line on ( line.move_id = invoice.id ) and (line.exclude_from_invoice_tab = False or line.exclude_from_invoice_tab is null) and is_deduct_down_payment is not True
+left join	account_move_line line on ( line.move_id = invoice.id ) and (line.exclude_from_invoice_tab = False or line.exclude_from_invoice_tab is null) and is_deduct_down_payment is not True and is_deduct_deposit_payment is not True
 left join	account_move_line_account_tax_rel tax_rel on ( tax_rel.account_move_line_id = line.id )
 left join	account_tax tax on ( tax.id = tax_rel.account_tax_id )
 left join	product_product product on ( product.id = line.product_id )

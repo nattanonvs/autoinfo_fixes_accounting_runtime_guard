@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Account Form',
-    'version': '1.18b',
+    'version': '1.19',
     'category': 'DTR - ERP Accounting',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -17,6 +17,10 @@ Customize Report Accounting.
 
 Changelog
 ---------
+
+**Version 1.19**
+    - Fixed issue deduct deposit payment line show in report
+
 **Version 1.18-1.18b**
     - Fix task A21B-T69
     - Fix task A21B-T127
