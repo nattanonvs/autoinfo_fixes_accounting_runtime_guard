@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="autoinfo_invoice_form" pageWidth="595" pageHeight="842" columnWidth="575" leftMargin="10" rightMargin="10" topMargin="20" bottomMargin="5" uuid="9d429c61-ca07-45fd-95b2-54aea3253cab">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Autoinfo_DB.xml"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -90,7 +90,7 @@
 		</conditionalStyle>
 	</style>
 	<parameter name="ids" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["where invoice.id in (5259)"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["where invoice.id in (5254)"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="iscopy" class="java.lang.Integer" isForPrompting="false">
 		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
@@ -548,7 +548,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 	</variable>
 	<variable name="customer_address" class="java.lang.String"/>
 	<variable name="v_count" class="java.lang.Integer" resetType="Group" resetGroup="group_id">
-		<variableExpression><![CDATA[$V{v_count} + ($F{display_type}==null?1:0)]]></variableExpression>
+		<variableExpression><![CDATA[$V{v_count} + ($F{display_type}==null&&$F{is_deposit_payment}==false?1:0)]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
 	<variable name="v_amount_untaxed_before_trade_discount" class="java.math.BigDecimal" resetType="Group" resetGroup="group_id" calculation="Sum">
@@ -2273,7 +2273,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 	</background>
 	<detail>
 		<band height="17" splitType="Stretch">
-			<printWhenExpression><![CDATA[$F{display_type}==null]]></printWhenExpression>
+			<printWhenExpression><![CDATA[$F{display_type}==null&&$F{is_deposit_payment}==false]]></printWhenExpression>
 			<textField pattern="#,##0.00" isBlankWhenNull="true">
 				<reportElement key="" x="473" y="0" width="102" height="17" uuid="ed859409-c6b9-44a3-95e4-671b86772008">
 					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
