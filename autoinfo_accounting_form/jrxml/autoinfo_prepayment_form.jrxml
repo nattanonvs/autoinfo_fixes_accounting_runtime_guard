@@ -554,12 +554,12 @@ order by bill.id,bill.id,invoice_due_date;]]>
 					<textFieldExpression><![CDATA[IF($P{p_language}.toString().equals("thai")
 ,"สาขาที่ออกใบกำกับภาษี : " + IF($F{company_branch}.toString().equals("00000"),"สำนักงานใหญ่",$F{company_branch}.toString())
 + "  เลขประจำตัวผู้เสียภาษี : " + $F{company_tax_id}.toString()
-+ " \nที่อยู่ : " + $F{company_address_thai}.toString()
++ " \nที่อยู่ : " + TRIM($F{company_address_thai}.toString())
 + " \nเบอร์โทรศัพท์ : " + $F{company_phone}.toString() + " เบอร์โทรสาร : " + $F{company_fax}.toString()
 + " \nอีเมลล์ : " + $F{company_email}.toString() + " เว็บไซต์ : " + $F{company_website}.toString()
 ,"Tax Branch : "+ IF($F{company_branch}.toString().equals("00000"),"Head Office",$F{company_branch}.toString())
 + "  Tax ID : " + $F{company_tax_id}.toString()
-+ " \nAddress : " + $F{company_address_en}.toString()
++ " \nAddress : " + TRIM($F{company_address_en}.toString())
 + " \nPhone : " + $F{company_phone}.toString() + " Fax : " + $F{company_fax}.toString()
 + " \nEmail : " + $F{company_email}.toString() + " Website : " + $F{company_website}.toString()
 )]]></textFieldExpression>
@@ -639,7 +639,7 @@ order by bill.id,bill.id,invoice_due_date;]]>
 								<font fontName="TH Sarabun New" size="12" isBold="false"/>
 								<paragraph lineSpacing="Fixed" lineSpacingSize="6.0" leftIndent="5" spacingBefore="5"/>
 							</textElement>
-							<textFieldExpression><![CDATA[$F{partner_street} + "\n"+$F{partner_street2}]]></textFieldExpression>
+							<textFieldExpression><![CDATA[TRIM($F{partner_street} + "\n"+$F{partner_street2})]]></textFieldExpression>
 						</textField>
 						<textField isStretchWithOverflow="true">
 							<reportElement x="0" y="2" width="60" height="20" uuid="c7bbac94-f624-44b4-a0b6-b4f3d956b5bc">
