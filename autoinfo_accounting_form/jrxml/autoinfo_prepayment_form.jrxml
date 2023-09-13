@@ -1352,9 +1352,10 @@ order by bill.id,bill.id,invoice_due_date;]]>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{invoice_number}]]></textFieldExpression>
 				</textField>
-				<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 					<reportElement x="340" y="0" width="110" height="20" uuid="656400ad-6b0f-4a0a-bd05-5dab7e9e7255">
 						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+						<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 					</reportElement>
 					<box leftPadding="0" bottomPadding="0" rightPadding="5">
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1364,7 +1365,6 @@ order by bill.id,bill.id,invoice_due_date;]]>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font fontName="TH Sarabun New" size="12"/>
-						<paragraph rightIndent="7"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{po_number}]]></textFieldExpression>
 				</textField>
