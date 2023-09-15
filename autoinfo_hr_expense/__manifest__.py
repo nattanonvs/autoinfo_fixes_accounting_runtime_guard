@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Expenses',
-    'version': '1.0',
+    'version': '1.0a',
     'category': 'DTR - ERP Expenses',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -16,13 +16,14 @@ Description
 Changelog
 ---------
 
-**Version 1.0**
+**Version 1.0-1.0a**
+    - Add Fee, WHT
     - Initial
 
     """,
     'author': 'Dataroot Asia Co., Ltd.',
     'created_by': 'Pracha P.',
-    'depends': ['hr_expense', 'dtr_taxation'],
+    'depends': ['hr_expense', 'autoinfo_account',],
     'application': False,
     'data': [
         'views/account_payment_register_views.xml',

@@ -8,22 +8,36 @@
         <field name="priority">50</field>
         <field name="arch" type="xml">
             <xpath expr="//footer" position="before">
-                <notebook><page name="wht_page" string="Withholding Tax">
-                    <field name="wht_ids" widget="one2many_list" colspan="4" nolabel="1" context="{'default_partner_id': partner_id,'default_pay_amount1': amount}">
-                        <tree string="Withholding Tax" create="1" edit="1" delete="1">
-                            <field name="payment_id" invisible="1"/>
-                            <field name="pay_date"/>
-                            <field name="name"/>
-                            <field name="payee_name"/>
-                            <field name="income_type"/>
-                            <field name="pay_amount" string="จำนวนเงิน"/>
-                            <field name="wht_amount" string="ภาษี"/>
-                            <field name="tax_type"/>
-                            <field name="state" invisible="1"/>
-                            <field name="currency_id" invisible="1"/>
-                        </tree>
-                    </field>
-                </page></notebook>
+                <notebook>
+                    <page string="Fee/Charges">
+                        <field name="payment_fee_ids" widget="one2many_list" colspan="4" nolabel="1" >
+                            <tree string="Fees/Charges" create="1" delete="1" edit="1" editable="bottom">
+                                <field name="is_profit"/>
+                                <field name="name"></field>
+                                <field name="account_id"></field>
+                                <field name="analytic_account_id" groups="analytic.group_analytic_accounting"/>
+                                <field name="percent"></field>
+                                <field name="amount"></field>
+                            </tree>
+                        </field>
+                    </page>
+                    <page name="wht_page" string="Withholding Tax">
+                        <field name="wht_ids" widget="one2many_list" colspan="4" nolabel="1" context="{'default_partner_id': partner_id,'default_pay_amount1': amount}">
+                            <tree string="Withholding Tax" create="1" edit="1" delete="1" editable="bottom">
+                                <field name="payment_id" invisible="1"/>
+                                <field name="pay_date"/>
+                                <field name="name"/>
+                                <field name="payee_name"/>
+                                <field name="income_type"/>
+                                <field name="pay_amount" string="จำนวนเงิน"/>
+                                <field name="wht_amount" string="ภาษี"/>
+                                <field name="tax_type"/>
+                                <field name="state" invisible="1"/>
+                                <field name="currency_id" invisible="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
             </xpath>
         </field>
     </record>
