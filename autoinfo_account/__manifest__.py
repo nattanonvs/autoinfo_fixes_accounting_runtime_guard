@@ -27,7 +27,7 @@ Changelog
     """,
     'author': 'Dataroot Asia Co., Ltd.',
     'created_by': 'Varawit Termwaraporn',
-    'depends': ['base', 'account', 'purchase_request', 'purchase', 'dtr_taxation', 'dtr_billing', 'dtr_dncn'],
+    'depends': ['base', 'account', 'purchase_request', 'purchase', 'dtr_taxation', 'dtr_billing', 'dtr_dncn', 'dtr_payment_fee',],
     'application': False,
     'data': [
         'security/ir.model.access.csv',
