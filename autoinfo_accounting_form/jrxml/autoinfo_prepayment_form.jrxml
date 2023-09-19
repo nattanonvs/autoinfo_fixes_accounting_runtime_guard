@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.10.0-unknown  -->
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="autoinfo_prepayment_form" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8f72a463-64e4-4b71-ab9c-a3e1e7e0679e">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="314"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="679"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="140 autoinfo"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Autoinfo_DB.xml"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
@@ -272,6 +272,7 @@
 		LEFT JOIN hr_employee b ON a.id = b.resource_id
 		LEFT JOIN ir_attachment c ON c.res_id = b.id and c.res_model = 'hr.employee' and c.res_field='signature'
 		WHERE a.user_id = bill.create_uid) AS biller_signature
+		,inv.ref as inv_ref
 
 from dtr_account_prepayment as bill
 left join dtr_account_invoice_payment_method as pm on pm.id = bill.payment_method_id
@@ -486,6 +487,10 @@ order by bill.id,bill.id,invoice_due_date;]]>
 	</field>
 	<field name="biller_signature" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="biller_signature"/>
+	</field>
+	<field name="inv_ref" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="inv_ref"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="account_move"/>
 	</field>
 	<variable name="Page" class="java.lang.String">
 		<variableExpression><![CDATA[$V{PAGE_NUMBER} + " OF " + $V{MASTER_TOTAL_PAGES}]]></variableExpression>
@@ -1350,7 +1355,7 @@ order by bill.id,bill.id,invoice_due_date;]]>
 						<font fontName="TH Sarabun New" size="12"/>
 						<paragraph leftIndent="7"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{invoice_number}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{inv_ref}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 					<reportElement x="340" y="0" width="110" height="20" uuid="656400ad-6b0f-4a0a-bd05-5dab7e9e7255">
