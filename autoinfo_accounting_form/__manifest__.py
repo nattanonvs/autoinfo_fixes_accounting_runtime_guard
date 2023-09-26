@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Account Form',
-    'version': '1.22',
+    'version': '1.22a',
     'category': 'DTR - ERP Accounting',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -18,7 +18,8 @@ Customize Report Accounting.
 Changelog
 ---------
 
-**Version 1.22**
+**Version 1.22-1.22a**
+    - Fix A21B-T33 Z-020
     - Fixed issue display purchase order number in prepayment report
 
 **Version 1.21**
@@ -30,7 +31,7 @@ Changelog
 **Version 1.19**
     - Fixed issue deduct deposit payment line show in report
 
-**Version 1.18-1.18b**
+**Version 1.18**
     - Fix task A21B-T69
     - Fix task A21B-T127
 
@@ -46,7 +47,7 @@ Changelog
 **Version 1.14**
     - Display amount THB in invoice report
 
-**Version 1.13-1.13a**
+**Version 1.13**
     - Fix task A21B-T99, A21B-T101
 
 **Version 1.12**

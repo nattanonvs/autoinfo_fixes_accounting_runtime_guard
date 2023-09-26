@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.10.0-unknown  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="autoinfo_prepayment_form" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8f72a463-64e4-4b71-ab9c-a3e1e7e0679e">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="314"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="679"/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Localhost"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="140 autoinfo"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
@@ -259,7 +259,8 @@
 	 	left join purchase_order po on po.id = apr.purchase_order_id
 	 	where apr.account_move_id = inv.id
 	 ) as po_number
-	 ,case when bill.document_date is null then (null) else (bill.document_date+ COALESCE(terml.days,0)) end as doc_term_date
+	 --,case when bill.document_date is null then (null) else (bill.document_date+ COALESCE(terml.days,0)) end as doc_term_date
+	 ,inv.invoice_date_due as doc_term_date
 	 ,bill.payment_date as bill_payment_date
 	 ,bill.create_uid
 	 ,(SELECT b.name FROM resource_resource a
@@ -292,14 +293,12 @@ left join res_partner cpart on cpart.id = comp.partner_id
 left join res_country ct on ct.id = cpart.country_id
 left join res_country_state cp on cp.id = cpart.state_id
 
-left join ir_property irp on irp.id = (SELECT MAX(id) FROM ir_property 
-	WHERE name='property_supplier_payment_term_id' AND res_id='res.partner,'||partner.id)
-left join account_payment_term term on ( term.id = (split_part(irp.value_reference,',',2)::integer) )
-left join account_payment_term_line terml on ( terml.id = (SELECT MAX(a.id) FROM account_payment_term_line a WHERE a.payment_id=term.id))
+--left join account_payment_term term on ( term.id = inv.invoice_payment_term_id )
+--left join account_payment_term_line terml on ( terml.id = (SELECT MAX(a.id) FROM account_payment_term_line a WHERE a.payment_id=term.id))
 
 $P!{ids}
 
-order by bill.id,bill.id,invoice_due_date;]]>
+order by bill.id, invoice_date_due;]]>
 	</queryString>
 	<field name="company_id" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.label" value="company_id"/>
@@ -471,6 +470,7 @@ order by bill.id,bill.id,invoice_due_date;]]>
 	</field>
 	<field name="doc_term_date" class="java.sql.Date">
 		<property name="com.jaspersoft.studio.field.label" value="doc_term_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="account_move"/>
 	</field>
 	<field name="bill_payment_date" class="java.sql.Date">
 		<property name="com.jaspersoft.studio.field.label" value="bill_payment_date"/>
@@ -495,6 +495,7 @@ order by bill.id,bill.id,invoice_due_date;]]>
 	</field>
 	<field name="po_origin" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="po_origin"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="account_move"/>
 	</field>
 	<variable name="Page" class="java.lang.String">
 		<variableExpression><![CDATA[$V{PAGE_NUMBER} + " OF " + $V{MASTER_TOTAL_PAGES}]]></variableExpression>
