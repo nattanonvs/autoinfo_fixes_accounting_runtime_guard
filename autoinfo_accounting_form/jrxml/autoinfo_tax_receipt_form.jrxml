@@ -90,7 +90,7 @@
 		</conditionalStyle>
 	</style>
 	<parameter name="ids" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["where invoice.id in (4300)"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["where payment.id in (76)"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="iscopy" class="java.lang.Integer" isForPrompting="false">
 		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
@@ -275,6 +275,7 @@
 ,ABS(line.balance) as balance
 ,ABS(invoice.amount_total_signed) as amount_total_signed
 ,COALESCE(line.is_trade_discount, False) as is_trade_discount
+,entry.date as je_date
 
 from account_payment payment
 left join account_move_account_payment_rel acc_pay on acc_pay.account_payment_id = payment.id
@@ -308,6 +309,8 @@ left join sale_order sale on sale.id=(SELECT min(id) FROM (
 ) salex)
 left join hr_department department on department.id = invoice.department_id
 left join res_company comp ON comp.id = invoice.company_id
+left join account_move as entry on entry.id = payment.move_id
+
 $P!{ids} and line.is_trade_discount = False
 ORDER BY invoice.id,flag, line.sequence, line.id]]>
 	</queryString>
@@ -533,6 +536,10 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 	</field>
 	<field name="is_trade_discount" class="java.lang.Boolean">
 		<property name="com.jaspersoft.studio.field.label" value="is_trade_discount"/>
+	</field>
+	<field name="je_date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="je_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="account_move"/>
 	</field>
 	<variable name="vat_percent" class="java.math.BigDecimal" calculation="Highest">
 		<variableExpression><![CDATA[$F{vat_order}]]></variableExpression>
@@ -1043,7 +1050,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="14" isBold="false"/>
 						<paragraph lineSpacing="Fixed" lineSpacingSize="5.0" leftIndent="0" spacingBefore="0"/>
 					</textElement>
-					<textFieldExpression><![CDATA[($F{invoice_date_due}==null ?"-": new SimpleDateFormat($P{p_DateFormat}, new Locale($P{p_locale}, $P{p_locale})).format($F{invoice_date_due}))]]></textFieldExpression>
+					<textFieldExpression><![CDATA[($F{je_date}==null ?"-": new SimpleDateFormat($P{p_DateFormat}, new Locale($P{p_locale}, $P{p_locale})).format($F{je_date}))]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="65">
@@ -1259,7 +1266,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="14" isBold="false"/>
 						<paragraph lineSpacing="Fixed" lineSpacingSize="5.0" leftIndent="5" spacingBefore="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA[($F{invoice_date_due}==null ?"-": new SimpleDateFormat($P{p_DateFormat}, new Locale($P{p_locale}, $P{p_locale})).format($F{invoice_date_due}))]]></textFieldExpression>
+					<textFieldExpression><![CDATA[($F{je_date}==null ?"-": new SimpleDateFormat($P{p_DateFormat}, new Locale($P{p_locale}, $P{p_locale})).format($F{je_date}))]]></textFieldExpression>
 				</textField>
 			</band>
 			<band height="35">
