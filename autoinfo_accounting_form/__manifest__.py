@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Account Form',
-    'version': '1.24',
+    'version': '1.24a',
     'category': 'DTR - ERP Accounting',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -17,13 +17,14 @@ Customize Report Accounting.
 
 Changelog
 ---------
-**Version 1.24**
+**Version 1.24-1.24a**
+    - Fix task A21B-T183
     - Fix task A21B-T181
 
 **Version 1.23**
     - Fix task A21B-T175
 
-**Version 1.22-1.22a**
+**Version 1.22**
     - Fix A21B-T33 Z-020
     - Fixed issue display purchase order number in prepayment report
 
