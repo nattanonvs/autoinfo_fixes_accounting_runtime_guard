@@ -553,7 +553,11 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 	</variable>
 	<variable name="customer_address" class="java.lang.String"/>
 	<variable name="v_count" class="java.lang.Integer" resetType="Group" resetGroup="group_id">
-		<variableExpression><![CDATA[$V{v_count} + ($F{display_type}==null&&$F{is_deposit_payment}==false?1:0)]]></variableExpression>
+		<variableExpression><![CDATA[IF($F{inv_type}.equals("deposit_payment"),
+	$V{v_count} + ($F{display_type}==null?1:0)
+	,$V{v_count} + ($F{display_type}==null&&$F{is_deposit_payment}==false?1:0)
+)
+]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
 	<variable name="v_amount_untaxed_before_trade_discount" class="java.math.BigDecimal" resetType="Group" resetGroup="group_id" calculation="Sum">
