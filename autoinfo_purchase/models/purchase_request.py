@@ -15,6 +15,12 @@ class PurchaseRequest(models.Model):
                 vals['name'] = department_id.pr_sequence_id.next_by_id(sequence_date=vals.get('date_start')) or '/'
         return super(PurchaseRequest, self).create(vals)
 
+    @api.model
+    def _get_default_name(self):
+        if self.department_id and self.date_start:
+            return self.department_id.pr_sequence_id.next_by_id(sequence_date=self.date_start) or '/'
+        return self.env["ir.sequence"].next_by_code("purchase.request")
+
     READONLY_STATES = {
         'purchase': [('readonly', True)],
         'done': [('readonly', True)],
