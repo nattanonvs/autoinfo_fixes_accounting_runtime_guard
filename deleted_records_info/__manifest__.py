@@ -30,7 +30,7 @@
         "views/deleted_records_views.xml",
         "wizard/delete_records_upto_wizard_views.xml",
     ],
-    "external_dependencies": {"python": ["pyscreenshot"]},
+    # "external_dependencies": {"python": ["pyscreenshot"]},
     "images": ["static/description/banner.jpg"],
     "auto_install": False,
     "installable": True,

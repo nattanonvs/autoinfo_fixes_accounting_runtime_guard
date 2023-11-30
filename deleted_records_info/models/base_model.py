@@ -3,8 +3,8 @@
 # See LICENSE file for full copyright & licensing details.
 import os
 import base64
-import pyscreenshot as ImageGrab
-from PIL import ImageGrab
+# import pyscreenshot as ImageGrab
+# from PIL import ImageGrab
 from odoo import models
 
 # the list of models data which are to be skipped in the deleted records list.
@@ -33,8 +33,8 @@ class BaseModelExtend(models.AbstractModel):
         if self and not self._transient and self._name not in SKIPPEDTABLELIST:
             """ It will take screenshot if any user delete any records.
             So admin user can view deleted records data."""
-            screenshot = ImageGrab.grab()
-            screenshot.save("/tmp/screenshot.png")
+            # screenshot = ImageGrab.grab()
+            # screenshot.save("/tmp/screenshot.png")
             model_name = self._name
             # Fetch models id of deleted record.
             model_rec = self.env["ir.model"].sudo().search([("model", "=", model_name)])
@@ -51,21 +51,21 @@ class BaseModelExtend(models.AbstractModel):
                         }
                     )
                 )
-                with open("/tmp/screenshot.png", "rb") as img:
-                    encode_image = base64.b64encode(img.read())
-                # Created attechment for deleted rec which stores screenshot.
-                self.env["ir.attachment"].create(
-                    {
-                        "res_model": "deleted.records",
-                        "res_id": deleted_rec.id,
-                        "datas": encode_image,
-                        "type": "binary",
-                        "name": rec.get_display_name(),
-                    }
-                )
+                # with open("/tmp/screenshot.png", "rb") as img:
+                #     encode_image = base64.b64encode(img.read())
+                # # Created attechment for deleted rec which stores screenshot.
+                # self.env["ir.attachment"].create(
+                #     {
+                #         "res_model": "deleted.records",
+                #         "res_id": deleted_rec.id,
+                #         "datas": encode_image,
+                #         "type": "binary",
+                #         "name": rec.get_display_name(),
+                #     }
+                # )
 
             # Removed screenshot from system after saving in attachment.
-            os.remove("/tmp/screenshot.png")
+            # os.remove("/tmp/screenshot.png")
 
         return super(BaseModelExtend, self).unlink()
 
