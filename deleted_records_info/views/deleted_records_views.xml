@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!--form-->
+    <record id="deleted_records_form_view" model="ir.ui.view">
+        <field name="model">deleted.records</field>
+        <field name="arch" type="xml">
+            <form edit="false">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" readonly="True"/>
+                            <field name="user_id" />
+                        </group>
+                        <group>
+                            <field name="model_id" />
+                            <field name="company_id" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!-- Tree -->
+    <record id="deleted_records_list_view" model="ir.ui.view">
+        <field name="model">deleted.records</field>
+        <field name="arch" type="xml">
+            <tree create="false" edit="false">
+                <field name="name" />
+                <field name="user_id" />
+                <field name="model_id" />
+                <field name="create_date" string="Deleted On" />
+            </tree>
+        </field>
+    </record>
+<!-- Search -->
+    <record id="deleted_records_search_view" model="ir.ui.view">
+        <field name="name">deleted.records.search.view</field>
+        <field name="model">deleted.records</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="Name"/>
+                <field name="user_id" string="Deleted by"/>
+                <field name="model_id" string="Model"/>
+            </search>
+        </field>
+    </record>
+    <!-- action -->
+    <record id="deleted_records_action_window" model="ir.actions.act_window">
+        <field name="name">Deleted Records</field>
+        <field name="res_model">deleted.records</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <!-- menu -->
+    <menuitem name="Deleted Records" id="deleted_record_menu" parent="base.menu_custom" action="deleted_records_action_window" />
+</odoo>
