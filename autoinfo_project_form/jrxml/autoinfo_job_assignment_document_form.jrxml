@@ -668,7 +668,9 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA["ขอบเขตงาน:"]]></textFieldExpression>
 				</textField>
 				<textField isBlankWhenNull="true">
-					<reportElement x="130" y="318" width="423" height="80" uuid="0be95607-b882-4e9b-b597-56246fd00963"/>
+					<reportElement x="130" y="318" width="423" height="100" uuid="0be95607-b882-4e9b-b597-56246fd00963">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -676,13 +678,13 @@ $P!{p_Where}]]>
 						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Left" verticalAlignment="Top">
-						<font fontName="TH Sarabun New" size="12" isBold="false"/>
+						<font fontName="TH Sarabun New" size="11" isBold="false"/>
 						<paragraph lineSpacing="Fixed" lineSpacingSize="4.0" leftIndent="5"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{scope_of_work}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="0" y="398" width="130" height="16" uuid="2be90225-2eff-49e2-bf80-502e1a3b5b36"/>
+					<reportElement x="0" y="418" width="130" height="16" uuid="2be90225-2eff-49e2-bf80-502e1a3b5b36"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -696,7 +698,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA["ระยะเวลา:"]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="0" y="419" width="210" height="16" uuid="67c0671a-5b0c-434c-a5a2-c639ecd44386"/>
+					<reportElement x="0" y="439" width="210" height="16" uuid="67c0671a-5b0c-434c-a5a2-c639ecd44386"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -710,7 +712,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA["มีเครื่องมือ / Spare part ที่ต้องนำไปหรือไม่"]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="292" y="421" width="19" height="18" uuid="c0023f4f-89ef-445a-bc72-33a651d1b81c"/>
+					<reportElement x="292" y="441" width="19" height="18" uuid="c0023f4f-89ef-445a-bc72-33a651d1b81c"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -724,7 +726,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA[null == $F{has_spare_part}?"\u2610":($F{has_spare_part}.toString().equals( "true" ) ? "\u2611":"\u2610")]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="311" y="419" width="60" height="22" uuid="f2c25121-f623-4a54-bde2-ca81978e4543"/>
+					<reportElement x="311" y="439" width="60" height="22" uuid="f2c25121-f623-4a54-bde2-ca81978e4543"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -738,7 +740,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA["มี"]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="402" y="421" width="19" height="18" uuid="d939e815-ce4d-4c94-855b-c7bcf756469b"/>
+					<reportElement x="402" y="441" width="19" height="18" uuid="d939e815-ce4d-4c94-855b-c7bcf756469b"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -752,7 +754,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA[null == $F{has_spare_part}?"\u2611":($F{has_spare_part}.toString().equals( "false" ) ? "\u2611":"\u2610")]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="421" y="419" width="60" height="22" uuid="4d0ae911-d833-4dd6-bd7e-cf1cd1202a72"/>
+					<reportElement x="421" y="439" width="60" height="22" uuid="4d0ae911-d833-4dd6-bd7e-cf1cd1202a72"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -766,7 +768,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA["ไม่มี"]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="0" y="441" width="554" height="16" uuid="fc585f79-62c1-440d-a297-addf71c18218"/>
+					<reportElement x="0" y="461" width="554" height="16" uuid="fc585f79-62c1-440d-a297-addf71c18218"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -780,7 +782,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA[null == $F{has_spare_part}?"":($F{has_spare_part}.toString().equals( "true" ) ? $F{spare_part}:"")]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="0" y="462" width="210" height="16" uuid="e70ab5f0-9887-4322-b2ca-ea849548ae5f"/>
+					<reportElement x="0" y="482" width="210" height="16" uuid="e70ab5f0-9887-4322-b2ca-ea849548ae5f"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -794,7 +796,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA["เอกสารที่ต้องใช้ประกอบการเข้าทำงาน"]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="291" y="464" width="19" height="18" uuid="5e33fa13-41b9-45ba-9b20-166413c86434"/>
+					<reportElement x="291" y="484" width="19" height="18" uuid="5e33fa13-41b9-45ba-9b20-166413c86434"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -808,7 +810,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA[null == $F{document_required_entry_to_work}?"\u2610":($F{document_required_entry_to_work}.toString().equals( "true" ) ? "\u2611":"\u2610")]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="310" y="462" width="60" height="22" uuid="493ceef5-c677-4fa0-a8ef-a93ec1df383f"/>
+					<reportElement x="310" y="482" width="60" height="22" uuid="493ceef5-c677-4fa0-a8ef-a93ec1df383f"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -822,7 +824,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA["มี"]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="401" y="464" width="19" height="18" uuid="55525a52-e6ea-4175-a917-cd9cf72e4a50"/>
+					<reportElement x="401" y="484" width="19" height="18" uuid="55525a52-e6ea-4175-a917-cd9cf72e4a50"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -836,7 +838,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA[null == $F{document_required_entry_to_work}?"\u2611":($F{document_required_entry_to_work}.toString().equals( "false" ) ? "\u2611":"\u2610")]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="420" y="462" width="60" height="22" uuid="25367a55-658a-4846-8fde-7ddcac311047"/>
+					<reportElement x="420" y="482" width="60" height="22" uuid="25367a55-658a-4846-8fde-7ddcac311047"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -850,7 +852,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA["ไม่มี"]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="8" y="490" width="19" height="18" uuid="4df9dc8d-49ee-40ae-934b-63118265fc86"/>
+					<reportElement x="8" y="510" width="19" height="18" uuid="4df9dc8d-49ee-40ae-934b-63118265fc86"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -864,7 +866,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA[null == $F{maintenance_wo}?"\u2610":($F{maintenance_wo}.toString().equals( "true" ) ? "\u2611":"\u2610")]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="27" y="487" width="130" height="22" uuid="1085c2b8-c13f-4b73-a752-5b58d9b19729"/>
+					<reportElement x="27" y="507" width="130" height="22" uuid="1085c2b8-c13f-4b73-a752-5b58d9b19729"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -878,7 +880,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA["Maintenance Work Order"]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="207" y="490" width="19" height="18" uuid="8937bcfa-c18c-4033-87d3-a0ee8fdff1ca"/>
+					<reportElement x="207" y="510" width="19" height="18" uuid="8937bcfa-c18c-4033-87d3-a0ee8fdff1ca"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -892,7 +894,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA[null == $F{jsa}?"\u2610":($F{jsa}.toString().equals( "true" ) ? "\u2611":"\u2610")]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="226" y="487" width="139" height="22" uuid="66cbf666-2f5e-4fe4-8c1f-6a709486c5d5"/>
+					<reportElement x="226" y="507" width="139" height="22" uuid="66cbf666-2f5e-4fe4-8c1f-6a709486c5d5"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -906,7 +908,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA["JSA (ใบประเมินความเสี่ยง)"]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="382" y="490" width="19" height="18" uuid="22f0cf92-83e8-4a2d-b64c-0c2bc9e659ea"/>
+					<reportElement x="382" y="510" width="19" height="18" uuid="22f0cf92-83e8-4a2d-b64c-0c2bc9e659ea"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -920,7 +922,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA[null == $F{copy_id_card}?"\u2610":($F{copy_id_card}.toString().equals( "true" ) ? "\u2611":"\u2610")]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="401" y="487" width="139" height="22" uuid="971e4467-1817-47aa-a46d-21f82501b0be"/>
+					<reportElement x="401" y="507" width="139" height="22" uuid="971e4467-1817-47aa-a46d-21f82501b0be"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -934,7 +936,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA["สำเนาบัตรประชาชน"]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="8" y="512" width="19" height="18" uuid="09eb7e3b-8d52-4f18-bee4-9cb6b14bab3f"/>
+					<reportElement x="8" y="532" width="19" height="18" uuid="09eb7e3b-8d52-4f18-bee4-9cb6b14bab3f"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -948,7 +950,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA[null == $F{copy_social_security}?"\u2610":($F{copy_social_security}.toString().equals( "true" ) ? "\u2611":"\u2610")]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="27" y="509" width="130" height="22" uuid="cec9e74a-b014-421b-af1f-655104129c3f"/>
+					<reportElement x="27" y="529" width="130" height="22" uuid="cec9e74a-b014-421b-af1f-655104129c3f"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -962,7 +964,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA["สำเนาประกันสังคม"]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="207" y="512" width="19" height="18" uuid="c0c8344b-7ad3-4d5e-b60e-39a4b46acdbf"/>
+					<reportElement x="207" y="532" width="19" height="18" uuid="c0c8344b-7ad3-4d5e-b60e-39a4b46acdbf"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -976,7 +978,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA[null == $F{medeical_certificate}?"\u2610":($F{medeical_certificate}.toString().equals( "true" ) ? "\u2611":"\u2610")]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="226" y="509" width="139" height="22" uuid="f9f9ca85-5518-43cc-9eec-740c027b049d"/>
+					<reportElement x="226" y="529" width="139" height="22" uuid="f9f9ca85-5518-43cc-9eec-740c027b049d"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -990,7 +992,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA["ใบรับรองแพทย์"]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="382" y="512" width="19" height="18" uuid="28762133-00d5-4503-a697-335d0413659f"/>
+					<reportElement x="382" y="532" width="19" height="18" uuid="28762133-00d5-4503-a697-335d0413659f"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1004,7 +1006,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA[null == $F{document_required_entry_to_work_other}?"\u2610":($F{document_required_entry_to_work_other}.toString().equals( "true" ) ? "\u2611":"\u2610")]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="401" y="509" width="39" height="22" uuid="9efccc18-7e0b-4a8c-a59f-ce9172cc1427"/>
+					<reportElement x="401" y="529" width="39" height="22" uuid="9efccc18-7e0b-4a8c-a59f-ce9172cc1427"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1018,7 +1020,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA["Other"]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="0" y="541" width="279" height="16" uuid="7d368b56-4944-46ce-8d4f-d882f78f6700"/>
+					<reportElement x="0" y="561" width="279" height="16" uuid="7d368b56-4944-46ce-8d4f-d882f78f6700"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1032,7 +1034,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA["เอกสารที่ต้องการหลังจากเข้าทำงาน / ประกอบการวางบิล"]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="8" y="564" width="19" height="18" uuid="1ec5255d-9369-440d-8fc3-9b0893914458"/>
+					<reportElement x="8" y="584" width="19" height="18" uuid="1ec5255d-9369-440d-8fc3-9b0893914458"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1046,7 +1048,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA[null == $F{service_report}?"\u2610":($F{service_report}.toString().equals( "true" ) ? "\u2611":"\u2610")]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="27" y="561" width="130" height="22" uuid="cc5160ce-fc9c-43cf-80d7-2e14e20e5e5f"/>
+					<reportElement x="27" y="581" width="130" height="22" uuid="cc5160ce-fc9c-43cf-80d7-2e14e20e5e5f"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1060,7 +1062,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA["Service Report"]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="8" y="586" width="19" height="18" uuid="ffad1371-6137-4001-9ff4-d4f487d35885"/>
+					<reportElement x="8" y="606" width="19" height="18" uuid="ffad1371-6137-4001-9ff4-d4f487d35885"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1074,7 +1076,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA[null == $F{temporary_delivery}?"\u2610":($F{temporary_delivery}.toString().equals( "true" ) ? "\u2611":"\u2610")]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="27" y="583" width="130" height="22" uuid="0b26c215-400b-4268-8eeb-991b0b3beda4"/>
+					<reportElement x="27" y="603" width="130" height="22" uuid="0b26c215-400b-4268-8eeb-991b0b3beda4"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1088,7 +1090,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA["ใบส่งสินค้าชั่วคราว"]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="207" y="564" width="19" height="18" uuid="14c14b6b-3a6b-4e83-b160-b1f189214340"/>
+					<reportElement x="207" y="584" width="19" height="18" uuid="14c14b6b-3a6b-4e83-b160-b1f189214340"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1102,7 +1104,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA[null == $F{work_delivery}?"\u2610":($F{work_delivery}.toString().equals( "true" ) ? "\u2611":"\u2610")]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="207" y="586" width="19" height="18" uuid="88afdfb6-d952-4057-b23a-1ae25a36cf35"/>
+					<reportElement x="207" y="606" width="19" height="18" uuid="88afdfb6-d952-4057-b23a-1ae25a36cf35"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1116,7 +1118,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA[null == $F{document_required_after_entering_other}?"\u2610":($F{document_required_after_entering_other}.toString().equals( "true" ) ? "\u2611":"\u2610")]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="226" y="583" width="53" height="22" uuid="48abe2db-e75a-4b2c-86d1-7bb8a29f79dc"/>
+					<reportElement x="226" y="603" width="53" height="22" uuid="48abe2db-e75a-4b2c-86d1-7bb8a29f79dc"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1130,7 +1132,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA["อื่นๆ ระบุ"]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="226" y="561" width="139" height="22" uuid="a9c44137-7bd8-4030-aa9e-645b4a1b5886"/>
+					<reportElement x="226" y="581" width="139" height="22" uuid="a9c44137-7bd8-4030-aa9e-645b4a1b5886"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1144,7 +1146,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA["หนังสือส่งมอบงาน"]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="382" y="564" width="19" height="18" uuid="92d730ac-c997-4187-addd-b0e694168864"/>
+					<reportElement x="382" y="584" width="19" height="18" uuid="92d730ac-c997-4187-addd-b0e694168864"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1158,7 +1160,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA[null == $F{list_of_trainees}?"\u2610":($F{list_of_trainees}.toString().equals( "true" ) ? "\u2611":"\u2610")]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="401" y="561" width="139" height="22" uuid="e19fca58-27e4-4f59-9a33-e25deb81062b"/>
+					<reportElement x="401" y="581" width="139" height="22" uuid="e19fca58-27e4-4f59-9a33-e25deb81062b"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1172,7 +1174,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA["รายชื่อผู้เข้าอบรม"]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="8" y="660" width="19" height="18" uuid="051521d8-b3c0-4363-8182-013e0d30e510"/>
+					<reportElement x="8" y="680" width="19" height="18" uuid="051521d8-b3c0-4363-8182-013e0d30e510"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1186,7 +1188,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA[null == $F{attachment_other}?"\u2610":($F{attachment_other}.toString().equals( "true" ) ? "\u2611":"\u2610")]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="8" y="638" width="19" height="18" uuid="058eba12-25d7-4386-b5b5-238cbe89dd5c"/>
+					<reportElement x="8" y="658" width="19" height="18" uuid="058eba12-25d7-4386-b5b5-238cbe89dd5c"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1200,7 +1202,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA[null == $F{tor}?"\u2610":($F{tor}.toString().equals( "true" ) ? "\u2611":"\u2610")]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="0" y="614" width="279" height="16" uuid="d0412bf5-0a81-4c0a-8688-3fb95e7460a7"/>
+					<reportElement x="0" y="634" width="279" height="16" uuid="d0412bf5-0a81-4c0a-8688-3fb95e7460a7"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1214,7 +1216,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA["เอกสารแนบท้าย"]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="27" y="635" width="180" height="22" uuid="e5f1d1da-c19a-4579-b72d-be7bfda8f3d7"/>
+					<reportElement x="27" y="655" width="180" height="22" uuid="e5f1d1da-c19a-4579-b72d-be7bfda8f3d7"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1228,7 +1230,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA["Technical of Requirement : TOR"]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="27" y="657" width="53" height="22" uuid="5c87754c-3072-4bf0-bbf1-560b901f809a"/>
+					<reportElement x="27" y="677" width="53" height="22" uuid="5c87754c-3072-4bf0-bbf1-560b901f809a"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1242,7 +1244,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA["อื่นๆ ระบุ"]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="207" y="638" width="19" height="18" uuid="8f96d1ad-08a4-406e-bf85-b35c24675019"/>
+					<reportElement x="207" y="658" width="19" height="18" uuid="8f96d1ad-08a4-406e-bf85-b35c24675019"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1256,7 +1258,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA[null == $F{unprice}?"\u2610":($F{unprice}.toString().equals( "true" ) ? "\u2611":"\u2610")]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="226" y="635" width="214" height="22" uuid="374b1e6a-3378-420a-8627-eb5bc0d095b6"/>
+					<reportElement x="226" y="655" width="214" height="22" uuid="374b1e6a-3378-420a-8627-eb5bc0d095b6"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1270,7 +1272,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA["ใบสั่งซื้อ / ใบสั่งจ้าง / สัญญาจ้าง (Unprice)"]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="0" y="687" width="80" height="16" uuid="8455cd50-6180-4f42-b1fd-499812924f09"/>
+					<reportElement x="0" y="707" width="80" height="16" uuid="8455cd50-6180-4f42-b1fd-499812924f09"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1284,7 +1286,9 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA["หมายเหตุ:"]]></textFieldExpression>
 				</textField>
 				<textField isBlankWhenNull="true">
-					<reportElement x="80" y="687" width="473" height="48" uuid="98ee3da3-b441-43b6-9243-93b63834bc94"/>
+					<reportElement x="80" y="707" width="473" height="75" uuid="98ee3da3-b441-43b6-9243-93b63834bc94">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1292,7 +1296,7 @@ $P!{p_Where}]]>
 						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Left" verticalAlignment="Top">
-						<font fontName="TH Sarabun New" size="12" isBold="false"/>
+						<font fontName="TH Sarabun New" size="11" isBold="false"/>
 						<paragraph lineSpacing="Fixed" lineSpacingSize="4.0" leftIndent="5"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{report_remark}]]></textFieldExpression>
@@ -1452,7 +1456,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA[$F{customer_coordinator_email}]]></textFieldExpression>
 				</textField>
 				<textField isBlankWhenNull="true">
-					<reportElement x="130" y="398" width="422" height="16" uuid="cbac0e4d-f23c-48cd-b3a1-df436a8f28cb"/>
+					<reportElement x="130" y="418" width="422" height="16" uuid="cbac0e4d-f23c-48cd-b3a1-df436a8f28cb"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1466,7 +1470,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA[IF($F{date_start}==null,"", new SimpleDateFormat($P{p_DateFormat}, new Locale($P{p_locale}, $P{p_locale})).format($F{date_start})) + "  -  " + IF($F{date_end}==null,"", new SimpleDateFormat($P{p_DateFormat}, new Locale($P{p_locale}, $P{p_locale})).format($F{date_end}))]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="440" y="509" width="100" height="22" uuid="667bd398-5f01-4f67-9097-4a1ea15bac73"/>
+					<reportElement x="440" y="529" width="100" height="22" uuid="667bd398-5f01-4f67-9097-4a1ea15bac73"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1480,7 +1484,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA[null == $F{document_required_entry_to_work_other}?"":($F{document_required_entry_to_work_other}.toString().equals( "true" ) ? $F{document_required_entry_to_work_other_description}:"")]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="279" y="583" width="260" height="22" uuid="9ebfa1c9-55a8-4bbd-a7ff-775e70437e5c"/>
+					<reportElement x="279" y="603" width="260" height="22" uuid="9ebfa1c9-55a8-4bbd-a7ff-775e70437e5c"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1494,7 +1498,7 @@ $P!{p_Where}]]>
 					<textFieldExpression><![CDATA[null == $F{document_required_after_entering_other}?"":($F{document_required_after_entering_other}.toString().equals( "true" ) ? $F{document_required_after_entering_other_description}:"")]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="80" y="657" width="458" height="22" uuid="6a7aa00e-0a92-413a-94d0-d6aa7bdf4801"/>
+					<reportElement x="80" y="677" width="458" height="22" uuid="6a7aa00e-0a92-413a-94d0-d6aa7bdf4801"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1583,28 +1587,4 @@ $P!{p_Where}]]>
 			<band/>
 		</groupFooter>
 	</group>
-	<background>
-		<band splitType="Stretch"/>
-	</background>
-	<title>
-		<band splitType="Stretch"/>
-	</title>
-	<pageHeader>
-		<band splitType="Stretch"/>
-	</pageHeader>
-	<columnHeader>
-		<band splitType="Stretch"/>
-	</columnHeader>
-	<detail>
-		<band splitType="Stretch"/>
-	</detail>
-	<columnFooter>
-		<band splitType="Stretch"/>
-	</columnFooter>
-	<pageFooter>
-		<band splitType="Stretch"/>
-	</pageFooter>
-	<summary>
-		<band splitType="Stretch"/>
-	</summary>
 </jasperReport>
