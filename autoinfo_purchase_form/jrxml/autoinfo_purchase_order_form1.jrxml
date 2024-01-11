@@ -585,7 +585,7 @@ order by po.id, po_line.sequence, po_line.id]]>
 	<variable name="v_tax_amount_h" class="java.math.BigDecimal" resetType="Group" resetGroup="PONo" calculation="Highest">
 		<variableExpression><![CDATA[$F{tax_amount}]]></variableExpression>
 	</variable>
-	<group name="PONo" isResetPageNumber="true" isReprintHeaderOnEachPage="true" footerPosition="StackAtBottom">
+	<group name="PONo" isResetPageNumber="true" isReprintHeaderOnEachPage="true" footerPosition="StackAtBottom" keepTogether="true" preventOrphanFooter="true">
 		<groupExpression><![CDATA[$F{po_number}]]></groupExpression>
 		<groupHeader>
 			<band height="285">
