@@ -16,7 +16,7 @@ Customize Report Purchase.
 Changelog
 ---------
 **Version 1.14-1.14a**
-    - A21B-T194
+    - Fix task A21B-T194
     - Fix task A21B-T77 Purchase Order Form
 
 **Version 1.13**
