@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Purchase Form',
-    'version': '1.14a',
+    'version': '1.14b',
     'category': 'DTR - ERP Purchase',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -15,8 +15,8 @@ Customize Report Purchase.
 
 Changelog
 ---------
-**Version 1.14-1.14a**
-    - Fix task A21B-T194
+**Version 1.14-1.14b**
+    - Fix task A21B-T194, A21B-T238
     - Fix task A21B-T77 Purchase Order Form
 
 **Version 1.13**
