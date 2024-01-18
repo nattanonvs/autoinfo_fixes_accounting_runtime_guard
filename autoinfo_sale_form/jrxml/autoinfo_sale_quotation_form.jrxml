@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.10.0-unknown  -->
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="autoinfo_sale_quotation_form" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8f72a463-64e4-4b71-ab9c-a3e1e7e0679e">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="140 autoinfo"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="auto/auto_DB.xml"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="270"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="725"/>
@@ -12,7 +12,7 @@
 		</conditionalStyle>
 	</style>
 	<parameter name="p_Where" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["WHERE so.id  in (1723,5582)"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["WHERE so.id  in (5860)"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="p_Company_No" class="java.lang.Integer" isForPrompting="false">
 		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
@@ -783,7 +783,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 		<variableExpression><![CDATA[$V{PAGE_NUMBER} + " OF " + $V{MASTER_TOTAL_PAGES}]]></variableExpression>
 	</variable>
 	<variable name="v_CompanyName" class="java.lang.String"/>
-	<group name="SONo" isStartNewColumn="true" isStartNewPage="true" isResetPageNumber="true" isReprintHeaderOnEachPage="true" footerPosition="StackAtBottom" keepTogether="true" preventOrphanFooter="true">
+	<group name="SONo" isStartNewColumn="true" isStartNewPage="true" isResetPageNumber="true" isReprintHeaderOnEachPage="true" footerPosition="StackAtBottom" keepTogether="true">
 		<groupExpression><![CDATA[$F{so_id}]]></groupExpression>
 		<groupHeader>
 			<band height="289">
@@ -1957,7 +1957,10 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 	<detail>
 		<band height="17" splitType="Stretch">
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement style="Section Line" x="1" y="0" width="29" height="17" uuid="bb3dcab7-62a4-4397-9ed6-1af951e97dbb"/>
+				<reportElement style="Section Line" x="1" y="1" width="28" height="16" uuid="bb3dcab7-62a4-4397-9ed6-1af951e97dbb">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1970,7 +1973,9 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 				<textFieldExpression><![CDATA[$F{seq}.equals( 0 )?"":$F{seq}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement key="" style="Section Line" x="30" y="0" width="80" height="17" uuid="076b613e-673a-4805-9560-79acf76efe74"/>
+				<reportElement key="" style="Section Line" x="31" y="1" width="78" height="16" uuid="076b613e-673a-4805-9560-79acf76efe74">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
 				<box leftPadding="0" bottomPadding="1">
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1984,7 +1989,10 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 				<textFieldExpression><![CDATA[$F{product_code}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement style="Section Line" x="110" y="0" width="200" height="17" uuid="6bdc986e-497f-4c1f-a6ed-7027da8192fb"/>
+				<reportElement style="Section Line" x="111" y="1" width="198" height="16" uuid="6bdc986e-497f-4c1f-a6ed-7027da8192fb">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
 				<box leftPadding="3" bottomPadding="1">
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1998,7 +2006,10 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 				<textFieldExpression><![CDATA[$F{product_name}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement style="Section Line" x="360" y="0" width="50" height="17" uuid="333e9835-eb71-4f4f-82c7-4f51433d8c0d"/>
+				<reportElement style="Section Line" x="361" y="1" width="48" height="16" uuid="333e9835-eb71-4f4f-82c7-4f51433d8c0d">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
 				<box leftPadding="3" bottomPadding="1">
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -2012,7 +2023,10 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 				<textFieldExpression><![CDATA[$F{product_uom}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0.00#" isBlankWhenNull="true">
-				<reportElement style="Section Line" x="410" y="0" width="72" height="17" uuid="18f84e78-0ced-4a6a-a87f-753e14488b13"/>
+				<reportElement style="Section Line" x="411" y="1" width="70" height="16" uuid="18f84e78-0ced-4a6a-a87f-753e14488b13">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
 				<box leftPadding="3" bottomPadding="1">
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -2026,7 +2040,10 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 				<textFieldExpression><![CDATA[$F{display_type} == null? new java.text.DecimalFormat("#,##0.00").format($F{product_unitprice}): ""]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0.00#" isBlankWhenNull="true">
-				<reportElement style="Section Line" x="482" y="0" width="72" height="17" uuid="3f446053-07ce-4c1a-a921-b497bde4cd14"/>
+				<reportElement style="Section Line" x="483" y="1" width="70" height="16" uuid="3f446053-07ce-4c1a-a921-b497bde4cd14">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
 				<box leftPadding="3" bottomPadding="1">
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -2040,7 +2057,10 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 				<textFieldExpression><![CDATA[($F{display_type} == null? new java.text.DecimalFormat("#,##0.00").format($F{price_subtotal}): "")]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement style="Section Line" x="310" y="0" width="50" height="17" uuid="bb8be427-7321-48a7-bf4b-5e76788afa29"/>
+				<reportElement style="Section Line" x="311" y="1" width="48" height="16" uuid="bb8be427-7321-48a7-bf4b-5e76788afa29">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
 				<box leftPadding="3" bottomPadding="1">
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
