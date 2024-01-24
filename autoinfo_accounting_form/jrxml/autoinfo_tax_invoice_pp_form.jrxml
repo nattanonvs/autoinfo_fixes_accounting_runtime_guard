@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="autoinfo_credit_note_form" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="5" uuid="9d429c61-ca07-45fd-95b2-54aea3253cab">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="autoinfo_DB.xml"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="auto/auto_DB.xml"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="274"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="719"/>
@@ -13,7 +13,7 @@
 		</conditionalStyle>
 	</style>
 	<parameter name="ids" class="java.lang.String">
-		<defaultValueExpression><![CDATA["WHERE invoice.id in (13)"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["WHERE invoice.id in (16540)"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="iscopy" class="java.lang.Integer" isForPrompting="false">
 		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
@@ -91,7 +91,7 @@ LEFT JOIN	( select
 			 	client_order_ref,
 			 	po_date,
 			 	user_id
-			) sale on (  sale.name = line.customer_source_doc )
+			) sale on ( sale.name = (select line.customer_source_doc from account_move_line line where line.move_id = invoice.id and line.customer_source_doc is not null group by line.customer_source_doc limit 1))
 			
 LEFT JOIN res_users salesperson on salesperson.id = sale.user_id
 
