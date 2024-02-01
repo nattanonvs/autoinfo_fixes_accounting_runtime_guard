@@ -73,7 +73,7 @@ class BaseModelExtend(models.AbstractModel):
         """Get display name of deleted records to write in
           deleted_records models."""
         name = False
-        if self._fields.get("name") and self.name:
+        if self._fields.get("name") and self.name and isinstance(self.name, str):
             name = self.name + ", " + str(self.id)
         if not name and self._fields.get("display_name") and self.display_name:
             name = self.display_name + ", " + str(self.id)
