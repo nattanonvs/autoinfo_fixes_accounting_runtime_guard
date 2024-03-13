@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="autoinfo_credit_note_form" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="5" uuid="9d429c61-ca07-45fd-95b2-54aea3253cab">
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="autoinfo_credit_note_form" pageWidth="595" pageHeight="842" columnWidth="565" leftMargin="10" rightMargin="20" topMargin="20" bottomMargin="5" uuid="9d429c61-ca07-45fd-95b2-54aea3253cab">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="auto/auto_DB.xml"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="274"/>
@@ -346,7 +346,7 @@ new SimpleDateFormat("dd.MM.yyyy", new Locale("en", "en")).format(new Date($F{sa
 						<textElement textAlignment="Center">
 							<font fontName="Sarabun" size="14" isBold="false"/>
 						</textElement>
-						<textFieldExpression><![CDATA[$F{salesperson}]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$F{invoice_date_due}]]></textFieldExpression>
 					</textField>
 					<textField isBlankWhenNull="true">
 						<reportElement x="351" y="1" width="79" height="22" uuid="cd99b6ff-a746-4776-99f0-96de8bcee774">
@@ -376,7 +376,7 @@ new SimpleDateFormat("dd.MM.yyyy", new Locale("en", "en")).format(new Date($F{sa
 						<textElement textAlignment="Center">
 							<font fontName="Sarabun" size="14" isBold="false"/>
 						</textElement>
-						<textFieldExpression><![CDATA[$F{invoice_date_due}]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$F{salesperson}]]></textFieldExpression>
 					</textField>
 				</frame>
 			</band>
@@ -550,7 +550,7 @@ new SimpleDateFormat("dd.MM.yyyy", new Locale("en", "en")).format(new Date($F{sa
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textField pattern="#,##0.00#" isBlankWhenNull="true">
-							<reportElement x="75" y="0" width="114" height="22" uuid="a8f4137d-6e47-4f7e-b40b-7f5acd1f5368">
+							<reportElement x="75" y="-6" width="114" height="22" uuid="a8f4137d-6e47-4f7e-b40b-7f5acd1f5368">
 								<property name="com.jaspersoft.studio.unit.height" value="px"/>
 								<property name="com.jaspersoft.studio.unit.width" value="px"/>
 								<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
