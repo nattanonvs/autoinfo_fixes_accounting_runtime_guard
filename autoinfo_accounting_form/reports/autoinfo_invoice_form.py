@@ -11,8 +11,6 @@ class autoinfo_invoice_form(models.TransientModel):
 
     type_doc = fields.Selection([('inv_1', 'ใบกำกับภาษี (สินค้า)'), ('inv_2', 'ใบแจ้งหนี้ (บริการ)'), ('inv_3', 'ใบกำกับ / ใบเสร็จรับเงิน(บริการ)')], 'Document Type', required=True, default="inv_1",)
 
-
-
     def show_report(self):
         path = os.path.split(os.path.abspath(__file__))[0]
 
