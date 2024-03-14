@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Account Form',
-    'version': '1.27',
+    'version': '1.27a',
     'category': 'DTR - ERP Accounting',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -18,10 +18,11 @@ Customize Report Accounting.
 Changelog
 ---------
 
-**Version 1.27**
+**Version 1.27-1.27a**
+    - Fixed A21B-T127
     - Fixed tax invoice preprint report
 
-**Version 1.26-1.26b**
+**Version 1.26**
     - Fix task A21B-T207, A21B-T275
 
 **Version 1.25**
