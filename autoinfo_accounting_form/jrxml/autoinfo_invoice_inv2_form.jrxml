@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.10.0-unknown  -->
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="autoinfo_invoice_inv2_form" pageWidth="595" pageHeight="842" columnWidth="575" leftMargin="10" rightMargin="10" topMargin="20" bottomMargin="5" isFloatColumnFooter="true" uuid="9d429c61-ca07-45fd-95b2-54aea3253cab">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="140 autoinfo"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Localhost"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="274"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="719"/>
@@ -266,6 +266,10 @@
 ,ABS(line.balance) as balance
 ,ABS(invoice.amount_total_signed) as amount_total_signed
 ,COALESCE(line.is_trade_discount, False) as is_trade_discount
+,(SELECT c.store_fname FROM resource_resource a
+		LEFT JOIN hr_employee b ON a.id = b.resource_id
+		LEFT JOIN ir_attachment c ON c.res_id = b.id and c.res_model = 'hr.employee' and c.res_field='signature'
+		WHERE a.user_id = (SELECT done_by FROM tier_review WHERE model='account.move' and res_id=invoice.id and status='approved' ORDER BY sequence DESC LIMIT 1)) AS approved_signature
 from		account_move invoice
 left join res_currency cur on cur.id = invoice.currency_id
 left join	account_move_line line on ( line.move_id = invoice.id ) and (line.exclude_from_invoice_tab = False or line.exclude_from_invoice_tab is null) and is_deduct_down_payment is not True
@@ -515,6 +519,9 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 	</field>
 	<field name="is_trade_discount" class="java.lang.Boolean">
 		<property name="com.jaspersoft.studio.field.label" value="is_trade_discount"/>
+	</field>
+	<field name="approved_signature" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="approved_signature"/>
 	</field>
 	<variable name="vat_percent" class="java.math.BigDecimal" resetType="Group" resetGroup="group_id" calculation="Highest">
 		<variableExpression><![CDATA[$F{vat_order}]]></variableExpression>
@@ -1715,6 +1722,15 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 							<textFieldExpression><![CDATA["Date"]]></textFieldExpression>
 						</textField>
 					</frame>
+					<image scaleImage="FillFrame" onErrorType="Blank">
+						<reportElement mode="Transparent" x="447" y="88" width="120" height="35" uuid="e0b7c073-cabd-4d22-8eac-b48034709e76">
+							<property name="com.jaspersoft.studio.unit.height" value="px"/>
+							<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							<property name="com.jaspersoft.studio.unit.y" value="px"/>
+							<property name="com.jaspersoft.studio.unit.x" value="px"/>
+						</reportElement>
+						<imageExpression><![CDATA[IF($F{approved_signature}== null,null, $P{p_Path} +$F{approved_signature})]]></imageExpression>
+					</image>
 				</frame>
 				<textField>
 					<reportElement mode="Opaque" x="0" y="150" width="375" height="25" backcolor="#FFFFFF" uuid="2ad9969b-6cca-4e80-ae7a-583a2d5ea2c4"/>
