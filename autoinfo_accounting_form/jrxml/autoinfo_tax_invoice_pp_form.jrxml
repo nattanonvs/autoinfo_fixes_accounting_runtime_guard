@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.10.0-unknown  -->
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="autoinfo_credit_note_form" pageWidth="595" pageHeight="842" columnWidth="565" leftMargin="10" rightMargin="20" topMargin="20" bottomMargin="5" uuid="9d429c61-ca07-45fd-95b2-54aea3253cab">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="auto/auto_DB.xml"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Localhost"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="274"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="719"/>
@@ -27,6 +27,9 @@
 	<parameter name="p_locale" class="java.lang.String">
 		<defaultValueExpression><![CDATA["th"]]></defaultValueExpression>
 	</parameter>
+	<parameter name="p_Path" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/odoo15_dtr/.local/share/Odoo/filestore/autoinfo_16012023/"]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT
 invoice.name as inv_no,
@@ -40,6 +43,9 @@ newdate.newdate as invoice_date,
 newdate.newdate_due as invoice_date_due, 
 partner.tax_name as customer,
 CONCAT(partner.street,' ',partner.street2) AS  partner_address,
+COALESCE(partner.phone, '-') as partner_phone,
+COALESCE(partner.fax, '-') as partner_fax,
+COALESCE(partner.vat, '') as customer_tax_id,
 
 (SELECT
 case when tax.amount_type = 'percent' then concat(CAST(tax.amount AS INT), '%') 
@@ -74,7 +80,10 @@ SUM(price_subtotal)
 From account_move_line line
 where move_id=invoice.id
 and is_deduct_down_payment = true)as price_down_payment,
-
+(SELECT c.store_fname FROM resource_resource a
+		LEFT JOIN hr_employee b ON a.id = b.resource_id
+		LEFT JOIN ir_attachment c ON c.res_id = b.id and c.res_model = 'hr.employee' and c.res_field='signature'
+		WHERE a.user_id = (SELECT done_by FROM tier_review WHERE model='account.move' and res_id=invoice.id and status='approved' ORDER BY sequence DESC LIMIT 1)) AS approved_signature,
 COALESCE(line.display_type, '')  as display_type
 FROM account_move invoice
 LEFT JOIN res_partner partner on ( partner.id = invoice.partner_id )
@@ -176,6 +185,15 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 	<field name="partner_address" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="partner_address"/>
 	</field>
+	<field name="partner_phone" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="partner_phone"/>
+	</field>
+	<field name="partner_fax" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="partner_fax"/>
+	</field>
+	<field name="customer_tax_id" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="customer_tax_id"/>
+	</field>
 	<field name="tax" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="tax"/>
 	</field>
@@ -215,6 +233,9 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 	</field>
 	<field name="price_down_payment" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="price_down_payment"/>
+	</field>
+	<field name="approved_signature" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="approved_signature"/>
 	</field>
 	<field name="display_type" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="display_type"/>
@@ -259,12 +280,12 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 						<textFieldExpression><![CDATA[$F{customer}]]></textFieldExpression>
 					</textField>
 					<textField>
-						<reportElement x="81" y="23" width="328" height="54" uuid="4d688a9d-3b41-4334-a454-69a96d65a047"/>
+						<reportElement x="81" y="23" width="328" height="87" uuid="4d688a9d-3b41-4334-a454-69a96d65a047"/>
 						<textElement>
 							<font fontName="Sarabun" size="16" isBold="false"/>
-							<paragraph lineSpacing="Fixed" lineSpacingSize="8.0"/>
+							<paragraph lineSpacing="Fixed" lineSpacingSize="6.0"/>
 						</textElement>
-						<textFieldExpression><![CDATA[$F{partner_address}]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$F{partner_address} + "\nTel " + $F{partner_phone} + "  Fax " + $F{partner_fax} + "\nเลขประจำตัวผู้เสียภาษี " + $F{customer_tax_id}]]></textFieldExpression>
 					</textField>
 				</frame>
 				<frame>
@@ -552,7 +573,7 @@ new SimpleDateFormat("dd.MM.yyyy", new Locale("en", "en")).format(new Date($F{sa
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textField pattern="#,##0.00#" isBlankWhenNull="true">
-							<reportElement x="75" y="0" width="114" height="22" uuid="a8f4137d-6e47-4f7e-b40b-7f5acd1f5368">
+							<reportElement x="75" y="6" width="114" height="22" uuid="a8f4137d-6e47-4f7e-b40b-7f5acd1f5368">
 								<property name="com.jaspersoft.studio.unit.height" value="px"/>
 								<property name="com.jaspersoft.studio.unit.width" value="px"/>
 								<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>

@@ -1,5 +1,6 @@
 from odoo import fields, models, api
 from odoo.exceptions import ValidationError
+from odoo.tools import config
 
 
 class autoinfo_tax_invoice_pp_form(models.TransientModel):
@@ -103,6 +104,7 @@ class autoinfo_tax_invoice_pp_form(models.TransientModel):
             'p_language': self.p_language,
             'p_locale': 'th' if self.date_type == 'BE' else 'en',
             'p_DateFormat': str(self.date_format),
+            'p_Path': "{0}/filestore/{1}/".format(config.options['data_dir'].replace('\\', '/'), self.env.cr.dbname)
         }
         return parm
 
