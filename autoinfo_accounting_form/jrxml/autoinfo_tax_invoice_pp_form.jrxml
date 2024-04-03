@@ -84,7 +84,9 @@ and is_deduct_down_payment = true)as price_down_payment,
 		LEFT JOIN hr_employee b ON a.id = b.resource_id
 		LEFT JOIN ir_attachment c ON c.res_id = b.id and c.res_model = 'hr.employee' and c.res_field='signature'
 		WHERE a.user_id = (SELECT done_by FROM tier_review WHERE model='account.move' and res_id=invoice.id and status='approved' ORDER BY sequence DESC LIMIT 1)) AS approved_signature,
-COALESCE(line.display_type, '')  as display_type
+COALESCE(line.display_type, '')  as display_type,
+project.job_no,
+COALESCE(partner.branch_code, '') AS branch_code
 FROM account_move invoice
 LEFT JOIN res_partner partner on ( partner.id = invoice.partner_id )
 LEFT JOIN account_move_line line on ( line.move_id = invoice.id ) and (line.exclude_from_invoice_tab = False) and (line.is_trade_discount = False)
@@ -93,17 +95,19 @@ LEFT JOIN	( select
 			 	client_order_ref,
 			 	po_date,
 			 	user_id,
+			 	customer_project,
 			 	min(id) as id 
 			 from sale_order 
 			 group by 
 			 	name,
 			 	client_order_ref,
 			 	po_date,
+			 	customer_project,
 			 	user_id
 			) sale on ( sale.name = (select line.customer_source_doc from account_move_line line where line.move_id = invoice.id and line.customer_source_doc is not null group by line.customer_source_doc limit 1))
 			
 LEFT JOIN res_users salesperson on salesperson.id = sale.user_id
-
+LEFT JOIN project_project project ON project.id = sale.customer_project
 
 LEFT JOIN account_payment_term term on ( term.id = invoice.invoice_payment_term_id )
 LEFT JOIN LATERAL (select case date_part('month',invoice.invoice_date)
@@ -240,6 +244,12 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 	<field name="display_type" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="display_type"/>
 	</field>
+	<field name="job_no" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="job_no"/>
+	</field>
+	<field name="branch_code" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="branch_code"/>
+	</field>
 	<variable name="vat_percent" class="java.math.BigDecimal" calculation="Highest">
 		<variableExpression><![CDATA[0]]></variableExpression>
 	</variable>
@@ -282,10 +292,10 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 					<textField>
 						<reportElement x="81" y="23" width="328" height="87" uuid="4d688a9d-3b41-4334-a454-69a96d65a047"/>
 						<textElement>
-							<font fontName="Sarabun" size="16" isBold="false"/>
+							<font fontName="Sarabun" size="14" isBold="false"/>
 							<paragraph lineSpacing="Fixed" lineSpacingSize="6.0"/>
 						</textElement>
-						<textFieldExpression><![CDATA[$F{partner_address} + "\nTel " + $F{partner_phone} + "  Fax " + $F{partner_fax} + "\nเลขประจำตัวผู้เสียภาษี " + $F{customer_tax_id}]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$F{partner_address} + "\nTel " + $F{partner_phone} + "  Fax " + $F{partner_fax} + "\tสาขา " + IF($F{branch_code}.toString().equals("00000"),"สำนักงานใหญ่",$F{branch_code}) + "\nเลขประจำตัวผู้เสียภาษี " + $F{customer_tax_id}]]></textFieldExpression>
 					</textField>
 				</frame>
 				<frame>
@@ -382,7 +392,7 @@ new SimpleDateFormat("dd.MM.yyyy", new Locale("en", "en")).format(new Date($F{sa
 						<textElement textAlignment="Center">
 							<font fontName="Sarabun" size="12" isBold="false"/>
 						</textElement>
-						<textFieldExpression><![CDATA[$F{sale_department}]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$F{job_no}]]></textFieldExpression>
 					</textField>
 					<textField isBlankWhenNull="true">
 						<reportElement x="431" y="1" width="118" height="22" uuid="2b0a0ac5-8cc4-46bd-86fc-134ff36ae769">
@@ -668,7 +678,7 @@ new SimpleDateFormat("dd.MM.yyyy", new Locale("en", "en")).format(new Date($F{sa
 			<frame>
 				<reportElement x="1" y="1" width="548" height="22" uuid="a9f987c4-cd61-47f1-a509-d5c194536441"/>
 				<textField isBlankWhenNull="true">
-					<reportElement x="-15" y="0" width="39" height="22" uuid="f9c32466-bc59-4b87-8409-e58de3dde10a">
+					<reportElement x="-20" y="0" width="39" height="22" uuid="f9c32466-bc59-4b87-8409-e58de3dde10a">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						<printWhenExpression><![CDATA[$F{display_type}.equals( "" )]]></printWhenExpression>
 					</reportElement>

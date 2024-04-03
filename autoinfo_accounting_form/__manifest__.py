@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Account Form',
-    'version': '1.29',
+    'version': '1.30',
     'category': 'DTR - ERP Accounting',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -17,6 +17,10 @@ Customize Report Accounting.
 
 Changelog
 ---------
+
+**Version 1.30**
+    - Add display branch code in invoice preprint
+    - Changed display department in invoice preprint
 
 **Version 1.29**
     - Fixed issue not display signature
