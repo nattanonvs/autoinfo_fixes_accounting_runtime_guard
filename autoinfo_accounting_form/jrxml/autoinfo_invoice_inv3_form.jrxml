@@ -603,7 +603,6 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 				<textField>
 					<reportElement x="510" y="72" width="27" height="18" uuid="171b31b9-8451-401a-9850-ffc9c3af9c29">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-						<printWhenExpression><![CDATA[false]]></printWhenExpression>
 					</reportElement>
 					<textElement textAlignment="Right" verticalAlignment="Bottom">
 						<font fontName="Sarabun" size="10"/>
@@ -613,7 +612,6 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 				<textField evaluationTime="Group" evaluationGroup="group_id">
 					<reportElement x="537" y="72" width="18" height="18" uuid="6ba8e877-50b8-485e-a68e-8c27f5c4c40b">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
-						<printWhenExpression><![CDATA[false]]></printWhenExpression>
 					</reportElement>
 					<textElement textAlignment="Left" verticalAlignment="Bottom">
 						<font fontName="Sarabun" size="10"/>

@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Account Form',
-    'version': '1.30',
+    'version': '1.31',
     'category': 'DTR - ERP Accounting',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -17,6 +17,9 @@ Customize Report Accounting.
 
 Changelog
 ---------
+
+**Version 1.31**
+    - Add page number in invoice report
 
 **Version 1.30**
     - Add display branch code in invoice preprint
