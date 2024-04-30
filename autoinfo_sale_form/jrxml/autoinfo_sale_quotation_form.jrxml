@@ -12,7 +12,7 @@
 		</conditionalStyle>
 	</style>
 	<parameter name="p_Where" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["WHERE so.id  in (5860)"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["WHERE so.id  in (6523)"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="p_Company_No" class="java.lang.Integer" isForPrompting="false">
 		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
@@ -199,8 +199,8 @@
 	,so.amount_tax
 	,so.amount_total	 
 		
-	,convert_num_th_with_currency(so.amount_total, sl.currency_id) AS so_amout_total_bahttext
-	,convert_num_en_with_currency(so.amount_total,sl.currency_id) AS so_amout_total_engtext
+	,convert_num_th_with_currency(TRUNC(so.amount_total,2), sl.currency_id) AS so_amout_total_bahttext
+	,convert_num_en_with_currency(TRUNC(so.amount_total,2),sl.currency_id) AS so_amout_total_engtext
 
 	,so.state
 	,sl.price_subtotal AS amount_total_item
@@ -800,7 +800,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Left" verticalAlignment="Top">
-						<font fontName="TH Sarabun New" size="18" isBold="true" isItalic="false"/>
+						<font fontName="Sarabun" size="18" isBold="true" isItalic="false"/>
 						<paragraph lineSpacing="Fixed" lineSpacingSize="10.0" leftIndent="3" rightIndent="0"/>
 					</textElement>
 					<textFieldExpression><![CDATA["THE AUTO-INFO CO., LTD. (HEAD OFFICE)\nบริษัท ออโต้อินโฟ จำกัด (สำนักงานใหญ่)"]]></textFieldExpression>
@@ -814,7 +814,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Left" verticalAlignment="Top">
-						<font fontName="TH Sarabun New" size="12" isBold="false" isItalic="false"/>
+						<font fontName="Sarabun" size="12" isBold="false" isItalic="false"/>
 						<paragraph lineSpacing="Fixed" lineSpacingSize="9.0" leftIndent="3" rightIndent="0"/>
 					</textElement>
 					<textFieldExpression><![CDATA["Tax ID / เลขประจำตัวผู้เสียภาษี: 0105540010417\n1359 Soi Ladprao94 (Panjamitr), Ladprao Rd., Plubpla, Wangthonglang, Bangkok 10310, Thailand.\n1359 ซอยลาดพร้าว 94 (ปัญจมิตร) ถนนลาดพร้าว แขวงพลับพลา เขตวังทองหลาง กรุงเทพฯ  10310\nTel : (662) 934 5410-6 Fax : (662) 934 5417    www.auto-info.co.th "]]></textFieldExpression>
@@ -838,7 +838,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
-						<font fontName="TH Sarabun New" size="16" isBold="false" isItalic="false"/>
+						<font fontName="Sarabun" size="16" isBold="false" isItalic="false"/>
 						<paragraph rightIndent="0"/>
 					</textElement>
 					<textFieldExpression><![CDATA["<b>ใบเสนอราคา</b>\nQUOTATION"]]></textFieldExpression>
@@ -865,7 +865,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textField>
 							<reportElement x="0" y="18" width="80" height="18" uuid="ad12f323-f76c-4b7f-9fbc-b88568e91e19"/>
 							<textElement textAlignment="Left" verticalAlignment="Top">
-								<font fontName="TH Sarabun New" size="12" isBold="true"/>
+								<font fontName="Sarabun" size="12" isBold="true"/>
 								<paragraph lineSpacingSize="0.0" leftIndent="20" rightIndent="0"/>
 							</textElement>
 							<textFieldExpression><![CDATA["Customer"]]></textFieldExpression>
@@ -873,7 +873,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textField>
 							<reportElement x="80" y="18" width="250" height="18" uuid="07c6923b-edb3-478a-aa58-da71396fc548"/>
 							<textElement textAlignment="Left" verticalAlignment="Top">
-								<font fontName="TH Sarabun New" size="12" isBold="false"/>
+								<font fontName="Sarabun" size="12" isBold="false"/>
 								<paragraph lineSpacing="Fixed" lineSpacingSize="4.0" leftIndent="5"/>
 							</textElement>
 							<textFieldExpression><![CDATA[": " + $F{customer_name}]]></textFieldExpression>
@@ -881,7 +881,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textField>
 							<reportElement x="0" y="90" width="80" height="18" uuid="9da108fa-4bcc-491a-a40f-e9eafe3300db"/>
 							<textElement textAlignment="Left" verticalAlignment="Top">
-								<font fontName="TH Sarabun New" size="12" isBold="true"/>
+								<font fontName="Sarabun" size="12" isBold="true"/>
 								<paragraph lineSpacingSize="0.0" leftIndent="20" rightIndent="0"/>
 							</textElement>
 							<textFieldExpression><![CDATA["Tel"]]></textFieldExpression>
@@ -889,7 +889,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textField>
 							<reportElement x="0" y="108" width="80" height="18" uuid="ca30a752-997f-4aa1-8b4c-bd6f0b30d021"/>
 							<textElement textAlignment="Left" verticalAlignment="Top">
-								<font fontName="TH Sarabun New" size="12" isBold="true"/>
+								<font fontName="Sarabun" size="12" isBold="true"/>
 								<paragraph lineSpacingSize="0.0" leftIndent="20" rightIndent="0"/>
 							</textElement>
 							<textFieldExpression><![CDATA["Fax"]]></textFieldExpression>
@@ -897,7 +897,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textField>
 							<reportElement x="0" y="126" width="80" height="18" uuid="303c62fd-7294-4207-90f0-3c30ee00c3c5"/>
 							<textElement textAlignment="Left" verticalAlignment="Top">
-								<font fontName="TH Sarabun New" size="12" isBold="true"/>
+								<font fontName="Sarabun" size="12" isBold="true"/>
 								<paragraph lineSpacingSize="0.0" leftIndent="20" rightIndent="0"/>
 							</textElement>
 							<textFieldExpression><![CDATA["Email"]]></textFieldExpression>
@@ -905,7 +905,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textField>
 							<reportElement x="80" y="90" width="250" height="18" uuid="998168a3-39cd-44ed-8838-3be1a66f423b"/>
 							<textElement textAlignment="Left" verticalAlignment="Top">
-								<font fontName="TH Sarabun New" size="12" isBold="false"/>
+								<font fontName="Sarabun" size="12" isBold="false"/>
 								<paragraph lineSpacingSize="0.0" leftIndent="5"/>
 							</textElement>
 							<textFieldExpression><![CDATA[/*": " + IF($F{customer_phone} == null, "", $F{customer_phone} + " ") + "" + IF($F{customer_mobile} == null, "", $F{customer_mobile})*/
@@ -914,7 +914,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textField>
 							<reportElement x="80" y="108" width="250" height="18" uuid="3220ee7a-db29-42dd-a47b-90ab29dbe72c"/>
 							<textElement textAlignment="Left" verticalAlignment="Top">
-								<font fontName="TH Sarabun New" size="12" isBold="false"/>
+								<font fontName="Sarabun" size="12" isBold="false"/>
 								<paragraph lineSpacingSize="0.0" leftIndent="5"/>
 							</textElement>
 							<textFieldExpression><![CDATA[": " + IF($F{customer_fax} == null, "", $F{customer_fax})]]></textFieldExpression>
@@ -922,7 +922,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textField>
 							<reportElement x="80" y="126" width="250" height="18" uuid="a8491cc7-3d8d-400f-bdba-b9284e857006"/>
 							<textElement textAlignment="Left" verticalAlignment="Top">
-								<font fontName="TH Sarabun New" size="12" isBold="false"/>
+								<font fontName="Sarabun" size="12" isBold="false"/>
 								<paragraph lineSpacingSize="0.0" leftIndent="5"/>
 							</textElement>
 							<textFieldExpression><![CDATA[/*": " + IF($F{customer_email} == null, "", $F{customer_email})*/
@@ -931,7 +931,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textField>
 							<reportElement x="80" y="0" width="250" height="18" uuid="523526bf-5358-47e3-8a71-78e4b932c364"/>
 							<textElement textAlignment="Left" verticalAlignment="Top">
-								<font fontName="TH Sarabun New" size="12" isBold="false"/>
+								<font fontName="Sarabun" size="12" isBold="false"/>
 								<paragraph lineSpacingSize="0.0" leftIndent="5" spacingBefore="2"/>
 							</textElement>
 							<textFieldExpression><![CDATA[": " + $F{default_contact_name}]]></textFieldExpression>
@@ -939,7 +939,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textField>
 							<reportElement x="0" y="0" width="80" height="18" uuid="9dbb269e-27ae-4848-a0dc-45238b54611e"/>
 							<textElement textAlignment="Left" verticalAlignment="Top">
-								<font fontName="TH Sarabun New" size="12" isBold="true"/>
+								<font fontName="Sarabun" size="12" isBold="true"/>
 								<paragraph lineSpacingSize="0.0" leftIndent="20" rightIndent="0" spacingBefore="2"/>
 							</textElement>
 							<textFieldExpression><![CDATA["Attention"]]></textFieldExpression>
@@ -947,7 +947,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textField>
 							<reportElement x="0" y="36" width="80" height="18" uuid="dc62baa1-c8d7-4244-b79b-50df5be21d3f"/>
 							<textElement textAlignment="Left" verticalAlignment="Top">
-								<font fontName="TH Sarabun New" size="12" isBold="true"/>
+								<font fontName="Sarabun" size="12" isBold="true"/>
 								<paragraph lineSpacingSize="0.0" leftIndent="20" rightIndent="0"/>
 							</textElement>
 							<textFieldExpression><![CDATA["Address"]]></textFieldExpression>
@@ -957,7 +957,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 								<property name="com.jaspersoft.studio.unit.height" value="px"/>
 							</reportElement>
 							<textElement textAlignment="Left" verticalAlignment="Top">
-								<font fontName="TH Sarabun New" size="12" isBold="false"/>
+								<font fontName="Sarabun" size="12" isBold="false"/>
 								<paragraph lineSpacing="Single" lineSpacingSize="4.0" leftIndent="5"/>
 							</textElement>
 							<textFieldExpression><![CDATA[": " + IF($F{partner_address} != null, $F{partner_address}, "") + " " + IF($F{partner_address2} != null, $F{partner_address2}, "")]]></textFieldExpression>
@@ -976,7 +976,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textField>
 							<reportElement x="0" y="0" width="72" height="18" uuid="568fbfbb-b4b6-468c-b38c-122bc68d805e"/>
 							<textElement textAlignment="Left" verticalAlignment="Top">
-								<font fontName="TH Sarabun New" size="12" isBold="true"/>
+								<font fontName="Sarabun" size="12" isBold="true"/>
 								<paragraph lineSpacingSize="0.0" leftIndent="10" rightIndent="0" spacingBefore="2"/>
 							</textElement>
 							<textFieldExpression><![CDATA["Date "]]></textFieldExpression>
@@ -984,7 +984,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textField>
 							<reportElement x="0" y="18" width="72" height="18" uuid="076498a0-b8bf-4a2b-a444-a9a5619bc631"/>
 							<textElement textAlignment="Left" verticalAlignment="Top">
-								<font fontName="TH Sarabun New" size="12" isBold="true"/>
+								<font fontName="Sarabun" size="12" isBold="true"/>
 								<paragraph lineSpacingSize="0.0" leftIndent="10" rightIndent="0"/>
 							</textElement>
 							<textFieldExpression><![CDATA["Our Ref."]]></textFieldExpression>
@@ -992,7 +992,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textField>
 							<reportElement x="0" y="36" width="72" height="18" uuid="81845fcf-6460-4bb4-b362-6a41ea80db3d"/>
 							<textElement textAlignment="Left" verticalAlignment="Top">
-								<font fontName="TH Sarabun New" size="12" isBold="true"/>
+								<font fontName="Sarabun" size="12" isBold="true"/>
 								<paragraph lineSpacingSize="0.0" leftIndent="10" rightIndent="0"/>
 							</textElement>
 							<textFieldExpression><![CDATA["Your Ref."]]></textFieldExpression>
@@ -1000,7 +1000,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textField>
 							<reportElement x="0" y="72" width="72" height="18" uuid="95cbb79d-e80f-49ed-bb8c-0e01cfe960c3"/>
 							<textElement textAlignment="Left" verticalAlignment="Top">
-								<font fontName="TH Sarabun New" size="12" isBold="true"/>
+								<font fontName="Sarabun" size="12" isBold="true"/>
 								<paragraph lineSpacingSize="0.0" leftIndent="10" rightIndent="0"/>
 							</textElement>
 							<textFieldExpression><![CDATA["Project Name"]]></textFieldExpression>
@@ -1008,7 +1008,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textField>
 							<reportElement x="72" y="0" width="142" height="18" uuid="94f02254-c8f3-4f3d-bf16-3c3cf67dada7"/>
 							<textElement textAlignment="Left" verticalAlignment="Top">
-								<font fontName="TH Sarabun New" size="12" isBold="false"/>
+								<font fontName="Sarabun" size="12" isBold="false"/>
 								<paragraph lineSpacingSize="0.0" leftIndent="0" spacingBefore="2"/>
 							</textElement>
 							<textFieldExpression><![CDATA[": " + IF($F{confirmation_date}==null,"", new SimpleDateFormat($P{p_DateFormat}, new Locale($P{p_locale}, $P{p_locale})).format($F{confirmation_date}))]]></textFieldExpression>
@@ -1016,7 +1016,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textField>
 							<reportElement x="72" y="18" width="142" height="18" uuid="ae13baa0-93f3-4ae2-bdbc-36019c019603"/>
 							<textElement textAlignment="Left" verticalAlignment="Top">
-								<font fontName="TH Sarabun New" size="12" isBold="false"/>
+								<font fontName="Sarabun" size="12" isBold="false"/>
 								<paragraph lineSpacingSize="0.0" leftIndent="0"/>
 							</textElement>
 							<textFieldExpression><![CDATA[": " + $F{name}]]></textFieldExpression>
@@ -1024,7 +1024,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textField>
 							<reportElement x="72" y="36" width="142" height="18" uuid="fff9d33a-81b2-4c65-9b39-64e8261f3248"/>
 							<textElement textAlignment="Left" verticalAlignment="Top">
-								<font fontName="TH Sarabun New" size="12" isBold="false"/>
+								<font fontName="Sarabun" size="12" isBold="false"/>
 								<paragraph lineSpacingSize="0.0" leftIndent="0"/>
 							</textElement>
 							<textFieldExpression><![CDATA[": " + $F{your_ref}]]></textFieldExpression>
@@ -1032,7 +1032,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textField>
 							<reportElement x="72" y="72" width="142" height="18" uuid="fe9e4220-2fbf-4a10-aa5b-6c79ec72455a"/>
 							<textElement textAlignment="Left" verticalAlignment="Top">
-								<font fontName="TH Sarabun New" size="12" isBold="false"/>
+								<font fontName="Sarabun" size="12" isBold="false"/>
 								<paragraph lineSpacingSize="0.0" leftIndent="0"/>
 							</textElement>
 							<textFieldExpression><![CDATA[": " + $F{project_name_report}]]></textFieldExpression>
@@ -1040,7 +1040,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textField>
 							<reportElement x="0" y="90" width="72" height="18" uuid="ccb51c0c-d179-421b-947c-27e50c9f90d2"/>
 							<textElement textAlignment="Left" verticalAlignment="Top">
-								<font fontName="TH Sarabun New" size="12" isBold="true"/>
+								<font fontName="Sarabun" size="12" isBold="true"/>
 								<paragraph lineSpacingSize="0.0" leftIndent="10" rightIndent="0"/>
 							</textElement>
 							<textFieldExpression><![CDATA["Please Contact"]]></textFieldExpression>
@@ -1048,7 +1048,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textField>
 							<reportElement x="72" y="90" width="142" height="18" uuid="96937955-033f-4279-84b1-aecbe200ded4"/>
 							<textElement textAlignment="Left" verticalAlignment="Top">
-								<font fontName="TH Sarabun New" size="12" isBold="false"/>
+								<font fontName="Sarabun" size="12" isBold="false"/>
 								<paragraph lineSpacingSize="0.0" leftIndent="0"/>
 							</textElement>
 							<textFieldExpression><![CDATA[": " + IF($P{p_language}.toString().equals("thai"), $F{sale_person1_thai}, $F{sale_person1_en})]]></textFieldExpression>
@@ -1056,7 +1056,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textField>
 							<reportElement x="72" y="108" width="142" height="18" uuid="829c4896-cf25-4cb4-a992-b0546bf4f104"/>
 							<textElement textAlignment="Left" verticalAlignment="Top">
-								<font fontName="TH Sarabun New" size="12" isBold="false"/>
+								<font fontName="Sarabun" size="12" isBold="false"/>
 								<paragraph lineSpacingSize="0.0" leftIndent="0"/>
 							</textElement>
 							<textFieldExpression><![CDATA[": " + $F{sale_person1_mobile_phone}]]></textFieldExpression>
@@ -1064,7 +1064,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textField>
 							<reportElement x="0" y="108" width="72" height="18" uuid="86b8d2b3-33e2-4a3b-92f3-d5b002191f6b"/>
 							<textElement textAlignment="Left" verticalAlignment="Top">
-								<font fontName="TH Sarabun New" size="12" isBold="true"/>
+								<font fontName="Sarabun" size="12" isBold="true"/>
 								<paragraph lineSpacingSize="0.0" leftIndent="10" rightIndent="0"/>
 							</textElement>
 							<textFieldExpression><![CDATA["Tel."]]></textFieldExpression>
@@ -1072,7 +1072,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textField>
 							<reportElement x="72" y="126" width="142" height="18" uuid="3d10ab3a-0d6e-41ba-ac72-4d6464273f78"/>
 							<textElement textAlignment="Left" verticalAlignment="Top">
-								<font fontName="TH Sarabun New" size="12" isBold="false"/>
+								<font fontName="Sarabun" size="12" isBold="false"/>
 								<paragraph lineSpacingSize="0.0" leftIndent="0"/>
 							</textElement>
 							<textFieldExpression><![CDATA[": " + $F{sale_person1_work_email}]]></textFieldExpression>
@@ -1080,7 +1080,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<textField>
 							<reportElement x="0" y="126" width="72" height="18" uuid="877e782a-f863-49aa-8ecb-effc4287e8b0"/>
 							<textElement textAlignment="Left" verticalAlignment="Top">
-								<font fontName="TH Sarabun New" size="12" isBold="true"/>
+								<font fontName="Sarabun" size="12" isBold="true"/>
 								<paragraph lineSpacingSize="0.0" leftIndent="10" rightIndent="0"/>
 							</textElement>
 							<textFieldExpression><![CDATA["Email"]]></textFieldExpression>
@@ -1091,7 +1091,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 								<property name="com.jaspersoft.studio.unit.y" value="px"/>
 							</reportElement>
 							<textElement textAlignment="Left" verticalAlignment="Top">
-								<font fontName="TH Sarabun New" size="12" isBold="true"/>
+								<font fontName="Sarabun" size="12" isBold="true"/>
 								<paragraph lineSpacingSize="0.0" leftIndent="10" rightIndent="0" spacingBefore="2"/>
 							</textElement>
 							<textFieldExpression><![CDATA["Page "]]></textFieldExpression>
@@ -1104,7 +1104,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 								<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							</reportElement>
 							<textElement textAlignment="Left" verticalAlignment="Top">
-								<font fontName="TH Sarabun New" size="12" isBold="false"/>
+								<font fontName="Sarabun" size="12" isBold="false"/>
 							</textElement>
 							<textFieldExpression><![CDATA[": " + $V{PAGE_NUMBER}]]></textFieldExpression>
 						</textField>
@@ -1116,7 +1116,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 								<property name="com.jaspersoft.studio.unit.width" value="px"/>
 							</reportElement>
 							<textElement textAlignment="Left" verticalAlignment="Top">
-								<font fontName="TH Sarabun New" size="12" isBold="false"/>
+								<font fontName="Sarabun" size="12" isBold="false"/>
 							</textElement>
 							<textFieldExpression><![CDATA["/ " + $V{PAGE_NUMBER}]]></textFieldExpression>
 						</textField>
@@ -1125,7 +1125,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 				<textField>
 					<reportElement x="0" y="244" width="555" height="20" uuid="4ffa9b00-2995-49af-8d4c-41ac2ee616aa"/>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="TH Sarabun New" size="11"/>
+						<font fontName="Sarabun" size="11"/>
 						<paragraph leftIndent="5"/>
 					</textElement>
 					<textFieldExpression><![CDATA["We thank you for your inquiry and very pleased to send here with our best commercial and technical offer as follow:"]]></textFieldExpression>
@@ -1139,7 +1139,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="TH Sarabun New" size="12" isBold="true"/>
+						<font fontName="Sarabun" size="12" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA["Item"]]></textFieldExpression>
 				</textField>
@@ -1152,7 +1152,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="TH Sarabun New" size="12" isBold="true"/>
+						<font fontName="Sarabun" size="12" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA["Part Number"]]></textFieldExpression>
 				</textField>
@@ -1165,7 +1165,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="TH Sarabun New" size="12" isBold="true"/>
+						<font fontName="Sarabun" size="12" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA["Description"]]></textFieldExpression>
 				</textField>
@@ -1178,7 +1178,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="TH Sarabun New" size="12" isBold="true"/>
+						<font fontName="Sarabun" size="12" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA["UOM"]]></textFieldExpression>
 				</textField>
@@ -1191,7 +1191,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="TH Sarabun New" size="12" isBold="true"/>
+						<font fontName="Sarabun" size="12" isBold="true"/>
 						<paragraph lineSpacing="Fixed" lineSpacingSize="3.0"/>
 					</textElement>
 					<textFieldExpression><![CDATA["Unit Price" +  "\n(" + $F{currency_name} + ")"]]></textFieldExpression>
@@ -1205,7 +1205,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="TH Sarabun New" size="12" isBold="true"/>
+						<font fontName="Sarabun" size="12" isBold="true"/>
 						<paragraph lineSpacing="Fixed" lineSpacingSize="3.0"/>
 					</textElement>
 					<textFieldExpression><![CDATA["Total Price" + "\n(" + $F{currency_name} + ")"]]></textFieldExpression>
@@ -1219,7 +1219,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="TH Sarabun New" size="12" isBold="true"/>
+						<font fontName="Sarabun" size="12" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA["Q'ty"]]></textFieldExpression>
 				</textField>
@@ -1236,7 +1236,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
-						<font fontName="TH Sarabun New" size="12" isBold="false"/>
+						<font fontName="Sarabun" size="12" isBold="false"/>
 						<paragraph leftIndent="3"/>
 					</textElement>
 					<textFieldExpression><![CDATA["<b>Remark : </b>" + IF($F{note}==null,"",$F{note})]]></textFieldExpression>
@@ -1250,12 +1250,12 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="TH Sarabun New" size="12" isBold="true"/>
+						<font fontName="Sarabun" size="12" isBold="true"/>
 						<paragraph leftIndent="3"/>
 					</textElement>
 					<textFieldExpression><![CDATA[IF($P{p_language}.toString().equals("thai"),"รวม","Total")]]></textFieldExpression>
 				</textField>
-				<textField pattern="#,##0.00#;(#,##0.00#)">
+				<textField pattern="#,##0.00#">
 					<reportElement mode="Opaque" x="482" y="0" width="72" height="17" uuid="6362afc7-09f1-48e9-8014-63e4b36f62bc"/>
 					<box leftPadding="1" bottomPadding="1">
 						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1264,7 +1264,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="TH Sarabun New" size="12" isBold="false"/>
+						<font fontName="Sarabun" size="12" isBold="false"/>
 						<paragraph rightIndent="4"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{amount_untaxed_before_trade_discount}]]></textFieldExpression>
@@ -1278,12 +1278,12 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="TH Sarabun New" size="12" isBold="true"/>
+						<font fontName="Sarabun" size="12" isBold="true"/>
 						<paragraph leftIndent="3"/>
 					</textElement>
 					<textFieldExpression><![CDATA[IF($P{p_language}.toString().equals("thai"),"ส่วนลด","Discount")]]></textFieldExpression>
 				</textField>
-				<textField pattern="#,##0.00#;(#,##0.00#)">
+				<textField pattern="#,##0.00#">
 					<reportElement mode="Opaque" x="482" y="17" width="72" height="17" uuid="51a45097-0ddf-4adc-86cd-5b619130b7b0"/>
 					<box leftPadding="1" bottomPadding="1">
 						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1292,10 +1292,10 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="TH Sarabun New" size="12" isBold="false"/>
+						<font fontName="Sarabun" size="12" isBold="false"/>
 						<paragraph rightIndent="4"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{amount_trade_discount}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[new DecimalFormat("#,##0.00").format($F{amount_trade_discount})]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement mode="Opaque" x="410" y="34" width="72" height="17" backcolor="#FFFFFF" uuid="07bda896-6cc6-4797-b95a-16c0e30f9a69"/>
@@ -1306,12 +1306,12 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="TH Sarabun New" size="12" isBold="true"/>
+						<font fontName="Sarabun" size="12" isBold="true"/>
 						<paragraph leftIndent="3"/>
 					</textElement>
 					<textFieldExpression><![CDATA[IF($P{p_language}.toString().equals("thai"),"ราคาก่อนภาษี","Subtotal")]]></textFieldExpression>
 				</textField>
-				<textField pattern="#,##0.00#;(#,##0.00#)">
+				<textField pattern="#,##0.00#">
 					<reportElement mode="Opaque" x="482" y="34" width="72" height="17" isPrintInFirstWholeBand="true" uuid="3934ac1c-794c-48c0-809e-bee0f9629d89"/>
 					<box leftPadding="1" bottomPadding="1">
 						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1320,10 +1320,10 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="TH Sarabun New" size="12" isBold="false"/>
+						<font fontName="Sarabun" size="12" isBold="false"/>
 						<paragraph rightIndent="4"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{amount_subtotal_before_tax}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[new DecimalFormat("#,##0.00").format($F{amount_subtotal_before_tax})]]></textFieldExpression>
 				</textField>
 				<textField isBlankWhenNull="true">
 					<reportElement mode="Opaque" x="410" y="51" width="72" height="17" backcolor="#FFFFFF" uuid="13e1ce38-d7af-48ee-99bf-303bd9036357"/>
@@ -1334,7 +1334,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="TH Sarabun New" size="12" isBold="true"/>
+						<font fontName="Sarabun" size="12" isBold="true"/>
 						<paragraph leftIndent="3"/>
 					</textElement>
 					<textFieldExpression><![CDATA[IF($P{p_language}.toString().equals("thai")
@@ -1342,7 +1342,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 	,"VAT " 
 ) + "" + IF($F{so_taxes}==null,"", String.format("%.0f", $F{so_taxes}.doubleValue())+" %")]]></textFieldExpression>
 				</textField>
-				<textField pattern="#,##0.00#;(#,##0.00#)">
+				<textField pattern="#,##0.00#">
 					<reportElement mode="Opaque" x="482" y="51" width="72" height="17" uuid="70ad45b3-f7fc-4287-97d6-1c497481a64d"/>
 					<box leftPadding="1" bottomPadding="1">
 						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1351,7 +1351,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="TH Sarabun New" size="12" isBold="false"/>
+						<font fontName="Sarabun" size="12" isBold="false"/>
 						<paragraph rightIndent="4"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{amount_tax}]]></textFieldExpression>
@@ -1365,12 +1365,12 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="TH Sarabun New" size="12" isBold="true"/>
+						<font fontName="Sarabun" size="12" isBold="true"/>
 						<paragraph leftIndent="3"/>
 					</textElement>
 					<textFieldExpression><![CDATA[IF($P{p_language}.toString().equals("thai"),"จำนวนเงินสุทธิ ","Grand Total ")]]></textFieldExpression>
 				</textField>
-				<textField pattern="#,##0.00#;(#,##0.00#)">
+				<textField pattern="#,##0.00#">
 					<reportElement mode="Opaque" x="482" y="68" width="72" height="17" uuid="da171997-09e5-4d5b-b66b-0c9a184e3e74"/>
 					<box leftPadding="1" bottomPadding="1">
 						<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
@@ -1379,10 +1379,10 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font fontName="TH Sarabun New" size="12" isBold="false"/>
+						<font fontName="Sarabun" size="12" isBold="false"/>
 						<paragraph rightIndent="4"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{amount_total}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[new DecimalFormat("#,##0.00").format($F{amount_total})]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement mode="Opaque" x="0" y="68" width="410" height="17" backcolor="#FFFFFF" uuid="96b617db-f301-45fd-b630-0a0ab446883a"/>
@@ -1393,7 +1393,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="TH Sarabun New" size="12" isBold="true"/>
+						<font fontName="Sarabun" size="12" isBold="true"/>
 						<paragraph leftIndent="3"/>
 					</textElement>
 					<textFieldExpression><![CDATA[IF($P{p_language}.toString().equals("thai"),$F{so_amout_total_bahttext},$F{so_amout_total_engtext})]]></textFieldExpression>
@@ -1407,7 +1407,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textElement textAlignment="Left" verticalAlignment="Top">
-						<font fontName="TH Sarabun New" size="12"/>
+						<font fontName="Sarabun" size="12"/>
 						<paragraph leftIndent="3"/>
 					</textElement>
 					<textFieldExpression><![CDATA[IF($P{p_language}.toString().equals("thai"),"หมายเหตุ: ","Remark: ") + "" + IF($F{note}==null,"",$F{note})]]></textFieldExpression>
@@ -1429,7 +1429,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textElement textAlignment="Left" verticalAlignment="Middle">
-							<font fontName="TH Sarabun New" size="12" isBold="true" isUnderline="true"/>
+							<font fontName="Sarabun" size="12" isBold="true" isUnderline="true"/>
 							<paragraph leftIndent="3"/>
 						</textElement>
 						<textFieldExpression><![CDATA["Term and Conditions"]]></textFieldExpression>
@@ -1443,7 +1443,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textElement textAlignment="Left" verticalAlignment="Top">
-							<font fontName="TH Sarabun New" size="12" isBold="true" isUnderline="false"/>
+							<font fontName="Sarabun" size="12" isBold="true" isUnderline="false"/>
 							<paragraph leftIndent="3"/>
 						</textElement>
 						<textFieldExpression><![CDATA["Price"]]></textFieldExpression>
@@ -1457,7 +1457,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textElement textAlignment="Left" verticalAlignment="Top">
-							<font fontName="TH Sarabun New" size="12" isBold="true" isUnderline="false"/>
+							<font fontName="Sarabun" size="12" isBold="true" isUnderline="false"/>
 							<paragraph leftIndent="3"/>
 						</textElement>
 						<textFieldExpression><![CDATA["Delivery"]]></textFieldExpression>
@@ -1471,7 +1471,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textElement textAlignment="Left" verticalAlignment="Top">
-							<font fontName="TH Sarabun New" size="12" isBold="true" isUnderline="false"/>
+							<font fontName="Sarabun" size="12" isBold="true" isUnderline="false"/>
 							<paragraph leftIndent="3"/>
 						</textElement>
 						<textFieldExpression><![CDATA["Payment Product"]]></textFieldExpression>
@@ -1485,7 +1485,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textElement textAlignment="Left" verticalAlignment="Top">
-							<font fontName="TH Sarabun New" size="12" isBold="true" isUnderline="false"/>
+							<font fontName="Sarabun" size="12" isBold="true" isUnderline="false"/>
 							<paragraph leftIndent="3"/>
 						</textElement>
 						<textFieldExpression><![CDATA["Validity"]]></textFieldExpression>
@@ -1499,7 +1499,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textElement textAlignment="Left" verticalAlignment="Top">
-							<font fontName="TH Sarabun New" size="12" isBold="true" isUnderline="false"/>
+							<font fontName="Sarabun" size="12" isBold="true" isUnderline="false"/>
 							<paragraph leftIndent="3"/>
 						</textElement>
 						<textFieldExpression><![CDATA["Warranty"]]></textFieldExpression>
@@ -1513,7 +1513,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textElement textAlignment="Left" verticalAlignment="Top">
-							<font fontName="TH Sarabun New" size="12" isBold="true" isUnderline="false"/>
+							<font fontName="Sarabun" size="12" isBold="true" isUnderline="false"/>
 							<paragraph leftIndent="3"/>
 						</textElement>
 						<textFieldExpression><![CDATA["Credit"]]></textFieldExpression>
@@ -1527,7 +1527,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
-							<font fontName="TH Sarabun New" size="12" isBold="false" isUnderline="false"/>
+							<font fontName="Sarabun" size="12" isBold="false" isUnderline="false"/>
 							<paragraph lineSpacing="Fixed" lineSpacingSize="3.0" leftIndent="3"/>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{price_report}]]></textFieldExpression>
@@ -1541,7 +1541,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
-							<font fontName="TH Sarabun New" size="12" isBold="false" isUnderline="false"/>
+							<font fontName="Sarabun" size="12" isBold="false" isUnderline="false"/>
 							<paragraph lineSpacing="Fixed" lineSpacingSize="3.0" leftIndent="3"/>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{delivery_report}]]></textFieldExpression>
@@ -1555,7 +1555,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
-							<font fontName="TH Sarabun New" size="12" isBold="false" isUnderline="false"/>
+							<font fontName="Sarabun" size="12" isBold="false" isUnderline="false"/>
 							<paragraph lineSpacing="Fixed" lineSpacingSize="3.0" leftIndent="3"/>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{payment_product}]]></textFieldExpression>
@@ -1569,7 +1569,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
-							<font fontName="TH Sarabun New" size="12" isBold="false" isUnderline="false"/>
+							<font fontName="Sarabun" size="12" isBold="false" isUnderline="false"/>
 							<paragraph lineSpacing="Fixed" lineSpacingSize="3.0" leftIndent="3"/>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{validaity_report}]]></textFieldExpression>
@@ -1583,7 +1583,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
-							<font fontName="TH Sarabun New" size="12" isBold="false" isUnderline="false"/>
+							<font fontName="Sarabun" size="12" isBold="false" isUnderline="false"/>
 							<paragraph lineSpacing="Fixed" lineSpacingSize="3.0" leftIndent="3"/>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{warranty_report}]]></textFieldExpression>
@@ -1597,7 +1597,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
-							<font fontName="TH Sarabun New" size="12" isBold="false" isUnderline="false"/>
+							<font fontName="Sarabun" size="12" isBold="false" isUnderline="false"/>
 							<paragraph lineSpacing="Fixed" lineSpacingSize="3.0" leftIndent="3"/>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{credit_report}]]></textFieldExpression>
@@ -1611,7 +1611,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textElement textAlignment="Left" verticalAlignment="Top">
-							<font fontName="TH Sarabun New" size="12" isBold="true" isUnderline="false"/>
+							<font fontName="Sarabun" size="12" isBold="true" isUnderline="false"/>
 							<paragraph leftIndent="3"/>
 						</textElement>
 						<textFieldExpression><![CDATA[":"]]></textFieldExpression>
@@ -1625,7 +1625,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textElement textAlignment="Left" verticalAlignment="Top">
-							<font fontName="TH Sarabun New" size="12" isBold="true" isUnderline="false"/>
+							<font fontName="Sarabun" size="12" isBold="true" isUnderline="false"/>
 							<paragraph leftIndent="3"/>
 						</textElement>
 						<textFieldExpression><![CDATA[":"]]></textFieldExpression>
@@ -1639,7 +1639,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textElement textAlignment="Left" verticalAlignment="Top">
-							<font fontName="TH Sarabun New" size="12" isBold="true" isUnderline="false"/>
+							<font fontName="Sarabun" size="12" isBold="true" isUnderline="false"/>
 							<paragraph leftIndent="3"/>
 						</textElement>
 						<textFieldExpression><![CDATA[":"]]></textFieldExpression>
@@ -1653,7 +1653,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textElement textAlignment="Left" verticalAlignment="Top">
-							<font fontName="TH Sarabun New" size="12" isBold="true" isUnderline="false"/>
+							<font fontName="Sarabun" size="12" isBold="true" isUnderline="false"/>
 							<paragraph leftIndent="3"/>
 						</textElement>
 						<textFieldExpression><![CDATA[":"]]></textFieldExpression>
@@ -1667,7 +1667,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textElement textAlignment="Left" verticalAlignment="Top">
-							<font fontName="TH Sarabun New" size="12" isBold="true" isUnderline="false"/>
+							<font fontName="Sarabun" size="12" isBold="true" isUnderline="false"/>
 							<paragraph leftIndent="3"/>
 						</textElement>
 						<textFieldExpression><![CDATA[":"]]></textFieldExpression>
@@ -1681,7 +1681,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textElement textAlignment="Left" verticalAlignment="Top">
-							<font fontName="TH Sarabun New" size="12" isBold="true" isUnderline="false"/>
+							<font fontName="Sarabun" size="12" isBold="true" isUnderline="false"/>
 							<paragraph leftIndent="3"/>
 						</textElement>
 						<textFieldExpression><![CDATA[":"]]></textFieldExpression>
@@ -1695,7 +1695,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textElement textAlignment="Left" verticalAlignment="Top">
-							<font fontName="TH Sarabun New" size="12" isBold="true" isUnderline="false"/>
+							<font fontName="Sarabun" size="12" isBold="true" isUnderline="false"/>
 							<paragraph leftIndent="3"/>
 						</textElement>
 						<textFieldExpression><![CDATA["Payment Engineering"]]></textFieldExpression>
@@ -1709,7 +1709,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textElement textAlignment="Left" verticalAlignment="Top">
-							<font fontName="TH Sarabun New" size="12" isBold="true" isUnderline="false"/>
+							<font fontName="Sarabun" size="12" isBold="true" isUnderline="false"/>
 							<paragraph leftIndent="3"/>
 						</textElement>
 						<textFieldExpression><![CDATA[":"]]></textFieldExpression>
@@ -1723,7 +1723,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textElement textAlignment="Left" verticalAlignment="Top" markup="html">
-							<font fontName="TH Sarabun New" size="12" isBold="false" isUnderline="false"/>
+							<font fontName="Sarabun" size="12" isBold="false" isUnderline="false"/>
 							<paragraph lineSpacing="Fixed" lineSpacingSize="3.0" leftIndent="3"/>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{payment_engineering}]]></textFieldExpression>
@@ -1737,7 +1737,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textElement textAlignment="Center" verticalAlignment="Middle">
-							<font fontName="TH Sarabun New" size="12" isBold="true" isUnderline="false"/>
+							<font fontName="Sarabun" size="12" isBold="true" isUnderline="false"/>
 							<paragraph leftIndent="0"/>
 						</textElement>
 						<textFieldExpression><![CDATA[IF($F{sale_person1_en} != null, $F{sale_person1_en}, "")]]></textFieldExpression>
@@ -1751,7 +1751,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textElement textAlignment="Center" verticalAlignment="Middle">
-							<font fontName="TH Sarabun New" size="12" isBold="false" isUnderline="false"/>
+							<font fontName="Sarabun" size="12" isBold="false" isUnderline="false"/>
 							<paragraph leftIndent="0"/>
 						</textElement>
 						<textFieldExpression><![CDATA[IF($F{sale_person1_position} != null, $F{sale_person1_position}, "")]]></textFieldExpression>
@@ -1765,7 +1765,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textElement textAlignment="Center" verticalAlignment="Top">
-							<font fontName="TH Sarabun New" size="12" isBold="true" isUnderline="false"/>
+							<font fontName="Sarabun" size="12" isBold="true" isUnderline="false"/>
 							<paragraph leftIndent="0"/>
 						</textElement>
 						<textFieldExpression><![CDATA["Authorized Signature"]]></textFieldExpression>
@@ -1781,7 +1781,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textElement textAlignment="Center" verticalAlignment="Top">
-							<font fontName="TH Sarabun New" size="12" isBold="true" isUnderline="false"/>
+							<font fontName="Sarabun" size="12" isBold="true" isUnderline="false"/>
 							<paragraph leftIndent="0"/>
 						</textElement>
 						<textFieldExpression><![CDATA["Approved Signature"]]></textFieldExpression>
@@ -1803,7 +1803,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textElement textAlignment="Center" verticalAlignment="Middle">
-							<font fontName="TH Sarabun New" size="12" isBold="true" isUnderline="false"/>
+							<font fontName="Sarabun" size="12" isBold="true" isUnderline="false"/>
 							<paragraph leftIndent="0"/>
 						</textElement>
 						<textFieldExpression><![CDATA[IF($F{approved_name_en} != null, $F{approved_name_en}, "")]]></textFieldExpression>
@@ -1819,7 +1819,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textElement textAlignment="Center" verticalAlignment="Middle">
-							<font fontName="TH Sarabun New" size="12" isBold="false" isUnderline="false"/>
+							<font fontName="Sarabun" size="12" isBold="false" isUnderline="false"/>
 							<paragraph leftIndent="0"/>
 						</textElement>
 						<textFieldExpression><![CDATA[IF($F{approved_position} != null, $F{approved_position}, "")]]></textFieldExpression>
@@ -1835,7 +1835,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textElement textAlignment="Center" verticalAlignment="Top">
-							<font fontName="Arial Unicode" size="9" isBold="true" isUnderline="false"/>
+							<font fontName="Sarabun" size="9" isBold="true" isUnderline="false"/>
 							<paragraph leftIndent="0"/>
 						</textElement>
 						<textFieldExpression><![CDATA[""]]></textFieldExpression>
@@ -1853,7 +1853,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textElement textAlignment="Center" verticalAlignment="Top">
-							<font fontName="Arial Unicode" size="9" isBold="true" isUnderline="false"/>
+							<font fontName="Sarabun" size="9" isBold="true" isUnderline="false"/>
 							<paragraph leftIndent="0"/>
 						</textElement>
 						<textFieldExpression><![CDATA[""]]></textFieldExpression>
@@ -1968,7 +1968,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
-					<font fontName="TH Sarabun New" size="12" isBold="false"/>
+					<font fontName="Sarabun" size="12" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{seq}.equals( 0 )?"":$F{seq}]]></textFieldExpression>
 			</textField>
@@ -1983,7 +1983,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
-					<font fontName="TH Sarabun New" size="12" isBold="false"/>
+					<font fontName="Sarabun" size="12" isBold="false"/>
 					<paragraph leftIndent="7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{product_code}]]></textFieldExpression>
@@ -2000,7 +2000,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle" markup="html">
-					<font fontName="TH Sarabun New" size="12" isBold="false"/>
+					<font fontName="Sarabun" size="12" isBold="false"/>
 					<paragraph rightIndent="7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{product_name}]]></textFieldExpression>
@@ -2017,7 +2017,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
-					<font fontName="TH Sarabun New" size="12" isBold="false"/>
+					<font fontName="Sarabun" size="12" isBold="false"/>
 					<paragraph leftIndent="0" rightIndent="0"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{product_uom}]]></textFieldExpression>
@@ -2034,7 +2034,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle" markup="html">
-					<font fontName="TH Sarabun New" size="12" isBold="false"/>
+					<font fontName="Sarabun" size="12" isBold="false"/>
 					<paragraph rightIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{display_type} == null? new java.text.DecimalFormat("#,##0.00").format($F{product_unitprice}): ""]]></textFieldExpression>
@@ -2051,7 +2051,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle" markup="html">
-					<font fontName="TH Sarabun New" size="12" isBold="false"/>
+					<font fontName="Sarabun" size="12" isBold="false"/>
 					<paragraph rightIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[($F{display_type} == null? new java.text.DecimalFormat("#,##0.00").format($F{price_subtotal}): "")]]></textFieldExpression>
@@ -2068,7 +2068,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle" markup="html">
-					<font fontName="TH Sarabun New" size="12" isBold="false"/>
+					<font fontName="Sarabun" size="12" isBold="false"/>
 					<paragraph leftIndent="0" rightIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[IF($F{display_type} == null, new java.text.DecimalFormat("#,##0.00").format($F{so_qty}), "")]]></textFieldExpression>
@@ -2086,7 +2086,7 @@ ORDER BY so.id, sl.sequence, sl.id]]>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Bottom">
-					<font fontName="TH Sarabun New" size="12" isBold="false"/>
+					<font fontName="Sarabun" size="12" isBold="false"/>
 					<paragraph leftIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[IF($P{p_ISO}==null,"",$P{p_ISO})]]></textFieldExpression>
