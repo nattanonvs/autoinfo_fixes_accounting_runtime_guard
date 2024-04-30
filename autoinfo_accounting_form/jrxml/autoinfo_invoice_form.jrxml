@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.10.0-unknown  -->
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="autoinfo_invoice_form" pageWidth="595" pageHeight="842" columnWidth="575" leftMargin="10" rightMargin="10" topMargin="20" bottomMargin="5" uuid="9d429c61-ca07-45fd-95b2-54aea3253cab">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Autoinfo_DB.xml"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="auto/auto_DB.xml"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="274"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="719"/>
@@ -90,7 +90,7 @@
 		</conditionalStyle>
 	</style>
 	<parameter name="ids" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["where invoice.id in (37578)"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["where invoice.id in (52256)"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="iscopy" class="java.lang.Integer" isForPrompting="false">
 		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
@@ -2371,10 +2371,9 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{inv_description}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement x="52" y="0" width="62" height="17" uuid="8a8cc4d0-6839-4287-8d7a-e07d7a124045">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
-					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
 					<property name="com.jaspersoft.studio.unit.spacingBefore" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 					<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
@@ -2387,7 +2386,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Top">
 					<font fontName="Sarabun" size="12"/>
-					<paragraph lineSpacing="Single" leftIndent="5" rightIndent="2" spacingBefore="0"/>
+					<paragraph lineSpacing="Single" leftIndent="2" rightIndent="2" spacingBefore="0"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{product_code}]]></textFieldExpression>
 			</textField>
