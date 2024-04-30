@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="autoinfo_tax_receipt_form" pageWidth="595" pageHeight="842" columnWidth="575" leftMargin="10" rightMargin="10" topMargin="20" bottomMargin="5" isFloatColumnFooter="true" uuid="9d429c61-ca07-45fd-95b2-54aea3253cab">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Autoinfo_DB.xml"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="auto/auto_DB.xml"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="274"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="719"/>
@@ -170,6 +170,14 @@
 				product.default_code as product_code,
 				--abs(coalesce(tax.amount,0)) as vat_order,
 				abs(coalesce(tax.amount,0)) as vat_order,
+				(select
+abs(coalesce(tax.amount,0)) 
+from	account_move_line line 
+left join	account_move_line_account_tax_rel tax_rel on ( tax_rel.account_move_line_id = line.id )
+left join	account_tax tax on ( tax.id = tax_rel.account_tax_id )
+where line.move_id = invoice.id
+and (line.exclude_from_invoice_tab = False or line.exclude_from_invoice_tab is null) and is_deduct_down_payment is not True
+and line.display_type is null limit 1) as vat_order2,
 				--tax.tax_exigibility,
 				(select c.tax_exigibility from account_move_line a
 					left join account_move_line_account_tax_rel b on b.account_move_line_id = a.id
@@ -403,6 +411,9 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 	</field>
 	<field name="vat_order" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="vat_order"/>
+	</field>
+	<field name="vat_order2" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="vat_order2"/>
 	</field>
 	<field name="tax_exigibility" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="tax_exigibility"/>
@@ -1742,7 +1753,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="12" isBold="true"/>
 						<paragraph lineSpacing="Fixed" lineSpacingSize="3.0" leftIndent="5"/>
 					</textElement>
-					<textFieldExpression><![CDATA[msg("ภาษีมูลค่าเพิ่ม\nVAT {0}%", $F{vat_order})]]></textFieldExpression>
+					<textFieldExpression><![CDATA[msg("ภาษีมูลค่าเพิ่ม\nVAT {0}%", $F{vat_order2})]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Report">
 					<reportElement mode="Opaque" x="375" y="150" width="97" height="25" backcolor="#F2F2F2" uuid="26229a72-0f96-4178-8198-d1e0f319d9f3">
