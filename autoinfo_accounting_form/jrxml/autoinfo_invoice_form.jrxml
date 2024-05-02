@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="autoinfo_invoice_form" pageWidth="595" pageHeight="842" columnWidth="575" leftMargin="10" rightMargin="10" topMargin="20" bottomMargin="5" uuid="9d429c61-ca07-45fd-95b2-54aea3253cab">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="auto/auto_DB.xml"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -147,7 +147,7 @@
 				--coalesce(invoice.comment, '-') as remark,
 				line.customer_source_doc as doc_no,
 				line.quantity as qty, 
-				btrim(regexp_replace(line.name, E'\\s+$', '  ', 'g')) as inv_description, 
+				REPLACE((btrim(regexp_replace(line.name, E'\\s+$', '  ', 'g'))), CONCAT('[', product.default_code, ']'), '') as inv_description, 
 				line.price_unit, 
 				line.price_subtotal as subtotal,
 				

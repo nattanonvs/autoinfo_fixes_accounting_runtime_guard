@@ -146,7 +146,7 @@
 				--coalesce(invoice.comment, '-') as remark,
 				line.customer_source_doc as doc_no,
 				line.quantity as qty, 
-				btrim(regexp_replace(line.name, E'\\s+$', '  ', 'g')) as inv_description, 
+				REPLACE((btrim(regexp_replace(line.name, E'\\s+$', '  ', 'g'))), CONCAT('[', product.default_code, ']'), '') as inv_description, 
 				line.price_unit, 
 				line.price_subtotal as subtotal,
 				
