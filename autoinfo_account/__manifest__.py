@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Account',
-    'version': '1.2',
+    'version': '1.3',
     'category': 'DTR - ERP Accounting',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -15,6 +15,10 @@ Extends the functionality of Account.
 
 Changelog
 ---------
+
+**Version 1.3**
+    - Add new field actual due date in prepayment
+
 **Version 1.2**
     - Auto stamp salesperson from parent invoice in credit note and debit note
 

@@ -10,6 +10,12 @@
                 <field name="notes" position="after">
                     <field name="payment_date"/>
                 </field>
+                <field name="actual_due_date" position="after">
+                    <field name="prepayment_actual_due_date"/>
+                </field>
+                <field name="actual_due_date" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
             </field>
         </record>
     </data>
