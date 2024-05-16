@@ -3,7 +3,7 @@
 
 {
     'name': 'AUTO INFO - Account Form',
-    'version': '1.33',
+    'version': '1.34',
     'category': 'DTR - ERP Accounting',
     'license': 'OPL-1',
     'website': 'https://www.dataroot.asia/support-odoo',
@@ -17,6 +17,8 @@ Customize Report Accounting.
 
 Changelog
 ---------
+**Version 1.34**
+    - Fix task A21B-T293, A21B-T294
 
 **Version 1.33**
     - Remove product code in invoice report
@@ -148,5 +150,6 @@ Changelog
         'reports/autoinfo_invoice_form.xml',
         'views/account_payment_view.xml',
         'reports/autoinfo_tax_receipt_form.xml',
+        'reports/autoinfo_tax_invoice_pp_sale_form.xml',
     ],
 }
