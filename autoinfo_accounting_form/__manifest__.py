@@ -17,8 +17,9 @@ Customize Report Accounting.
 
 Changelog
 ---------
-**Version 1.34**
+**Version 1.34-1.34a**
     - Fix task A21B-T293, A21B-T294
+    - Fix task A21B-T293 #2
 
 **Version 1.33**
     - Remove product code in invoice report
@@ -144,12 +145,13 @@ Changelog
     'application': False,
     'data': [
         'security/ir.model.access.csv',
+        'reports/autoinfo_tax_invoice_pp_sale_form.xml',
         'reports/autoinfo_tax_invoice_pp_form.xml',
         'reports/autoinfo_receipt_pp_form.xml',
         'reports/receipt_form.xml',
         'reports/autoinfo_invoice_form.xml',
         'views/account_payment_view.xml',
         'reports/autoinfo_tax_receipt_form.xml',
-        'reports/autoinfo_tax_invoice_pp_sale_form.xml',
+
     ],
 }

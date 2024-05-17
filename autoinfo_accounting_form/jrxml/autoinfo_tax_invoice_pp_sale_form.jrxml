@@ -271,7 +271,7 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 	<group name="group_doc" isResetPageNumber="true" isReprintHeaderOnEachPage="true" footerPosition="StackAtBottom" keepTogether="true">
 		<groupExpression><![CDATA[$F{inv_no}]]></groupExpression>
 		<groupHeader>
-			<band height="295">
+			<band height="248">
 				<frame>
 					<reportElement x="1" y="120" width="418" height="80" uuid="3a66bc0c-fb43-49a6-af1e-01dc7322eda1"/>
 					<box>
@@ -285,12 +285,12 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						</reportElement>
 						<textElement>
-							<font fontName="Sarabun" size="16" isBold="false"/>
+							<font fontName="Sarabun" size="14" isBold="false"/>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{customer}]]></textFieldExpression>
 					</textField>
 					<textField>
-						<reportElement x="81" y="23" width="328" height="87" uuid="4d688a9d-3b41-4334-a454-69a96d65a047"/>
+						<reportElement x="81" y="23" width="328" height="77" uuid="4d688a9d-3b41-4334-a454-69a96d65a047"/>
 						<textElement>
 							<font fontName="Sarabun" size="14" isBold="false"/>
 							<paragraph lineSpacing="Fixed" lineSpacingSize="6.0"/>
@@ -299,7 +299,7 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 					</textField>
 				</frame>
 				<frame>
-					<reportElement x="430" y="120" width="120" height="80" uuid="ea1cc73d-b70d-4830-b1a3-5b2b5a116a1c"/>
+					<reportElement x="430" y="120" width="150" height="80" uuid="ea1cc73d-b70d-4830-b1a3-5b2b5a116a1c"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -307,11 +307,11 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textField>
-						<reportElement x="40" y="13" width="79" height="22" uuid="191f8abd-43ab-4d86-b662-0d236afdd220">
+						<reportElement x="50" y="6" width="79" height="22" uuid="191f8abd-43ab-4d86-b662-0d236afdd220">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						</reportElement>
 						<textElement>
-							<font fontName="Sarabun" size="16" isBold="false"/>
+							<font fontName="Sarabun" size="14" isBold="false"/>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{invoice_date}]]></textFieldExpression>
 					</textField>
@@ -320,13 +320,13 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						</reportElement>
 						<textElement>
-							<font fontName="Sarabun" size="16" isBold="false"/>
+							<font fontName="Sarabun" size="14" isBold="false"/>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{tax}]]></textFieldExpression>
 					</textField>
 				</frame>
 				<frame>
-					<reportElement x="0" y="237" width="550" height="23" uuid="c76514f1-b780-470f-97c2-24d2e1483cf7"/>
+					<reportElement x="0" y="225" width="550" height="23" uuid="c76514f1-b780-470f-97c2-24d2e1483cf7"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -377,7 +377,7 @@ new SimpleDateFormat("dd.MM.yyyy", new Locale("en", "en")).format(new Date($F{sa
 						<textElement textAlignment="Center">
 							<font fontName="Sarabun" size="14" isBold="false"/>
 						</textElement>
-						<textFieldExpression><![CDATA[$F{invoice_date_due}]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$F{salesperson}]]></textFieldExpression>
 					</textField>
 					<textField isBlankWhenNull="true">
 						<reportElement x="351" y="1" width="79" height="22" uuid="cd99b6ff-a746-4776-99f0-96de8bcee774">
@@ -390,7 +390,7 @@ new SimpleDateFormat("dd.MM.yyyy", new Locale("en", "en")).format(new Date($F{sa
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textElement textAlignment="Center">
-							<font fontName="Sarabun" size="12" isBold="false"/>
+							<font fontName="Sarabun" size="14" isBold="false"/>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{job_no}]]></textFieldExpression>
 					</textField>
@@ -407,15 +407,15 @@ new SimpleDateFormat("dd.MM.yyyy", new Locale("en", "en")).format(new Date($F{sa
 						<textElement textAlignment="Center">
 							<font fontName="Sarabun" size="14" isBold="false"/>
 						</textElement>
-						<textFieldExpression><![CDATA[$F{salesperson}]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$F{invoice_date_due}]]></textFieldExpression>
 					</textField>
 				</frame>
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="274">
+			<band height="260">
 				<frame>
-					<reportElement x="0" y="0" width="544" height="274" uuid="5c28dea9-5b1a-43d9-9c86-de46450b683f">
+					<reportElement x="0" y="0" width="544" height="260" uuid="5c28dea9-5b1a-43d9-9c86-de46450b683f">
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					</reportElement>
 					<box>
@@ -475,7 +475,7 @@ new SimpleDateFormat("dd.MM.yyyy", new Locale("en", "en")).format(new Date($F{sa
 								<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							</box>
 							<textElement textAlignment="Center" verticalAlignment="Middle">
-								<font fontName="Sarabun" size="12" isBold="false" isItalic="false"/>
+								<font fontName="Sarabun" size="14" isBold="false" isItalic="false"/>
 								<paragraph rightIndent="3"/>
 							</textElement>
 							<textFieldExpression><![CDATA["จำวนวนเงินหักส่วนลด"]]></textFieldExpression>
@@ -511,7 +511,7 @@ new SimpleDateFormat("dd.MM.yyyy", new Locale("en", "en")).format(new Date($F{sa
 								<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							</box>
 							<textElement textAlignment="Right">
-								<font fontName="Sarabun" size="16" isBold="false"/>
+								<font fontName="Sarabun" size="14" isBold="false"/>
 								<paragraph rightIndent="3"/>
 							</textElement>
 							<textFieldExpression><![CDATA[$V{sum_price_subtotal}]]></textFieldExpression>
@@ -530,7 +530,7 @@ new SimpleDateFormat("dd.MM.yyyy", new Locale("en", "en")).format(new Date($F{sa
 								<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							</box>
 							<textElement textAlignment="Right">
-								<font fontName="Sarabun" size="16" isBold="false"/>
+								<font fontName="Sarabun" size="14" isBold="false"/>
 								<paragraph rightIndent="3"/>
 							</textElement>
 							<textFieldExpression><![CDATA[$F{amount_trade_discount}]]></textFieldExpression>
@@ -548,7 +548,7 @@ new SimpleDateFormat("dd.MM.yyyy", new Locale("en", "en")).format(new Date($F{sa
 								<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							</box>
 							<textElement textAlignment="Right">
-								<font fontName="Sarabun" size="16" isBold="false"/>
+								<font fontName="Sarabun" size="14" isBold="false"/>
 								<paragraph rightIndent="3"/>
 							</textElement>
 							<textFieldExpression><![CDATA[$V{sum_price_subtotal}-$F{amount_trade_discount}.doubleValue()]]></textFieldExpression>
@@ -566,7 +566,7 @@ new SimpleDateFormat("dd.MM.yyyy", new Locale("en", "en")).format(new Date($F{sa
 								<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							</box>
 							<textElement textAlignment="Right">
-								<font fontName="Sarabun" size="16" isBold="false"/>
+								<font fontName="Sarabun" size="14" isBold="false"/>
 								<paragraph rightIndent="3"/>
 							</textElement>
 							<textFieldExpression><![CDATA[$F{price_down_payment}]]></textFieldExpression>
@@ -596,7 +596,7 @@ new SimpleDateFormat("dd.MM.yyyy", new Locale("en", "en")).format(new Date($F{sa
 								<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							</box>
 							<textElement textAlignment="Right">
-								<font fontName="Sarabun" size="16" isBold="false"/>
+								<font fontName="Sarabun" size="14" isBold="false"/>
 								<paragraph rightIndent="3"/>
 							</textElement>
 							<textFieldExpression><![CDATA[$F{amount_untaxed}]]></textFieldExpression>
@@ -615,7 +615,7 @@ new SimpleDateFormat("dd.MM.yyyy", new Locale("en", "en")).format(new Date($F{sa
 								<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							</box>
 							<textElement textAlignment="Right">
-								<font fontName="Sarabun" size="16" isBold="false"/>
+								<font fontName="Sarabun" size="14" isBold="false"/>
 								<paragraph rightIndent="3"/>
 							</textElement>
 							<textFieldExpression><![CDATA[$F{amount_tax}]]></textFieldExpression>
@@ -634,7 +634,7 @@ new SimpleDateFormat("dd.MM.yyyy", new Locale("en", "en")).format(new Date($F{sa
 								<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							</box>
 							<textElement textAlignment="Right">
-								<font fontName="Sarabun" size="16" isBold="false"/>
+								<font fontName="Sarabun" size="14" isBold="false"/>
 								<paragraph rightIndent="3"/>
 							</textElement>
 							<textFieldExpression><![CDATA[$F{amount_total}]]></textFieldExpression>
