@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="autoinfo_credit_note_form" pageWidth="595" pageHeight="842" columnWidth="565" leftMargin="10" rightMargin="20" topMargin="20" bottomMargin="5" uuid="9d429c61-ca07-45fd-95b2-54aea3253cab">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Localhost"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="auto/auto_DB.xml"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="274"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="719"/>
@@ -64,7 +64,7 @@ line.quantity as line_quantity,
 line.price_unit as price_unit,
 line.price_subtotal as price_subtotal,
 (SELECT
-CONCAT(emp.name,' / ',COALESCE(dep.dtr_department_short, ''))
+CONCAT(emp.name,' ',COALESCE(dep.dtr_department_short, ''))
 FROM hr_employee emp
 LEFT JOIN hr_department dep on dep.id = emp.department_id
 WHERE emp.user_id = salesperson.id and emp.active = True
@@ -246,6 +246,7 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 	</field>
 	<field name="job_no" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="job_no"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="project_project"/>
 	</field>
 	<field name="branch_code" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="branch_code"/>
