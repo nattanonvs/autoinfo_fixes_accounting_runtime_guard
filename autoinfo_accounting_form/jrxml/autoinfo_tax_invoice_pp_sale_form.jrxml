@@ -425,9 +425,9 @@ new SimpleDateFormat("dd.MM.yyyy", new Locale("en", "en")).format(new Date($F{sa
 						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<frame>
-						<reportElement x="341" y="1" width="203" height="88" uuid="00775982-a4d5-4f0e-bf14-b2200f0efcc2"/>
+						<reportElement x="341" y="22" width="203" height="88" uuid="00775982-a4d5-4f0e-bf14-b2200f0efcc2"/>
 						<textField pattern="#,##0.00#" isBlankWhenNull="true">
-							<reportElement x="10" y="0" width="78" height="22" uuid="875f82e9-6224-48c4-938c-5eec21f368c3">
+							<reportElement x="22" y="0" width="78" height="22" uuid="875f82e9-6224-48c4-938c-5eec21f368c3">
 								<property name="com.jaspersoft.studio.unit.height" value="px"/>
 								<property name="com.jaspersoft.studio.unit.width" value="px"/>
 								<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
@@ -445,7 +445,7 @@ new SimpleDateFormat("dd.MM.yyyy", new Locale("en", "en")).format(new Date($F{sa
 							<textFieldExpression><![CDATA["รวมเป็นเงิน"]]></textFieldExpression>
 						</textField>
 						<textField pattern="#,##0.00#" isBlankWhenNull="true">
-							<reportElement x="10" y="22" width="78" height="22" uuid="076a4ace-056c-4e6b-8c58-d0173da21b41">
+							<reportElement x="22" y="22" width="78" height="22" uuid="076a4ace-056c-4e6b-8c58-d0173da21b41">
 								<property name="com.jaspersoft.studio.unit.height" value="px"/>
 								<property name="com.jaspersoft.studio.unit.width" value="px"/>
 								<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
@@ -463,7 +463,7 @@ new SimpleDateFormat("dd.MM.yyyy", new Locale("en", "en")).format(new Date($F{sa
 							<textFieldExpression><![CDATA["หัก ส่วนลด"]]></textFieldExpression>
 						</textField>
 						<textField pattern="#,##0.00#" isBlankWhenNull="true">
-							<reportElement x="10" y="44" width="78" height="22" uuid="0ea0830e-a541-455a-b7dd-ab09348977d3">
+							<reportElement x="22" y="44" width="78" height="22" uuid="0ea0830e-a541-455a-b7dd-ab09348977d3">
 								<property name="com.jaspersoft.studio.unit.height" value="px"/>
 								<property name="com.jaspersoft.studio.unit.width" value="px"/>
 								<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
@@ -481,7 +481,7 @@ new SimpleDateFormat("dd.MM.yyyy", new Locale("en", "en")).format(new Date($F{sa
 							<textFieldExpression><![CDATA["จำวนวนเงินหักส่วนลด"]]></textFieldExpression>
 						</textField>
 						<textField pattern="#,##0.00#" isBlankWhenNull="true">
-							<reportElement x="10" y="66" width="78" height="22" uuid="3f35eff3-0c7f-4fa8-95b3-18aceff2b10c">
+							<reportElement x="22" y="66" width="78" height="22" uuid="3f35eff3-0c7f-4fa8-95b3-18aceff2b10c">
 								<property name="com.jaspersoft.studio.unit.height" value="px"/>
 								<property name="com.jaspersoft.studio.unit.width" value="px"/>
 								<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
@@ -499,7 +499,7 @@ new SimpleDateFormat("dd.MM.yyyy", new Locale("en", "en")).format(new Date($F{sa
 							<textFieldExpression><![CDATA["หัก เงินมัดจำ"]]></textFieldExpression>
 						</textField>
 						<textField pattern="#,##0.00#" isBlankWhenNull="true">
-							<reportElement x="88" y="0" width="114" height="22" uuid="51fe30be-159b-4192-ab97-25a411828bc7">
+							<reportElement x="100" y="0" width="102" height="22" uuid="51fe30be-159b-4192-ab97-25a411828bc7">
 								<property name="com.jaspersoft.studio.unit.height" value="px"/>
 								<property name="com.jaspersoft.studio.unit.width" value="px"/>
 								<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
@@ -517,7 +517,7 @@ new SimpleDateFormat("dd.MM.yyyy", new Locale("en", "en")).format(new Date($F{sa
 							<textFieldExpression><![CDATA[$V{sum_price_subtotal}]]></textFieldExpression>
 						</textField>
 						<textField pattern="(#,##0.00#);(#,##0.00#)" isBlankWhenNull="true">
-							<reportElement x="88" y="22" width="114" height="22" uuid="cc04351a-4be7-4895-8e1c-0bb20d54e35d">
+							<reportElement x="100" y="22" width="102" height="22" uuid="cc04351a-4be7-4895-8e1c-0bb20d54e35d">
 								<property name="com.jaspersoft.studio.unit.height" value="px"/>
 								<property name="com.jaspersoft.studio.unit.width" value="px"/>
 								<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
@@ -536,7 +536,7 @@ new SimpleDateFormat("dd.MM.yyyy", new Locale("en", "en")).format(new Date($F{sa
 							<textFieldExpression><![CDATA[$F{amount_trade_discount}]]></textFieldExpression>
 						</textField>
 						<textField pattern="#,##0.00#" isBlankWhenNull="true">
-							<reportElement x="88" y="44" width="114" height="22" uuid="5d8ce57c-bc62-4c19-b23a-cfbc6ff9b6a0">
+							<reportElement x="100" y="44" width="102" height="22" uuid="5d8ce57c-bc62-4c19-b23a-cfbc6ff9b6a0">
 								<property name="com.jaspersoft.studio.unit.height" value="px"/>
 								<property name="com.jaspersoft.studio.unit.width" value="px"/>
 								<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
@@ -554,7 +554,7 @@ new SimpleDateFormat("dd.MM.yyyy", new Locale("en", "en")).format(new Date($F{sa
 							<textFieldExpression><![CDATA[$V{sum_price_subtotal}-$F{amount_trade_discount}.doubleValue()]]></textFieldExpression>
 						</textField>
 						<textField pattern="#,##0.00#;(#,##0.00#)" isBlankWhenNull="true">
-							<reportElement x="88" y="66" width="114" height="22" uuid="4e7670ca-4b19-4f07-bcee-1f5074bdfffc">
+							<reportElement x="100" y="66" width="102" height="22" uuid="4e7670ca-4b19-4f07-bcee-1f5074bdfffc">
 								<property name="com.jaspersoft.studio.unit.height" value="px"/>
 								<property name="com.jaspersoft.studio.unit.width" value="px"/>
 								<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
@@ -573,7 +573,7 @@ new SimpleDateFormat("dd.MM.yyyy", new Locale("en", "en")).format(new Date($F{sa
 						</textField>
 					</frame>
 					<frame>
-						<reportElement x="354" y="90" width="189" height="139" uuid="b75b6018-5ef2-49bb-b5ae-fe0057ab8cde">
+						<reportElement x="354" y="110" width="189" height="90" uuid="b75b6018-5ef2-49bb-b5ae-fe0057ab8cde">
 							<property name="com.jaspersoft.studio.unit.width" value="px"/>
 						</reportElement>
 						<box>
@@ -583,7 +583,7 @@ new SimpleDateFormat("dd.MM.yyyy", new Locale("en", "en")).format(new Date($F{sa
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textField pattern="#,##0.00#" isBlankWhenNull="true">
-							<reportElement x="75" y="12" width="114" height="22" uuid="a8f4137d-6e47-4f7e-b40b-7f5acd1f5368">
+							<reportElement x="75" y="4" width="114" height="22" uuid="a8f4137d-6e47-4f7e-b40b-7f5acd1f5368">
 								<property name="com.jaspersoft.studio.unit.height" value="px"/>
 								<property name="com.jaspersoft.studio.unit.width" value="px"/>
 								<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
@@ -595,14 +595,14 @@ new SimpleDateFormat("dd.MM.yyyy", new Locale("en", "en")).format(new Date($F{sa
 								<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 								<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							</box>
-							<textElement textAlignment="Right">
+							<textElement textAlignment="Right" verticalAlignment="Middle">
 								<font fontName="Sarabun" size="14" isBold="false"/>
 								<paragraph rightIndent="3"/>
 							</textElement>
 							<textFieldExpression><![CDATA[$F{amount_untaxed}]]></textFieldExpression>
 						</textField>
 						<textField pattern="#,##0.00#" isBlankWhenNull="true">
-							<reportElement x="75" y="50" width="114" height="22" uuid="646068a3-473e-4529-9faa-61f09b3e9daa">
+							<reportElement x="75" y="36" width="114" height="22" uuid="646068a3-473e-4529-9faa-61f09b3e9daa">
 								<property name="com.jaspersoft.studio.unit.height" value="px"/>
 								<property name="com.jaspersoft.studio.unit.width" value="px"/>
 								<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
@@ -614,14 +614,14 @@ new SimpleDateFormat("dd.MM.yyyy", new Locale("en", "en")).format(new Date($F{sa
 								<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 								<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							</box>
-							<textElement textAlignment="Right">
+							<textElement textAlignment="Right" verticalAlignment="Middle">
 								<font fontName="Sarabun" size="14" isBold="false"/>
 								<paragraph rightIndent="3"/>
 							</textElement>
 							<textFieldExpression><![CDATA[$F{amount_tax}]]></textFieldExpression>
 						</textField>
 						<textField pattern="#,##0.00#" isBlankWhenNull="true">
-							<reportElement x="75" y="93" width="114" height="22" uuid="5df2c28d-c758-4d2e-87fc-22ff2c575fba">
+							<reportElement x="75" y="68" width="114" height="22" uuid="5df2c28d-c758-4d2e-87fc-22ff2c575fba">
 								<property name="com.jaspersoft.studio.unit.height" value="px"/>
 								<property name="com.jaspersoft.studio.unit.width" value="px"/>
 								<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
