@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <delete id="autoinfo_accounting_form.action_autoinfo_invoice_form" model="ir.actions.act_window"/>
+        <delete id="autoinfo_accounting_form.action_autoinfo_tax_invoice_pp_sale_form" model="ir.actions.act_window"/>
+        <delete id="autoinfo_accounting_form.action_autoinfo_tax_invoice_pp_form" model="ir.actions.act_window"/>
+        <delete id="autoinfo_accounting_form.action_autoinfo_receipt_pp_form" model="ir.actions.act_window"/>
+        <delete id="autoinfo_accounting_form.action_autoinfo_tax_receipt_form" model="ir.actions.act_window"/>
+    </data>
+</odoo>

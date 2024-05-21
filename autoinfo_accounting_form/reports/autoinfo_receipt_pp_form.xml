@@ -25,6 +25,5 @@
             <field name="binding_type">report</field>
 <!--            <field name="context">{'iscopy': 0}</field>-->
         </record>
-
     </data>
 </odoo>

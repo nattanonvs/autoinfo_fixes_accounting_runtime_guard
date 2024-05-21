@@ -146,6 +146,7 @@ Changelog
     'application': False,
     'data': [
         'security/ir.model.access.csv',
+        'delete.xml',
         'reports/autoinfo_invoice_form.xml',
         'reports/autoinfo_tax_invoice_pp_sale_form.xml',
         'reports/autoinfo_tax_invoice_pp_form.xml',
