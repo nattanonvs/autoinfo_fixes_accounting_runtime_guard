@@ -64,7 +64,8 @@ line.quantity as line_quantity,
 line.price_unit as price_unit,
 line.price_subtotal as price_subtotal,
 (SELECT
-CONCAT(emp.name,' ',COALESCE(dep.dtr_department_short, ''))
+--CONCAT(emp.name,' ',COALESCE(dep.dtr_department_short, ''))
+emp.name
 FROM hr_employee emp
 LEFT JOIN hr_department dep on dep.id = emp.department_id
 WHERE emp.user_id = salesperson.id and emp.active = True
