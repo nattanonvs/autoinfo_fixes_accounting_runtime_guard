@@ -56,8 +56,8 @@ LEFT JOIN account_move_line_account_tax_rel aml_atx on aml_atx.account_move_line
 LEFT JOIN account_tax tax on tax.id = aml_atx.account_tax_id
 where aml.move_id = invoice.id and aml.exclude_from_invoice_tab = False and aml.display_type is NULL
 LIMIT 1) as tax,
-sale.client_order_ref as sale_ref,
-sale.po_date as sale_ref_date,
+case when sale2.id is not null then sale2.client_order_ref else sale.client_order_ref end as sale_ref,
+case when sale2.id is not null then sale2.po_date else sale.po_date end as sale_ref_date,
 term.name as payment_term,
 line.name as line_name,
 line.quantity as line_quantity,
@@ -105,7 +105,25 @@ LEFT JOIN	( select
 			 	customer_project,
 			 	user_id
 			) sale on ( sale.name = (select line.customer_source_doc from account_move_line line where line.move_id = invoice.id and line.customer_source_doc is not null group by line.customer_source_doc limit 1))
-			
+LEFT JOIN	( select 
+			 	so.name,
+			 	so.client_order_ref,
+			 	so.po_date,
+			 	so.user_id,
+			 	so.customer_project,
+			 	min(so.id) as id ,
+				sp.name as sp_name
+			 from sale_order so
+			 join stock_picking sp on sp.sale_id=so.id
+			 group by 
+			 	so.name,
+			 	so.client_order_ref,
+			 	so.po_date,
+			 	so.customer_project,
+			 	so.user_id,
+				sp.name
+			) sale2 on ( sale2.sp_name = (select line.customer_source_doc from account_move_line line where line.move_id = invoice.id and line.customer_source_doc is not null group by line.customer_source_doc limit 1))
+
 LEFT JOIN res_users salesperson on salesperson.id = sale.user_id
 LEFT JOIN project_project project ON project.id = sale.customer_project
 
