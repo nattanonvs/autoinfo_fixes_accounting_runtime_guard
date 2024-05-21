@@ -3,7 +3,7 @@
     <data>
 
         <record id="autoinfo_tax_invoice_pp_sale_form" model="ir.ui.view">
-            <field name="name">Customer invoice Preprint Form (autoinfo) งานขาย</field>
+            <field name="name">Customer Invoice Preprint Form (autoinfo) งานขาย</field>
             <field name="model">autoinfo.tax.invoice.pp.sale.form</field>
             <field name="inherit_id" ref="dtr_jasper.jasper_report_wizard" />
             <field name="arch" type="xml">
@@ -19,7 +19,7 @@
             </field>
         </record>
         <record id="action_autoinfo_tax_invoice_pp_sale_form" model="ir.actions.act_window">
-            <field name="name">Customer invoice Preprint (autoinfo) งานขาย</field>
+            <field name="name">Customer Invoice Preprint (autoinfo) งานขาย</field>
             <field name="res_model">autoinfo.tax.invoice.pp.sale.form</field>
             <field name="target">new</field>
             <field name="view_id" ref="autoinfo_tax_invoice_pp_sale_form"/>

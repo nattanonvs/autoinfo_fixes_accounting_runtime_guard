@@ -146,13 +146,12 @@ Changelog
     'application': False,
     'data': [
         'security/ir.model.access.csv',
+        'reports/autoinfo_invoice_form.xml',
         'reports/autoinfo_tax_invoice_pp_sale_form.xml',
         'reports/autoinfo_tax_invoice_pp_form.xml',
         'reports/autoinfo_receipt_pp_form.xml',
         'reports/receipt_form.xml',
-        'reports/autoinfo_invoice_form.xml',
-        'views/account_payment_view.xml',
         'reports/autoinfo_tax_receipt_form.xml',
-
+        'views/account_payment_view.xml',
     ],
 }
