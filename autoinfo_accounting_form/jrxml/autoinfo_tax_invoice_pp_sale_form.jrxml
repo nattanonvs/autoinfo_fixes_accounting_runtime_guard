@@ -64,7 +64,8 @@ line.quantity as line_quantity,
 line.price_unit as price_unit,
 line.price_subtotal as price_subtotal,
 (SELECT
-CONCAT(emp.name,' / ',COALESCE(dep.dtr_department_short, ''))
+--CONCAT(emp.name,' / ',COALESCE(dep.dtr_department_short, ''))
+emp.name
 FROM hr_employee emp
 LEFT JOIN hr_department dep on dep.id = emp.department_id
 WHERE emp.user_id = salesperson.id and emp.active = True
@@ -124,8 +125,8 @@ LEFT JOIN	( select
 				sp.name
 			) sale2 on ( sale2.sp_name = (select line.customer_source_doc from account_move_line line where line.move_id = invoice.id and line.customer_source_doc is not null group by line.customer_source_doc limit 1))
 
-LEFT JOIN res_users salesperson on salesperson.id = sale.user_id
-LEFT JOIN project_project project ON project.id = sale.customer_project
+LEFT JOIN res_users salesperson on salesperson.id = (case when sale2.id is not null then sale2.user_id else sale.user_id end)
+LEFT JOIN project_project project on project.id = (case when sale2.id is not null then sale2.customer_project else sale.customer_project end)
 
 LEFT JOIN account_payment_term term on ( term.id = invoice.invoice_payment_term_id )
 LEFT JOIN LATERAL (select case date_part('month',invoice.invoice_date)
