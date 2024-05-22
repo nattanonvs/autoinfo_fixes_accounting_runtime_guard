@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.10.0-unknown  -->
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="autoinfo_credit_note_form" pageWidth="595" pageHeight="842" columnWidth="565" leftMargin="10" rightMargin="20" topMargin="20" bottomMargin="5" uuid="9d429c61-ca07-45fd-95b2-54aea3253cab">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Localhost"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -290,7 +290,7 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 	<group name="group_doc" isResetPageNumber="true" isReprintHeaderOnEachPage="true" footerPosition="StackAtBottom" keepTogether="true">
 		<groupExpression><![CDATA[$F{inv_no}]]></groupExpression>
 		<groupHeader>
-			<band height="248">
+			<band height="253">
 				<frame>
 					<reportElement x="1" y="120" width="418" height="80" uuid="3a66bc0c-fb43-49a6-af1e-01dc7322eda1"/>
 					<box>
@@ -314,7 +314,7 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 							<font fontName="Sarabun" size="14" isBold="false"/>
 							<paragraph lineSpacing="Fixed" lineSpacingSize="6.0"/>
 						</textElement>
-						<textFieldExpression><![CDATA[$F{partner_address} + "\nTel " + $F{partner_phone} + "  Fax " + $F{partner_fax} + "\nเลขประจำตัวผู้เสียภาษี " + $F{customer_tax_id} + "\t\tสาขา " + IF($F{branch_code}.toString().equals("00000"),"สำนักงานใหญ่",$F{branch_code}) ]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$F{partner_address} + "\nTel " + $F{partner_phone} + "  Fax " + $F{partner_fax} + "\nเลขประจำตัวผู้เสียภาษี " + $F{customer_tax_id} + "\t\tสาขา " + IF($F{branch_code}.toString().equals("00000"),"สำนักงานใหญ่",$F{branch_code})]]></textFieldExpression>
 					</textField>
 				</frame>
 				<frame>
@@ -365,7 +365,7 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 						<textElement>
 							<font fontName="Sarabun" size="14" isBold="false"/>
 						</textElement>
-						<textFieldExpression><![CDATA["PONO : "+$F{sale_ref}+IF($F{sale_ref_date}==null,""," DATE : "+
+						<textFieldExpression><![CDATA[$F{sale_ref}+IF($F{sale_ref_date}==null,"","/"+
 new SimpleDateFormat("dd.MM.yyyy", new Locale("en", "en")).format(new Date($F{sale_ref_date}.getTime() + 7 * 3600*1000)))]]></textFieldExpression>
 					</textField>
 					<textField isBlankWhenNull="true">
@@ -602,7 +602,7 @@ new SimpleDateFormat("dd.MM.yyyy", new Locale("en", "en")).format(new Date($F{sa
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textField pattern="#,##0.00#" isBlankWhenNull="true">
-							<reportElement x="75" y="4" width="114" height="22" uuid="a8f4137d-6e47-4f7e-b40b-7f5acd1f5368">
+							<reportElement x="75" y="6" width="114" height="22" uuid="a8f4137d-6e47-4f7e-b40b-7f5acd1f5368">
 								<property name="com.jaspersoft.studio.unit.height" value="px"/>
 								<property name="com.jaspersoft.studio.unit.width" value="px"/>
 								<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
