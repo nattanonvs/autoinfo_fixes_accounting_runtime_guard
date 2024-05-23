@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="autoinfo_credit_note_form" pageWidth="595" pageHeight="842" columnWidth="565" leftMargin="10" rightMargin="20" topMargin="20" bottomMargin="5" uuid="9d429c61-ca07-45fd-95b2-54aea3253cab">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Localhost"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -290,7 +290,7 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 	<group name="group_doc" isResetPageNumber="true" isReprintHeaderOnEachPage="true" footerPosition="StackAtBottom" keepTogether="true">
 		<groupExpression><![CDATA[$F{inv_no}]]></groupExpression>
 		<groupHeader>
-			<band height="253">
+			<band height="248">
 				<frame>
 					<reportElement x="1" y="120" width="418" height="80" uuid="3a66bc0c-fb43-49a6-af1e-01dc7322eda1"/>
 					<box>
@@ -326,7 +326,7 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					</box>
 					<textField>
-						<reportElement x="50" y="6" width="79" height="22" uuid="191f8abd-43ab-4d86-b662-0d236afdd220">
+						<reportElement x="61" y="6" width="79" height="22" uuid="191f8abd-43ab-4d86-b662-0d236afdd220">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						</reportElement>
 						<textElement>
@@ -335,7 +335,7 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 						<textFieldExpression><![CDATA[$F{invoice_date}]]></textFieldExpression>
 					</textField>
 					<textField>
-						<reportElement x="71" y="40" width="49" height="22" uuid="ad54315b-cdc6-4beb-b8cf-293e5809fbf9">
+						<reportElement x="82" y="40" width="49" height="22" uuid="ad54315b-cdc6-4beb-b8cf-293e5809fbf9">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						</reportElement>
 						<textElement>
@@ -345,7 +345,7 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 					</textField>
 				</frame>
 				<frame>
-					<reportElement x="0" y="225" width="550" height="23" uuid="c76514f1-b780-470f-97c2-24d2e1483cf7"/>
+					<reportElement x="0" y="225" width="580" height="23" uuid="c76514f1-b780-470f-97c2-24d2e1483cf7"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -399,7 +399,7 @@ new SimpleDateFormat("dd.MM.yyyy", new Locale("en", "en")).format(new Date($F{sa
 						<textFieldExpression><![CDATA[$F{salesperson}]]></textFieldExpression>
 					</textField>
 					<textField isBlankWhenNull="true">
-						<reportElement x="351" y="1" width="79" height="22" uuid="cd99b6ff-a746-4776-99f0-96de8bcee774">
+						<reportElement x="367" y="1" width="79" height="22" uuid="cd99b6ff-a746-4776-99f0-96de8bcee774">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						</reportElement>
 						<box>
@@ -414,7 +414,7 @@ new SimpleDateFormat("dd.MM.yyyy", new Locale("en", "en")).format(new Date($F{sa
 						<textFieldExpression><![CDATA[$F{job_no}]]></textFieldExpression>
 					</textField>
 					<textField isBlankWhenNull="true">
-						<reportElement x="431" y="1" width="118" height="22" uuid="2b0a0ac5-8cc4-46bd-86fc-134ff36ae769">
+						<reportElement x="453" y="1" width="118" height="22" uuid="2b0a0ac5-8cc4-46bd-86fc-134ff36ae769">
 							<property name="com.jaspersoft.studio.unit.height" value="px"/>
 						</reportElement>
 						<box>
@@ -602,7 +602,7 @@ new SimpleDateFormat("dd.MM.yyyy", new Locale("en", "en")).format(new Date($F{sa
 							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						</box>
 						<textField pattern="#,##0.00#" isBlankWhenNull="true">
-							<reportElement x="75" y="6" width="114" height="22" uuid="a8f4137d-6e47-4f7e-b40b-7f5acd1f5368">
+							<reportElement x="75" y="11" width="114" height="22" uuid="a8f4137d-6e47-4f7e-b40b-7f5acd1f5368">
 								<property name="com.jaspersoft.studio.unit.height" value="px"/>
 								<property name="com.jaspersoft.studio.unit.width" value="px"/>
 								<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
