@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="autoinfo_invoice_form" pageWidth="595" pageHeight="842" columnWidth="575" leftMargin="10" rightMargin="10" topMargin="20" bottomMargin="5" uuid="9d429c61-ca07-45fd-95b2-54aea3253cab">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="auto/auto_DB.xml"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -90,7 +90,7 @@
 		</conditionalStyle>
 	</style>
 	<parameter name="ids" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["where invoice.id in (52256)"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["where invoice.id in (60457, 60458,60459)"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="iscopy" class="java.lang.Integer" isForPrompting="false">
 		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
@@ -275,12 +275,14 @@
 ,ABS(invoice.amount_total_signed) as amount_total_signed
 ,COALESCE(line.is_trade_discount, False) as is_trade_discount
 ,COALESCE(line.is_deposit_payment, False) as is_deposit_payment
+,COALESCE(line.is_deduct_deposit_payment, False) as is_deduct_deposit_payment
 ,COALESCE((select sum(abs(aml.balance)) from account_move_line aml where aml.move_id = invoice.id and aml.is_deposit_payment = True), 0) as deposit_payment_amount
+,COALESCE((select sum(abs(aml.balance)) from account_move_line aml where aml.move_id = invoice.id and aml.is_deduct_deposit_payment = True), 0) as deduct_deposit_payment_amount
 ,invoice.order_type as inv_type
 
 from		account_move invoice
 left join res_currency cur on cur.id = invoice.currency_id
-left join	account_move_line line on ( line.move_id = invoice.id ) and (line.exclude_from_invoice_tab = False or line.exclude_from_invoice_tab is null) and is_deduct_down_payment is not True 
+left join	account_move_line line on ( line.move_id = invoice.id ) and (line.exclude_from_invoice_tab = False or line.exclude_from_invoice_tab is null) 
 left join	account_move_line_account_tax_rel tax_rel on ( tax_rel.account_move_line_id = line.id )
 left join	account_tax tax on ( tax.id = tax_rel.account_tax_id )
 left join	product_product product on ( product.id = line.product_id )
@@ -306,7 +308,7 @@ left join sale_order sale on sale.id=(SELECT min(id) FROM (
 ) salex)
 left join hr_department department on department.id = invoice.department_id
 left join res_company comp ON comp.id = invoice.company_id
-$P!{ids} and line.is_trade_discount = False
+$P!{ids} and (line.is_trade_discount = False and line.is_deduct_deposit_payment is not True)
 ORDER BY invoice.id,flag, line.sequence, line.id]]>
 	</queryString>
 	<field name="rowid" class="java.lang.Integer">
@@ -541,8 +543,14 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 	<field name="is_deposit_payment" class="java.lang.Boolean">
 		<property name="com.jaspersoft.studio.field.label" value="is_deposit_payment"/>
 	</field>
+	<field name="is_deduct_deposit_payment" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.label" value="is_deduct_deposit_payment"/>
+	</field>
 	<field name="deposit_payment_amount" class="java.math.BigDecimal">
 		<property name="com.jaspersoft.studio.field.label" value="deposit_payment_amount"/>
+	</field>
+	<field name="deduct_deposit_payment_amount" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="deduct_deposit_payment_amount"/>
 	</field>
 	<field name="inv_type" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="inv_type"/>
@@ -2038,8 +2046,8 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 					<textFieldExpression><![CDATA[IF($F{inv_type}.equals("deposit_payment"),
 	
 	$V{v_amount_untaxed_before_trade_discount}.subtract($F{amount_trade_discount}).subtract($F{down_payment_amount})
-	,$V{v_amount_untaxed_before_trade_discount}.subtract($F{amount_trade_discount}).subtract(BigDecimal.ZERO.compareTo($F{down_payment_amount})==0?$F{deposit_payment_amount}:$F{down_payment_amount})
-	)]]></textFieldExpression>
+	,$V{v_amount_untaxed_before_trade_discount}.subtract($F{amount_trade_discount}).subtract(BigDecimal.ZERO.compareTo($F{down_payment_amount})==0?$F{deposit_payment_amount}:$F{down_payment_amount}).subtract($F{deduct_deposit_payment_amount})
+)]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="group_id" pattern="#,##0.00">
 					<reportElement mode="Transparent" x="472" y="75" width="103" height="25" uuid="9aab9688-19a2-4970-b18d-74fcd7f860b8">
@@ -2059,9 +2067,10 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 					</textElement>
 					<textFieldExpression><![CDATA[IF(BigDecimal.ZERO.compareTo($F{down_payment_amount})==0,
 	
-	IF($F{inv_type}.equals("deposit_payment"),BigDecimal.ZERO
-		,$F{deposit_payment_amount}
-	),
+	IF(BigDecimal.ZERO.compareTo($F{deduct_deposit_payment_amount})==0,BigDecimal.ZERO
+			,$F{deduct_deposit_payment_amount}
+			
+		),
 	$F{down_payment_amount}
 )]]></textFieldExpression>
 				</textField>
