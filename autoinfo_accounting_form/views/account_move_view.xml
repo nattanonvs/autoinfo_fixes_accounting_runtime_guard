@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="autoinfo_accounting_form_inherit_dtr_view_move_form" model="ir.ui.view">
+            <field name="name">autoinfo_accounting_form_inherit_dtr_view_move_form</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="dtr_customer_invoices.dtr_view_move_form"/>
+            <field name="arch" type="xml">
+<!--                <xpath expr="//field[@name='example_field']" position="replace">-->
+<!--                    <field name="example_field2"/>-->
+<!--                </xpath>-->
+<!--                <xpath expr="//field[@name='example_field']" position="attributes">-->
+<!--                    <attribute name="invisible">True</attribute>-->
+<!--                </xpath>-->
+                <field name="order_type" position="after">
+                    <field name="deposit_so_ref" domain="[('state', 'in', ['done'])]" attrs="{'invisible': [('order_type', '!=', 'deposit_payment')]}"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>
