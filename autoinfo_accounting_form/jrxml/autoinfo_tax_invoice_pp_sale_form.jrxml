@@ -312,7 +312,7 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 	<group name="group_doc" isResetPageNumber="true" isReprintHeaderOnEachPage="true" footerPosition="StackAtBottom" keepTogether="true">
 		<groupExpression><![CDATA[$F{inv_no}]]></groupExpression>
 		<groupHeader>
-			<band height="258">
+			<band height="262">
 				<frame>
 					<reportElement x="1" y="120" width="418" height="80" uuid="3a66bc0c-fb43-49a6-af1e-01dc7322eda1"/>
 					<box>
