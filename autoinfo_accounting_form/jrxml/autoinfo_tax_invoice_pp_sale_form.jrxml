@@ -519,7 +519,7 @@ new SimpleDateFormat("dd.MM.yyyy", new Locale("en", "en")).format(new Date($F{sa
 								<font fontName="Sarabun" size="14" isBold="false" isItalic="false"/>
 								<paragraph rightIndent="3"/>
 							</textElement>
-							<textFieldExpression><![CDATA["จำนวนเงินหักส่วนลด"]]></textFieldExpression>
+							<textFieldExpression><![CDATA["จำนวนเงินหลังหักส่วนลด"]]></textFieldExpression>
 						</textField>
 						<textField pattern="#,##0.00#" isBlankWhenNull="true">
 							<reportElement x="83" y="66" width="78" height="22" uuid="3f35eff3-0c7f-4fa8-95b3-18aceff2b10c">
