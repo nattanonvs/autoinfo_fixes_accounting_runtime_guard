@@ -594,7 +594,7 @@ new SimpleDateFormat("dd.MM.yyyy", new Locale("en", "en")).format(new Date($F{sa
 							</textElement>
 							<textFieldExpression><![CDATA[$V{sum_price_subtotal}-$F{amount_trade_discount}.doubleValue()]]></textFieldExpression>
 						</textField>
-						<textField pattern="#,##0.00#;(#,##0.00#)" isBlankWhenNull="true">
+						<textField pattern="(#,##0.00#);(#,##0.00#)" isBlankWhenNull="true">
 							<reportElement x="169" y="66" width="114" height="22" uuid="4e7670ca-4b19-4f07-bcee-1f5074bdfffc">
 								<property name="com.jaspersoft.studio.unit.height" value="px"/>
 								<property name="com.jaspersoft.studio.unit.width" value="px"/>
