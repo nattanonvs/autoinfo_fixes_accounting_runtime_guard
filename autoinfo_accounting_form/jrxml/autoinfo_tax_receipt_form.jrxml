@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="autoinfo_tax_receipt_form" pageWidth="595" pageHeight="842" columnWidth="575" leftMargin="10" rightMargin="10" topMargin="20" bottomMargin="5" isFloatColumnFooter="true" uuid="9d429c61-ca07-45fd-95b2-54aea3253cab">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="auto/auto_DB.xml"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -284,14 +284,17 @@ and line.display_type is null limit 1) as vat_order2,
 ,ABS(invoice.amount_total_signed) as amount_total_signed
 ,COALESCE(line.is_trade_discount, False) as is_trade_discount
 ,entry.date as je_date
-
+,COALESCE((select sum(abs(aml.balance)) from account_move_line aml where aml.move_id = invoice.id and aml.is_deposit_payment = True), 0) as deposit_payment_amount
+,COALESCE((select sum(abs(aml.balance)) from account_move_line aml where aml.move_id = invoice.id and aml.is_deduct_deposit_payment = True), 0) as deduct_deposit_payment_amount
+,invoice.order_type as inv_type
 from account_payment payment
 left join account_move_account_payment_rel acc_pay on acc_pay.account_payment_id = payment.id
 left join account_move invoice on invoice.id = acc_pay.account_move_id
 
 
 left join res_currency cur on cur.id = invoice.currency_id
-left join	account_move_line line on ( line.move_id = invoice.id ) and (line.exclude_from_invoice_tab = False or line.exclude_from_invoice_tab is null) and is_deduct_down_payment is not True
+left join	account_move_line line on ( line.move_id = invoice.id ) and (line.exclude_from_invoice_tab = False or line.exclude_from_invoice_tab is null) 
+
 left join	account_move_line_account_tax_rel tax_rel on ( tax_rel.account_move_line_id = line.id )
 left join	account_tax tax on ( tax.id = tax_rel.account_tax_id )
 left join	product_product product on ( product.id = line.product_id )
@@ -319,7 +322,8 @@ left join hr_department department on department.id = invoice.department_id
 left join res_company comp ON comp.id = invoice.company_id
 left join account_move as entry on entry.id = payment.move_id
 
-$P!{ids} and line.is_trade_discount = False
+$P!{ids} 
+and (line.is_trade_discount = False and line.is_deduct_deposit_payment is not True)
 ORDER BY invoice.id,flag, line.sequence, line.id]]>
 	</queryString>
 	<field name="rowid" class="java.lang.Integer">
@@ -550,6 +554,16 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 	</field>
 	<field name="je_date" class="java.sql.Date">
 		<property name="com.jaspersoft.studio.field.label" value="je_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="account_move"/>
+	</field>
+	<field name="deposit_payment_amount" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="deposit_payment_amount"/>
+	</field>
+	<field name="deduct_deposit_payment_amount" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="deduct_deposit_payment_amount"/>
+	</field>
+	<field name="inv_type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="inv_type"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="account_move"/>
 	</field>
 	<variable name="vat_percent" class="java.math.BigDecimal" calculation="Highest">
@@ -1864,7 +1878,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 					</textElement>
 					<textFieldExpression><![CDATA[$V{v_amount_untaxed_before_trade_discount}.subtract($F{amount_trade_discount})]]></textFieldExpression>
 				</textField>
-				<textField evaluationTime="Group" evaluationGroup="group_id" pattern="#,##0.00">
+				<textField evaluationTime="Group" evaluationGroup="group_id" pattern="(#,##0.00#);(#,##0.00#)">
 					<reportElement mode="Transparent" x="472" y="75" width="103" height="25" uuid="d1158f6c-f343-4845-a148-4104de1c4461">
 						<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -1880,9 +1894,16 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="12" isBold="true"/>
 						<paragraph rightIndent="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{down_payment_amount}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[IF(BigDecimal.ZERO.compareTo($F{down_payment_amount})==0,
+	
+	IF(BigDecimal.ZERO.compareTo($F{deduct_deposit_payment_amount})==0,BigDecimal.ZERO
+			,$F{deduct_deposit_payment_amount}
+			
+		),
+	$F{down_payment_amount}
+)]]></textFieldExpression>
 				</textField>
-				<textField evaluationTime="Group" evaluationGroup="group_id" pattern="#,##0.00">
+				<textField evaluationTime="Group" evaluationGroup="group_id" pattern="#,##0.00#">
 					<reportElement mode="Transparent" x="472" y="100" width="103" height="25" uuid="6da4b250-3ec8-425d-a1f3-870f6210de3b">
 						<property name="com.jaspersoft.studio.unit.rightIndent" value="px"/>
 						<property name="com.jaspersoft.studio.unit.height" value="px"/>
@@ -1898,7 +1919,11 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 						<font fontName="Sarabun" size="12" isBold="true"/>
 						<paragraph rightIndent="3"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$V{v_amount_untaxed_before_trade_discount}.subtract($F{amount_trade_discount}).subtract($F{down_payment_amount})]]></textFieldExpression>
+					<textFieldExpression><![CDATA[IF($F{inv_type}.equals("deposit_payment"),
+	
+	$V{v_amount_untaxed_before_trade_discount}.subtract($F{amount_trade_discount}).subtract($F{down_payment_amount})
+	,$V{v_amount_untaxed_before_trade_discount}.subtract($F{amount_trade_discount}).subtract(BigDecimal.ZERO.compareTo($F{down_payment_amount})==0?$F{deposit_payment_amount}:$F{down_payment_amount}).subtract($F{deduct_deposit_payment_amount})
+)]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="group_id" pattern="#,##0.00">
 					<reportElement mode="Transparent" x="472" y="125" width="103" height="25" uuid="7d895015-2ab3-44c4-b3dd-e8f0fadc812d">
