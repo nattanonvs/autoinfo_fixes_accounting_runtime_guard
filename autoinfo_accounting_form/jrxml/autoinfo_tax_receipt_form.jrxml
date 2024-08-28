@@ -902,7 +902,7 @@ ORDER BY invoice.id,flag, line.sequence, line.id]]>
 					</box>
 					<textElement textAlignment="Left" verticalAlignment="Top">
 						<font fontName="Sarabun" size="14" isBold="false"/>
-						<paragraph lineSpacing="Fixed" lineSpacingSize="5.0" leftIndent="5" spacingBefore="3"/>
+						<paragraph lineSpacing="Fixed" lineSpacingSize="8.0" leftIndent="5" spacingBefore="3"/>
 					</textElement>
 					<textFieldExpression><![CDATA[TRIM($F{partner_address}) + "\nTel " + $F{partner_phone} + "  Fax " + $F{partner_fax}]]></textFieldExpression>
 				</textField>

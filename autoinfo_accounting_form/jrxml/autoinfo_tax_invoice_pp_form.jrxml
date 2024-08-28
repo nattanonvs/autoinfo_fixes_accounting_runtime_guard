@@ -314,7 +314,7 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 		<groupHeader>
 			<band height="280">
 				<frame>
-					<reportElement x="1" y="120" width="418" height="80" uuid="3a66bc0c-fb43-49a6-af1e-01dc7322eda1"/>
+					<reportElement x="1" y="112" width="418" height="80" uuid="3a66bc0c-fb43-49a6-af1e-01dc7322eda1"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -334,7 +334,7 @@ ORDER BY invoice.id, line.sequence, line.id]]>
 						<reportElement x="81" y="23" width="328" height="87" uuid="4d688a9d-3b41-4334-a454-69a96d65a047"/>
 						<textElement>
 							<font fontName="Sarabun" size="14" isBold="false"/>
-							<paragraph lineSpacing="Fixed" lineSpacingSize="6.0"/>
+							<paragraph lineSpacing="Fixed" lineSpacingSize="8.0"/>
 						</textElement>
 						<textFieldExpression><![CDATA[$F{partner_address} + "\nTel " + $F{partner_phone} + "  Fax " + $F{partner_fax} + "\nเลขประจำตัวผู้เสียภาษี " + $F{customer_tax_id} + "\t\tสาขา " + IF($F{branch_code}.toString().equals("00000"),"สำนักงานใหญ่",$F{branch_code})]]></textFieldExpression>
 					</textField>
