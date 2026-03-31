@@ -58,6 +58,7 @@ class autoinfo_tax_invoice_pp_sale_form(models.TransientModel):
         ('yyyy-MM-dd', 'yyyy-MM-dd'),
         ('yyyy-MMM-dd', 'yyyy-MMM-dd')],
        'Date Format', default=_compute_default_date_format)
+    show_inv_name = fields.Boolean(string='Show Invoice Name', default=False)
 
     def show_report(self, report_name=False):
         ids = self.env.context.get('active_ids')
@@ -104,7 +105,8 @@ class autoinfo_tax_invoice_pp_sale_form(models.TransientModel):
             'p_language': self.p_language,
             'p_locale': 'th' if self.date_type == 'BE' else 'en',
             'p_DateFormat': str(self.date_format),
-            'p_Path': "{0}/filestore/{1}/".format(config.options['data_dir'].replace('\\', '/'), self.env.cr.dbname)
+            'p_Path': "{0}/filestore/{1}/".format(config.options['data_dir'].replace('\\', '/'), self.env.cr.dbname),
+            'show_inv_name': str(self.show_inv_name)
         }
         return parm
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<!-- Created with Jaspersoft Studio version 6.10.0.final using JasperReports Library version 6.10.0-unknown  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="autoinfo_invoice_inv2_form" pageWidth="595" pageHeight="842" columnWidth="575" leftMargin="10" rightMargin="10" topMargin="20" bottomMargin="5" isFloatColumnFooter="true" uuid="9d429c61-ca07-45fd-95b2-54aea3253cab">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Localhost"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -125,6 +125,7 @@
 	<parameter name="p_Path" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["/odoo15_dtr/.local/share/Odoo/filestore/autoinfo_16012023/"]]></defaultValueExpression>
 	</parameter>
+	<parameter name="show_inv_name" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[select		line.report_sequence  as rowid,
                 line.display_type  as display_type,
