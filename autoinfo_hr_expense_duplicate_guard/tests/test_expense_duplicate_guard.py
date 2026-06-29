@@ -18,6 +18,26 @@ class TestExpenseDuplicateGuard(TransactionCase):
                 "can_be_expensed": True,
             }
         )
+        cls.monthly_product = cls.env["product.product"].create(
+            {
+                "name": "Monthly Expense Product",
+                "type": "service",
+                "can_be_expensed": True,
+            }
+        )
+        cls.other_product = cls.env["product.product"].create(
+            {
+                "name": "Other Expense Product",
+                "type": "service",
+                "can_be_expensed": True,
+            }
+        )
+        cls.analytic_account = cls.env["account.analytic.account"].create(
+            {
+                "name": "Expense Guard Project",
+                "company_id": cls.env.company.id,
+            }
+        )
 
     def _create_mileage_expense(self, name, **overrides):
         values = {
@@ -28,6 +48,42 @@ class TestExpenseDuplicateGuard(TransactionCase):
             "unit_amount": 100.0,
             "quantity": 1.0,
             "expense_guard_type": "mileage",
+            "trip_date_from": "2026-06-26",
+            "trip_date_to": "2026-06-26",
+            "trip_origin": "Office",
+            "trip_destination": "Site A",
+            "vehicle_plate": "1กข 1234",
+            "odometer_start": 100.0,
+            "odometer_end": 150.0,
+        }
+        values.update(overrides)
+        return self.env["hr.expense"].create(values)
+
+    def _create_monthly_expense(self, name, **overrides):
+        values = {
+            "name": name,
+            "employee_id": self.employee.id,
+            "product_id": self.monthly_product.id,
+            "date": "2026-06-26",
+            "unit_amount": 500.0,
+            "quantity": 1.0,
+            "expense_guard_type": "monthly",
+            "expense_month": 6,
+            "expense_year": 2026,
+            "analytic_account_id": self.analytic_account.id,
+        }
+        values.update(overrides)
+        return self.env["hr.expense"].create(values)
+
+    def _create_other_trip_expense(self, name, **overrides):
+        values = {
+            "name": name,
+            "employee_id": self.employee.id,
+            "product_id": self.other_product.id,
+            "date": "2026-06-26",
+            "unit_amount": 100.0,
+            "quantity": 1.0,
+            "expense_guard_type": "other",
             "trip_date_from": "2026-06-26",
             "trip_date_to": "2026-06-26",
             "trip_origin": "Office",
@@ -79,3 +135,38 @@ class TestExpenseDuplicateGuard(TransactionCase):
         expense._clear_duplicate_hits()
 
         self.assertFalse(expense.duplicate_hit_ids)
+
+    def test_mileage_overlap_creates_block_hit(self):
+        self._create_mileage_expense("Trip 1", odometer_start=100.0, odometer_end=150.0)
+        duplicate = self._create_mileage_expense(
+            "Trip 2",
+            odometer_start=120.0,
+            odometer_end=160.0,
+        )
+
+        duplicate._run_duplicate_checks()
+
+        self.assertEqual(duplicate.duplicate_check_state, "blocked")
+        self.assertEqual(duplicate.duplicate_hit_ids[:1].rule_code, "mileage_overlap")
+
+    def test_monthly_same_employee_type_month_project_blocks(self):
+        self._create_monthly_expense("Fuel Jun A")
+        duplicate = self._create_monthly_expense("Fuel Jun B")
+
+        duplicate._run_duplicate_checks()
+
+        self.assertEqual(duplicate.duplicate_check_state, "blocked")
+        self.assertEqual(duplicate.duplicate_hit_ids[:1].rule_code, "monthly_exact")
+
+    def test_cross_type_trip_creates_warning(self):
+        self._create_other_trip_expense("Trip A")
+        duplicate = self._create_mileage_expense(
+            "Trip B",
+            odometer_start=151.0,
+            odometer_end=180.0,
+        )
+
+        duplicate._run_duplicate_checks()
+
+        self.assertEqual(duplicate.duplicate_check_state, "warning")
+        self.assertEqual(duplicate.duplicate_hit_ids[:1].rule_code, "cross_type_trip")
