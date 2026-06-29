@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_expense_form_duplicate_guard" model="ir.ui.view">
+        <field name="name">hr.expense.form.duplicate.guard</field>
+        <field name="model">hr.expense</field>
+        <field name="inherit_id" ref="hr_expense.hr_expense_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='duplicate_expense_ids']" position="after">
+                <group string="Duplicate Check">
+                    <group>
+                        <field name="expense_guard_type"/>
+                        <field
+                            name="duplicate_check_state"
+                            readonly="1"
+                        />
+                        <field name="duplicate_summary" readonly="1"/>
+                    </group>
+                    <group>
+                        <field
+                            name="trip_date_from"
+                            attrs="{'invisible': [('expense_guard_type', '!=', 'mileage')]}"
+                        />
+                        <field
+                            name="trip_date_to"
+                            attrs="{'invisible': [('expense_guard_type', '!=', 'mileage')]}"
+                        />
+                        <field
+                            name="expense_month"
+                            attrs="{'invisible': [('expense_guard_type', '!=', 'monthly')]}"
+                        />
+                        <field
+                            name="expense_year"
+                            attrs="{'invisible': [('expense_guard_type', '!=', 'monthly')]}"
+                        />
+                    </group>
+                    <group>
+                        <field
+                            name="trip_origin"
+                            attrs="{'invisible': [('expense_guard_type', '!=', 'mileage')]}"
+                        />
+                        <field
+                            name="trip_destination"
+                            attrs="{'invisible': [('expense_guard_type', '!=', 'mileage')]}"
+                        />
+                        <field
+                            name="vehicle_plate"
+                            attrs="{'invisible': [('expense_guard_type', '!=', 'mileage')]}"
+                        />
+                    </group>
+                    <group>
+                        <field
+                            name="odometer_start"
+                            attrs="{'invisible': [('expense_guard_type', '!=', 'mileage')]}"
+                        />
+                        <field
+                            name="odometer_end"
+                            attrs="{'invisible': [('expense_guard_type', '!=', 'mileage')]}"
+                        />
+                        <field name="duplicate_override_by" readonly="1"/>
+                        <field name="duplicate_override_date" readonly="1"/>
+                    </group>
+                    <field name="duplicate_override_reason" readonly="1"/>
+                    <field name="duplicate_hit_ids" readonly="1">
+                        <tree create="0" delete="0" edit="0">
+                            <field name="severity"/>
+                            <field name="rule_code"/>
+                            <field name="reason_text"/>
+                            <field name="matched_expense_id"/>
+                            <field name="matched_state"/>
+                        </tree>
+                    </field>
+                    <button
+                        name="action_open_duplicate_override_wizard"
+                        type="object"
+                        string="Override Duplicate Block"
+                        class="oe_highlight"
+                        groups="autoinfo_hr_expense_duplicate_guard.group_expense_duplicate_override"
+                        attrs="{'invisible': [('duplicate_check_state', '!=', 'blocked')]}"
+                    />
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

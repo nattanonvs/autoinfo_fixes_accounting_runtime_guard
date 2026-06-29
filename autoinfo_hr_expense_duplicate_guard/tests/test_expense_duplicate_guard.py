@@ -1,3 +1,5 @@
+from lxml import etree
+
 from odoo.exceptions import UserError
 from odoo.tests.common import TransactionCase
 
@@ -221,3 +223,31 @@ class TestExpenseDuplicateGuard(TransactionCase):
         sheet.action_submit_sheet()
 
         self.assertEqual(sheet.state, "submit")
+
+    def test_expense_form_shows_duplicate_review_section(self):
+        arch = self.env["hr.expense"].fields_view_get(view_type="form")["arch"]
+        doc = etree.fromstring(arch.encode())
+
+        duplicate_groups = doc.xpath("//group[@string='Duplicate Check']")
+        self.assertTrue(duplicate_groups)
+        self.assertTrue(doc.xpath("//field[@name='duplicate_check_state']"))
+        self.assertTrue(doc.xpath("//field[@name='duplicate_hit_ids']"))
+        self.assertTrue(
+            doc.xpath(
+                "//button[@name='action_open_duplicate_override_wizard']"
+                "[@string='Override Duplicate Block']"
+            )
+        )
+
+    def test_sheet_form_shows_duplicate_review_summary(self):
+        arch = self.env["hr.expense.sheet"].fields_view_get(view_type="form")["arch"]
+        doc = etree.fromstring(arch.encode())
+
+        review_groups = doc.xpath("//group[@string='Duplicate Review']")
+        self.assertTrue(review_groups)
+        self.assertTrue(
+            doc.xpath(
+                "//group[@string='Duplicate Review']"
+                "//label[@string='Review duplicate warnings before approval.']"
+            )
+        )

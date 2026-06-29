@@ -13,6 +13,8 @@
         "security/ir.model.access.csv",
         "data/mail_message_subtype.xml",
         "wizard/hr_expense_duplicate_override_views.xml",
+        "views/hr_expense_views.xml",
+        "views/hr_expense_sheet_views.xml",
     ],
     "installable": True,
 }
