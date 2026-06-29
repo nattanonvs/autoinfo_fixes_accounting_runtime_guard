@@ -130,6 +130,9 @@ class TestExpenseDuplicateGuard(TransactionCase):
         self.assertEqual(expense.expense_month, 6)
         self.assertEqual(expense.expense_year, 2026)
 
+    def test_duplicate_hit_model_is_registered(self):
+        self.assertIn("hr.expense.duplicate.hit", self.env)
+
     def test_duplicate_hit_helpers_create_and_clear_hits(self):
         expense = self._create_mileage_expense("Mileage C")
         matched_expense = self._create_mileage_expense(
@@ -187,6 +190,28 @@ class TestExpenseDuplicateGuard(TransactionCase):
 
         self.assertEqual(duplicate.duplicate_check_state, "warning")
         self.assertEqual(duplicate.duplicate_hit_ids[:1].rule_code, "cross_type_trip")
+        self.assertEqual(duplicate.duplicate_hit_ids[:1].severity, "warning")
+
+    def test_refused_expense_is_not_used_for_duplicate_block(self):
+        original = self._create_monthly_expense("Fuel Jun A")
+        original.write({"state": "refused"})
+        duplicate = self._create_monthly_expense("Fuel Jun B")
+
+        duplicate._run_duplicate_checks()
+
+        self.assertEqual(duplicate.duplicate_check_state, "clear")
+        self.assertFalse(duplicate.duplicate_hit_ids)
+
+    def test_expense_on_cancelled_sheet_is_not_used_for_duplicate_block(self):
+        original = self._create_monthly_expense("Fuel Jun A")
+        cancelled_sheet = self._create_sheet(original, name="Cancelled Sheet")
+        cancelled_sheet.write({"state": "cancel"})
+        duplicate = self._create_monthly_expense("Fuel Jun B")
+
+        duplicate._run_duplicate_checks()
+
+        self.assertEqual(duplicate.duplicate_check_state, "clear")
+        self.assertFalse(duplicate.duplicate_hit_ids)
 
     def test_submit_sheet_blocks_when_expense_is_duplicate(self):
         self._create_monthly_expense("Jun A")
@@ -223,6 +248,16 @@ class TestExpenseDuplicateGuard(TransactionCase):
         sheet.action_submit_sheet()
 
         self.assertEqual(sheet.state, "submit")
+
+    def test_override_wizard_requires_non_blank_reason(self):
+        wizard = self.env["hr.expense.duplicate.override"].new(
+            {
+                "reason": "   ",
+            }
+        )
+
+        with self.assertRaises(UserError):
+            wizard.action_confirm()
 
     def test_expense_form_shows_duplicate_review_section(self):
         arch = self.env["hr.expense"].fields_view_get(view_type="form")["arch"]
