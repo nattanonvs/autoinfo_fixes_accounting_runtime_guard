@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_expense_duplicate_hit_user,hr.expense.duplicate.hit user,model_hr_expense_duplicate_hit,hr_expense.group_hr_expense_team_approver,1,0,0,0
+access_hr_expense_duplicate_hit_manager,hr.expense.duplicate.hit manager,model_hr_expense_duplicate_hit,autoinfo_hr_expense_duplicate_guard.group_expense_duplicate_override,1,1,1,1
+access_hr_expense_duplicate_override_wizard,hr.expense.duplicate.override wizard,model_hr_expense_duplicate_override,hr_expense.group_hr_expense_team_approver,1,1,1,1

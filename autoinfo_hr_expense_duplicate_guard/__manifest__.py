@@ -8,6 +8,11 @@
     "license": "OPL-1",
     "depends": ["hr_expense", "mail", "analytic"],
     "application": False,
-    "data": [],
+    "data": [
+        "security/expense_duplicate_security.xml",
+        "security/ir.model.access.csv",
+        "data/mail_message_subtype.xml",
+        "wizard/hr_expense_duplicate_override_views.xml",
+    ],
     "installable": True,
 }
