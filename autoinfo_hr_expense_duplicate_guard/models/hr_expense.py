@@ -1,4 +1,5 @@
 from odoo import _, api, fields, models
+from odoo.exceptions import UserError
 
 
 class HrExpense(models.Model):
@@ -94,11 +95,11 @@ class HrExpense(models.Model):
             expense._check_monthly_duplicates()
             expense._check_cross_type_duplicates()
             if any(hit.severity == "block" for hit in expense.duplicate_hit_ids):
-                expense.duplicate_check_state = "blocked"
+                expense.duplicate_check_state = (
+                    "overridden" if expense.duplicate_override_reason else "blocked"
+                )
             elif expense.duplicate_hit_ids:
                 expense.duplicate_check_state = "warning"
-            elif expense.duplicate_override_reason:
-                expense.duplicate_check_state = "overridden"
             else:
                 expense.duplicate_check_state = "clear"
             expense.duplicate_summary = (
@@ -176,3 +177,36 @@ class HrExpense(models.Model):
                     "warning",
                     _("ข้อมูลการเดินทางคล้ายกับรายการเก่า"),
                 )
+
+    def action_open_duplicate_override_wizard(self):
+        self.ensure_one()
+        return {
+            "name": _("Override Duplicate Block"),
+            "type": "ir.actions.act_window",
+            "res_model": "hr.expense.duplicate.override",
+            "view_mode": "form",
+            "target": "new",
+            "context": {"default_expense_id": self.id},
+        }
+
+    def action_apply_duplicate_override(self, reason):
+        self.ensure_one()
+        reason = (reason or "").strip()
+        if not reason:
+            raise UserError(_("Override reason is required."))
+        if not self.env.user.has_group(
+            "autoinfo_hr_expense_duplicate_guard.group_expense_duplicate_override"
+        ):
+            raise UserError(
+                _("You do not have permission to override duplicate blocks.")
+            )
+
+        self.write(
+            {
+                "duplicate_override_reason": reason,
+                "duplicate_override_by": self.env.user.id,
+                "duplicate_override_date": fields.Datetime.now(),
+            }
+        )
+        self._run_duplicate_checks()
+        self.message_post(body=_("Duplicate override applied: %s") % reason)

@@ -1,3 +1,4 @@
+from odoo.exceptions import UserError
 from odoo.tests.common import TransactionCase
 
 
@@ -37,6 +38,10 @@ class TestExpenseDuplicateGuard(TransactionCase):
                 "name": "Expense Guard Project",
                 "company_id": cls.env.company.id,
             }
+        )
+        cls.env.user.groups_id |= cls.env.ref("hr_expense.group_hr_expense_manager")
+        cls.env.user.groups_id |= cls.env.ref(
+            "autoinfo_hr_expense_duplicate_guard.group_expense_duplicate_override"
         )
 
     def _create_mileage_expense(self, name, **overrides):
@@ -94,6 +99,16 @@ class TestExpenseDuplicateGuard(TransactionCase):
         }
         values.update(overrides)
         return self.env["hr.expense"].create(values)
+
+    def _create_sheet(self, *expenses, **overrides):
+        values = {
+            "name": overrides.pop("name", "Expense Guard Sheet"),
+            "company_id": self.env.company.id,
+            "employee_id": self.employee.id,
+            "expense_line_ids": [(6, 0, [expense.id for expense in expenses])],
+        }
+        values.update(overrides)
+        return self.env["hr.expense.sheet"].create(values)
 
     def test_expense_duplicate_defaults(self):
         expense = self._create_mileage_expense("Mileage A")
@@ -170,3 +185,39 @@ class TestExpenseDuplicateGuard(TransactionCase):
 
         self.assertEqual(duplicate.duplicate_check_state, "warning")
         self.assertEqual(duplicate.duplicate_hit_ids[:1].rule_code, "cross_type_trip")
+
+    def test_submit_sheet_blocks_when_expense_is_duplicate(self):
+        self._create_monthly_expense("Jun A")
+        duplicate = self._create_monthly_expense("Jun B")
+        sheet = self._create_sheet(duplicate)
+
+        with self.assertRaises(UserError):
+            sheet.action_submit_sheet()
+
+    def test_approve_rechecks_for_new_duplicate_before_approval(self):
+        expense = self._create_monthly_expense("Jun A")
+        sheet = self._create_sheet(expense)
+
+        sheet.action_submit_sheet()
+        self.assertEqual(sheet.state, "submit")
+
+        self._create_monthly_expense("Jun B")
+
+        with self.assertRaises(UserError):
+            sheet.approve_expense_sheets()
+
+    def test_override_allows_submit_after_reason_saved(self):
+        self._create_monthly_expense("Jun A")
+        duplicate = self._create_monthly_expense("Jun B")
+        sheet = self._create_sheet(duplicate)
+
+        duplicate._run_duplicate_checks()
+        duplicate.action_apply_duplicate_override(
+            "same month but approved by policy exception"
+        )
+
+        self.assertEqual(duplicate.duplicate_check_state, "overridden")
+
+        sheet.action_submit_sheet()
+
+        self.assertEqual(sheet.state, "submit")
