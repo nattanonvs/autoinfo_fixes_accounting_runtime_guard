@@ -1,0 +1,41 @@
+<odoo>
+    <record id="view_knowledge_template_tree" model="ir.ui.view">
+        <field name="name">knowledge.template.tree</field>
+        <field name="model">knowledge.template</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="knowledge_type_id"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_knowledge_template_form" model="ir.ui.view">
+        <field name="name">knowledge.template.form</field>
+        <field name="model">knowledge.template</field>
+        <field name="arch" type="xml">
+            <form string="Knowledge Template">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="knowledge_type_id"/>
+                        <field name="summary"/>
+                        <field name="active"/>
+                    </group>
+                    <group>
+                        <field name="body_html"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_knowledge_template" model="ir.actions.act_window">
+        <field name="name">Knowledge Templates</field>
+        <field name="res_model">knowledge.template</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_knowledge_template" name="Templates" parent="menu_knowledge_configuration" action="action_knowledge_template" sequence="30"/>
+</odoo>

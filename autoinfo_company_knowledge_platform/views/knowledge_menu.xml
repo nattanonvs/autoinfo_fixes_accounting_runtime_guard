@@ -1,0 +1,11 @@
+<odoo>
+    <record id="action_knowledge_search" model="ir.actions.act_window">
+        <field name="name">Knowledge Search</field>
+        <field name="res_model">knowledge.item</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[("state", "=", "published")]</field>
+    </record>
+
+    <menuitem id="menu_knowledge_root" name="Knowledge"/>
+    <menuitem id="menu_knowledge_search" name="Search" parent="menu_knowledge_root" action="action_knowledge_search" sequence="10"/>
+</odoo>

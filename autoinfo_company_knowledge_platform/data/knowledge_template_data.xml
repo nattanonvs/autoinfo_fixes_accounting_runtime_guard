@@ -1,0 +1,30 @@
+<odoo noupdate="1">
+    <record id="knowledge_type_sop" model="knowledge.type">
+        <field name="name">SOP</field>
+    </record>
+    <record id="knowledge_type_faq" model="knowledge.type">
+        <field name="name">FAQ</field>
+    </record>
+    <record id="knowledge_type_policy" model="knowledge.type">
+        <field name="name">Policy</field>
+    </record>
+
+    <record id="knowledge_template_sop_default" model="knowledge.template">
+        <field name="name">Default SOP Template</field>
+        <field name="knowledge_type_id" ref="autoinfo_company_knowledge_platform.knowledge_type_sop"/>
+        <field name="summary">Standard operating procedure template</field>
+        <field name="body_html"><![CDATA[<p>Purpose</p><p>Scope</p><p>Procedure</p>]]></field>
+    </record>
+    <record id="knowledge_template_faq_default" model="knowledge.template">
+        <field name="name">Default FAQ Template</field>
+        <field name="knowledge_type_id" ref="autoinfo_company_knowledge_platform.knowledge_type_faq"/>
+        <field name="summary">Frequently asked questions template</field>
+        <field name="body_html"><![CDATA[<p>Question</p><p>Answer</p>]]></field>
+    </record>
+    <record id="knowledge_template_policy_default" model="knowledge.template">
+        <field name="name">Default Policy Template</field>
+        <field name="knowledge_type_id" ref="autoinfo_company_knowledge_platform.knowledge_type_policy"/>
+        <field name="summary">Policy document template</field>
+        <field name="body_html"><![CDATA[<p>Policy Statement</p><p>Responsibilities</p><p>Exceptions</p>]]></field>
+    </record>
+</odoo>

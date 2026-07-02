@@ -1,0 +1,69 @@
+<odoo>
+    <record id="view_knowledge_type_tree" model="ir.ui.view">
+        <field name="name">knowledge.type.tree</field>
+        <field name="model">knowledge.type</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_knowledge_type_form" model="ir.ui.view">
+        <field name="name">knowledge.type.form</field>
+        <field name="model">knowledge.type</field>
+        <field name="arch" type="xml">
+            <form string="Knowledge Type">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="active"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_knowledge_department_tree" model="ir.ui.view">
+        <field name="name">knowledge.department.tree</field>
+        <field name="model">knowledge.department</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_knowledge_department_form" model="ir.ui.view">
+        <field name="name">knowledge.department.form</field>
+        <field name="model">knowledge.department</field>
+        <field name="arch" type="xml">
+            <form string="Knowledge Department">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="active"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_knowledge_type" model="ir.actions.act_window">
+        <field name="name">Knowledge Types</field>
+        <field name="res_model">knowledge.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_knowledge_department" model="ir.actions.act_window">
+        <field name="name">Knowledge Departments</field>
+        <field name="res_model">knowledge.department</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_knowledge_configuration" name="Configuration" parent="menu_knowledge_root" sequence="90"/>
+    <menuitem id="menu_knowledge_type" name="Types" parent="menu_knowledge_configuration" action="action_knowledge_type" sequence="10"/>
+    <menuitem id="menu_knowledge_department" name="Departments" parent="menu_knowledge_configuration" action="action_knowledge_department" sequence="20"/>
+</odoo>

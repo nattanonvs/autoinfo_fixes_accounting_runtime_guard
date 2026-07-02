@@ -1,0 +1,23 @@
+<odoo>
+    <record id="view_knowledge_create_from_scan_form" model="ir.ui.view">
+        <field name="name">knowledge.create.from.scan.form</field>
+        <field name="model">knowledge.create.from.scan</field>
+        <field name="arch" type="xml">
+            <form string="Create Knowledge From Scan">
+                <group>
+                    <field name="title"/>
+                    <field name="summary"/>
+                    <field name="department_id"/>
+                    <field name="knowledge_type_id"/>
+                    <field name="classification"/>
+                    <field name="scan_file" filename="scan_filename"/>
+                    <field name="scan_filename"/>
+                </group>
+                <footer>
+                    <button name="action_create" type="object" string="Create" class="btn-primary"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

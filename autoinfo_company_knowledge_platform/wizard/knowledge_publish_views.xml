@@ -1,0 +1,17 @@
+<odoo>
+    <record id="view_knowledge_publish_form" model="ir.ui.view">
+        <field name="name">knowledge.publish.form</field>
+        <field name="model">knowledge.publish</field>
+        <field name="arch" type="xml">
+            <form string="Publish Knowledge">
+                <group>
+                    <field name="change_summary"/>
+                </group>
+                <footer>
+                    <button name="action_confirm" type="object" string="Publish" class="btn-primary"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

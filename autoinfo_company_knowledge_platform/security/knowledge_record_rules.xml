@@ -1,0 +1,42 @@
+<odoo>
+    <record id="rule_knowledge_item_read_department_clearance" model="ir.rule">
+        <field name="name">Knowledge Item: read by department/clearance/company-wide</field>
+        <field name="model_id" ref="model_knowledge_item"/>
+        <field name="groups" eval="[(4, ref('autoinfo_company_knowledge_platform.group_knowledge_viewer'))]"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+        <field name="domain_force"><![CDATA[[(1,'=',1)] if user.has_group('autoinfo_company_knowledge_platform.group_knowledge_admin') else ['|','&',('is_company_wide','=',True),('classification','in',('public',) if user.knowledge_clearance_level == 'public' else ('public','internal')),'&',('department_id','=',user.knowledge_department_id.id),('classification','in',('public',) if user.knowledge_clearance_level == 'public' else ('public','internal') if user.knowledge_clearance_level == 'internal' else ('public','internal','restricted') if user.knowledge_clearance_level == 'restricted' else ('public','internal','restricted','confidential'))]]]></field>
+    </record>
+
+    <record id="rule_knowledge_version_access_by_parent" model="ir.rule">
+        <field name="name">Knowledge Version: access by parent item</field>
+        <field name="model_id" ref="model_knowledge_version"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+        <field name="domain_force"><![CDATA[[(1,'=',1)] if user.has_group('base.group_system') or user.has_group('autoinfo_company_knowledge_platform.group_knowledge_admin') else ['|','&',('knowledge_item_id.is_company_wide','=',True),('knowledge_item_id.classification','in',('public',) if user.knowledge_clearance_level == 'public' else ('public','internal')),'&',('knowledge_item_id.department_id','=',user.knowledge_department_id.id),('knowledge_item_id.classification','in',('public',) if user.knowledge_clearance_level == 'public' else ('public','internal') if user.knowledge_clearance_level == 'internal' else ('public','internal','restricted') if user.knowledge_clearance_level == 'restricted' else ('public','internal','restricted','confidential'))]]]></field>
+    </record>
+
+    <record id="rule_knowledge_attachment_access_by_parent" model="ir.rule">
+        <field name="name">Knowledge Attachment: access by parent item</field>
+        <field name="model_id" ref="model_knowledge_attachment"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+        <field name="domain_force"><![CDATA[[(1,'=',1)] if user.has_group('base.group_system') or user.has_group('autoinfo_company_knowledge_platform.group_knowledge_admin') else ['|','&',('knowledge_item_id.is_company_wide','=',True),('knowledge_item_id.classification','in',('public',) if user.knowledge_clearance_level == 'public' else ('public','internal')),'&',('knowledge_item_id.department_id','=',user.knowledge_department_id.id),('knowledge_item_id.classification','in',('public',) if user.knowledge_clearance_level == 'public' else ('public','internal') if user.knowledge_clearance_level == 'internal' else ('public','internal','restricted') if user.knowledge_clearance_level == 'restricted' else ('public','internal','restricted','confidential'))]]]></field>
+    </record>
+
+    <record id="rule_knowledge_extraction_access_by_parent" model="ir.rule">
+        <field name="name">Knowledge Extraction: access by parent item</field>
+        <field name="model_id" ref="model_knowledge_extraction"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+        <field name="domain_force"><![CDATA[[(1,'=',1)] if user.has_group('base.group_system') or user.has_group('autoinfo_company_knowledge_platform.group_knowledge_admin') else ['|','&',('knowledge_item_id.is_company_wide','=',True),('knowledge_item_id.classification','in',('public',) if user.knowledge_clearance_level == 'public' else ('public','internal')),'&',('knowledge_item_id.department_id','=',user.knowledge_department_id.id),('knowledge_item_id.classification','in',('public',) if user.knowledge_clearance_level == 'public' else ('public','internal') if user.knowledge_clearance_level == 'internal' else ('public','internal','restricted') if user.knowledge_clearance_level == 'restricted' else ('public','internal','restricted','confidential'))]]]></field>
+    </record>
+</odoo>

@@ -1,0 +1,57 @@
+<odoo>
+    <record id="view_knowledge_item_tree" model="ir.ui.view">
+        <field name="name">knowledge.item.tree</field>
+        <field name="model">knowledge.item</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="title"/>
+                <field name="department_id"/>
+                <field name="knowledge_type_id"/>
+                <field name="classification"/>
+                <field name="state"/>
+                <field name="owner_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_knowledge_item_form" model="ir.ui.view">
+        <field name="name">knowledge.item.form</field>
+        <field name="model">knowledge.item</field>
+        <field name="arch" type="xml">
+            <form string="Knowledge Item">
+                <header>
+                    <button name="action_submit_review" type="object" string="Submit Review" states="draft" class="btn-primary"/>
+                    <button name="action_publish" type="object" string="Publish" states="in_review,approved,draft" class="btn-primary" groups="autoinfo_company_knowledge_platform.group_knowledge_reviewer,autoinfo_company_knowledge_platform.group_department_manager,autoinfo_company_knowledge_platform.group_knowledge_admin"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,in_review,approved,published,archived"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name" readonly="1"/>
+                        <field name="title"/>
+                        <field name="summary"/>
+                        <field name="department_id"/>
+                        <field name="knowledge_type_id"/>
+                        <field name="classification"/>
+                        <field name="owner_id"/>
+                    </group>
+                    <notebook>
+                        <page string="Content">
+                            <field name="body"/>
+                        </page>
+                        <page string="Versions">
+                            <field name="version_ids" readonly="1">
+                                <tree>
+                                    <field name="version_number"/>
+                                    <field name="state"/>
+                                    <field name="approved_by"/>
+                                    <field name="approved_at"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
