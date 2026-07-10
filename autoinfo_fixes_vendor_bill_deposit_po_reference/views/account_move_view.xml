@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="autoinfo_fixes_vendor_bill_deposit_po_reference_form" model="ir.ui.view">
+            <field name="name">autoinfo.fixes.vendor.bill.deposit.po.reference.form</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="autoinfo_accounting_form.autoinfo_accounting_form_inherit_dtr_view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='deposit_so_ref']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|', ('order_type', '!=', 'deposit_payment'), ('move_type', '!=', 'out_invoice')]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='deposit_so_ref']" position="after">
+                    <field name="deposit_po_ref" attrs="{'invisible': ['|', ('order_type', '!=', 'deposit_payment'), ('move_type', '!=', 'in_invoice')]}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
