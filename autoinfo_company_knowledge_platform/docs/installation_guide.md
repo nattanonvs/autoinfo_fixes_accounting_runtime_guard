@@ -1,5 +1,17 @@
 # คู่มือติดตั้ง (Installation Guide)
 
+<div style="border:2px solid #d00; padding:12px; border-radius:8px;">
+<div style="color:#d00; font-weight:800; font-size:18px;">
+คำเตือนสำคัญมาก (อ่านก่อนติดตั้ง)
+</div>
+<div style="color:#d00;">
+1) ก่อนติดตั้งหรืออัปเกรด ต้องสำรองฐานข้อมูลก่อนทุกครั้ง<br/>
+2) หลังวางโค้ดใหม่ ต้องสั่งอัปเกรดโมดูลด้วย ไม่งั้นอาจขึ้น error และทำให้ระบบล้ม เช่น <code>UndefinedColumn</code><br/>
+3) ตัวอย่างคำสั่งอัปเกรด: <code>/var/odoo/odoo15/odoo-bin -c /etc/odoo/odoo.conf -d FROMGOLIVE_9MAY2026 -u autoinfo_company_knowledge_platform --stop-after-init</code><br/>
+4) ถ้าแก้ <code>addons_path</code> หรือเพิ่มโค้ดใหม่ ต้องรีสตาร์ท Odoo service<br/>
+</div>
+</div>
+
 ## 1) ภาพรวม
 
 โมดูล `autoinfo_company_knowledge_platform` ใช้สำหรับสร้างระบบคลังความรู้กลางขององค์กรบน Odoo 15 โดยรองรับ:
@@ -44,6 +56,33 @@ addons_path = /var/odoo/odoo15/addons,/var/odoo/custom15_autoinfo
 ถ้าระบบของคุณมีหลาย path อยู่แล้ว ให้เพียงเพิ่ม `/var/odoo/custom15_autoinfo` เข้าไป ไม่จำเป็นต้องแทนค่าทั้งหมด
 
 ## 5) ขั้นตอนติดตั้ง
+
+### วิธีที่ 0: ติดตั้งจาก GitHub (แนะนำ)
+
+1. เข้าเครื่องเซิร์ฟเวอร์
+2. ไปที่โฟลเดอร์ addons:
+
+```bash
+cd /var/odoo/custom15_autoinfo
+```
+
+3. ดึงโค้ดจาก GitHub:
+
+```bash
+git clone https://github.com/nattanonvs/autoinfo_company_knowledge_platform.git
+```
+
+4. ตรวจว่ามีโฟลเดอร์นี้จริง:
+
+- `/var/odoo/custom15_autoinfo/autoinfo_company_knowledge_platform`
+
+5. รีสตาร์ท Odoo service 1 ครั้ง
+
+6. ติดตั้งหรืออัปเกรดโมดูลด้วยคำสั่ง:
+
+```bash
+/var/odoo/odoo15/odoo-bin -c /etc/odoo/odoo.conf -d <db_name> -i autoinfo_company_knowledge_platform --stop-after-init
+```
 
 ### วิธีที่ 1: ติดตั้งผ่านคำสั่ง
 
@@ -176,6 +215,6 @@ addons_path = /var/odoo/odoo15/addons,/var/odoo/custom15_autoinfo
 
 ## Credits
 
-Development Team: The Auto-Info Co., Ltd. : Dev Team / Mr. Nattanon Vinyangkoon - Project conception, implementation, and review of deliverables.
+Development Team: The Auto-Info Co., Ltd. : Dev Team / Mr. Nattanon Vinyangkoon – Project conception, implementation, and thorough review of all deliverables.
 
-AI Coding Assistant: TRAE - Used to support implementation, testing workflow, and documentation under human oversight.
+AI Coding Assistant: TRAE SOLO / MICROSOFT 365 COPILOT - Utilized to support code generation and productivity improvements under human oversight.

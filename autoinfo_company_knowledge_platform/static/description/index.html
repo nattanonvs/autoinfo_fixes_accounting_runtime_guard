@@ -1,0 +1,34 @@
+<section style="font-family: Arial, sans-serif; line-height: 1.6;">
+  <h1>Autoinfo Company Knowledge Platform</h1>
+  <p>
+    โมดูลนี้ช่วยให้บริษัทเก็บ “ความรู้” ไว้ใน Odoo แบบเป็นระบบ
+    แยกตามแผนก และมีสิทธิ์การใช้งานตามบทบาทของผู้ใช้
+  </p>
+
+  <h2>ทำอะไรได้</h2>
+  <ul>
+    <li>สร้างบทความความรู้ (Knowledge Item) แบบแยกแผนก</li>
+    <li>มีขั้นตอนส่งตรวจและเผยแพร่ (Workflow)</li>
+    <li>กำหนดระดับความลับของเอกสาร</li>
+    <li>แนบไฟล์ และสร้างรายการ OCR extraction เพื่อรอต่อระบบ OCR ภายนอก</li>
+    <li>ค้นหาแบบเคารพสิทธิ์ผู้ใช้ (permission-first search)</li>
+    <li>AI Answer แบบง่าย พร้อม citation จากเอกสารที่ผู้ใช้มีสิทธิ์เห็น</li>
+  </ul>
+
+  <h2>การติดตั้งแบบสั้น</h2>
+  <ol>
+    <li>วางโฟลเดอร์โมดูลไว้ใน <code>/var/odoo/custom15_autoinfo</code></li>
+    <li>ตรวจว่า <code>addons_path</code> มี path นี้</li>
+    <li>ติดตั้งหรืออัปเกรดโมดูล</li>
+  </ol>
+
+  <pre><code>/var/odoo/odoo15/odoo-bin -c /etc/odoo/odoo.conf -d &lt;db_name&gt; -i autoinfo_company_knowledge_platform --stop-after-init</code></pre>
+
+  <h2>Credits</h2>
+  <p>
+    Development Team: The Auto-Info Co., Ltd. : Dev Team / Mr. Nattanon Vinyangkoon – Project conception, implementation, and thorough review of all deliverables.
+  </p>
+  <p>
+    AI Coding Assistant: TRAE SOLO / MICROSOFT 365 COPILOT - Utilized to support code generation and productivity improvements under human oversight.
+  </p>
+</section>
