@@ -6,6 +6,31 @@
         <field name="inherit_id" ref="hr.view_department_form"/>
         <field name="arch" type="xml">
             <field name="company_id" position="after">
+                <group string="Department Sequence Setup">
+                    <group>
+                        <field name="task_code_prefix"/>
+                        <field name="project_task_sequence_id"/>
+                    </group>
+                    <group>
+                        <field name="task_sequence_status" readonly="1"/>
+                        <field name="task_sequence_preview" readonly="1"/>
+                    </group>
+                    <group colspan="4">
+                        <button
+                            name="action_create_task_sequence"
+                            type="object"
+                            string="Create Task Sequence"
+                            class="oe_highlight"
+                            attrs="{'invisible': [('project_task_sequence_id', '!=', False)]}"
+                        />
+                        <button
+                            name="action_refresh_task_sequence"
+                            type="object"
+                            string="Refresh Task Sequence"
+                            attrs="{'invisible': [('project_task_sequence_id', '=', False)]}"
+                        />
+                    </group>
+                </group>
                 <field name="project_no_job_sequence_id"/>
                 <field name="project_no_pm_sequence_id"/>
                 <field name="project_no_service_sequence_id"/>
