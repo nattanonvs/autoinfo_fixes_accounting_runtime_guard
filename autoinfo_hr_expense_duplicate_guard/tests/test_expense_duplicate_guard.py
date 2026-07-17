@@ -287,14 +287,33 @@ class TestExpenseDuplicateGuard(TransactionCase):
         self.assertFalse(doc.xpath("//group[@string='Duplicate Check']"))
 
     def test_sheet_form_shows_duplicate_review_summary(self):
-        arch = self.env["hr.expense.sheet"].fields_view_get(view_type="form")["arch"]
-        doc = etree.fromstring(arch.encode())
+        view = self.env["hr.expense.sheet"].fields_view_get(view_type="form")
+        doc = etree.fromstring(view["arch"].encode())
+        expense_tree = etree.fromstring(
+            view["fields"]["expense_line_ids"]["views"]["tree"]["arch"].encode()
+        )
 
-        review_groups = doc.xpath("//group[@string='Duplicate Review']")
-        self.assertTrue(review_groups)
+        review_pages = doc.xpath("//notebook/page[@string='Duplicate Review']")
+        self.assertTrue(review_pages)
         self.assertTrue(
             doc.xpath(
-                "//group[@string='Duplicate Review']"
+                "//notebook/page[@string='Duplicate Review']"
                 "//label[@string='Review duplicate warnings before approval.']"
             )
         )
+        self.assertTrue(
+            expense_tree.xpath(
+                "//field[@name='duplicate_check_state']"
+            )
+        )
+        self.assertTrue(
+            expense_tree.xpath(
+                "//field[@name='duplicate_summary']"
+            )
+        )
+        self.assertTrue(
+            expense_tree.xpath(
+                "//field[@name='duplicate_override_reason']"
+            )
+        )
+        self.assertFalse(doc.xpath("//group[@string='Duplicate Review']"))
