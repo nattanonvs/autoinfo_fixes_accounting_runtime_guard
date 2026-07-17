@@ -263,16 +263,28 @@ class TestExpenseDuplicateGuard(TransactionCase):
         arch = self.env["hr.expense"].fields_view_get(view_type="form")["arch"]
         doc = etree.fromstring(arch.encode())
 
-        duplicate_groups = doc.xpath("//group[@string='Duplicate Check']")
-        self.assertTrue(duplicate_groups)
-        self.assertTrue(doc.xpath("//field[@name='duplicate_check_state']"))
-        self.assertTrue(doc.xpath("//field[@name='duplicate_hit_ids']"))
+        duplicate_pages = doc.xpath("//notebook/page[@string='Duplicate Check']")
+        self.assertTrue(duplicate_pages)
         self.assertTrue(
             doc.xpath(
+                "//notebook/page[@string='Duplicate Check']"
+                "//field[@name='duplicate_check_state']"
+            )
+        )
+        self.assertTrue(
+            doc.xpath(
+                "//notebook/page[@string='Duplicate Check']"
+                "//field[@name='duplicate_hit_ids']"
+            )
+        )
+        self.assertTrue(
+            doc.xpath(
+                "//notebook/page[@string='Duplicate Check']"
                 "//button[@name='action_open_duplicate_override_wizard']"
                 "[@string='Override Duplicate Block']"
             )
         )
+        self.assertFalse(doc.xpath("//group[@string='Duplicate Check']"))
 
     def test_sheet_form_shows_duplicate_review_summary(self):
         arch = self.env["hr.expense.sheet"].fields_view_get(view_type="form")["arch"]
