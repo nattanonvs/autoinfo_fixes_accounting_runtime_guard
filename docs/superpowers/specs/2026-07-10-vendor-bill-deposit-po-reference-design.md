@@ -18,6 +18,7 @@
 - คง `SO Reference` เดิมไว้สำหรับฝั่ง `Customer Invoice`
 - แยกงานออกเป็นโมดูลเสริม เพื่อไม่แก้ไฟล์ของโมดูลเดิมตรง ๆ
 - ปรับ dropdown ของทั้ง `PO Reference` และ `SO Reference` ให้แสดงเฉพาะรายการที่เกี่ยวข้องตามคู่ค้า และเป็นเอกสารที่ยืนยันแล้ว
+- เมื่อผู้ใช้เลือก `PO Reference` หรือ `SO Reference` ให้ sync ข้อมูลต้นทางระดับหัวเอกสารและระดับ line โดยไม่สร้าง line ใหม่
 
 ## แนวทางที่เลือก
 - ใช้แนวทาง `แบบ A`
@@ -71,6 +72,15 @@ deposit_po_ref = fields.Many2one('purchase.order', string='PO Reference')
 - ผู้ใช้เลือก `Purchase Order` ที่เกี่ยวข้อง
 - flow ของ `Add Deposit Payment` และ wizard ใน `dtr_deposit_payment` ทำงานตามเดิม
 - ฝั่ง `Customer Invoice` ยังใช้ `SO Reference` จากโมดูลเดิมตามเดิม
+- เมื่อเลือก `PO Reference`
+- ระบบต้องเติมข้อมูลต้นทางระดับหัวเอกสาร เช่น `po_origin` และ/หรือ `invoice_origin` ตาม pattern เดิมของระบบซื้อ
+- ระบบต้องพยายาม map `purchase_line_id` และ `vendor_source_doc` ลง `invoice_line_ids` ที่มีอยู่แล้ว
+- เมื่อเลือก `SO Reference`
+- ระบบต้องเติมข้อมูลต้นทางระดับหัวเอกสาร เช่น `origin_second` และ/หรือ `invoice_origin` ตาม pattern เดิมของระบบขาย
+- ระบบต้องพยายาม map `sale_line_ids` ลง `invoice_line_ids` ที่มีอยู่แล้ว
+- การ map line ใช้ `product_id` เป็นตัวจับคู่หลัก
+- ถ้ามีหลาย line ของ product เดียวกัน ให้จับคู่ตามลำดับที่พบ
+- ถ้าไม่เจอ line ที่ match กัน ให้ข้ามโดยไม่สร้าง line ใหม่
 
 ## สิ่งที่ไม่เปลี่ยน
 - ไม่เปลี่ยนค่า `order_type = deposit_payment`
@@ -79,11 +89,16 @@ deposit_po_ref = fields.Many2one('purchase.order', string='PO Reference')
 - ไม่แก้รายงานที่อ้าง `deposit_so_ref`
 - ไม่ทำ migration ข้อมูลเก่า
 - ไม่แก้ไฟล์ของ `autoinfo_accounting_form` ตรง ๆ
+- ไม่สร้าง line ใหม่จาก `PO/SO`
+- ไม่ลบ line เดิมของเอกสาร
+- ไม่เปลี่ยน wizard เดิมของฝั่งซื้อหรือฝั่งขาย
 
 ## ความเสี่ยง
 - รายงานหรือโค้ดภายนอกที่อ่าน `deposit_so_ref` เพื่อใช้กับ `Vendor Bill` จะยังไม่เห็น `deposit_po_ref`
 - แต่ใน scope นี้ถือว่ายอมรับได้ เพราะผู้ใช้ขอแก้เฉพาะหน้าจอ
 - หากลำดับการโหลด view ไม่ถูกต้อง อาจทำให้ฟิลด์ซ้อนหรือแสดงไม่ตามเงื่อนไข
+- การจับคู่ line ด้วย `product_id` อาจเชื่อมได้ไม่ครบ หากเอกสารมีหลายบรรทัดสินค้าซ้ำกันและไม่มี key แยกอื่น
+- เนื่องจากไม่สร้าง line ใหม่ กรณีเอกสารต้นทางมี line แต่ใบ deposit ไม่มี line ที่ match กัน จะเชื่อมได้เฉพาะหัวเอกสาร
 
 ## การทดสอบที่ต้องผ่าน
 - `Customer Invoice` แบบ `deposit_payment` ยังแสดง `SO Reference`
@@ -96,6 +111,11 @@ deposit_po_ref = fields.Many2one('purchase.order', string='PO Reference')
 - dropdown ของ `PO Reference` ต้องไม่แสดง PO ที่สถานะไม่ใช่ `purchase/done`
 - dropdown ของ `SO Reference` ต้องไม่แสดง SO ของคู่ค้าคนละราย
 - dropdown ของ `SO Reference` ต้องไม่แสดง SO ที่สถานะไม่ใช่ `sale/done`
+- เลือก `PO Reference` แล้วหัวเอกสารต้องได้ค่า source document ตาม pattern ของฝั่งซื้อ
+- line ที่ `product_id` ตรงกันต้องได้ `purchase_line_id` และ/หรือ `vendor_source_doc` ตามที่ระบบรองรับ
+- เลือก `SO Reference` แล้วหัวเอกสารต้องได้ค่า source document ตาม pattern ของฝั่งขาย
+- line ที่ `product_id` ตรงกันต้องได้ `sale_line_ids`
+- line ที่ match ไม่ได้ต้องไม่ถูกลบ และต้องไม่ถูกสร้างใหม่
 
 ## เกณฑ์สำเร็จ
 - ผู้ใช้เห็น `PO Reference` บน `Vendor Bill` เมื่อเลือก `Type = Deposit Payment`
