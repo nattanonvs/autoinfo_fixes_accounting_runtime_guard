@@ -17,6 +17,7 @@
 - แสดง `PO Reference` เฉพาะกรณี `move_type = in_invoice` และ `order_type = deposit_payment`
 - คง `SO Reference` เดิมไว้สำหรับฝั่ง `Customer Invoice`
 - แยกงานออกเป็นโมดูลเสริม เพื่อไม่แก้ไฟล์ของโมดูลเดิมตรง ๆ
+- ปรับ dropdown ของทั้ง `PO Reference` และ `SO Reference` ให้แสดงเฉพาะรายการที่เกี่ยวข้องตามคู่ค้า และเป็นเอกสารที่ยืนยันแล้ว
 
 ## แนวทางที่เลือก
 - ใช้แนวทาง `แบบ A`
@@ -32,6 +33,9 @@
 - ให้แสดง `deposit_po_ref` ด้วย label `PO Reference`
 - ฟิลด์ทั้งสองต้องไม่แสดงพร้อมกัน
 - เอกสารประเภทอื่นต้องไม่เปลี่ยนพฤติกรรมเดิม
+- Dropdown filtering (ข้อ 2)
+- `PO Reference` ต้องเห็นเฉพาะ `Purchase Order` ของคู่ค้าเดียวกัน และอยู่ในสถานะ `purchase` หรือ `done`
+- `SO Reference` ต้องเห็นเฉพาะ `Sale Order` ของคู่ค้าเดียวกัน และอยู่ในสถานะ `sale` หรือ `done`
 
 ## การออกแบบข้อมูล
 - โมดูลใหม่ควรใช้ชื่อแนว `autoinfo_fixes_...` ตามแนวทางของโปรเจกต์
@@ -47,6 +51,9 @@ deposit_po_ref = fields.Many2one('purchase.order', string='PO Reference')
 - แนวทาง view:
 - แสดง `deposit_so_ref` เมื่อ `move_type` เป็นฝั่งขายและ `order_type = deposit_payment`
 - แสดง `deposit_po_ref` เมื่อ `move_type = in_invoice` และ `order_type = deposit_payment`
+- แนวทาง domain:
+- `deposit_po_ref` ใช้ domain: `[('partner_id', '=', partner_id), ('state', 'in', ['purchase', 'done'])]`
+- `deposit_so_ref` ใช้ domain: `[('partner_id', '=', partner_id), ('state', 'in', ['sale', 'done'])]`
 
 ## Dependency
 - เนื่องจากมีการอ้างโมเดล `purchase.order`
@@ -85,6 +92,10 @@ deposit_po_ref = fields.Many2one('purchase.order', string='PO Reference')
 - ปุ่มและ wizard ของ deposit เดิมยังเปิดได้ตามปกติ
 - ไม่มี error จากการโหลด view หรือ model
 - การติดตั้งและถอนติดตั้งโมดูลเสริมไม่ทำให้โมดูลเดิมเสีย
+- dropdown ของ `PO Reference` ต้องไม่แสดง PO ของคู่ค้าคนละราย
+- dropdown ของ `PO Reference` ต้องไม่แสดง PO ที่สถานะไม่ใช่ `purchase/done`
+- dropdown ของ `SO Reference` ต้องไม่แสดง SO ของคู่ค้าคนละราย
+- dropdown ของ `SO Reference` ต้องไม่แสดง SO ที่สถานะไม่ใช่ `sale/done`
 
 ## เกณฑ์สำเร็จ
 - ผู้ใช้เห็น `PO Reference` บน `Vendor Bill` เมื่อเลือก `Type = Deposit Payment`

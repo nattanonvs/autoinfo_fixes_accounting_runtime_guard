@@ -11,6 +11,9 @@ class TestVendorBillDepositPOReference(TransactionCase):
         super().setUpClass()
         cls.move_model = cls.env["account.move"]
 
+    def _normalize_domain(self, domain):
+        return (domain or "").replace(" ", "")
+
     def test_account_move_exposes_deposit_po_ref_field(self):
         field = self.move_model._fields.get("deposit_po_ref")
         self.assertTrue(
@@ -42,6 +45,12 @@ class TestVendorBillDepositPOReference(TransactionCase):
             po_fields,
             "The account.move form should render deposit_po_ref for vendor bill deposit payments.",
         )
+        domain = self._normalize_domain(po_fields[0].get("domain"))
+        self.assertTrue(domain, "deposit_po_ref should define a domain for dropdown filtering.")
+        self.assertIn("partner_id", domain)
+        self.assertIn("state", domain)
+        self.assertIn("'purchase'", domain)
+        self.assertIn("'done'", domain)
         attrs = po_fields[0].get("attrs", "")
         self.assertIn("deposit_payment", attrs)
         self.assertIn("move_type", attrs)
@@ -56,6 +65,12 @@ class TestVendorBillDepositPOReference(TransactionCase):
             so_fields,
             "The account.move form should still render deposit_so_ref for the sales flow.",
         )
+        domain = self._normalize_domain(so_fields[-1].get("domain"))
+        self.assertTrue(domain, "deposit_so_ref should define a domain for dropdown filtering.")
+        self.assertIn("partner_id", domain)
+        self.assertIn("state", domain)
+        self.assertIn("'sale'", domain)
+        self.assertIn("'done'", domain)
         attrs = so_fields[-1].get("attrs", "")
         self.assertIn("deposit_payment", attrs)
         self.assertIn("move_type", attrs)

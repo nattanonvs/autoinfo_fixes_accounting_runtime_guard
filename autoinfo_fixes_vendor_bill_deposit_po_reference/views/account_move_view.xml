@@ -8,9 +8,10 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='deposit_so_ref']" position="attributes">
                     <attribute name="attrs">{'invisible': ['|', ('order_type', '!=', 'deposit_payment'), ('move_type', '!=', 'out_invoice')]}</attribute>
+                    <attribute name="domain">[('partner_id','=',partner_id),('state','in',('sale','done'))]</attribute>
                 </xpath>
                 <xpath expr="//field[@name='deposit_so_ref']" position="after">
-                    <field name="deposit_po_ref" attrs="{'invisible': ['|', ('order_type', '!=', 'deposit_payment'), ('move_type', '!=', 'in_invoice')]}"/>
+                    <field name="deposit_po_ref" domain="[('partner_id','=',partner_id),('state','in',('purchase','done'))]" attrs="{'invisible': ['|', ('order_type', '!=', 'deposit_payment'), ('move_type', '!=', 'in_invoice')]}"/>
                 </xpath>
             </field>
         </record>
