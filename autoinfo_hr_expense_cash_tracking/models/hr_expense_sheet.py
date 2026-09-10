@@ -40,6 +40,20 @@ class HrExpenseSheet(models.Model):
     def _check_all_lines_have_analytic_account(self):
         self.mapped("expense_line_ids")._check_cash_tracking_analytic_account()
 
+    def _check_all_lines_have_valid_expense_category_mapping(self):
+        expense_lines = self.mapped("expense_line_ids")
+        expense_lines._check_expense_category_mapping()
+        invalid_mapping_lines = expense_lines.filtered(
+            lambda expense: expense.expense_category_id
+            and expense.product_id != expense.expense_category_id.product_id
+        )
+        if invalid_mapping_lines:
+            raise UserError(
+                _(
+                    "Every expense line must keep the product mapped from its Expense Category before this report can be submitted."
+                )
+            )
+
     def write(self, vals):
         tracked_fields = {"returned_for_resubmission", "return_reason", "returned_tier"}
         notify_on_return = bool(tracked_fields.intersection(vals))
@@ -71,6 +85,7 @@ class HrExpenseSheet(models.Model):
 
     def action_submit_sheet(self):
         self._check_all_lines_have_analytic_account()
+        self._check_all_lines_have_valid_expense_category_mapping()
         return super().action_submit_sheet()
 
     def _get_cash_tracking_primary_reviewer(self):

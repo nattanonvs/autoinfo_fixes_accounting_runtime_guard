@@ -1,25 +1,42 @@
-# Installation Guide
+# คู่มือติดตั้ง
 
-## Prerequisites
+## ก่อนติดตั้ง
 
-- Odoo 15 environment with access to the custom addons path
-- Dependencies installed: `hr_expense`, `mail`, `analytic`, `report_xlsx`, `base_tier_validation`, `dtr_expense_tier_validation`
-- Test database available for upgrade and regression validation
+ให้เตรียมสิ่งนี้ก่อน:
 
-## Install Or Upgrade
+1. Odoo 15
+2. path ของโมดูลคือ `/var/odoo/custom15_autoinfo`
+3. dependency ให้ครบ:
+   - `hr_expense`
+   - `mail`
+   - `analytic`
+   - `report_xlsx`
+   - `base_tier_validation`
+   - `dtr_expense_tier_validation`
 
-```powershell
-& 'c:\odoo\odoo-15.0\.venv\Scripts\python.exe' 'c:\odoo\odoo-15.0\odoo-bin' `
-  -c 'c:\odoo\odoo-15.0\odoo.conf' `
-  -d 'expense_cash_tracking_plan' `
-  --stop-after-init `
-  -u 'autoinfo_hr_expense_cash_tracking'
+## วิธีติดตั้งหรืออัปเดต
+
+1. วางโฟลเดอร์โมดูลไว้ที่
+   `/var/odoo/custom15_autoinfo/autoinfo_hr_expense_cash_tracking`
+2. หยุด Odoo service
+3. รันคำสั่งอัปเกรดแบบปลอดภัย
+4. เปิด Odoo service
+
+ตัวอย่างคำสั่ง:
+
+```bash
+sudo systemctl stop odoo15
+cd /var/odoo/odoo15
+./odoo-bin -c /etc/odoo.conf -d <database_name> -u autoinfo_hr_expense_cash_tracking --stop-after-init
+sudo systemctl start odoo15
 ```
 
-## Post-Install Checklist
+## หลังติดตั้ง
 
-1. Assign security groups for accounting reviewers, executive viewers, and reimbursement managers.
-2. Confirm tier definitions exist for the expense approval flow.
-3. Verify employees and expense managers are configured correctly.
-4. Open an expense sheet form and confirm the cash tracking section is visible.
-5. Validate both detail and summary XLSX export actions.
+1. ตั้งกลุ่มสิทธิ์ของผู้ตรวจ
+2. ตั้งกลุ่มสิทธิ์ของผู้จ่ายเงิน
+3. ตรวจ `Tier Definition`
+4. เปิดหน้า `Expense Sheet`
+5. ดูว่ามีส่วน `Cash Reimbursement`
+6. ลอง export `Detail XLSX`
+7. ลอง export `Summary XLSX`
