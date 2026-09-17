@@ -47,6 +47,7 @@
 - `docs/troubleshooting.md` : คู่มือแก้ปัญหาตามอาการ
 - `docs/technical_guide.md` : คู่มือทางเทคนิคและโครงสร้างการทำงาน
 - `docs/user_guide.md` : วิธีใช้งานเมนูในระบบ
+- `CHANGELOG.md` : สรุปเวอร์ชัน, release note, และ commit history ของโมดูล
 
 ## คำสั่งติดตั้งแบบเร็ว
 
