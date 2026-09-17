@@ -1,6 +1,6 @@
 {
     "name": "AUTO-INFO : HR Expense Cash Tracking",
-    "version": "15.0.1.1.0",
+    "version": "15.0.1.2.0",
     "category": "AUTO-INFO : ERP Expenses",
     "summary": "Expense cash reimbursement with Expense Category UX simplification and XLSX exports",
     "author": "Odoo S.A., Dataroot Asia Co., Ltd., The Auto-Info Co., Ltd.",
@@ -20,6 +20,7 @@
         "security/ir.model.access.csv",
         "data/expense_cash_mail_templates.xml",
         "wizard/expense_return_reason_wizard_views.xml",
+        "wizard/expense_reset_to_draft_reason_wizard_views.xml",
         "wizard/expense_cash_summary_xlsx_wizard_views.xml",
         "data/expense_cash_xlsx_actions.xml",
         "views/expense_approval_role_views.xml",
@@ -27,6 +28,11 @@
         "views/expense_category_views.xml",
         "views/hr_expense_views.xml",
         "views/hr_expense_sheet_views.xml",
+    ],
+    "created_by": "The Auto-Info Co., Ltd. : Dev Team / Mr. Nattanon Vinyangkoon",
+    "credits": [
+        "The Auto-Info Co., Ltd. : Dev Team / Mr. Nattanon Vinyangkoon",
+        "AI Coding Assistant: TRAE SOLO / MICROSOFT 365 COPILOT",
     ],
     "installable": True,
     "application": False,

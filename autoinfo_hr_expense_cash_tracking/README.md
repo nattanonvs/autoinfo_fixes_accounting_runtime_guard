@@ -16,6 +16,7 @@
 - เพิ่ม `Expense Category` สำหรับพนักงาน และ map ไป `product` อัตโนมัติ
 - ซ่อน `product_id` จากผู้ใช้พนักงานทั่วไป แต่ยังให้บัญชีและผู้จัดการเห็นข้อมูลจริง
 - บล็อกการ submit ถ้า mapping ของ `Expense Category` ไม่ครบหรือมีการเปลี่ยน `product` ไม่ตรง mapping
+- ปุ่ม `Reset to Draft` แสดงสำหรับ `Expense Manager` เมื่อเอกสารอยู่ที่ `submit`, `approve` หรือ `post`; ถ้าเอกสารอยู่ที่ `post` การยืนยัน reset จะผ่านได้เฉพาะใบที่ยังไม่มี `account_move_id`
 - ส่งออก Excel ได้ทั้งแบบรายใบและสรุปหลายใบ
 
 ## ขอบเขตการทำงาน
@@ -89,6 +90,10 @@ AI Coding Assistant: TRAE SOLO / MICROSOFT 365 COPILOT - Utilized to support cod
 
 ## Changelog Summary
 
+- `2026-09-15`
+- เพิ่ม wizard `Reset to Draft` ที่บังคับกรอกเหตุผลและบันทึก audit ลง `Chatter`
+- แสดงปุ่ม `Reset to Draft` ให้ `Expense Manager` ในสถานะ `submit`, `approve` และ `post` และบล็อกการยืนยันสำหรับ `post` ที่มี `account_move_id`
+- ล้างข้อมูลรอบตีกลับ, วันที่/ข้อมูลคืนเงินสดเดิม และเปิดให้ขอ `Tier Validation` รอบใหม่
 - `2026-09-10`
 - เพิ่ม `Expense Category` และ simplified employee form ตามสถานะโค้ดจริง
 - ปรับ README และคู่มือให้สะท้อนสิทธิ์การมองเห็นและ validation ปัจจุบัน
