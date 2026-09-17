@@ -1,6 +1,6 @@
 {
     "name": "AUTO-INFO : Fixes Accounting Runtime Guard",
-    "version": "15.0.1.0.0",
+    "version": "15.0.1.0.1",
     "category": "Tools",
     "summary": "Audit runtime blockers and show safe fix guidance for accounting-related Odoo upgrades",
     "author": "The Auto-Info Co., Ltd.",

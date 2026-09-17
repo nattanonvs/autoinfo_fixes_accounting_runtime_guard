@@ -83,7 +83,7 @@ python3 /var/odoo/odoo15/odoo-bin -c /etc/odoo/odoo.conf
 
 ## เวอร์ชัน
 
-### 15.0.1.0.0 - 2026-09-17
+### 15.0.1.0.1 - 2026-09-17
 
 #### Added
 - เพิ่มโมดูล `autoinfo_fixes_accounting_runtime_guard`
