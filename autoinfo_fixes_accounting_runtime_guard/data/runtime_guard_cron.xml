@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record id="ir_cron_runtime_guard_daily" model="ir.cron">
+        <field name="name">Runtime Guard Daily Audit</field>
+        <field name="model_id" ref="model_autoinfo_runtime_guard_run"/>
+        <field name="state">code</field>
+        <field name="code">
+run = model.create({"name": "Scheduled Runtime Guard Run", "run_scope": "scheduled"})
+run.action_run_checks()
+        </field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="active">False</field>
+        <field name="user_id" ref="base.user_admin"/>
+    </record>
+</odoo>

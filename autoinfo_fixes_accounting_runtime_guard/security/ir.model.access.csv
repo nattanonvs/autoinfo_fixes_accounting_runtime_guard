@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_runtime_guard_run_system,access.runtime.guard.run.system,model_autoinfo_runtime_guard_run,base.group_system,1,1,1,1
+access_runtime_guard_check_system,access.runtime.guard.check.system,model_autoinfo_runtime_guard_check,base.group_system,1,1,1,1
+access_runtime_guard_fix_help_system,access.runtime.guard.fix.help.system,model_autoinfo_runtime_guard_fix_help,base.group_system,1,0,1,0

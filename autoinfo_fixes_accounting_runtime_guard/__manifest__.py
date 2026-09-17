@@ -9,7 +9,11 @@
     "depends": [
         "base",
     ],
-    "data": [],
+    "data": [
+        "security/ir.model.access.csv",
+        "views/runtime_guard_views.xml",
+        "data/runtime_guard_cron.xml",
+    ],
     "installable": True,
     "application": False,
     "created_by": "The Auto-Info Co., Ltd. : Dev Team / Mr. Nattanon Vinyangkoon",

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_runtime_guard_run_tree" model="ir.ui.view">
+        <field name="name">autoinfo.runtime.guard.run.tree</field>
+        <field name="model">autoinfo.runtime.guard.run</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="run_scope"/>
+                <field name="state"/>
+                <field name="requested_by"/>
+                <field name="started_at"/>
+                <field name="finished_at"/>
+                <field name="result_count"/>
+                <field name="warning_count"/>
+                <field name="error_count"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_runtime_guard_run_form" model="ir.ui.view">
+        <field name="name">autoinfo.runtime.guard.run.form</field>
+        <field name="model">autoinfo.runtime.guard.run</field>
+        <field name="arch" type="xml">
+            <form string="Runtime Guard">
+                <header>
+                    <button
+                        name="action_run_checks"
+                        type="object"
+                        string="Run Checks"
+                        class="btn-primary"
+                    />
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="run_scope"/>
+                        <field name="state"/>
+                        <field name="requested_by"/>
+                        <field name="started_at"/>
+                        <field name="finished_at"/>
+                    </group>
+                    <group>
+                        <field name="result_count"/>
+                        <field name="warning_count"/>
+                        <field name="error_count"/>
+                    </group>
+                    <field name="check_ids">
+                        <tree editable="bottom">
+                            <field name="name"/>
+                            <field name="category"/>
+                            <field name="severity"/>
+                            <field name="state"/>
+                            <field name="summary"/>
+                        </tree>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_runtime_guard_check_tree" model="ir.ui.view">
+        <field name="name">autoinfo.runtime.guard.check.tree</field>
+        <field name="model">autoinfo.runtime.guard.check</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="check_code"/>
+                <field name="category"/>
+                <field name="severity"/>
+                <field name="state"/>
+                <field name="reviewed_by"/>
+                <field name="reviewed_on"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_runtime_guard_check_form" model="ir.ui.view">
+        <field name="name">autoinfo.runtime.guard.check.form</field>
+        <field name="model">autoinfo.runtime.guard.check</field>
+        <field name="arch" type="xml">
+            <form string="Runtime Guard Check">
+                <header>
+                    <button name="action_open_fix_help" type="object" string="Open Fix Help"/>
+                    <button name="action_mark_reviewed" type="object" string="Mark Reviewed"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="run_id"/>
+                        <field name="name"/>
+                        <field name="check_code"/>
+                        <field name="category"/>
+                        <field name="severity"/>
+                        <field name="state"/>
+                    </group>
+                    <group string="Summary">
+                        <field name="summary"/>
+                        <field name="details"/>
+                        <field name="recommended_action"/>
+                        <field name="fix_command"/>
+                        <field name="verify_command"/>
+                    </group>
+                    <group string="Review">
+                        <field name="reviewed_by"/>
+                        <field name="reviewed_on"/>
+                        <field name="review_note"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_runtime_guard_fix_help_form" model="ir.ui.view">
+        <field name="name">autoinfo.runtime.guard.fix.help.form</field>
+        <field name="model">autoinfo.runtime.guard.fix.help</field>
+        <field name="arch" type="xml">
+            <form string="Runtime Guard Fix Help">
+                <sheet>
+                    <group>
+                        <field name="check_id"/>
+                        <field name="problem_summary"/>
+                        <field name="root_cause"/>
+                        <field name="risk_note"/>
+                        <field name="fix_steps"/>
+                        <field name="fix_command"/>
+                        <field name="verify_command"/>
+                        <field name="sed_example"/>
+                        <field name="python_example"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Close" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_runtime_guard_runs" model="ir.actions.act_window">
+        <field name="name">Runtime Guard</field>
+        <field name="res_model">autoinfo.runtime.guard.run</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_runtime_guard_checks" model="ir.actions.act_window">
+        <field name="name">Check Results</field>
+        <field name="res_model">autoinfo.runtime.guard.check</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="menu_runtime_guard_root"
+        name="Runtime Guard"
+        parent="base.menu_administration"
+        groups="base.group_system"
+    />
+    <menuitem
+        id="menu_runtime_guard_runs"
+        name="Runtime Guard"
+        parent="menu_runtime_guard_root"
+        action="action_runtime_guard_runs"
+        groups="base.group_system"
+    />
+    <menuitem
+        id="menu_runtime_guard_checks"
+        name="Check Results"
+        parent="menu_runtime_guard_root"
+        action="action_runtime_guard_checks"
+        groups="base.group_system"
+    />
+</odoo>
