@@ -235,6 +235,8 @@ sudo systemctl status odoo --no-pager
 
 - Runtime command ที่พิสูจน์ใช้งานได้คือ `python3 /var/odoo/odoo15/odoo-bin -c /etc/odoo/odoo.conf`
 - ถ้าจะติดตั้ง Python package ต้องใช้ interpreter ตัวเดียวกับที่ Odoo ใช้งานจริง
+- ไม่ควรใช้ `pip install --upgrade cryptography pyOpenSSL cffi` ทับ system Python ตรง ๆ เพราะอาจทำให้ `OpenSSL`, `cryptography`, และ `cffi` ชนกันจน Odoo และ `pip` พังทั้งระบบ
+- ถ้าจำเป็นต้องใช้ `pip` กับ package กลุ่ม SSL ให้ใช้ `venv` แยกจาก system Python
 - โมดูลนี้ไม่ติดตั้ง package ให้เอง และไม่แก้ manifest ของโมดูลต้นทางให้อัตโนมัติ
 - ถ้า shell เห็น field แล้ว แต่หน้าเว็บยัง error ให้ restart Odoo service ก่อนสงสัยปัญหาอื่น
 - ถ้ามีปัญหา dependency chain ของโมดูลต้นทาง ต้องแก้ที่โมดูลต้นทางจริงก่อน โมดูลนี้ช่วยแค่ตรวจและแนะนำคำสั่งแก้
